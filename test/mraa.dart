@@ -10,11 +10,15 @@ import 'package:test/test.dart';
 
 int main() {
   group('Common', () {
+    final Mraa mraa = Mraa();
     test('Version', () {
-      final Mraa mraa = Mraa();
       final String mraaVersion = mraa.version();
       print('Version is : $mraaVersion');
       expect(mraaVersion, 'v2.0.0-37-g0a12c5a');
+    });
+    test('Initialise', () {
+      final int ret = mraa.initialise();
+      print('Return code is : $ret');
     });
   });
 
