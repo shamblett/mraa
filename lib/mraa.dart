@@ -14,3 +14,4 @@ import 'dart:typed_data';
 
 part 'src/mraa.dart';
 part 'src/types/mraa_utf8.dart';
+part 'src/types/mraa_return_codes.dart';
