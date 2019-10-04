@@ -45,6 +45,12 @@ int main() {
       expect(ret, MraaReturnCodes.mraaSuccess);
     });
 
+    test('Platform Name', () {
+      mraa.common.initialise();
+      final String platformName  = mraa.common.platformName();
+      print('the current platform name is : $platformName');
+    });
+
     group('GPIO', () {
       test('Initialise', () {
         final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);

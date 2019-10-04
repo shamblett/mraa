@@ -31,7 +31,7 @@ class _MraaGpio {
   /// Dart Functions
   dynamic _initFunc;
 
-  /// Initialise mraa_gpio_init
+  /// Initialise - mraa_gpio_init
   ffi.Pointer<MraaGpioContext> initialise(int pin) => _initFunc(pin);
 
   void _setUpPointers() {
