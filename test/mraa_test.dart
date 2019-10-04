@@ -41,7 +41,7 @@ int main() {
     });
     test('Initialise', () {
       final MraaReturnCodes ret = mraa.initialise();
-      print('Return code is : ${returnCodes.asString(ret)}');
+      expect(ret, MraaReturnCodes.mraaSuccess);
     });
   });
 

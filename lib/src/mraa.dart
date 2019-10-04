@@ -20,34 +20,35 @@ class Mraa {
   Mraa() {
     lib = ffi.DynamicLibrary.open('libmraa.so');
     _setUpPointers();
+    _setUpFunctions();
   }
 
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
     lib = ffi.DynamicLibrary.open(libPath);
     _setUpPointers();
+    _setUpFunctions();
   }
 
   /// The MRAA library
   ffi.DynamicLibrary lib;
 
-  /// Pointers
+  /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>> _versionPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _initialisePointer;
 
+  /// Dart Functions
+  dynamic _versionFunc;
+  dynamic _initFunc;
+
   /// Version
   String version() {
-    final dynamic version =
-        _versionPointer.asFunction<returnStringNoParametersFunc>();
-    final dynamic versionCharString = version();
+    final dynamic versionCharString = _versionFunc();
     return Utf8.fromUtf8(versionCharString);
   }
 
   /// Initialise
-  MraaReturnCodes initialise() {
-    final dynamic init = _initialisePointer.asFunction<initType>();
-    return returnCodes.fromInt(init());
-  }
+  MraaReturnCodes initialise() => returnCodes.fromInt(_initFunc());
 
   void _setUpPointers() {
     _versionPointer =
@@ -55,5 +56,10 @@ class Mraa {
             'mraa_get_version');
     _initialisePointer =
         lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>('mraa_init');
+  }
+
+  void _setUpFunctions() {
+    _versionFunc = _versionPointer.asFunction<returnStringNoParametersFunc>();
+    _initFunc = _initialisePointer.asFunction<initType>();
   }
 }
