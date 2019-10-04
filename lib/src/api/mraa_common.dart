@@ -32,13 +32,13 @@ class _MraaCommon {
   dynamic _versionFunc;
   dynamic _initFunc;
 
-  /// Version
+  /// Version mraa_get_version
   String version() {
     final dynamic versionCharString = _versionFunc();
     return Utf8.fromUtf8(versionCharString);
   }
 
-  /// Initialise
+  /// Initialise mraa_init
   MraaReturnCodes initialise() => returnCodes.fromInt(_initFunc());
 
   void _setUpPointers() {

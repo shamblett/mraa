@@ -16,5 +16,6 @@ part 'src/mraa.dart';
 part 'src/types/mraa_utf8.dart';
 part 'src/types/mraa_return_codes.dart';
 part 'src/types/mraa_enum_helper.dart';
+part 'src/types/mraa_gpio_context.dart';
 part 'src/api/mraa_common.dart';
 part 'src/api/mraa_gpio.dart';

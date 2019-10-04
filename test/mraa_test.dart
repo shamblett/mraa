@@ -5,6 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
+import 'dart:ffi' as ffi;
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 
@@ -42,6 +43,12 @@ int main() {
     test('Initialise', () {
       final MraaReturnCodes ret = mraa.common.initialise();
       expect(ret, MraaReturnCodes.mraaSuccess);
+    });
+
+    group('GPIO', () {
+      test('Initialise', () {
+        final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
+      });
     });
   });
 
