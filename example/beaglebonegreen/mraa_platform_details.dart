@@ -24,9 +24,13 @@ int main() {
   final String platformName = mraa.common.platformName();
   print('The platform name is : $platformName');
 
-  print('Getting platform version');
-  final String platformVersion = mraa.common.platformVersion(0);
-  print('The platform version is : $platformVersion');
+  print('Getting platform type');
+  final MraaPlatformType retType = mraa.common.platformType();
+  if (ret != null) {
+    print('Platform type is : ${platformTypes.asString(retType)}');
+  } else {
+    print('Platform type has returned null');
+  }
 
   return 0;
 }

@@ -53,14 +53,22 @@ int main() {
 
     test('Platform Version', () {
       mraa.common.initialise();
-      //final String platformVersion = mraa.common.platformVersion(0);
-      //print('The current platform version is : $platformVersion');
-    });
+      final String platformVersion = mraa.common.platformVersion(0);
+      print('The current platform version is : $platformVersion');
+    }, skip: true);
 
-    group('GPIO', () {
-      test('Initialise', () {
-        final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
-      });
+    test('Platform types', () {
+      mraa.common.initialise();
+      final MraaPlatformType ret = mraa.common.platformType();
+      if ( ret != null ) {
+        print('Platform type is : ${platformTypes.asString(ret)}');
+      }
+    });
+  });
+
+  group('GPIO', () {
+    test('Initialise', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
     });
   });
 

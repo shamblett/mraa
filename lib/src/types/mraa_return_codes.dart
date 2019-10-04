@@ -59,8 +59,8 @@ enum MraaReturnCodes {
 }
 
 /// Return code support
-dynamic valuesFunc() => MraaReturnCodes.values;
+dynamic _valuesFuncReturnCodes() => MraaReturnCodes.values;
 
 /// Return codes helper
 MraaEnumHelper<MraaReturnCodes> returnCodes =
-    MraaEnumHelper<MraaReturnCodes>(valuesFunc);
+    MraaEnumHelper<MraaReturnCodes>(_valuesFuncReturnCodes);
