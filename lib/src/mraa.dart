@@ -18,7 +18,7 @@ typedef initType = int Function();
 class Mraa {
   /// Default uses the platform library
   Mraa() {
-    lib = ffi.DynamicLibrary.open('libmraa');
+    lib = ffi.DynamicLibrary.open('libmraa.so');
     _setUpPointers();
   }
 
@@ -46,7 +46,7 @@ class Mraa {
   /// Initialise
   MraaReturnCodes initialise() {
     final dynamic init = _initialisePointer.asFunction<initType>();
-    return MraaReturnCode.fromInt(init());
+    return returnCodes.fromInt(init());
   }
 
   void _setUpPointers() {

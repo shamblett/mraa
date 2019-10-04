@@ -59,23 +59,8 @@ enum MraaReturnCodes {
 }
 
 /// Return code support
-class MraaReturnCode {
+dynamic valuesFunc() => MraaReturnCodes.values;
 
-  /// From int
-  static MraaReturnCodes fromInt(int index) {
-    for ( MraaReturnCodes code in MraaReturnCodes.values) {
-      if (index == code.index) {
-        return code;
-      }
-    }
-    return MraaReturnCodes.mraaErrorInvalidCode;
-  }
-
-  /// As int
-  static int asInt(MraaReturnCodes code) => code.index;
-
-  /// As string
-  static String asString(MraaReturnCodes name) =>
-      name.toString().split('.')[1];
-
-}
+/// Return codes helper
+MraaEnumHelper<MraaReturnCodes> returnCodes =
+    MraaEnumHelper<MraaReturnCodes>(valuesFunc);

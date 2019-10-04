@@ -9,7 +9,6 @@ part of mraa;
 
 /// UTF8 string class
 class Utf8 extends ffi.Struct<Utf8> {
-
   /// Current character
   @ffi.Uint8()
   int char;
