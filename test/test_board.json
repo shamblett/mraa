@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "platform":[
+    {
+      "id":1000,
+      "name":"Dart Mraa package test device",
+      "pin_count": 0,
+      "gpio_count": 0,
+      "i2c_count": 0,
+      "aio_count": 0,
+      "spi_count": 0,
+      "uart_count": 0
+    }
+  ],
+  "layout":[
+  ],
+  "GPIO":[
+  ],
+  "I2C": [
+  ],
+  "SPI": [
+  ]
+}

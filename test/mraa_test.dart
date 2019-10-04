@@ -33,6 +33,10 @@ int main() {
     mraa = Mraa();
   }
 
+  // Initialise the test platform
+  final MraaReturnCodes ret = mraa.common.initialiseJsonPlatform('test/test_board.json');
+  print('Platform initialisation code : ${returnCodes.asString(ret)}');
+
   // Test groups
   group('Common', () {
     test('Version', () {
