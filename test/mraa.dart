@@ -9,16 +9,17 @@ import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 
 int main() {
+  const String libPath = 'testlib/libmraa.so.2.0.0';
   group('Common', () {
-    final Mraa mraa = Mraa();
+    final Mraa mraa = Mraa.fromLib(libPath);
     test('Version', () {
       final String mraaVersion = mraa.version();
       print('Version is : $mraaVersion');
       expect(mraaVersion, 'v2.0.0-37-g0a12c5a');
     });
     test('Initialise', () {
-      final int ret = mraa.initialise();
-      print('Return code is : $ret');
+      final MraaReturnCodes ret = mraa.initialise();
+      print('Return code is : ${MraaReturnCode.asString(ret)}');
     });
   });
 

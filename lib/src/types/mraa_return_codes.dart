@@ -52,5 +52,30 @@ enum MraaReturnCodes {
   mraaErrorUartOwNoDevices,
 
   /// UART OW Data/Bus error detected
-  mraaErrorUartOwDataError
+  mraaErrorUartOwDataError,
+
+  /// Invalid code
+  mraaErrorInvalidCode
+}
+
+/// Return code support
+class MraaReturnCode {
+
+  /// From int
+  static MraaReturnCodes fromInt(int index) {
+    for ( MraaReturnCodes code in MraaReturnCodes.values) {
+      if (index == code.index) {
+        return code;
+      }
+    }
+    return MraaReturnCodes.mraaErrorInvalidCode;
+  }
+
+  /// As int
+  static int asInt(MraaReturnCodes code) => code.index;
+
+  /// As string
+  static String asString(MraaReturnCodes name) =>
+      name.toString().split('.')[1];
+
 }
