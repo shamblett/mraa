@@ -32,6 +32,7 @@ class _MraaGpio {
   dynamic _initFunc;
 
   /// Initialise - mraa_gpio_init
+  /// Initialise gpio_context, based on board number
   ffi.Pointer<MraaGpioContext> initialise(int pin) => _initFunc(pin);
 
   void _setUpPointers() {

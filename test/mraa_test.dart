@@ -47,8 +47,14 @@ int main() {
 
     test('Platform Name', () {
       mraa.common.initialise();
-      final String platformName  = mraa.common.platformName();
-      print('the current platform name is : $platformName');
+      final String platformName = mraa.common.platformName();
+      print('The current platform name is : $platformName');
+    });
+
+    test('Platform Version', () {
+      mraa.common.initialise();
+      //final String platformVersion = mraa.common.platformVersion(0);
+      //print('The current platform version is : $platformVersion');
     });
 
     group('GPIO', () {

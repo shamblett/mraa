@@ -24,5 +24,9 @@ int main() {
   final String platformName = mraa.common.platformName();
   print('The platform name is : $platformName');
 
+  print('Getting platform version');
+  final String platformVersion = mraa.common.platformVersion(0);
+  print('The platform version is : $platformVersion');
+
   return 0;
 }
