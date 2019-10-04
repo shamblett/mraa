@@ -7,59 +7,31 @@
 
 part of mraa;
 
-/// Function type typedefs
-typedef returnStringNoParametersFunc = ffi.Pointer<Utf8> Function();
-typedef returnIntNoParametersFunc = ffi.Int32 Function();
-
-/// Dart typedefs
-typedef initType = int Function();
-
 /// The main MRAA class
 class Mraa {
   /// Default uses the platform library
   Mraa() {
     lib = ffi.DynamicLibrary.open('libmraa.so');
-    _setUpPointers();
-    _setUpFunctions();
+    _setupAPI();
   }
 
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
     lib = ffi.DynamicLibrary.open(libPath);
-    _setUpPointers();
-    _setUpFunctions();
+    _setupAPI();
   }
 
   /// The MRAA library
   ffi.DynamicLibrary lib;
 
-  /// C Pointers
-  ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>> _versionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _initialisePointer;
+  /// The common API
+  _MraaCommon common;
 
-  /// Dart Functions
-  dynamic _versionFunc;
-  dynamic _initFunc;
+  /// The GPIO API
+  _MraaGpio gpio;
 
-  /// Version
-  String version() {
-    final dynamic versionCharString = _versionFunc();
-    return Utf8.fromUtf8(versionCharString);
-  }
-
-  /// Initialise
-  MraaReturnCodes initialise() => returnCodes.fromInt(_initFunc());
-
-  void _setUpPointers() {
-    _versionPointer =
-        lib.lookup<ffi.NativeFunction<returnStringNoParametersFunc>>(
-            'mraa_get_version');
-    _initialisePointer =
-        lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>('mraa_init');
-  }
-
-  void _setUpFunctions() {
-    _versionFunc = _versionPointer.asFunction<returnStringNoParametersFunc>();
-    _initFunc = _initialisePointer.asFunction<initType>();
+  void _setupAPI() {
+    common = _MraaCommon(lib);
+    gpio = _MraaGpio(lib);
   }
 }

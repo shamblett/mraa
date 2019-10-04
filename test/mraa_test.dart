@@ -35,12 +35,12 @@ int main() {
   // Test groups
   group('Common', () {
     test('Version', () {
-      final String mraaVersion = mraa.version();
+      final String mraaVersion = mraa.common.version();
       print('Version is : $mraaVersion');
       expect(mraaVersion.contains('v2.0.0'), isTrue);
     });
     test('Initialise', () {
-      final MraaReturnCodes ret = mraa.initialise();
+      final MraaReturnCodes ret = mraa.common.initialise();
       expect(ret, MraaReturnCodes.mraaSuccess);
     });
   });

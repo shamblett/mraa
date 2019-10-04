@@ -9,7 +9,7 @@ import 'package:mraa/mraa.dart';
 
 int main() {
   final Mraa mraa = Mraa();
-  final String mraaVersion = mraa.version();
+  final String mraaVersion = mraa.common.version();
   print('Version is : $mraaVersion');
 
   return 0;
