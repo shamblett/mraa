@@ -81,6 +81,12 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
     });
+    test('Read', () {
+      mraa.common.initialise();
+      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final int val = mraa.aio.read(context);
+      print('Val is : $val');
+    });
   });
 
   return 0;
