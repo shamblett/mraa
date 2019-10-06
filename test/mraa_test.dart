@@ -76,5 +76,12 @@ int main() {
     });
   });
 
+  group('AIO', () {
+    test('Initialise', () {
+      mraa.common.initialise();
+      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+    });
+  });
+
   return 0;
 }

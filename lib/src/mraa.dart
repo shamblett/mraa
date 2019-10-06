@@ -30,8 +30,12 @@ class Mraa {
   /// The GPIO API
   _MraaGpio gpio;
 
+  /// The AIO API
+  _MraaAio aio;
+
   void _setupAPI() {
     common = _MraaCommon(lib);
     gpio = _MraaGpio(lib);
+    aio = _MraaAio(lib);
   }
 }

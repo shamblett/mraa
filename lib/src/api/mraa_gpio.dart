@@ -8,11 +8,11 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef returnMraaContextIntParameterFunc = ffi.Pointer<MraaGpioContext>
+typedef returnMraaGpioContextIntParameterFunc = ffi.Pointer<MraaGpioContext>
     Function(ffi.Int32);
 
 /// Dart Function typedefs
-typedef MraaContextType = ffi.Pointer<MraaGpioContext> Function(int);
+typedef MraaGpioContextType = ffi.Pointer<MraaGpioContext> Function(int);
 
 /// The GPIO MRAA Api
 class _MraaGpio {
@@ -25,7 +25,7 @@ class _MraaGpio {
   ffi.DynamicLibrary _lib;
 
   /// C Pointers
-  ffi.Pointer<ffi.NativeFunction<returnMraaContextIntParameterFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
       _initPointer;
 
   /// Dart Functions
@@ -37,11 +37,11 @@ class _MraaGpio {
 
   void _setUpPointers() {
     _initPointer =
-        _lib.lookup<ffi.NativeFunction<returnMraaContextIntParameterFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
             'mraa_gpio_init');
   }
 
   void _setUpFunctions() {
-    _initFunc = _initPointer.asFunction<MraaContextType>();
+    _initFunc = _initPointer.asFunction<MraaGpioContextType>();
   }
 }
