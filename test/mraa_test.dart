@@ -90,6 +90,13 @@ int main() {
       final int val = mraa.aio.read(context);
       expect(val, Mraa.mraaAioReadError);
     });
+    test('Read double', () {
+      mraa.common.initialise();
+      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final double val = mraa.aio.readDouble(context);
+      // For the unsupported test board used this value will be nonsense
+      expect(val < Mraa.mraaAioReadDoubleError, isFalse);
+    });
   });
 
   return 0;
