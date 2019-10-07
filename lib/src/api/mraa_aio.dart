@@ -24,8 +24,6 @@ class _MraaAio {
     _setUpFunctions();
   }
 
-  static const int mraaAioReadError = -1;
-
   /// The MRAA library
   ffi.DynamicLibrary _lib;
 

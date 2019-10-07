@@ -15,6 +15,9 @@ class Mraa {
     _setupAPI();
   }
 
+  /// AIO read error
+  static const int mraaAioReadError = -1;
+
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
     lib = ffi.DynamicLibrary.open(libPath);

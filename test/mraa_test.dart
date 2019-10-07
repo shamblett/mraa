@@ -34,7 +34,8 @@ int main() {
   }
 
   // Initialise the test platform
-  final MraaReturnCodes ret = mraa.common.initialiseJsonPlatform('test/test_board.json');
+  final MraaReturnCodes ret =
+      mraa.common.initialiseJsonPlatform('test/test_board.json');
   print('Platform initialisation code : ${returnCodes.asString(ret)}');
 
   // Test groups
@@ -64,7 +65,7 @@ int main() {
     test('Platform types', () {
       mraa.common.initialise();
       final MraaPlatformType ret = mraa.common.platformType();
-      if ( ret != null ) {
+      if (ret != null) {
         print('Platform type is : ${platformTypes.asString(ret)}');
       }
     });
@@ -85,7 +86,7 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final int val = mraa.aio.read(context);
-      print('Val is : $val');
+      expect(val, Mraa.mraaAioReadError);
     });
   });
 
