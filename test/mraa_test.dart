@@ -9,6 +9,8 @@ import 'dart:ffi' as ffi;
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 
+// ignore_for_file: unused_local_variable
+
 // Check for Travis
 bool onTravis() {
   const bool isDeclared = String.fromEnvironment('PUB_ENVIRONMENT') != null;
