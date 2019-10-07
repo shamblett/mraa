@@ -19,6 +19,7 @@ typedef returnDoubleMraaAioContextParameterFunc = ffi.Double Function(
 typedef MraaAioInitialiseType = ffi.Pointer<MraaAioContext> Function(int);
 typedef MraaAioReadType = int Function(ffi.Pointer<MraaAioContext>);
 typedef MraaAioReadDoubleType = double Function(ffi.Pointer<MraaAioContext>);
+typedef MraaAioCloseType = int Function(ffi.Pointer<MraaAioContext>);
 
 /// The AIO MRAA API
 class _MraaAio {
@@ -37,11 +38,14 @@ class _MraaAio {
       _readPointer;
   ffi.Pointer<ffi.NativeFunction<returnDoubleMraaAioContextParameterFunc>>
       _readDoublePointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaAioContextParameterFunc>>
+      _closePointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _readFunc;
   dynamic _readDoubleFunc;
+  dynamic _closeFunc;
 
   /// Initialise - mraa_aio_init
   /// Initialise an Analog input device, connected to the specified pin.
@@ -61,6 +65,12 @@ class _MraaAio {
   /// Returns The current input voltage or -1 for error
   int read(ffi.Pointer<MraaAioContext> dev) => _readFunc(dev);
 
+  /// Close - mraa_aio_close
+  /// Close the analog input context, this will free the memory for the context.
+  /// MRAA_SUCCESS indicates correct closure
+  MraaReturnCodes close(ffi.Pointer<MraaAioContext> dev) =>
+      returnCodes.fromInt(_closeFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaAioContextIntParameterFunc>>(
@@ -71,11 +81,15 @@ class _MraaAio {
     _readDoublePointer = _lib
         .lookup<ffi.NativeFunction<returnDoubleMraaAioContextParameterFunc>>(
             'mraa_aio_read_float');
+    _closePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaAioContextParameterFunc>>(
+            'mraa_aio_close');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaAioInitialiseType>();
     _readFunc = _readPointer.asFunction<MraaAioReadType>();
     _readDoubleFunc = _readDoublePointer.asFunction<MraaAioReadDoubleType>();
+    _closeFunc = _closePointer.asFunction<MraaAioCloseType>();
   }
 }

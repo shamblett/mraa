@@ -84,6 +84,12 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
     });
+    test('Close', () {
+      mraa.common.initialise();
+      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final MraaReturnCodes ret = mraa.aio.close(context);
+      expect(ret, MraaReturnCodes.mraaErrorInvalidHandle);
+    });
     test('Read', () {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
