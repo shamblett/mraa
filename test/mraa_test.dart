@@ -65,6 +65,11 @@ int main() {
       final bool ret = mraa.common.pinmodeTest(2, MraaPinmodes.mraaPinAio);
       expect(ret, isFalse);
     });
+    test('ADC raw bits', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.adcRawBits();
+      expect(ret, 12);
+    });
   });
 
   group('GPIO', () {
