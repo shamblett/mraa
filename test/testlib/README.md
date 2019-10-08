@@ -1,0 +1,1 @@
+This is a fully fledged libmraa but built as a [Mock Board](https://iotdk.intel.com/docs/master/mraa/mock.html) to better facilitate testing.

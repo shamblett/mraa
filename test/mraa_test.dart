@@ -12,17 +12,11 @@ import 'package:test/test.dart';
 // ignore_for_file: unused_local_variable
 
 // We always use our package supplied library in test as it is an Mraa
-// librarys compiled to use a mock board
+// library compiled to use a mock board
 int main() {
-
   // Setup
-  const String libPath = 'testlib/libmraa.so.2.0.0';
+  const String libPath = 'test/testlib/libmraa.so.2.0.0';
   final Mraa mraa = Mraa.fromLib(libPath);
-
-  // Initialise the test platform
-  final MraaReturnCodes ret =
-      mraa.common.initialiseJsonPlatform('test/test_board.json');
-  print('Platform initialisation code : ${returnCodes.asString(ret)}');
 
   // Test groups
   group('Common', () {
@@ -55,6 +49,12 @@ int main() {
       if (ret != null) {
         print('Platform type is : ${platformTypes.asString(ret)}');
       }
+    });
+    test('Initialise JSON platform', () {
+      mraa.common.initialise();
+      final MraaReturnCodes ret =
+          mraa.common.initialiseJsonPlatform('test/test_board.json');
+      expect(ret, MraaReturnCodes.mraaErrorNoDataAvailable);
     });
   });
 
