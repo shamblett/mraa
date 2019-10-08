@@ -11,29 +11,13 @@ import 'package:test/test.dart';
 
 // ignore_for_file: unused_local_variable
 
-// Check for Travis
-bool onTravis() {
-  const bool isDeclared = String.fromEnvironment('PUB_ENVIRONMENT') != null;
-  if (isDeclared) {
-    const String env = String.fromEnvironment('PUB_ENVIRONMENT');
-    if (env == 'travis') {
-      print('Environment is Travis, using test mraa library');
-      return true;
-    }
-  }
-  print('Environment is not Travis, using system mraa library');
-  return false;
-}
-
+// We always use our package supplied library in test as it is an Mraa
+// librarys compiled to use a mock board
 int main() {
+
   // Setup
   const String libPath = 'testlib/libmraa.so.2.0.0';
-  Mraa mraa;
-  if (onTravis()) {
-    mraa = Mraa.fromLib(libPath);
-  } else {
-    mraa = Mraa();
-  }
+  final Mraa mraa = Mraa.fromLib(libPath);
 
   // Initialise the test platform
   final MraaReturnCodes ret =
@@ -56,13 +40,14 @@ int main() {
       mraa.common.initialise();
       final String platformName = mraa.common.platformName();
       print('The current platform name is : $platformName');
+      expect(platformName, 'MRAA mock platform');
     });
 
     test('Platform Version', () {
       mraa.common.initialise();
       final String platformVersion = mraa.common.platformVersion(0);
       print('The current platform version is : $platformVersion');
-    }, skip: true);
+    }, skip: true); //TODO causes crash
 
     test('Platform types', () {
       mraa.common.initialise();
@@ -88,13 +73,13 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final MraaReturnCodes ret = mraa.aio.close(context);
-      expect(ret, MraaReturnCodes.mraaErrorInvalidHandle);
+      expect(ret, MraaReturnCodes.mraaSuccess);
     });
     test('Read', () {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final int val = mraa.aio.read(context);
-      expect(val, Mraa.mraaAioReadError);
+      expect(val.isNegative, isFalse);
     });
     test('Read double', () {
       mraa.common.initialise();
@@ -107,13 +92,13 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final MraaReturnCodes ret = mraa.aio.setBit(context, 10);
-      expect(ret, MraaReturnCodes.mraaErrorInvalidResource);
+      expect(ret, MraaReturnCodes.mraaSuccess);
     });
     test('Get bit', () {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final int ret = mraa.aio.getBit(context);
-      expect(ret, 0);
+      expect(ret, 10);
     });
   });
 
