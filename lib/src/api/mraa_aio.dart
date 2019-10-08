@@ -14,12 +14,16 @@ typedef returnIntMraaAioContextParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaAioContext>);
 typedef returnDoubleMraaAioContextParameterFunc = ffi.Double Function(
     ffi.Pointer<MraaAioContext>);
+typedef returnIntMraaAioContextIntParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaAioContext>, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaAioInitialiseType = ffi.Pointer<MraaAioContext> Function(int);
 typedef MraaAioReadType = int Function(ffi.Pointer<MraaAioContext>);
 typedef MraaAioReadDoubleType = double Function(ffi.Pointer<MraaAioContext>);
 typedef MraaAioCloseType = int Function(ffi.Pointer<MraaAioContext>);
+typedef MraaAioSetBitType = int Function(ffi.Pointer<MraaAioContext>, int);
+typedef MraaAioGetBitType = int Function(ffi.Pointer<MraaAioContext>);
 
 /// The AIO MRAA API
 class _MraaAio {
@@ -40,12 +44,18 @@ class _MraaAio {
       _readDoublePointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaAioContextParameterFunc>>
       _closePointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaAioContextIntParameterFunc>>
+      _setBitPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaAioContextParameterFunc>>
+      _getBitPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _readFunc;
   dynamic _readDoubleFunc;
   dynamic _closeFunc;
+  dynamic _setBitFunc;
+  dynamic _getBitFunc;
 
   /// Initialise - mraa_aio_init
   /// Initialise an Analog input device, connected to the specified pin.
@@ -71,6 +81,15 @@ class _MraaAio {
   MraaReturnCodes close(ffi.Pointer<MraaAioContext> dev) =>
       returnCodes.fromInt(_closeFunc(dev));
 
+  /// Set bit - mraa_aio_set_bit
+  /// Set the bit value which mraa will shift the raw reading from the ADC to. I.e. 10bits
+  MraaReturnCodes setBit(ffi.Pointer<MraaAioContext> dev, int bits) =>
+      returnCodes.fromInt(_setBitFunc(dev, bits));
+
+  /// Set bit - mraa_aio_get_bit
+  /// Gets the bit value mraa is shifting the analog read to.
+  int getBit(ffi.Pointer<MraaAioContext> dev) => _getBitFunc(dev);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaAioContextIntParameterFunc>>(
@@ -84,6 +103,12 @@ class _MraaAio {
     _closePointer =
         _lib.lookup<ffi.NativeFunction<returnIntMraaAioContextParameterFunc>>(
             'mraa_aio_close');
+    _setBitPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaAioContextIntParameterFunc>>(
+            'mraa_aio_set_bit');
+    _getBitPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaAioContextParameterFunc>>(
+            'mraa_aio_get_bit');
   }
 
   void _setUpFunctions() {
@@ -91,5 +116,7 @@ class _MraaAio {
     _readFunc = _readPointer.asFunction<MraaAioReadType>();
     _readDoubleFunc = _readDoublePointer.asFunction<MraaAioReadDoubleType>();
     _closeFunc = _closePointer.asFunction<MraaAioCloseType>();
+    _setBitFunc = _setBitPointer.asFunction<MraaAioSetBitType>();
+    _getBitFunc = _getBitPointer.asFunction<MraaAioGetBitType>();
   }
 }

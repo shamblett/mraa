@@ -103,6 +103,18 @@ int main() {
       // For the unsupported test board used this value will be nonsense
       expect(val < Mraa.mraaAioReadDoubleError, isFalse);
     });
+    test('Set bit', () {
+      mraa.common.initialise();
+      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final MraaReturnCodes ret = mraa.aio.setBit(context, 10);
+      expect(ret, MraaReturnCodes.mraaErrorInvalidResource);
+    });
+    test('Get bit', () {
+      mraa.common.initialise();
+      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final int ret = mraa.aio.getBit(context);
+      expect(ret, 0);
+    });
   });
 
   return 0;
