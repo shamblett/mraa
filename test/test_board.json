@@ -4,20 +4,19 @@
     {
       "id":1000,
       "name":"Dart Mraa package test device",
-      "pin_count": 0,
+      "pin_count": 1,
       "gpio_count": 0,
       "i2c_count": 0,
       "aio_count": 0,
       "spi_count": 0,
-      "uart_count": 0
+      "uart_count": 0,
+      "pwmDefPeriod":500,
+      "pwmMaxPeriod":1000000000,
+      "pwmMinPeriod":1
     }
   ],
   "layout":[
+    {"label": "INVALID", "invalid": true}
   ],
-  "GPIO":[
-  ],
-  "I2C": [
-  ],
-  "SPI": [
-  ]
+  "g" : []
 }

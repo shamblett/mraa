@@ -29,7 +29,11 @@ int main() {
       final MraaReturnCodes ret = mraa.common.initialise();
       expect(ret, MraaReturnCodes.mraaSuccess);
     });
-
+    test('Log level', () {
+      mraa.common.initialise();
+      final MraaReturnCodes ret = mraa.common.setLogLevel(7);
+      expect(ret, MraaReturnCodes.mraaSuccess);
+    });
     test('Platform Name', () {
       mraa.common.initialise();
       final String platformName = mraa.common.platformName();
@@ -54,7 +58,7 @@ int main() {
       mraa.common.initialise();
       final MraaReturnCodes ret =
           mraa.common.initialiseJsonPlatform('test/test_board.json');
-      expect(ret, MraaReturnCodes.mraaErrorNoDataAvailable);
+      expect(ret, MraaReturnCodes.mraaSuccess);
     });
   });
 
