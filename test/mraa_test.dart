@@ -60,6 +60,11 @@ int main() {
           mraa.common.initialiseJsonPlatform('test/test_board.json');
       expect(ret, MraaReturnCodes.mraaSuccess);
     });
+    test('Pin mode test', () {
+      mraa.common.initialise();
+      final bool ret = mraa.common.pinmodeTest(2, MraaPinmodes.mraaPinAio);
+      expect(ret, isFalse);
+    });
   });
 
   group('GPIO', () {
