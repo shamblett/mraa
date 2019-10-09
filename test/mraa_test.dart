@@ -90,6 +90,13 @@ int main() {
       final int ret = mraa.common.setPriority(50);
       expect(ret == Mraa.mraaGeneralError, isTrue);
     });
+    test('Result print', () {
+      mraa.common.initialise();
+      mraa.common.resultPrint(returnCodes.asInt(MraaReturnCodes.mraaSuccess));
+      mraa.common.resultPrint(
+          returnCodes.asInt(MraaReturnCodes.mraaErrorInvalidHandle));
+      mraa.common.resultPrint(100);
+    });
   });
 
   group('GPIO', () {
