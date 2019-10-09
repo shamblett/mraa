@@ -21,6 +21,9 @@ class Mraa {
   /// AIO read double error
   static const double mraaAioReadDoubleError = -1.0;
 
+  /// General common function error
+  static const int mraaGeneralError = -1;
+
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
     lib = ffi.DynamicLibrary.open(libPath);

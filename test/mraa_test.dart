@@ -85,6 +85,11 @@ int main() {
       final int ret = mraa.common.platformAdcSupportedBits(0);
       expect(ret, 10);
     });
+    test('Set priority', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.setPriority(50);
+      expect(ret == Mraa.mraaGeneralError, isTrue);
+    });
   });
 
   group('GPIO', () {
