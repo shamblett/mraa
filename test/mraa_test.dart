@@ -97,6 +97,14 @@ int main() {
           returnCodes.asInt(MraaReturnCodes.mraaErrorInvalidHandle));
       mraa.common.resultPrint(100);
     });
+    test('Platform combined type', ()
+    {
+      mraa.common.initialise();
+      final int ret = mraa.common.platformCombinedType();
+      print(ret.toRadixString(16));
+      expect(ret, 20);
+    });
+
   });
 
   group('GPIO', () {
