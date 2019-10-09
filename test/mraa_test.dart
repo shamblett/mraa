@@ -70,6 +70,11 @@ int main() {
       final int ret = mraa.common.adcRawBits();
       expect(ret, 12);
     });
+    test('Platform ADC raw bits', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.platformAdcRawBits(0);
+      expect(ret, 12);
+    });
   });
 
   group('GPIO', () {
