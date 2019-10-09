@@ -10,23 +10,26 @@ part of mraa;
 /// Generic enumeration helper class
 class MraaEnumHelper<T extends dynamic> {
   /// Construction
-  MraaEnumHelper(this._values);
+  MraaEnumHelper(this._valuesMap);
 
-  /// Values function
-  dynamic _values;
+  /// Values map
+  Map<int, T> _valuesMap;
 
   /// From int
   T fromInt(int index) {
-    for (T code in _values()) {
-      if (index == code.index) {
-        return code;
-      }
+    if (_valuesMap.containsKey(index)) {
+      return _valuesMap[index];
     }
     return null;
   }
 
   /// As int
-  int asInt(T code) => code.index;
+  int asInt(T code) {
+    if (_valuesMap.containsValue(T)) {
+      return _valuesMap.keys.firstWhere((int e) => _valuesMap[e] == T);
+    }
+    return Mraa.mraaGeneralError;
+  }
 
   /// As string
   String asString(T name) => name.toString().split('.')[1];

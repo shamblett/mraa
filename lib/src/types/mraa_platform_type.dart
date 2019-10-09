@@ -69,6 +69,9 @@ enum MraaPlatformType {
   /// IEI Tank System
   mraaIeiTank,
 
+  /// RockPI4
+  mraaRockPi4,
+
   /// FTDI FT4222 USB to i2c bridge
   mraaFtdiFt4222,
 
@@ -95,7 +98,10 @@ enum MraaPlatformType {
 }
 
 /// Platform type support
-dynamic _valuesFuncPlatformType() => MraaPlatformType.values;
+const Map<int,MraaPlatformType> _platformTypeValues = <int,MraaPlatformType>{
+  0:,
+
+};
 
 /// Platform types helper
 MraaEnumHelper<MraaPlatformType> platformTypes =
