@@ -80,6 +80,11 @@ int main() {
       final int ret = mraa.common.adcSupportedBits();
       expect(ret, 10);
     });
+    test('Platform ADC supported bits', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.platformAdcSupportedBits(0);
+      expect(ret, 10);
+    });
   });
 
   group('GPIO', () {
