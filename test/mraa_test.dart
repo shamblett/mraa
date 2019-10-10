@@ -105,6 +105,11 @@ int main() {
       expect(decoded.mainPlatform, MraaPlatformType.mraaMockPlatform);
       expect(decoded.subPlatform, MraaPlatformType.mraaIntelGalileoGen1);
     });
+    test('Pin count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.pinCount();
+      expect(ret, 10);
+    });
   });
 
   group('GPIO', () {
