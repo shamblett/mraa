@@ -120,6 +120,11 @@ int main() {
       final int ret = mraa.common.spiBusCount();
       expect(ret, 1);
     });
+    test('PWM count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.pwmCount();
+      expect(ret, 0);
+    });
   });
 
   group('GPIO', () {
