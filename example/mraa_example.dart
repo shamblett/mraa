@@ -11,9 +11,10 @@ int main() {
   final Mraa mraa = Mraa();
 
   // Set any options such as no JSON loading here
-  mraa.noJsonLoading = true;
+  // mraa.noJsonLoading = true;
 
-  // Initialise the package
+  // Initialise the package, you MUST do this after setting any
+  // options if you don't the API calls will throw no such method error.
   mraa.initialise();
 
   // Call the MRAA API functions
