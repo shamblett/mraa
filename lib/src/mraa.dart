@@ -15,6 +15,12 @@ class Mraa {
     _setupAPI();
   }
 
+  /// Specify the library and path
+  Mraa.fromLib(String libPath) {
+    lib = ffi.DynamicLibrary.open(libPath);
+    _setupAPI();
+  }
+
   /// AIO read error
   static const int mraaAioReadError = -1;
 
@@ -23,12 +29,6 @@ class Mraa {
 
   /// General common function error
   static const int mraaGeneralError = -1;
-
-  /// Specify the library and path
-  Mraa.fromLib(String libPath) {
-    lib = ffi.DynamicLibrary.open(libPath);
-    _setupAPI();
-  }
 
   /// The MRAA library
   ffi.DynamicLibrary lib;

@@ -14,7 +14,7 @@ int main() {
   print('Mraa version is : $mraaVersion');
 
   print('Initialising');
-  MraaReturnCodes ret = mraa.common.initialise();
+  final MraaReturnCodes ret = mraa.common.initialise();
   if (ret != MraaReturnCodes.mraaSuccess) {
     print(
         'Beaglebone green - failed to initialise Mraa, return code is ${returnCodes.asString(ret)}');

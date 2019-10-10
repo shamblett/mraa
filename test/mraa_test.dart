@@ -8,6 +8,7 @@
 import 'dart:ffi' as ffi;
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
+import 'support/mraa_platform_helper.dart';
 
 // ignore_for_file: unused_local_variable
 @TestOn('VM && Linux')
@@ -16,8 +17,8 @@ import 'package:test/test.dart';
 // library compiled to use a mock board
 int main() {
   // Setup
-  const String libPath = 'test/testlib/centos7/libmraa.so.2.0.0';
-  final Mraa mraa = Mraa.fromLib(libPath);
+  final MraaPlatformHelper helper = MraaPlatformHelper();
+  final Mraa mraa = Mraa.fromLib(helper.getTestLib());
 
   // Test groups
   group('Common', () {

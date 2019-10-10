@@ -22,7 +22,7 @@ enum MraaPinmodes {
   mraaPinFastGpio,
 
   /// SPI
-  MraaPinSpi,
+  mraaPinSpi,
 
   /// I2C
   mraaPinI2c,
@@ -40,7 +40,7 @@ const Map<int,MraaPinmodes> _pinModesValues = <int,MraaPinmodes>{
   1:MraaPinmodes.mraaPinGpio,
   2:MraaPinmodes.mraaPinPwm,
   3:MraaPinmodes.mraaPinFastGpio,
-  4:MraaPinmodes.MraaPinSpi,
+  4:MraaPinmodes.mraaPinSpi,
   5:MraaPinmodes.mraaPinI2c,
   6:MraaPinmodes.mraaPinAio,
   7:MraaPinmodes.mraaPinUart
