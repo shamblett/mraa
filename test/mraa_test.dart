@@ -110,6 +110,11 @@ int main() {
       final int ret = mraa.common.pinCount();
       expect(ret, 10);
     });
+    test('Uart count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.uartCount();
+      expect(ret, 1);
+    });
   });
 
   group('GPIO', () {
