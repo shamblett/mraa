@@ -115,6 +115,11 @@ int main() {
       final int ret = mraa.common.uartCount();
       expect(ret, 1);
     });
+    test('Spi Bus count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.spiBusCount();
+      expect(ret, 1);
+    });
   });
 
   group('GPIO', () {
