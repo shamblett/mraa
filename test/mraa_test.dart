@@ -130,6 +130,11 @@ int main() {
       final int ret = mraa.common.gpioCount();
       expect(ret, 1);
     });
+    test('AIO count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.aioCount();
+      expect(ret, 1);
+    });
   });
 
   group('GPIO', () {
