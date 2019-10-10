@@ -19,6 +19,7 @@ int main() {
   // Setup
   final MraaPlatformHelper helper = MraaPlatformHelper();
   final Mraa mraa = Mraa.fromLib(helper.getTestLib());
+  mraa.initialise();
 
   // Test groups
   group('Common', () {

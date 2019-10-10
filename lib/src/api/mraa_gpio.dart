@@ -5,6 +5,8 @@
  * Copyright :  S.Hamblett
  */
 
+// ignore_for_file: avoid_positional_boolean_parameters
+
 part of mraa;
 
 /// C Function type typedefs
@@ -16,13 +18,15 @@ typedef MraaGpioContextType = ffi.Pointer<MraaGpioContext> Function(int);
 
 /// The GPIO MRAA Api
 class _MraaGpio {
-  _MraaGpio(this._lib) {
+  _MraaGpio(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }
 
   /// The MRAA library
   ffi.DynamicLibrary _lib;
+
+  bool _noJsonLoading = false;
 
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>

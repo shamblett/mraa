@@ -7,6 +7,7 @@
 
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
+import 'support/mraa_platform_helper.dart';
 
 @TestOn('VM && Linux')
 
@@ -14,15 +15,25 @@ import 'package:test/test.dart';
 // library compiled to use a mock board
 int main() {
   // Setup
-  const String libPath = 'test/testlib/centos7/libmraa.so.2.0.0';
+  final MraaPlatformHelper helper = MraaPlatformHelper();
+  final String libPath = helper.getTestLib();
   final Mraa mraa = Mraa.fromLib(libPath);
 
-  // Single test for load JSON platform as this upsets Mock board settings
+  // Separate tests for load JSON platform as this upsets Mock board settings
   test('Initialise JSON platform', () {
+    mraa.initialise();
     mraa.common.initialise();
     final MraaReturnCodes ret =
         mraa.common.initialiseJsonPlatform('test/test_board.json');
     expect(ret, MraaReturnCodes.mraaSuccess);
+  });
+  test('No JSON loading', () {
+    mraa.noJsonLoading = true;
+    mraa.initialise();
+    mraa.common.initialise();
+    final MraaReturnCodes ret =
+        mraa.common.initialiseJsonPlatform('test/test_board.json');
+    expect(ret, MraaReturnCodes.mraaErrorFeatureNotSupported);
   });
   return 0;
 }

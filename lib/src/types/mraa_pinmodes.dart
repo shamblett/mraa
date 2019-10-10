@@ -35,15 +35,15 @@ enum MraaPinmodes {
 }
 
 /// Pinmodes type support
-const Map<int,MraaPinmodes> _pinModesValues = <int,MraaPinmodes>{
-  0:MraaPinmodes.mraaPinValid,
-  1:MraaPinmodes.mraaPinGpio,
-  2:MraaPinmodes.mraaPinPwm,
-  3:MraaPinmodes.mraaPinFastGpio,
-  4:MraaPinmodes.mraaPinSpi,
-  5:MraaPinmodes.mraaPinI2c,
-  6:MraaPinmodes.mraaPinAio,
-  7:MraaPinmodes.mraaPinUart
+const Map<int, MraaPinmodes> _pinModesValues = <int, MraaPinmodes>{
+  0: MraaPinmodes.mraaPinValid,
+  1: MraaPinmodes.mraaPinGpio,
+  2: MraaPinmodes.mraaPinPwm,
+  3: MraaPinmodes.mraaPinFastGpio,
+  4: MraaPinmodes.mraaPinSpi,
+  5: MraaPinmodes.mraaPinI2c,
+  6: MraaPinmodes.mraaPinAio,
+  7: MraaPinmodes.mraaPinUart
 };
 
 /// Pinmodes types helper

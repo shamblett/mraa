@@ -45,7 +45,7 @@ class MraaPlatformHelper {
     final File osFile = File(osFilePath);
     final List<String> lines = osFile.readAsLinesSync();
     for (String line in lines) {
-      if ( line.isEmpty) {
+      if (line.isEmpty) {
         continue;
       }
       final List<String> vals = line.split('=');

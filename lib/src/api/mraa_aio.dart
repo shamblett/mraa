@@ -5,6 +5,8 @@
  * Copyright :  S.Hamblett
  */
 
+// ignore_for_file: avoid_positional_boolean_parameters
+
 part of mraa;
 
 /// C Function type typedefs
@@ -27,13 +29,15 @@ typedef MraaAioGetBitType = int Function(ffi.Pointer<MraaAioContext>);
 
 /// The AIO MRAA API
 class _MraaAio {
-  _MraaAio(this._lib) {
+  _MraaAio(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }
 
   /// The MRAA library
   ffi.DynamicLibrary _lib;
+
+  bool _noJsonLoading = false;
 
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaAioContextIntParameterFunc>>

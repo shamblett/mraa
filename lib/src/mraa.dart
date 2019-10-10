@@ -11,14 +11,12 @@ part of mraa;
 class Mraa {
   /// Default uses the platform library
   Mraa() {
-    lib = ffi.DynamicLibrary.open('libmraa.so');
-    _setupAPI();
+    _lib = ffi.DynamicLibrary.open('libmraa.so');
   }
 
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
-    lib = ffi.DynamicLibrary.open(libPath);
-    _setupAPI();
+    _lib = ffi.DynamicLibrary.open(libPath);
   }
 
   /// AIO read error
@@ -30,8 +28,19 @@ class Mraa {
   /// General common function error
   static const int mraaGeneralError = -1;
 
+  /// Do not use JSON platform loading, some versions of MRAA do not
+  /// support this, must be set for MRAA API 1.0.0 usage. Set this before
+  /// initialising.
+  bool noJsonLoading = false;
+
+  /// Initialise the package, note this does NOT do an MRAA initialise
+  /// if you need this call it separately. You MUST call this before usage.
+  void initialise() {
+    _setupAPI();
+  }
+
   /// The MRAA library
-  ffi.DynamicLibrary lib;
+  ffi.DynamicLibrary _lib;
 
   /// The common API
   _MraaCommon common;
@@ -43,8 +52,8 @@ class Mraa {
   _MraaAio aio;
 
   void _setupAPI() {
-    common = _MraaCommon(lib);
-    gpio = _MraaGpio(lib);
-    aio = _MraaAio(lib);
+    common = _MraaCommon(_lib, noJsonLoading);
+    gpio = _MraaGpio(_lib, noJsonLoading);
+    aio = _MraaAio(_lib, noJsonLoading);
   }
 }

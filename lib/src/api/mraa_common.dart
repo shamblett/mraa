@@ -5,6 +5,8 @@
  * Copyright :  S.Hamblett
  */
 
+// ignore_for_file: avoid_positional_boolean_parameters
+
 part of mraa;
 
 /// C Function type typedefs
@@ -35,13 +37,15 @@ typedef MraaPlatformCombinedTypeType = int Function();
 
 /// The Common MRAA Api
 class _MraaCommon {
-  _MraaCommon(this._lib) {
+  _MraaCommon(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }
 
   /// The MRAA library
   ffi.DynamicLibrary _lib;
+
+  bool _noJsonLoading = false;
 
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>> _versionPointer;
@@ -127,8 +131,9 @@ class _MraaCommon {
 
   /// Initialise JSON platform - mraa_init_json_platform
   /// Instantiate an unknown board using a json file
-  MraaReturnCodes initialiseJsonPlatform(String path) =>
-      returnCodes.fromInt(_initJsonPlatformFunc(Utf8.toUtf8(path)));
+  MraaReturnCodes initialiseJsonPlatform(String path) => _noJsonLoading
+      ? MraaReturnCodes.mraaErrorFeatureNotSupported
+      : returnCodes.fromInt(_initJsonPlatformFunc(Utf8.toUtf8(path)));
 
   /// Set the log level - mraa_set_log_level
   /// Sets the log level to use from 0-7 where 7 is very verbose.
@@ -202,9 +207,11 @@ class _MraaCommon {
     _platformTypePointer =
         _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
             'mraa_get_platform_type');
-    _initJsonPlatformPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
-            'mraa_init_json_platform');
+    if (!_noJsonLoading) {
+      _initJsonPlatformPointer =
+          _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+              'mraa_init_json_platform');
+    }
     _setLogLevelPointer =
         _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
             'mraa_set_log_level');
@@ -241,8 +248,10 @@ class _MraaCommon {
     _platformVersionFunc =
         _platformVersionPointer.asFunction<MraaPlatformVersionType>();
     _platformTypeFunc = _platformTypePointer.asFunction<MraaPlatformTypeType>();
-    _initJsonPlatformFunc =
-        _initJsonPlatformPointer.asFunction<MraaInitJsonPlatformType>();
+    if (!_noJsonLoading) {
+      _initJsonPlatformFunc =
+          _initJsonPlatformPointer.asFunction<MraaInitJsonPlatformType>();
+    }
     _setLogLevelFunc = _setLogLevelPointer.asFunction<MraaSetLogLevelType>();
     _pinModeTestFunc = _pinmodeTestPointer.asFunction<MraaPinmodeTestType>();
     _adcRawBitsFunc = _adcRawBitsPointer.asFunction<MraaADCRawBitsType>();

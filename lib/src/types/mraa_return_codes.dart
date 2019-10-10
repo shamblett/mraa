@@ -59,7 +59,7 @@ enum MraaReturnCodes {
 }
 
 /// Return codes type support
-const Map<int,MraaReturnCodes> _returnCodesValues = <int,MraaReturnCodes>{
+const Map<int, MraaReturnCodes> _returnCodesValues = <int, MraaReturnCodes>{
   0: MraaReturnCodes.mraaSuccess,
   1: MraaReturnCodes.mraaErrorFeatureNotImplemented,
   2: MraaReturnCodes.mraaErrorFeatureNotSupported,
