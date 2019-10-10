@@ -125,6 +125,11 @@ int main() {
       final int ret = mraa.common.pwmCount();
       expect(ret, 0);
     });
+    test('GPIO count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.gpioCount();
+      expect(ret, 1);
+    });
   });
 
   group('GPIO', () {
