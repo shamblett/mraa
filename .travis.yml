@@ -1,0 +1,16 @@
+os: linux
+dist: trusty
+language: dart
+dart:
+  # Install the latest stable release
+  - stable
+dart_task:
+  - test: --exclude-tags no-xvfb
+    xvfb: false
+script:
+  pub run test test/mraa_test.dart
+  pub run test test/mraa_platform_test.dart
+branches:
+    only:
+    - master
+
