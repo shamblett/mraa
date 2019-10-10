@@ -10,12 +10,13 @@ import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 
 // ignore_for_file: unused_local_variable
+@TestOn('VM && Linux')
 
 // We always use our package supplied library in test as it is an Mraa
 // library compiled to use a mock board
 int main() {
   // Setup
-  const String libPath = 'test/testlib/libmraa.so.2.0.0';
+  const String libPath = 'test/testlib/centos7/libmraa.so.2.0.0';
   final Mraa mraa = Mraa.fromLib(libPath);
 
   // Test groups
@@ -53,12 +54,6 @@ int main() {
       if (ret != null) {
         print('Platform type is : ${platformTypes.asString(ret)}');
       }
-    });
-    test('Initialise JSON platform', () {
-      mraa.common.initialise();
-      final MraaReturnCodes ret =
-          mraa.common.initialiseJsonPlatform('test/test_board.json');
-      expect(ret, MraaReturnCodes.mraaSuccess);
     });
     test('Pin mode test', () {
       mraa.common.initialise();
@@ -104,7 +99,6 @@ int main() {
       print(ret.toRadixString(16));
       expect(ret, 20);
     });
-
   });
 
   group('GPIO', () {

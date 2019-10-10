@@ -98,11 +98,38 @@ enum MraaPlatformType {
 }
 
 /// Platform type support
-const Map<int,MraaPlatformType> _platformTypeValues = <int,MraaPlatformType>{
-  0:,
-
+const Map<int, MraaPlatformType> _platformTypeValues = <int, MraaPlatformType>{
+  0: MraaPlatformType.mraaIntelGalileoGen1,
+  1: MraaPlatformType.mraaIntelGalileoGen2,
+  2: MraaPlatformType.mraaIntelEdisonFabC,
+  3: MraaPlatformType.mraaIntelDe3815,
+  4: MraaPlatformType.mraaIntelMinnowboardMax,
+  5: MraaPlatformType.mraaRaspberryPi,
+  6: MraaPlatformType.mraaBeaglebone,
+  7: MraaPlatformType.mraaBanana,
+  8: MraaPlatformType.mraaIntelNuc5,
+  9: MraaPlatformType.mraa96boards,
+  10: MraaPlatformType.mraaIntelSofia3gr,
+  11: MraaPlatformType.mraaIntelCherryhills,
+  12: MraaPlatformType.mraaUp,
+  13: MraaPlatformType.mraaIntelJouleExpansion,
+  14: MraaPlatformType.mraaPhyboardWega,
+  15: MraaPlatformType.mraaDeNanoSoc,
+  16: MraaPlatformType.mraaUp2,
+  17: MraaPlatformType.mraaMtkLinkit,
+  18: MraaPlatformType.mraaMtkOmega2,
+  19: MraaPlatformType.mraaIeiTank,
+  20: MraaPlatformType.mraaRockPi4,
+  256: MraaPlatformType.mraaFtdiFt4222,
+  1024: MraaPlatformType.mraaGrovepi,
+  1280: MraaPlatformType.mraaGenericFirmata,
+  95: MraaPlatformType.mraaAndroidPeripheralmanager,
+  96: MraaPlatformType.mraaMockPlatform,
+  97: MraaPlatformType.mraaJsonPlatform,
+  98: MraaPlatformType.mraaNullPlatform,
+  99: MraaPlatformType.mraaUnknownPlatform
 };
 
 /// Platform types helper
 MraaEnumHelper<MraaPlatformType> platformTypes =
-    MraaEnumHelper<MraaPlatformType>(_valuesFuncPlatformType);
+    MraaEnumHelper<MraaPlatformType>(_platformTypeValues);
