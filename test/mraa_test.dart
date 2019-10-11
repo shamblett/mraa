@@ -18,6 +18,7 @@ import 'support/mraa_platform_helper.dart';
 int main() {
   // Setup
   final MraaPlatformHelper helper = MraaPlatformHelper();
+  print('Platform is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
   final Mraa mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
@@ -29,7 +30,7 @@ int main() {
     });
     test('Version', () {
       final String mraaVersion = mraa.common.version();
-      print('Version is : $mraaVersion');
+      print('MRAA Version is : $mraaVersion');
       expect(mraaVersion.contains('v2.0.0'), isTrue);
     });
     test('Initialise', () {
