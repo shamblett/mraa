@@ -38,7 +38,7 @@ int main() {
   print('Reading the raw temperature sensor value');
   for (int i = 1; i <= 100; i++) {
     final int val = mraa.aio.read(context);
-    print('$i -> light value is : $val');
+    print('$i -> temperature value is : $val');
     sleep(const Duration(milliseconds: 2000));
   }
 
