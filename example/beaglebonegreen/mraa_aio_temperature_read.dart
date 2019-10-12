@@ -9,7 +9,7 @@ import 'dart:ffi' as ffi;
 import 'dart:io';
 import 'package:mraa/mraa.dart';
 
-/// Read the current light value usin AIO from the Beagleboone Greens light sensor
+/// Read the current temperature value using AIO from the Beagleboone Greens temperature sensor
 int main() {
   // Initialise form our Beaglebone Mraa lib version 2.0.0 with no JSON loading
   final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
@@ -31,11 +31,11 @@ int main() {
   final String platformName = mraa.common.platformName();
   print('The platform name is : $platformName');
 
-  /// The light sensor is on AIO 0
+  /// The temperature sensor is on AIO 2
   print('Initialising AIO');
-  final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+  final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(2);
 
-  print('Reading the raw light sensor value');
+  print('Reading the raw temperature sensor value');
   for (int i = 1; i <= 100; i++) {
     final int val = mraa.aio.read(context);
     print('$i -> light value is : $val');
