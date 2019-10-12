@@ -7,17 +7,18 @@
 
 import 'package:mraa/mraa.dart';
 
-/// Get some platform details for the Beagleboone Green
+/// Get some platform details for the Beaglebone Green
 int main() {
-  final Mraa mraa = Mraa();
-  final String mraaVersion = mraa.common.version();
-  print('Mraa version is : $mraaVersion');
+  // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading
+  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
+  mraa.noJsonLoading = true;
+  mraa.initialise();
 
-  print('Initialising');
+  print('Initialising MRAA');
   final MraaReturnCodes ret = mraa.common.initialise();
   if (ret != MraaReturnCodes.mraaSuccess) {
     print(
-        'Beaglebone green - failed to initialise Mraa, return code is ${returnCodes.asString(ret)}');
+        'Beaglebone green - failed to initialise MRAA, return code is ${returnCodes.asString(ret)}');
   }
 
   print('Getting platform name');
