@@ -157,7 +157,7 @@ int main() {
     test('Read', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
       final int ret = mraa.gpio.read(context);
-      expect(ret == Mraa.mraaGeneralError, isFalse);
+      expect(ret == Mraa.mraaGeneralError, isTrue);
     });
   });
 

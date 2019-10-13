@@ -72,7 +72,7 @@ class _MraaGpio {
             'mraa_gpio_dir');
     _readPointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
-            'mraa_gpio_dir');
+            'mraa_gpio_read');
   }
 
   void _setUpFunctions() {
