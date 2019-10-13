@@ -19,6 +19,7 @@ part 'src/types/mraa_gpio_context.dart';
 part 'src/types/mraa_aio_context.dart';
 part 'src/types/mraa_platform_type.dart';
 part 'src/types/mraa_pinmodes.dart';
+part 'src/types/mraa_gpio_direction.dart';
 part 'src/api/mraa_common.dart';
 part 'src/api/mraa_gpio.dart';
 part 'src/api/mraa_aio.dart';

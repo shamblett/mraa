@@ -18,7 +18,8 @@ import 'support/mraa_platform_helper.dart';
 int main() {
   // Setup
   final MraaPlatformHelper helper = MraaPlatformHelper();
-  print('Platform is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+  print(
+      'Platform is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
   final Mraa mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
@@ -146,6 +147,17 @@ int main() {
   group('GPIO', () {
     test('Initialise', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
+    });
+    test('Direction', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
+      final MraaReturnCodes ret =
+          mraa.gpio.direction(context, MraaGpioDirection.mraaGpioIn);
+      expect(ret, MraaReturnCodes.mraaErrorInvalidHandle);
+    });
+    test('Read', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
+      final int ret = mraa.gpio.read(context);
+      expect(ret == Mraa.mraaGeneralError, isFalse);
     });
   });
 

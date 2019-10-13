@@ -12,9 +12,15 @@ part of mraa;
 /// C Function type typedefs
 typedef returnMraaGpioContextIntParameterFunc = ffi.Pointer<MraaGpioContext>
     Function(ffi.Int32);
+typedef returnIntGpioContextIntParametersFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaGpioContext>, ffi.Int32);
+typedef returnIntGpioContextParametersFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaGpioContext>);
 
 /// Dart Function typedefs
-typedef MraaGpioContextType = ffi.Pointer<MraaGpioContext> Function(int);
+typedef MraaGpioInitialiseType = ffi.Pointer<MraaGpioContext> Function(int);
+typedef MraaGpioDirectionType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioReadType = int Function(ffi.Pointer<MraaGpioContext>);
 
 /// The GPIO MRAA Api
 class _MraaGpio {
@@ -31,21 +37,47 @@ class _MraaGpio {
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
       _initPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _directionPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
+      _readPointer;
 
   /// Dart Functions
   dynamic _initFunc;
+  dynamic _directionFunc;
+  dynamic _readFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
   ffi.Pointer<MraaGpioContext> initialise(int pin) => _initFunc(pin);
 
+  /// GPIO direction - mraa_gpio_dir
+  /// Set Gpio(s) direction
+  MraaReturnCodes direction(
+          ffi.Pointer<MraaGpioContext> context, MraaGpioDirection direction) =>
+      returnCodes
+          .fromInt(_directionFunc(context, gpioDirections.asInt(direction)));
+
+  /// Read - mraa_gpio_read
+  /// Read the Gpio value. This can be 0 or 1.
+  /// A response of -1 means that there was a fatal error.
+  int read(ffi.Pointer<MraaGpioContext> context) => _readFunc(context);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
             'mraa_gpio_init');
+    _directionPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_dir');
+    _readPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+            'mraa_gpio_dir');
   }
 
   void _setUpFunctions() {
-    _initFunc = _initPointer.asFunction<MraaGpioContextType>();
+    _initFunc = _initPointer.asFunction<MraaGpioInitialiseType>();
+    _directionFunc = _directionPointer.asFunction<MraaGpioDirectionType>();
+    _readFunc = _readPointer.asFunction<MraaGpioReadType>();
   }
 }
