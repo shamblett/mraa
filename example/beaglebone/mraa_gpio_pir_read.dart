@@ -35,7 +35,7 @@ int main() {
   print('The platform name is : $platformName');
 
   /// The PIR sensor initialisation
-  print('Initialising AIO');
+  print('Initialising GPIO');
   final ffi.Pointer<MraaGpioContext> context =
       mraa.gpio.initialise(pirSensorGPIOPin);
 
@@ -43,7 +43,7 @@ int main() {
   for (int i = 1; i <= 10000; i++) {
     int val = mraa.gpio.read(context);
     if (val == 1) {
-      print('PIR motion sensor has triggered');
+      print('Check $i, PIR motion sensor has triggered');
     }
     val = 0;
     sleep(const Duration(milliseconds: 300));
