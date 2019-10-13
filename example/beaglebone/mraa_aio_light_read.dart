@@ -51,7 +51,7 @@ int main() {
     print('$i -> Raw light value is : $val');
     final double lux =
         10000.0 / pow(((maxAdc - val) * 10.0 / val) * 15.0, 4.0 / 3.0);
-    print('$i -> Lux light value is : $lux');
+    print('$i -> Lux light value is : ${lux.toStringAsFixed(2)}');
     sleep(const Duration(milliseconds: 2000));
   }
 
