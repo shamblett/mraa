@@ -31,22 +31,35 @@ class _MraaI2c {
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>
       _initPointer;
+  ffi.Pointer<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>
+      _initRawPointer;
 
   /// Dart Functions
   dynamic _initFunc;
+  dynamic _initRawFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions
   /// Returns the I2C context or null
   ffi.Pointer<MraaI2cContext> initialise(int bus) => _initFunc(bus);
 
+  /// Initialise raw - mraa_i2c_init_raw
+  /// Initialise i2c context, passing in the i2c bus to use
+  /// i.e. /dev/i2c-2 would be "2"
+  /// Returns the I2C context or null
+  ffi.Pointer<MraaI2cContext> initialiseRaw(int bus) => _initRawFunc(bus);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
             'mraa_i2c_init');
+    _initRawPointer =
+        _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
+            'mraa_i2c_init_raw');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaI2cInitialiseType>();
+    _initRawFunc = _initRawPointer.asFunction<MraaI2cInitialiseType>();
   }
 }

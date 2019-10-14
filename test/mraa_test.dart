@@ -206,6 +206,10 @@ int main() {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       expect(context, isNotNull);
     });
+    test('Initialise raw', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialiseRaw(0);
+      expect(context, isNotNull);
+    });
   });
 
   return 0;
