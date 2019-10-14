@@ -20,6 +20,9 @@ typedef returnIntMraaI2CContextParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaI2cContext>);
 typedef returnIntMraaI2CContextUint8ParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaI2cContext>, ffi.Uint8);
+typedef returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc
+    = ffi.Int32 Function(ffi.Pointer<MraaI2cContext>, ffi.Uint8,
+        ffi.Pointer<ffi.Uint8>, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaI2cInitialiseType = ffi.Pointer<MraaI2cContext> Function(int);
@@ -31,6 +34,8 @@ typedef MraaI2cReadByteDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int);
 typedef MraaI2cReadWordDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int);
+typedef MraaI2cReadBytesDataType = int Function(
+    ffi.Pointer<MraaI2cContext>, int, ffi.Pointer<ffi.Uint8>, int);
 
 /// The I2C MRAA API
 class _MraaI2c {
@@ -60,6 +65,10 @@ class _MraaI2c {
       _readByteDataPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>
       _readWordDataPointer;
+  ffi.Pointer<
+          ffi.NativeFunction<
+              returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>
+      _readBytesDataPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -69,6 +78,7 @@ class _MraaI2c {
   dynamic _readByteFunc;
   dynamic _readByteDataFunc;
   dynamic _readWordDataFunc;
+  dynamic _readBytesDataFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions
@@ -111,6 +121,13 @@ class _MraaI2c {
   int readWordData(ffi.Pointer<MraaI2cContext> context, int register) =>
       _readWordDataFunc(context, register);
 
+  /// Read bytes data - mraa_i2c_read_bytes_data
+  /// Bulk read from i2c context, starting from designated register
+  /// Returns the length in bytes passed to the function or -1
+  int readBytesData(ffi.Pointer<MraaI2cContext> context, int command,
+          ffi.Pointer<ffi.Uint8> data, int length) =>
+      _readBytesDataFunc(context, command, data, length);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
@@ -134,6 +151,10 @@ class _MraaI2c {
     _readWordDataPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_read_word_data');
+    _readBytesDataPointer = _lib.lookup<
+            ffi.NativeFunction<
+                returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>(
+        'mraa_i2c_read_bytes_data');
   }
 
   void _setUpFunctions() {
@@ -146,5 +167,7 @@ class _MraaI2c {
         _readByteDataPointer.asFunction<MraaI2cReadByteDataType>();
     _readWordDataFunc =
         _readWordDataPointer.asFunction<MraaI2cReadWordDataType>();
+    _readBytesDataFunc =
+        _readBytesDataPointer.asFunction<MraaI2cReadBytesDataType>();
   }
 }

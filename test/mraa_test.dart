@@ -238,6 +238,14 @@ int main() {
       final int ret = mraa.i2c.readWordData(context, 0);
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Read bytes data', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      const int length = 10;
+      final ffi.Pointer<ffi.Uint8> data =
+          ffi.Pointer<ffi.Uint8>.allocate(count: length);
+      final int ret = mraa.i2c.readBytesData(context, 0, data, length);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   return 0;
