@@ -29,6 +29,8 @@ typedef MraaI2cReadType = int Function(
 typedef MraaI2cReadByteType = int Function(ffi.Pointer<MraaI2cContext>);
 typedef MraaI2cReadByteDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int);
+typedef MraaI2cReadWordDataType = int Function(
+    ffi.Pointer<MraaI2cContext>, int);
 
 /// The I2C MRAA API
 class _MraaI2c {
@@ -56,6 +58,8 @@ class _MraaI2c {
       _readBytePointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>
       _readByteDataPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>
+      _readWordDataPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -64,6 +68,7 @@ class _MraaI2c {
   dynamic _readFunc;
   dynamic _readByteFunc;
   dynamic _readByteDataFunc;
+  dynamic _readWordDataFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions
@@ -100,6 +105,12 @@ class _MraaI2c {
   int readByteData(ffi.Pointer<MraaI2cContext> context, int register) =>
       _readByteDataFunc(context, register);
 
+  /// Read word data - mraa_i2c_read_word_data
+  /// Read a single word from i2c context, from designated register
+  /// Returns MraaGeneralError if failed
+  int readWordData(ffi.Pointer<MraaI2cContext> context, int register) =>
+      _readWordDataFunc(context, register);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
@@ -120,6 +131,9 @@ class _MraaI2c {
     _readByteDataPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_read_byte_data');
+    _readWordDataPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>(
+            'mraa_i2c_read_word_data');
   }
 
   void _setUpFunctions() {
@@ -130,5 +144,7 @@ class _MraaI2c {
     _readByteFunc = _readBytePointer.asFunction<MraaI2cReadByteType>();
     _readByteDataFunc =
         _readByteDataPointer.asFunction<MraaI2cReadByteDataType>();
+    _readWordDataFunc =
+        _readWordDataPointer.asFunction<MraaI2cReadWordDataType>();
   }
 }

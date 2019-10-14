@@ -233,6 +233,11 @@ int main() {
       final int ret = mraa.i2c.readByteData(context, 0);
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Read word data', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final int ret = mraa.i2c.readWordData(context, 0);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   return 0;
