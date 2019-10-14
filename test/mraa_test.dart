@@ -223,6 +223,16 @@ int main() {
       final int ret = mraa.i2c.read(context, data, length);
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Read byte', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final int ret = mraa.i2c.readByte(context);
+      expect(ret, Mraa.mraaGeneralError);
+    });
+    test('Read byte data', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final int ret = mraa.i2c.readByteData(context, 0);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   return 0;
