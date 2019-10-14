@@ -10,37 +10,37 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef returnStringNoParametersFunc = ffi.Pointer<Utf8> Function();
-typedef returnStringIntParametersFunc = ffi.Pointer<Utf8> Function(ffi.Int32);
-typedef returnIntNoParametersFunc = ffi.Int32 Function();
-typedef returnIntIntParametersFunc = ffi.Int32 Function(ffi.Int32);
-typedef returnIntStringParametersFunc = ffi.Int32 Function(ffi.Pointer<Utf8>);
-typedef returnInt2IntParametersFunc = ffi.Int32 Function(ffi.Int32, ffi.Int32);
-typedef returnVoidIntParametersFunc = ffi.Void Function(ffi.Int32);
+typedef returnCommonStringNoParametersFunc = ffi.Pointer<Utf8> Function();
+typedef returnCommonStringIntParametersFunc = ffi.Pointer<Utf8> Function(ffi.Int32);
+typedef returnCommonIntNoParametersFunc = ffi.Int32 Function();
+typedef returnCommonIntIntParametersFunc = ffi.Int32 Function(ffi.Int32);
+typedef returnCommonIntStringParametersFunc = ffi.Int32 Function(ffi.Pointer<Utf8>);
+typedef returnCommonInt2IntParametersFunc = ffi.Int32 Function(ffi.Int32, ffi.Int32);
+typedef returnCommonVoidIntParametersFunc = ffi.Void Function(ffi.Int32);
 
 /// Dart Function typedefs
-typedef MraaVersionType = ffi.Pointer<Utf8> Function();
-typedef MraaPlatformVersionType = ffi.Pointer<Utf8> Function(int);
-typedef MraaInitialiseType = int Function();
-typedef MraaPlatformNameType = ffi.Pointer<Utf8> Function();
-typedef MraaPlatformTypeType = int Function();
-typedef MraaInitJsonPlatformType = int Function(ffi.Pointer<Utf8>);
-typedef MraaSetLogLevelType = int Function(int);
-typedef MraaPinmodeTestType = int Function(int, int);
-typedef MraaADCRawBitsType = int Function();
-typedef MraaPlatformAdcRawBitsType = int Function(int);
-typedef MraaAdcSupportedBitsType = int Function();
-typedef MraaPlatformAdcSupportedBitsType = int Function(int);
-typedef MraaSetPriorityType = int Function(int);
-typedef MraaResultPrintType = void Function(int);
-typedef MraaPlatformCombinedTypeType = int Function();
-typedef MraaPinCountType = int Function();
-typedef MraaUartCountType = int Function();
-typedef MraaSpiBusCountType = int Function();
-typedef MraaPwmCountType = int Function();
-typedef MraaGpioCountType = int Function();
-typedef MraaAioCountType = int Function();
-typedef MraaI2cBusCountType = int Function();
+typedef MraaCommonVersionType = ffi.Pointer<Utf8> Function();
+typedef MraaCommonPlatformVersionType = ffi.Pointer<Utf8> Function(int);
+typedef MraaCommonInitialiseType = int Function();
+typedef MraaCommonPlatformNameType = ffi.Pointer<Utf8> Function();
+typedef MraaCommonPlatformTypeType = int Function();
+typedef MraaCommonInitJsonPlatformType = int Function(ffi.Pointer<Utf8>);
+typedef MraaCommonSetLogLevelType = int Function(int);
+typedef MraaCommonPinmodeTestType = int Function(int, int);
+typedef MraaCommonADCRawBitsType = int Function();
+typedef MraaCommonPlatformAdcRawBitsType = int Function(int);
+typedef MraaCommonAdcSupportedBitsType = int Function();
+typedef MraaCommonPlatformAdcSupportedBitsType = int Function(int);
+typedef MraaCommonSetPriorityType = int Function(int);
+typedef MraaCommonResultPrintType = void Function(int);
+typedef MraaCommonPlatformCombinedTypeType = int Function();
+typedef MraaCommonPinCountType = int Function();
+typedef MraaCommonUartCountType = int Function();
+typedef MraaCommonSpiBusCountType = int Function();
+typedef MraaCommonPwmCountType = int Function();
+typedef MraaCommonGpioCountType = int Function();
+typedef MraaCommonAioCountType = int Function();
+typedef MraaCommonI2cBusCountType = int Function();
 
 /// The Common MRAA Api
 class _MraaCommon {
@@ -55,41 +55,41 @@ class _MraaCommon {
   bool _noJsonLoading = false;
 
   /// C Pointers
-  ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>> _versionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _initialisePointer;
-  ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonStringNoParametersFunc>> _versionPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _initialisePointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonStringNoParametersFunc>>
       _platformNamePointer;
-  ffi.Pointer<ffi.NativeFunction<returnStringIntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonStringIntParametersFunc>>
       _platformVersionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>>
       _platformTypePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntStringParametersFunc>>
       _initJsonPlatformPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntIntParametersFunc>>
       _setLogLevelPointer;
-  ffi.Pointer<ffi.NativeFunction<returnInt2IntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonInt2IntParametersFunc>>
       _pinmodeTestPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _adcRawBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _adcRawBitsPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntIntParametersFunc>>
       _platformAdcRawBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>>
       _adcSupportedBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntIntParametersFunc>>
       _platformAdcSupportedBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntIntParametersFunc>>
       _setPriorityPointer;
-  ffi.Pointer<ffi.NativeFunction<returnVoidIntParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonVoidIntParametersFunc>>
       _resultPrintPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>>
       _platformCombinedTypePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _pinCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _uartCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _pinCountPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _uartCountPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>>
       _spiBusCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _pwmCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _gpioCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _aioCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _pwmCountPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _gpioCountPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>> _aioCountPointer;
+  ffi.Pointer<ffi.NativeFunction<returnCommonIntNoParametersFunc>>
       _i2cBusCountPointer;
 
   /// Dart Functions
@@ -251,106 +251,106 @@ class _MraaCommon {
 
   void _setUpPointers() {
     _versionPointer =
-        _lib.lookup<ffi.NativeFunction<returnStringNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonStringNoParametersFunc>>(
             'mraa_get_version');
     _initialisePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>('mraa_init');
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>('mraa_init');
     _platformNamePointer =
-        _lib.lookup<ffi.NativeFunction<returnStringNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonStringNoParametersFunc>>(
             'mraa_get_platform_name');
     _platformVersionPointer =
-        _lib.lookup<ffi.NativeFunction<returnStringIntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonStringIntParametersFunc>>(
             'mraa_get_platform_version');
     _platformTypePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_platform_type');
     if (!_noJsonLoading) {
       _initJsonPlatformPointer =
-          _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+          _lib.lookup<ffi.NativeFunction<returnCommonIntStringParametersFunc>>(
               'mraa_init_json_platform');
     }
     _setLogLevelPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntIntParametersFunc>>(
             'mraa_set_log_level');
     _pinmodeTestPointer =
-        _lib.lookup<ffi.NativeFunction<returnInt2IntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonInt2IntParametersFunc>>(
             'mraa_pin_mode_test');
     _adcRawBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_adc_raw_bits');
     _platformAdcRawBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntIntParametersFunc>>(
             'mraa_get_platform_adc_raw_bits');
     _adcSupportedBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_adc_supported_bits');
     _platformAdcSupportedBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntIntParametersFunc>>(
             'mraa_get_platform_adc_supported_bits');
     _setPriorityPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntIntParametersFunc>>(
             'mraa_set_priority');
     _resultPrintPointer =
-        _lib.lookup<ffi.NativeFunction<returnVoidIntParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonVoidIntParametersFunc>>(
             'mraa_result_print');
     _platformCombinedTypePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_platform_combined_type');
     _pinCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_pin_count');
     _uartCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_uart_count');
     _spiBusCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_spi_bus_count');
     _pwmCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_pwm_count');
     _gpioCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_gpio_count');
     _aioCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_aio_count');
     _i2cBusCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<ffi.NativeFunction<returnCommonIntNoParametersFunc>>(
             'mraa_get_i2c_bus_count');
   }
 
   void _setUpFunctions() {
-    _versionFunc = _versionPointer.asFunction<MraaVersionType>();
-    _initFunc = _initialisePointer.asFunction<MraaInitialiseType>();
-    _platformNameFunc = _platformNamePointer.asFunction<MraaPlatformNameType>();
+    _versionFunc = _versionPointer.asFunction<MraaCommonVersionType>();
+    _initFunc = _initialisePointer.asFunction<MraaCommonInitialiseType>();
+    _platformNameFunc = _platformNamePointer.asFunction<MraaCommonPlatformNameType>();
     _platformVersionFunc =
-        _platformVersionPointer.asFunction<MraaPlatformVersionType>();
-    _platformTypeFunc = _platformTypePointer.asFunction<MraaPlatformTypeType>();
+        _platformVersionPointer.asFunction<MraaCommonPlatformVersionType>();
+    _platformTypeFunc = _platformTypePointer.asFunction<MraaCommonPlatformTypeType>();
     if (!_noJsonLoading) {
       _initJsonPlatformFunc =
-          _initJsonPlatformPointer.asFunction<MraaInitJsonPlatformType>();
+          _initJsonPlatformPointer.asFunction<MraaCommonInitJsonPlatformType>();
     }
-    _setLogLevelFunc = _setLogLevelPointer.asFunction<MraaSetLogLevelType>();
-    _pinModeTestFunc = _pinmodeTestPointer.asFunction<MraaPinmodeTestType>();
-    _adcRawBitsFunc = _adcRawBitsPointer.asFunction<MraaADCRawBitsType>();
+    _setLogLevelFunc = _setLogLevelPointer.asFunction<MraaCommonSetLogLevelType>();
+    _pinModeTestFunc = _pinmodeTestPointer.asFunction<MraaCommonPinmodeTestType>();
+    _adcRawBitsFunc = _adcRawBitsPointer.asFunction<MraaCommonADCRawBitsType>();
     _platformAdcRawBitsFunc =
-        _platformAdcRawBitsPointer.asFunction<MraaPlatformAdcRawBitsType>();
+        _platformAdcRawBitsPointer.asFunction<MraaCommonPlatformAdcRawBitsType>();
     _adcSupportedBitsFunc =
-        _adcSupportedBitsPointer.asFunction<MraaAdcSupportedBitsType>();
+        _adcSupportedBitsPointer.asFunction<MraaCommonAdcSupportedBitsType>();
     _platformAdcSupportedBitsFunc = _platformAdcSupportedBitsPointer
-        .asFunction<MraaPlatformAdcSupportedBitsType>();
-    _setPriorityFunc = _setPriorityPointer.asFunction<MraaSetPriorityType>();
-    _resultPrintFunc = _resultPrintPointer.asFunction<MraaResultPrintType>();
+        .asFunction<MraaCommonPlatformAdcSupportedBitsType>();
+    _setPriorityFunc = _setPriorityPointer.asFunction<MraaCommonSetPriorityType>();
+    _resultPrintFunc = _resultPrintPointer.asFunction<MraaCommonResultPrintType>();
     _platformCombinedTypeFunc =
-        _platformCombinedTypePointer.asFunction<MraaPlatformCombinedTypeType>();
-    _pinCountTypeFunc = _pinCountPointer.asFunction<MraaPinCountType>();
-    _uartCountTypeFunc = _uartCountPointer.asFunction<MraaUartCountType>();
+        _platformCombinedTypePointer.asFunction<MraaCommonPlatformCombinedTypeType>();
+    _pinCountTypeFunc = _pinCountPointer.asFunction<MraaCommonPinCountType>();
+    _uartCountTypeFunc = _uartCountPointer.asFunction<MraaCommonUartCountType>();
     _spiBusCountTypeFunc =
-        _spiBusCountPointer.asFunction<MraaSpiBusCountType>();
-    _pwmCountTypeFunc = _pwmCountPointer.asFunction<MraaPwmCountType>();
-    _gpioCountTypeFunc = _gpioCountPointer.asFunction<MraaGpioCountType>();
-    _aioCountTypeFunc = _aioCountPointer.asFunction<MraaAioCountType>();
+        _spiBusCountPointer.asFunction<MraaCommonSpiBusCountType>();
+    _pwmCountTypeFunc = _pwmCountPointer.asFunction<MraaCommonPwmCountType>();
+    _gpioCountTypeFunc = _gpioCountPointer.asFunction<MraaCommonGpioCountType>();
+    _aioCountTypeFunc = _aioCountPointer.asFunction<MraaCommonAioCountType>();
     _i2cBusCountTypeFunc =
-        _i2cBusCountPointer.asFunction<MraaI2cBusCountType>();
+        _i2cBusCountPointer.asFunction<MraaCommonI2cBusCountType>();
   }
 }
