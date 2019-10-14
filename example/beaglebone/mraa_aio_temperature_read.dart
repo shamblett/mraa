@@ -27,10 +27,10 @@ int main() {
   print('Mraa version is : $mraaVersion');
 
   print('Initialising MRAA');
-  final MraaReturnCodes ret = mraa.common.initialise();
-  if (ret != MraaReturnCodes.mraaSuccess) {
+  final MraaReturnCode ret = mraa.common.initialise();
+  if (ret != MraaReturnCode.mraaSuccess) {
     print(
-        'Beaglebone Green - failed to initialise MRAA, return code is ${returnCodes.asString(ret)}');
+        'Beaglebone Green - failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');

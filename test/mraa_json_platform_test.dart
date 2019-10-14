@@ -23,17 +23,17 @@ int main() {
   test('Initialise JSON platform', () {
     mraa.initialise();
     mraa.common.initialise();
-    final MraaReturnCodes ret =
+    final MraaReturnCode ret =
         mraa.common.initialiseJsonPlatform('test/test_board.json');
-    expect(ret, MraaReturnCodes.mraaSuccess);
+    expect(ret, MraaReturnCode.mraaSuccess);
   });
   test('No JSON loading', () {
     mraa.noJsonLoading = true;
     mraa.initialise();
     mraa.common.initialise();
-    final MraaReturnCodes ret =
+    final MraaReturnCode ret =
         mraa.common.initialiseJsonPlatform('test/test_board.json');
-    expect(ret, MraaReturnCodes.mraaErrorFeatureNotSupported);
+    expect(ret, MraaReturnCode.mraaErrorFeatureNotSupported);
   });
   return 0;
 }

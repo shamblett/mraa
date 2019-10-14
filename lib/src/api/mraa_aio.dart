@@ -82,13 +82,13 @@ class _MraaAio {
   /// Close - mraa_aio_close
   /// Close the analog input context, this will free the memory for the context.
   /// MRAA_SUCCESS indicates correct closure
-  MraaReturnCodes close(ffi.Pointer<MraaAioContext> dev) =>
-      returnCodes.fromInt(_closeFunc(dev));
+  MraaReturnCode close(ffi.Pointer<MraaAioContext> dev) =>
+      returnCode.fromInt(_closeFunc(dev));
 
   /// Set bit - mraa_aio_set_bit
   /// Set the bit value which mraa will shift the raw reading from the ADC to. I.e. 10bits
-  MraaReturnCodes setBit(ffi.Pointer<MraaAioContext> dev, int bits) =>
-      returnCodes.fromInt(_setBitFunc(dev, bits));
+  MraaReturnCode setBit(ffi.Pointer<MraaAioContext> dev, int bits) =>
+      returnCode.fromInt(_setBitFunc(dev, bits));
 
   /// Set bit - mraa_aio_get_bit
   /// Gets the bit value mraa is shifting the analog read to.

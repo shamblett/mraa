@@ -13,13 +13,14 @@ import 'dart:typed_data';
 
 part 'src/mraa.dart';
 part 'src/types/mraa_utf8.dart';
-part 'src/types/mraa_return_codes.dart';
+part 'src/types/mraa_return_code.dart';
 part 'src/types/mraa_enum_helper.dart';
 part 'src/types/mraa_gpio_context.dart';
 part 'src/types/mraa_aio_context.dart';
 part 'src/types/mraa_i2c_context.dart';
 part 'src/types/mraa_platform_type.dart';
-part 'src/types/mraa_pinmodes.dart';
+part 'src/types/mraa_pinmode.dart';
+part 'src/types/mraa_i2c_mode.dart';
 part 'src/types/mraa_gpio_direction.dart';
 part 'src/api/mraa_common.dart';
 part 'src/api/mraa_gpio.dart';

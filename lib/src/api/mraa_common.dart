@@ -42,7 +42,7 @@ typedef MraaCommonGpioCountType = int Function();
 typedef MraaCommonAioCountType = int Function();
 typedef MraaCommonI2cBusCountType = int Function();
 
-/// The Common MRAA Api
+/// The Common MRAA API
 class _MraaCommon {
   _MraaCommon(this._lib, this._noJsonLoading) {
     _setUpPointers();
@@ -130,7 +130,7 @@ class _MraaCommon {
   /// Detects running platform and attempts to use included pinmap, this is run on module/library
   /// init/load but is handy to rerun to check board initialised correctly.
   /// MRAA_SUCCESS indicates correct initialisation.
-  MraaReturnCodes initialise() => returnCodes.fromInt(_initFunc());
+  MraaReturnCode initialise() => returnCode.fromInt(_initFunc());
 
   /// Platform name - mraa_get_platform_name
   /// Return the Platform's Name, If no platform detected return NULL
@@ -154,21 +154,21 @@ class _MraaCommon {
 
   /// Initialise JSON platform - mraa_init_json_platform
   /// Instantiate an unknown board using a json file
-  MraaReturnCodes initialiseJsonPlatform(String path) => _noJsonLoading
-      ? MraaReturnCodes.mraaErrorFeatureNotSupported
-      : returnCodes.fromInt(_initJsonPlatformFunc(Utf8.toUtf8(path)));
+  MraaReturnCode initialiseJsonPlatform(String path) => _noJsonLoading
+      ? MraaReturnCode.mraaErrorFeatureNotSupported
+      : returnCode.fromInt(_initJsonPlatformFunc(Utf8.toUtf8(path)));
 
   /// Set the log level - mraa_set_log_level
   /// Sets the log level to use from 0-7 where 7 is very verbose.
   /// These are the syslog log levels, see syslog(3) for more information on the levels.
-  MraaReturnCodes setLogLevel(int level) =>
-      returnCodes.fromInt(_setLogLevelFunc(level));
+  MraaReturnCode setLogLevel(int level) =>
+      returnCode.fromInt(_setLogLevelFunc(level));
 
   /// Pin mode test - mraa_pin_mode_test
   /// Checks if a pin is able to use the passed in mode.
   /// True if the mode is supported
-  bool pinmodeTest(int pin, MraaPinmodes mode) {
-    final int ret = _pinModeTestFunc(pin, pinmodes.asInt(mode));
+  bool pinmodeTest(int pin, MraaPinmode mode) {
+    final int ret = _pinModeTestFunc(pin, pinmode.asInt(mode));
     return ret == 1;
   }
 

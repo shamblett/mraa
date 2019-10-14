@@ -7,8 +7,8 @@
 
 part of mraa;
 
-/// MRAA function return codes
-enum MraaReturnCodes {
+/// MRAA function return(result) codes
+enum MraaReturnCode {
   /// < Expected response
   mraaSuccess,
 
@@ -59,25 +59,25 @@ enum MraaReturnCodes {
 }
 
 /// Return codes type support
-const Map<int, MraaReturnCodes> _returnCodesValues = <int, MraaReturnCodes>{
-  0: MraaReturnCodes.mraaSuccess,
-  1: MraaReturnCodes.mraaErrorFeatureNotImplemented,
-  2: MraaReturnCodes.mraaErrorFeatureNotSupported,
-  3: MraaReturnCodes.mraaErrorInvalidVerbosityLevel,
-  4: MraaReturnCodes.mraaErrorInvalidParameter,
-  5: MraaReturnCodes.mraaErrorInvalidHandle,
-  6: MraaReturnCodes.mraaErrorNoResources,
-  7: MraaReturnCodes.mraaErrorInvalidResource,
-  8: MraaReturnCodes.mraaErrorInvalidQueueType,
-  9: MraaReturnCodes.mraaErrorNoDataAvailable,
-  10: MraaReturnCodes.mraaErrorInvalidPlatform,
-  11: MraaReturnCodes.mraaErrorPlatformNotInitialised,
-  12: MraaReturnCodes.mraaErrorUartOwShorted,
-  13: MraaReturnCodes.mraaErrorUartOwNoDevices,
-  14: MraaReturnCodes.mraaErrorUartOwDataError,
-  99: MraaReturnCodes.mraaErrorUnspecified
+const Map<int, MraaReturnCode> _returnCodesValues = <int, MraaReturnCode>{
+  0: MraaReturnCode.mraaSuccess,
+  1: MraaReturnCode.mraaErrorFeatureNotImplemented,
+  2: MraaReturnCode.mraaErrorFeatureNotSupported,
+  3: MraaReturnCode.mraaErrorInvalidVerbosityLevel,
+  4: MraaReturnCode.mraaErrorInvalidParameter,
+  5: MraaReturnCode.mraaErrorInvalidHandle,
+  6: MraaReturnCode.mraaErrorNoResources,
+  7: MraaReturnCode.mraaErrorInvalidResource,
+  8: MraaReturnCode.mraaErrorInvalidQueueType,
+  9: MraaReturnCode.mraaErrorNoDataAvailable,
+  10: MraaReturnCode.mraaErrorInvalidPlatform,
+  11: MraaReturnCode.mraaErrorPlatformNotInitialised,
+  12: MraaReturnCode.mraaErrorUartOwShorted,
+  13: MraaReturnCode.mraaErrorUartOwNoDevices,
+  14: MraaReturnCode.mraaErrorUartOwDataError,
+  99: MraaReturnCode.mraaErrorUnspecified
 };
 
 /// Return codes helper
-MraaEnumHelper<MraaReturnCodes> returnCodes =
-    MraaEnumHelper<MraaReturnCodes>(_returnCodesValues);
+MraaEnumHelper<MraaReturnCode> returnCode =
+    MraaEnumHelper<MraaReturnCode>(_returnCodesValues);

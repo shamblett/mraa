@@ -22,7 +22,7 @@ typedef MraaGpioInitialiseType = ffi.Pointer<MraaGpioContext> Function(int);
 typedef MraaGpioDirectionType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioReadType = int Function(ffi.Pointer<MraaGpioContext>);
 
-/// The GPIO MRAA Api
+/// The GPIO MRAA API
 class _MraaGpio {
   _MraaGpio(this._lib, this._noJsonLoading) {
     _setUpPointers();
@@ -53,9 +53,9 @@ class _MraaGpio {
 
   /// GPIO direction - mraa_gpio_dir
   /// Set Gpio(s) direction
-  MraaReturnCodes direction(
+  MraaReturnCode direction(
           ffi.Pointer<MraaGpioContext> context, MraaGpioDirection direction) =>
-      returnCodes
+      returnCode
           .fromInt(_directionFunc(context, gpioDirections.asInt(direction)));
 
   /// Read - mraa_gpio_read

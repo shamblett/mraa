@@ -35,13 +35,13 @@ int main() {
       expect(mraaVersion.contains('v2.0.0'), isTrue);
     });
     test('Initialise', () {
-      final MraaReturnCodes ret = mraa.common.initialise();
-      expect(ret, MraaReturnCodes.mraaSuccess);
+      final MraaReturnCode ret = mraa.common.initialise();
+      expect(ret, MraaReturnCode.mraaSuccess);
     });
     test('Log level', () {
       mraa.common.initialise();
-      final MraaReturnCodes ret = mraa.common.setLogLevel(7);
-      expect(ret, MraaReturnCodes.mraaSuccess);
+      final MraaReturnCode ret = mraa.common.setLogLevel(7);
+      expect(ret, MraaReturnCode.mraaSuccess);
     });
     test('Platform Name', () {
       mraa.common.initialise();
@@ -65,7 +65,7 @@ int main() {
     });
     test('Pin mode test', () {
       mraa.common.initialise();
-      final bool ret = mraa.common.pinmodeTest(2, MraaPinmodes.mraaPinAio);
+      final bool ret = mraa.common.pinmodeTest(2, MraaPinmode.mraaPinAio);
       expect(ret, isFalse);
     });
     test('ADC raw bits', () {
@@ -95,9 +95,9 @@ int main() {
     });
     test('Result print', () {
       mraa.common.initialise();
-      mraa.common.resultPrint(returnCodes.asInt(MraaReturnCodes.mraaSuccess));
-      mraa.common.resultPrint(
-          returnCodes.asInt(MraaReturnCodes.mraaErrorInvalidHandle));
+      mraa.common.resultPrint(returnCode.asInt(MraaReturnCode.mraaSuccess));
+      mraa.common
+          .resultPrint(returnCode.asInt(MraaReturnCode.mraaErrorInvalidHandle));
       mraa.common.resultPrint(100);
     });
     test('Platform combined type', () {
@@ -151,9 +151,9 @@ int main() {
     });
     test('Direction', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
-      final MraaReturnCodes ret =
+      final MraaReturnCode ret =
           mraa.gpio.direction(context, MraaGpioDirection.mraaGpioIn);
-      expect(ret, MraaReturnCodes.mraaErrorInvalidHandle);
+      expect(ret, MraaReturnCode.mraaErrorInvalidHandle);
     });
     test('Read', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
@@ -171,8 +171,8 @@ int main() {
     test('Close', () {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
-      final MraaReturnCodes ret = mraa.aio.close(context);
-      expect(ret, MraaReturnCodes.mraaSuccess);
+      final MraaReturnCode ret = mraa.aio.close(context);
+      expect(ret, MraaReturnCode.mraaSuccess);
     });
     test('Read', () {
       mraa.common.initialise();
@@ -190,8 +190,8 @@ int main() {
     test('Set bit', () {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
-      final MraaReturnCodes ret = mraa.aio.setBit(context, 10);
-      expect(ret, MraaReturnCodes.mraaSuccess);
+      final MraaReturnCode ret = mraa.aio.setBit(context, 10);
+      expect(ret, MraaReturnCode.mraaSuccess);
     });
     test('Get bit', () {
       mraa.common.initialise();
@@ -209,6 +209,11 @@ int main() {
     test('Initialise raw', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialiseRaw(0);
       expect(context, isNotNull);
+    });
+    test('Frequency', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final MraaReturnCode ret = mraa.i2c.frequency(context, MraaI2cMode.high);
+      expect(ret, MraaReturnCode.mraaErrorInvalidParameter);
     });
   });
 
