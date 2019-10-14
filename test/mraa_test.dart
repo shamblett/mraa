@@ -215,6 +215,14 @@ int main() {
       final MraaReturnCode ret = mraa.i2c.frequency(context, MraaI2cMode.high);
       expect(ret, MraaReturnCode.mraaErrorInvalidParameter);
     });
+    test('Read', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      const int length = 10;
+      final ffi.Pointer<ffi.Uint8> data =
+          ffi.Pointer<ffi.Uint8>.allocate(count: length);
+      final int ret = mraa.i2c.read(context, data, length);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   return 0;

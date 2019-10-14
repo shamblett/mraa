@@ -14,10 +14,14 @@ typedef returnMraaI2cContextIntParameterFunc = ffi.Pointer<MraaI2cContext>
     Function(ffi.Int32);
 typedef returnIntMraaI2CContextIntParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaI2cContext>, ffi.Int32);
+typedef returnIntMraaI2CContextUint8ArrayIntParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaI2cContext>, ffi.Pointer<ffi.Uint8>, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaI2cInitialiseType = ffi.Pointer<MraaI2cContext> Function(int);
 typedef MraaI2cFrequencyType = int Function(ffi.Pointer<MraaI2cContext>, int);
+typedef MraaI2cReadType = int Function(
+    ffi.Pointer<MraaI2cContext>, ffi.Pointer<ffi.Uint8>, int);
 
 /// The I2C MRAA API
 class _MraaI2c {
@@ -38,11 +42,15 @@ class _MraaI2c {
       _initRawPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaI2CContextIntParameterFunc>>
       _frequencyPointer;
+  ffi.Pointer<
+          ffi.NativeFunction<returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
+      _readPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _frequencyFunc;
+  dynamic _readFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions
@@ -61,6 +69,13 @@ class _MraaI2c {
           ffi.Pointer<MraaI2cContext> context, MraaI2cMode mode) =>
       returnCode.fromInt(_frequencyFunc(context, i2cMode.asInt(mode)));
 
+  /// Read - mraa_i2c_read
+  /// Simple bulk read from an i2c context upt length bytes
+  /// Returns the length read or MraaGeneralError
+  int read(ffi.Pointer<MraaI2cContext> context, ffi.Pointer<ffi.Uint8> data,
+          int length) =>
+      _readFunc(context, data, length);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
@@ -71,11 +86,16 @@ class _MraaI2c {
     _frequencyPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaI2CContextIntParameterFunc>>(
             'mraa_i2c_frequency');
+    _readPointer = _lib.lookup<
+            ffi.NativeFunction<
+                returnIntMraaI2CContextUint8ArrayIntParameterFunc>>(
+        'mraa_i2c_read');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaI2cInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaI2cInitialiseType>();
     _frequencyFunc = _frequencyPointer.asFunction<MraaI2cFrequencyType>();
+    _readFunc = _readPointer.asFunction<MraaI2cReadType>();
   }
 }
