@@ -147,6 +147,7 @@ int main() {
   group('GPIO', () {
     test('Initialise', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
+      expect(context, isNotNull);
     });
     test('Direction', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
@@ -165,6 +166,7 @@ int main() {
     test('Initialise', () {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      expect(context, isNotNull);
     });
     test('Close', () {
       mraa.common.initialise();
@@ -196,6 +198,13 @@ int main() {
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final int ret = mraa.aio.getBit(context);
       expect(ret, 10);
+    });
+  });
+
+  group('I2C', () {
+    test('Initialise', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      expect(context, isNotNull);
     });
   });
 

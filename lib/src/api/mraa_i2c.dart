@@ -10,8 +10,11 @@
 part of mraa;
 
 /// C Function type typedefs
+typedef returnMraaI2cContextIntParameterFunc = ffi.Pointer<MraaI2cContext>
+    Function(ffi.Int32);
 
 /// Dart Function typedefs
+typedef MraaI2cInitialiseType = ffi.Pointer<MraaI2cContext> Function(int);
 
 /// The GPIO MRAA Api
 class _MraaI2c {
@@ -26,10 +29,24 @@ class _MraaI2c {
   bool _noJsonLoading = false;
 
   /// C Pointers
+  ffi.Pointer<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>
+      _initPointer;
 
   /// Dart Functions
+  dynamic _initFunc;
 
-  void _setUpPointers() {}
+  /// Initialise - mraa_i2c_init
+  /// Initialise I2C context, using board defintions
+  /// Returns the I2C context or null
+  ffi.Pointer<MraaI2cContext> initialise(int bus) => _initFunc(bus);
 
-  void _setUpFunctions() {}
+  void _setUpPointers() {
+    _initPointer =
+        _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
+            'mraa_i2c_init');
+  }
+
+  void _setUpFunctions() {
+    _initFunc = _initPointer.asFunction<MraaI2cInitialiseType>();
+  }
 }
