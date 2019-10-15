@@ -143,6 +143,11 @@ int main() {
       final int ret = mraa.common.i2cBusCount();
       expect(ret, 1);
     });
+    test('I2c Bus id', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.i2cBusId(0);
+      expect(ret, 0);
+    });
   });
 
   group('GPIO', () {
