@@ -6,6 +6,7 @@
  */
 
 import 'dart:ffi' as ffi;
+import 'dart:typed_data';
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 import 'support/mraa_platform_helper.dart';
@@ -245,6 +246,18 @@ int main() {
           ffi.Pointer<ffi.Uint8>.allocate(count: length);
       final int ret = mraa.i2c.readBytesData(context, 0, data, length);
       expect(ret, Mraa.mraaGeneralError);
+    });
+    test('Write', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Uint8List values = Uint8List.fromList(<int>[1,2,3,4,5]);
+      final ffi.Pointer<ffi.Uint8> data = ffi.Pointer<ffi.Uint8>.allocate(count:values.length);
+      final Uint8List dataItems = data.asExternalTypedData(count:values.length);
+      final int length = values.length;
+      for(int i=0; i<length; i++) {
+        dataItems[i] = values[i];
+      }
+      final MraaReturnCode ret = mraa.i2c.write(context, data, length);
+      expect(ret, MraaReturnCode.mraaErrorUnspecified);
     });
   });
 

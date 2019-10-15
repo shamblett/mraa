@@ -36,6 +36,8 @@ typedef MraaI2cReadWordDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int);
 typedef MraaI2cReadBytesDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int, ffi.Pointer<ffi.Uint8>, int);
+typedef MraaI2cWriteType = int Function(
+    ffi.Pointer<MraaI2cContext>, ffi.Pointer<ffi.Uint8>, int);
 
 /// The I2C MRAA API
 class _MraaI2c {
@@ -69,6 +71,9 @@ class _MraaI2c {
           ffi.NativeFunction<
               returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>
       _readBytesDataPointer;
+  ffi.Pointer<
+          ffi.NativeFunction<returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
+      _writePointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -79,6 +84,7 @@ class _MraaI2c {
   dynamic _readByteDataFunc;
   dynamic _readWordDataFunc;
   dynamic _readBytesDataFunc;
+  dynamic _writeFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions
@@ -128,6 +134,12 @@ class _MraaI2c {
           ffi.Pointer<ffi.Uint8> data, int length) =>
       _readBytesDataFunc(context, command, data, length);
 
+  /// Write - mraa_i2c_read
+  /// Write length bytes to the bus, the first byte in the array is the command/register to write.
+  MraaReturnCode write(ffi.Pointer<MraaI2cContext> context, ffi.Pointer<ffi.Uint8> data,
+          int length) =>
+      returnCode.fromInt(_writeFunc(context, data, length));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
@@ -155,6 +167,10 @@ class _MraaI2c {
             ffi.NativeFunction<
                 returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>(
         'mraa_i2c_read_bytes_data');
+    _writePointer = _lib.lookup<
+            ffi.NativeFunction<
+                returnIntMraaI2CContextUint8ArrayIntParameterFunc>>(
+        'mraa_i2c_write');
   }
 
   void _setUpFunctions() {
@@ -169,5 +185,6 @@ class _MraaI2c {
         _readWordDataPointer.asFunction<MraaI2cReadWordDataType>();
     _readBytesDataFunc =
         _readBytesDataPointer.asFunction<MraaI2cReadBytesDataType>();
+    _writeFunc = _writePointer.asFunction<MraaI2cWriteType>();
   }
 }
