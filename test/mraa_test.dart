@@ -160,6 +160,13 @@ int main() {
       ret = mraa.common.pinName(2);
       expect(ret, 'I2C0SDA');
     });
+    test('GPIO lookup', () {
+      mraa.common.initialise();
+      int ret = mraa.common.gpioLookup('ADC0');
+      expect(ret, Mraa.mraaGeneralError);
+      ret = mraa.common.gpioLookup('I2C0SDA');
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('GPIO', () {
