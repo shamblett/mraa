@@ -249,14 +249,21 @@ int main() {
     });
     test('Write', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
-      final Uint8List values = Uint8List.fromList(<int>[1,2,3,4,5]);
-      final ffi.Pointer<ffi.Uint8> data = ffi.Pointer<ffi.Uint8>.allocate(count:values.length);
-      final Uint8List dataItems = data.asExternalTypedData(count:values.length);
+      final Uint8List values = Uint8List.fromList(<int>[1, 2, 3, 4, 5]);
+      final ffi.Pointer<ffi.Uint8> data =
+          ffi.Pointer<ffi.Uint8>.allocate(count: values.length);
+      final Uint8List dataItems =
+          data.asExternalTypedData(count: values.length);
       final int length = values.length;
-      for(int i=0; i<length; i++) {
+      for (int i = 0; i < length; i++) {
         dataItems[i] = values[i];
       }
       final MraaReturnCode ret = mraa.i2c.write(context, data, length);
+      expect(ret, MraaReturnCode.mraaErrorUnspecified);
+    });
+    test('Write byte', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final MraaReturnCode ret = mraa.i2c.writeByte(context, 8);
       expect(ret, MraaReturnCode.mraaErrorUnspecified);
     });
   });
