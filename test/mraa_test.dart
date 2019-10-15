@@ -276,6 +276,16 @@ int main() {
       final MraaReturnCode ret = mraa.i2c.writeWordData(context, 8, 0);
       expect(ret, MraaReturnCode.mraaErrorUnspecified);
     });
+    test('Address', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final MraaReturnCode ret = mraa.i2c.address(context, 8);
+      expect(ret, MraaReturnCode.mraaSuccess);
+    });
+    test('Stop', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final MraaReturnCode ret = mraa.i2c.stop(context);
+      expect(ret, MraaReturnCode.mraaSuccess);
+    });
   });
 
   return 0;

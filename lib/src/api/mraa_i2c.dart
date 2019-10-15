@@ -47,6 +47,8 @@ typedef MraaI2cWriteByteDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int, int);
 typedef MraaI2cWriteWordDataType = int Function(
     ffi.Pointer<MraaI2cContext>, int, int);
+typedef MraaI2cAddressType = int Function(ffi.Pointer<MraaI2cContext>, int);
+typedef MraaI2cStopType = int Function(ffi.Pointer<MraaI2cContext>);
 
 /// The I2C MRAA API
 class _MraaI2c {
@@ -91,6 +93,10 @@ class _MraaI2c {
   ffi.Pointer<
           ffi.NativeFunction<returnIntMraaI2CContextUint16Uint8ParameterFunc>>
       _writeWordDataPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>
+      _addressPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaI2CContextParameterFunc>>
+      _stopPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -105,6 +111,8 @@ class _MraaI2c {
   dynamic _writeByteFunc;
   dynamic _writeByteDataFunc;
   dynamic _writeWordDataFunc;
+  dynamic _addressFunc;
+  dynamic _stopFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions
@@ -177,6 +185,16 @@ class _MraaI2c {
           ffi.Pointer<MraaI2cContext> context, int data, int command) =>
       returnCode.fromInt(_writeWordDataFunc(context, data, command));
 
+  /// Address - mraa_i2c_address
+  /// Sets the i2c slave address.
+  MraaReturnCode address(ffi.Pointer<MraaI2cContext> context, int address) =>
+      returnCode.fromInt(_addressFunc(context, address));
+
+  /// Stop - mraa_i2c_stop
+  /// De-inits an mraa_i2c_context device
+  MraaReturnCode stop(ffi.Pointer<MraaI2cContext> context) =>
+      returnCode.fromInt(_stopFunc(context));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaI2cContextIntParameterFunc>>(
@@ -218,6 +236,12 @@ class _MraaI2c {
             ffi.NativeFunction<
                 returnIntMraaI2CContextUint16Uint8ParameterFunc>>(
         'mraa_i2c_write_word_data');
+    _addressPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaI2CContextUint8ParameterFunc>>(
+            'mraa_i2c_address');
+    _stopPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaI2CContextParameterFunc>>(
+            'mraa_i2c_stop');
   }
 
   void _setUpFunctions() {
@@ -238,5 +262,7 @@ class _MraaI2c {
         _writeByteDataPointer.asFunction<MraaI2cWriteByteDataType>();
     _writeWordDataFunc =
         _writeWordDataPointer.asFunction<MraaI2cWriteWordDataType>();
+    _addressFunc = _addressPointer.asFunction<MraaI2cAddressType>();
+    _stopFunc = _stopPointer.asFunction<MraaI2cStopType>();
   }
 }
