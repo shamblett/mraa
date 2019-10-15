@@ -148,6 +148,11 @@ int main() {
       final int ret = mraa.common.i2cBusId(0);
       expect(ret, 0);
     });
+    test('Platform pin count', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.platformPinCount(0);
+      expect(ret, 10);
+    });
   });
 
   group('GPIO', () {
