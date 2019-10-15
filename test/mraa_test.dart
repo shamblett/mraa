@@ -271,6 +271,11 @@ int main() {
       final MraaReturnCode ret = mraa.i2c.writeByteData(context, 8, 0);
       expect(ret, MraaReturnCode.mraaErrorUnspecified);
     });
+    test('Write word data', () {
+      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final MraaReturnCode ret = mraa.i2c.writeWordData(context, 8, 0);
+      expect(ret, MraaReturnCode.mraaErrorUnspecified);
+    });
   });
 
   return 0;
