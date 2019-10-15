@@ -153,6 +153,13 @@ int main() {
       final int ret = mraa.common.platformPinCount(0);
       expect(ret, 10);
     });
+    test('Pin Name', () {
+      mraa.common.initialise();
+      String ret = mraa.common.pinName(1);
+      expect(ret, 'ADC0');
+      ret = mraa.common.pinName(2);
+      expect(ret, 'I2C0SDA');
+    });
   });
 
   group('GPIO', () {
