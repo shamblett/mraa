@@ -251,6 +251,12 @@ int main() {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialiseRaw(4);
       expect(context, isNotNull);
     });
+    test('Edge mode', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret =
+          mraa.gpio.edgeMode(context, MraaGpioEdge.falling);
+      expect(ret, MraaReturnCode.mraaErrorInvalidHandle);
+    });
   });
 
   group('AIO', () {

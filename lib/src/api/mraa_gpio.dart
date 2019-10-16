@@ -26,6 +26,7 @@ typedef MraaGpioReadType = int Function(ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioInitialiseMultiType = ffi.Pointer<MraaGpioContext> Function(
     ffi.Pointer<ffi.Int32>, int);
 typedef MraaGpioInitialiseRawType = ffi.Pointer<MraaGpioContext> Function(int);
+typedef MraaGpioEdgeModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
 class _MraaGpio {
@@ -50,6 +51,8 @@ class _MraaGpio {
       _initialiseMultiPointer;
   ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
       _initialiseRawPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _edgeModePointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -57,6 +60,7 @@ class _MraaGpio {
   dynamic _readFunc;
   dynamic _initialiseMultiFunc;
   dynamic _initialiseRawFunc;
+  dynamic _edgeModeFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -93,6 +97,13 @@ class _MraaGpio {
   /// Pin supplied is as listed in SYSFS
   ffi.Pointer<MraaGpioContext> initialiseRaw(int gpioPin) =>
       _initialiseRawFunc(gpioPin);
+
+  /// Edge mode - mraa_gpio_edge_mode
+  /// Set the edge mode on the gpio
+  MraaReturnCode edgeMode(
+          ffi.Pointer<MraaGpioContext> dev, MraaGpioEdge mode) =>
+      returnCode.fromInt(_edgeModeFunc(dev, gpioEdge.asInt(mode)));
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -109,6 +120,9 @@ class _MraaGpio {
     _initialiseRawPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
             'mraa_gpio_init_raw');
+    _edgeModePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_edge_mode');
   }
 
   void _setUpFunctions() {
@@ -119,5 +133,6 @@ class _MraaGpio {
         _initialiseMultiPointer.asFunction<MraaGpioInitialiseMultiType>();
     _initialiseRawFunc =
         _initialiseRawPointer.asFunction<MraaGpioInitialiseRawType>();
+    _edgeModeFunc = _edgeModePointer.asFunction<MraaGpioEdgeModeType>();
   }
 }
