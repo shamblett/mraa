@@ -187,6 +187,11 @@ int main() {
       final int ret = mraa.common.uartLookup('UART1');
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Default I2C bus', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.defaultI2cBus(0);
+      expect(ret, 0);
+    });
   });
 
   group('GPIO', () {
