@@ -207,6 +207,11 @@ int main() {
       final int ret = mraa.common.subPlatformId(1);
       expect(ret, 513);
     });
+    test('Sub platform index', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.subPlatformIndex(513);
+      expect(ret, 1);
+    });
   });
 
   group('GPIO', () {
