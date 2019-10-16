@@ -18,6 +18,8 @@ typedef returnIntGpioContextParametersFunc = ffi.Int32 Function(
     ffi.Pointer<MraaGpioContext>);
 typedef returnMraaGpioContextIntArrayIntParameterFunc
     = ffi.Pointer<MraaGpioContext> Function(ffi.Pointer<ffi.Int32>, ffi.Int32);
+typedef returnMraaGpioEventArrayMraaGpioContextParameter
+    = ffi.Pointer<MraaGpioEvent> Function(ffi.Pointer<MraaGpioContext>);
 
 /// Dart Function typedefs
 typedef MraaGpioInitialiseType = ffi.Pointer<MraaGpioContext> Function(int);
@@ -27,6 +29,8 @@ typedef MraaGpioInitialiseMultiType = ffi.Pointer<MraaGpioContext> Function(
     ffi.Pointer<ffi.Int32>, int);
 typedef MraaGpioInitialiseRawType = ffi.Pointer<MraaGpioContext> Function(int);
 typedef MraaGpioEdgeModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioEventsType = ffi.Pointer<MraaGpioEvent> Function(
+    ffi.Pointer<MraaGpioContext>);
 
 /// The GPIO MRAA API
 class _MraaGpio {
@@ -39,6 +43,8 @@ class _MraaGpio {
   ffi.DynamicLibrary _lib;
 
   bool _noJsonLoading = false;
+
+  int _initialiseMultiPinCount = 0;
 
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
@@ -53,6 +59,9 @@ class _MraaGpio {
       _initialiseRawPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
       _edgeModePointer;
+  ffi.Pointer<
+          ffi.NativeFunction<returnMraaGpioEventArrayMraaGpioContextParameter>>
+      _eventsPointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -61,6 +70,7 @@ class _MraaGpio {
   dynamic _initialiseMultiFunc;
   dynamic _initialiseRawFunc;
   dynamic _edgeModeFunc;
+  dynamic _eventsFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -89,6 +99,7 @@ class _MraaGpio {
     for (int i = 0; i < length; i++) {
       dataItems[i] = values[i];
     }
+    _initialiseMultiPinCount = numPins;
     return _initialiseMultiFunc(mpins, numPins);
   }
 
@@ -103,6 +114,27 @@ class _MraaGpio {
   MraaReturnCode edgeMode(
           ffi.Pointer<MraaGpioContext> dev, MraaGpioEdge mode) =>
       returnCode.fromInt(_edgeModeFunc(dev, gpioEdge.asInt(mode)));
+
+  /// Events - mraa_gpio_get_events
+  /// Get an array of structures describing triggered events.
+  /// Returns a list of events containing pairs of pin id's and the associated timestamp.
+  /// An event with negative id value indicates that no event was triggered for the respective pin.
+  /// The list length is that of the number of pins provided in initialiseMulti(). Note if this
+  /// has not been called we cant get the event list so we return null.
+  List<MraaGpioEvent> events(ffi.Pointer<MraaGpioContext> dev) {
+    if (_initialiseMultiPinCount == 0) {
+      return null;
+    }
+    final ffi.Pointer<MraaGpioEvent> mevents = _eventsFunc(dev);
+    final List<MraaGpioEvent> events = <MraaGpioEvent>[];
+    if (mevents.address == 0) {
+      return events;
+    }
+    for (int i = 0; i < _initialiseMultiPinCount; i++) {
+      events.add(mevents.elementAt(i).load());
+    }
+    return events;
+  }
 
   void _setUpPointers() {
     _initialisePointer =
@@ -123,6 +155,10 @@ class _MraaGpio {
     _edgeModePointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_edge_mode');
+    _eventsPointer = _lib.lookup<
+            ffi.NativeFunction<
+                returnMraaGpioEventArrayMraaGpioContextParameter>>(
+        'mraa_gpio_get_events');
   }
 
   void _setUpFunctions() {
@@ -134,5 +170,6 @@ class _MraaGpio {
     _initialiseRawFunc =
         _initialiseRawPointer.asFunction<MraaGpioInitialiseRawType>();
     _edgeModeFunc = _edgeModePointer.asFunction<MraaGpioEdgeModeType>();
+    _eventsFunc = _eventsPointer.asFunction<MraaGpioEventsType>();
   }
 }
