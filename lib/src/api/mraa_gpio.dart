@@ -16,11 +16,15 @@ typedef returnIntGpioContextIntParametersFunc = ffi.Int32 Function(
     ffi.Pointer<MraaGpioContext>, ffi.Int32);
 typedef returnIntGpioContextParametersFunc = ffi.Int32 Function(
     ffi.Pointer<MraaGpioContext>);
+typedef returnMraaGpioContextIntArrayIntParameterFunc
+    = ffi.Pointer<MraaGpioContext> Function(ffi.Pointer<ffi.Int32>, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaGpioInitialiseType = ffi.Pointer<MraaGpioContext> Function(int);
 typedef MraaGpioDirectionType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioReadType = int Function(ffi.Pointer<MraaGpioContext>);
+typedef MraaGpioInitialiseMultiType = ffi.Pointer<MraaGpioContext> Function(
+    ffi.Pointer<ffi.Int32>, int);
 
 /// The GPIO MRAA API
 class _MraaGpio {
@@ -36,21 +40,23 @@ class _MraaGpio {
 
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
-      _initPointer;
+      _initialisePointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
       _directionPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
       _readPointer;
+  ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>
+      _initialiseMultiPointer;
 
   /// Dart Functions
-  dynamic _initFunc;
+  dynamic _initialiseFunc;
   dynamic _directionFunc;
   dynamic _readFunc;
-  dynamic _initMultiFunc;
+  dynamic _initialiseMultiFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
-  ffi.Pointer<MraaGpioContext> initialise(int pin) => _initFunc(pin);
+  ffi.Pointer<MraaGpioContext> initialise(int pin) => _initialiseFunc(pin);
 
   /// GPIO direction - mraa_gpio_dir
   /// Set Gpio(s) direction
@@ -64,8 +70,22 @@ class _MraaGpio {
   /// A response of -1 means that there was a fatal error.
   int read(ffi.Pointer<MraaGpioContext> context) => _readFunc(context);
 
+  /// Initialise multi - mraa_gpio_init_multi
+  /// Initialise gpio_context, based on board number, for multiple pins (can be one).
+  ffi.Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
+    final ffi.Pointer<ffi.Int32> mpins =
+        ffi.Pointer<ffi.Int32>.allocate(count: numPins);
+    final Int32List values = Int32List.fromList(pins);
+    final Int32List dataItems = mpins.asExternalTypedData(count: values.length);
+    final int length = values.length;
+    for (int i = 0; i < length; i++) {
+      dataItems[i] = values[i];
+    }
+    return _initialiseMultiFunc(mpins, numPins);
+  }
+
   void _setUpPointers() {
-    _initPointer =
+    _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
             'mraa_gpio_init');
     _directionPointer =
@@ -74,11 +94,16 @@ class _MraaGpio {
     _readPointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
             'mraa_gpio_read');
+    _initialiseMultiPointer = _lib.lookup<
+            ffi.NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>(
+        'mraa_gpio_init_multi');
   }
 
   void _setUpFunctions() {
-    _initFunc = _initPointer.asFunction<MraaGpioInitialiseType>();
+    _initialiseFunc = _initialisePointer.asFunction<MraaGpioInitialiseType>();
     _directionFunc = _directionPointer.asFunction<MraaGpioDirectionType>();
     _readFunc = _readPointer.asFunction<MraaGpioReadType>();
+    _initialiseMultiFunc =
+        _initialiseMultiPointer.asFunction<MraaGpioInitialiseMultiType>();
   }
 }

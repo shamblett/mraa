@@ -242,6 +242,11 @@ int main() {
       final int ret = mraa.gpio.read(context);
       expect(ret == Mraa.mraaGeneralError, isTrue);
     });
+    test('Initialise multi', () {
+      final ffi.Pointer<MraaGpioContext> context =
+          mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
+      expect(context, isNotNull);
+    });
   });
 
   group('AIO', () {
