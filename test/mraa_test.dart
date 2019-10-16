@@ -172,6 +172,11 @@ int main() {
       final int ret = mraa.common.i2cLookup('I2C6');
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('SPI lookup', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.spiLookup('SPI2');
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('GPIO', () {
