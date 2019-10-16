@@ -218,6 +218,12 @@ int main() {
           mraa.common.addSubplatform(MraaPlatformType.mraa96boards, '"I2C');
       expect(ret != MraaReturnCode.mraaSuccess, isTrue);
     });
+    test('Remove subplatform', () {
+      mraa.common.initialise();
+      final MraaReturnCode ret =
+          mraa.common.removeSubplatform(MraaPlatformType.mraa96boards);
+      expect(ret != MraaReturnCode.mraaSuccess, isTrue);
+    });
   });
 
   group('GPIO', () {
