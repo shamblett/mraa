@@ -197,6 +197,11 @@ int main() {
       final bool ret = mraa.common.hasSubPlatform();
       expect(ret, isFalse);
     });
+    test('Is sub platform id', () {
+      mraa.common.initialise();
+      final bool ret = mraa.common.isSubPlatformId(1);
+      expect(ret, isFalse);
+    });
   });
 
   group('GPIO', () {
