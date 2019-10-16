@@ -212,6 +212,12 @@ int main() {
       final int ret = mraa.common.subPlatformIndex(513);
       expect(ret, 1);
     });
+    test('Add subplatform', () {
+      mraa.common.initialise();
+      final MraaReturnCode ret =
+          mraa.common.addSubplatform(MraaPlatformType.mraa96boards, '"I2C');
+      expect(ret != MraaReturnCode.mraaSuccess, isTrue);
+    });
   });
 
   group('GPIO', () {
