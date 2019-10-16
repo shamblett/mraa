@@ -192,6 +192,11 @@ int main() {
       final int ret = mraa.common.defaultI2cBus(0);
       expect(ret, 0);
     });
+    test('Has sub platform', () {
+      mraa.common.initialise();
+      final bool ret = mraa.common.hasSubPlatform();
+      expect(ret, isFalse);
+    });
   });
 
   group('GPIO', () {
