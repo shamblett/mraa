@@ -177,6 +177,11 @@ int main() {
       final int ret = mraa.common.spiLookup('SPI2');
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('PWM lookup', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.pwmLookup('PWM0');
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('GPIO', () {
