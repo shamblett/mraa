@@ -247,6 +247,10 @@ int main() {
           mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
       expect(context, isNotNull);
     });
+    test('Initialise raw', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialiseRaw(4);
+      expect(context, isNotNull);
+    });
   });
 
   group('AIO', () {

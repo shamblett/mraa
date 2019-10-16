@@ -25,6 +25,7 @@ typedef MraaGpioDirectionType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioReadType = int Function(ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioInitialiseMultiType = ffi.Pointer<MraaGpioContext> Function(
     ffi.Pointer<ffi.Int32>, int);
+typedef MraaGpioInitialiseRawType = ffi.Pointer<MraaGpioContext> Function(int);
 
 /// The GPIO MRAA API
 class _MraaGpio {
@@ -47,12 +48,15 @@ class _MraaGpio {
       _readPointer;
   ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>
       _initialiseMultiPointer;
+  ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
+      _initialiseRawPointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
   dynamic _directionFunc;
   dynamic _readFunc;
   dynamic _initialiseMultiFunc;
+  dynamic _initialiseRawFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -84,6 +88,11 @@ class _MraaGpio {
     return _initialiseMultiFunc(mpins, numPins);
   }
 
+  /// Initialise raw - mraa_gpio_init_raw
+  /// Initialise gpio context without any mapping to a pin
+  /// Pin supplied is as listed in SYSFS
+  ffi.Pointer<MraaGpioContext> initialiseRaw(int gpioPin) =>
+      _initialiseRawFunc(gpioPin);
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -97,6 +106,9 @@ class _MraaGpio {
     _initialiseMultiPointer = _lib.lookup<
             ffi.NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>(
         'mraa_gpio_init_multi');
+    _initialiseRawPointer =
+        _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
+            'mraa_gpio_init_raw');
   }
 
   void _setUpFunctions() {
@@ -105,5 +117,7 @@ class _MraaGpio {
     _readFunc = _readPointer.asFunction<MraaGpioReadType>();
     _initialiseMultiFunc =
         _initialiseMultiPointer.asFunction<MraaGpioInitialiseMultiType>();
+    _initialiseRawFunc =
+        _initialiseRawPointer.asFunction<MraaGpioInitialiseRawType>();
   }
 }
