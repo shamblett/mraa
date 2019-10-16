@@ -46,6 +46,7 @@ class _MraaGpio {
   dynamic _initFunc;
   dynamic _directionFunc;
   dynamic _readFunc;
+  dynamic _initMultiFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
