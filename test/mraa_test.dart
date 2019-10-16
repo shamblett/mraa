@@ -182,6 +182,11 @@ int main() {
       final int ret = mraa.common.pwmLookup('PWM0');
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('UART lookup', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.uartLookup('UART1');
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('GPIO', () {
