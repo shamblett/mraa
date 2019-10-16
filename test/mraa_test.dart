@@ -167,6 +167,11 @@ int main() {
       ret = mraa.common.gpioLookup('I2C0SDA');
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('I2C lookup', () {
+      mraa.common.initialise();
+      final int ret = mraa.common.i2cLookup('I2C6');
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('GPIO', () {
