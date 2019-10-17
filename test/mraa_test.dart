@@ -262,6 +262,12 @@ int main() {
       final List<MraaGpioEvent> events = mraa.gpio.events(context);
       expect(events, isEmpty);
     });
+    test('Mode', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret =
+          mraa.gpio.mode(context, MraaGpioOutputMode.pullup);
+      expect(ret, MraaReturnCode.mraaErrorInvalidHandle);
+    });
   });
 
   group('AIO', () {

@@ -31,6 +31,7 @@ typedef MraaGpioInitialiseRawType = ffi.Pointer<MraaGpioContext> Function(int);
 typedef MraaGpioEdgeModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioEventsType = ffi.Pointer<MraaGpioEvent> Function(
     ffi.Pointer<MraaGpioContext>);
+typedef MraaGpioModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
 class _MraaGpio {
@@ -62,6 +63,8 @@ class _MraaGpio {
   ffi.Pointer<
           ffi.NativeFunction<returnMraaGpioEventArrayMraaGpioContextParameter>>
       _eventsPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _modePointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -71,6 +74,7 @@ class _MraaGpio {
   dynamic _initialiseRawFunc;
   dynamic _edgeModeFunc;
   dynamic _eventsFunc;
+  dynamic _modeFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -136,6 +140,12 @@ class _MraaGpio {
     return events;
   }
 
+  /// Mode - mraa_gpio_mode
+  /// Set Gpio(s) Output Mode,
+  MraaReturnCode mode(
+          ffi.Pointer<MraaGpioContext> dev, MraaGpioOutputMode mode) =>
+      returnCode.fromInt(_modeFunc(dev, gpioOutputModes.asInt(mode)));
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -159,6 +169,9 @@ class _MraaGpio {
             ffi.NativeFunction<
                 returnMraaGpioEventArrayMraaGpioContextParameter>>(
         'mraa_gpio_get_events');
+    _modePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_mode');
   }
 
   void _setUpFunctions() {
@@ -171,5 +184,6 @@ class _MraaGpio {
         _initialiseRawPointer.asFunction<MraaGpioInitialiseRawType>();
     _edgeModeFunc = _edgeModePointer.asFunction<MraaGpioEdgeModeType>();
     _eventsFunc = _eventsPointer.asFunction<MraaGpioEventsType>();
+    _modeFunc = _modePointer.asFunction<MraaGpioModeType>();
   }
 }
