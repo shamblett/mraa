@@ -25,7 +25,7 @@ int main() {
     mraa.common.initialise();
     final MraaReturnCode ret =
         mraa.common.initialiseJsonPlatform('test/test_board.json');
-    expect(ret, MraaReturnCode.mraaSuccess);
+    expect(ret, MraaReturnCode.success);
   });
   test('No JSON loading', () {
     mraa.noJsonLoading = true;
@@ -33,7 +33,7 @@ int main() {
     mraa.common.initialise();
     final MraaReturnCode ret =
         mraa.common.initialiseJsonPlatform('test/test_board.json');
-    expect(ret, MraaReturnCode.mraaErrorFeatureNotSupported);
+    expect(ret, MraaReturnCode.errorFeatureNotSupported);
   });
   return 0;
 }

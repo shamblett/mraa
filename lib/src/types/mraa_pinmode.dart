@@ -10,40 +10,40 @@ part of mraa;
 /// The different possible modes for a pin.
 enum MraaPinmode {
   /// Pin Valid
-  mraaPinValid,
+  valid,
 
   /// General Purpose IO
-  mraaPinGpio,
+  gpio,
 
   /// Pulse Width Modulation
-  mraaPinPwm,
+  pwm,
 
   /// Faster GPIO
-  mraaPinFastGpio,
+  fastGpio,
 
   /// SPI
-  mraaPinSpi,
+  spi,
 
   /// I2C
-  mraaPinI2c,
+  i2c,
 
   /// Analog in
-  mraaPinAio,
+  aio,
 
   /// UART
-  mraaPinUart
+  uart
 }
 
 /// Pinmodes type support
 const Map<int, MraaPinmode> _pinModesValues = <int, MraaPinmode>{
-  0: MraaPinmode.mraaPinValid,
-  1: MraaPinmode.mraaPinGpio,
-  2: MraaPinmode.mraaPinPwm,
-  3: MraaPinmode.mraaPinFastGpio,
-  4: MraaPinmode.mraaPinSpi,
-  5: MraaPinmode.mraaPinI2c,
-  6: MraaPinmode.mraaPinAio,
-  7: MraaPinmode.mraaPinUart
+  0: MraaPinmode.valid,
+  1: MraaPinmode.gpio,
+  2: MraaPinmode.pwm,
+  3: MraaPinmode.fastGpio,
+  4: MraaPinmode.spi,
+  5: MraaPinmode.i2c,
+  6: MraaPinmode.aio,
+  7: MraaPinmode.uart
 };
 
 /// Pinmodes types helper

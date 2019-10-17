@@ -37,12 +37,12 @@ int main() {
     });
     test('Initialise', () {
       final MraaReturnCode ret = mraa.common.initialise();
-      expect(ret, MraaReturnCode.mraaSuccess);
+      expect(ret, MraaReturnCode.success);
     });
     test('Log level', () {
       mraa.common.initialise();
       final MraaReturnCode ret = mraa.common.setLogLevel(7);
-      expect(ret, MraaReturnCode.mraaSuccess);
+      expect(ret, MraaReturnCode.success);
     });
     test('Platform Name', () {
       mraa.common.initialise();
@@ -66,7 +66,7 @@ int main() {
     });
     test('Pin mode test', () {
       mraa.common.initialise();
-      final bool ret = mraa.common.pinmodeTest(2, MraaPinmode.mraaPinAio);
+      final bool ret = mraa.common.pinmodeTest(2, MraaPinmode.aio);
       expect(ret, isFalse);
     });
     test('ADC raw bits', () {
@@ -96,17 +96,17 @@ int main() {
     });
     test('Result print', () {
       mraa.common.initialise();
-      mraa.common.resultPrint(returnCode.asInt(MraaReturnCode.mraaSuccess));
+      mraa.common.resultPrint(returnCode.asInt(MraaReturnCode.success));
       mraa.common
-          .resultPrint(returnCode.asInt(MraaReturnCode.mraaErrorInvalidHandle));
+          .resultPrint(returnCode.asInt(MraaReturnCode.errorInvalidHandle));
       mraa.common.resultPrint(100);
     });
     test('Platform combined type', () {
       mraa.common.initialise();
       final int ret = mraa.common.platformCombinedType();
       final MraaCombinedTypeDecode decoded = decodeCombinedType(ret);
-      expect(decoded.mainPlatform, MraaPlatformType.mraaMockPlatform);
-      expect(decoded.subPlatform, MraaPlatformType.mraaIntelGalileoGen1);
+      expect(decoded.mainPlatform, MraaPlatformType.mockPlatform);
+      expect(decoded.subPlatform, MraaPlatformType.intelGalileoGen1);
     });
     test('Pin count', () {
       mraa.common.initialise();
@@ -215,14 +215,14 @@ int main() {
     test('Add subplatform', () {
       mraa.common.initialise();
       final MraaReturnCode ret =
-          mraa.common.addSubplatform(MraaPlatformType.mraa96boards, '"I2C');
-      expect(ret != MraaReturnCode.mraaSuccess, isTrue);
+          mraa.common.addSubplatform(MraaPlatformType.a96boards, '"I2C');
+      expect(ret != MraaReturnCode.success, isTrue);
     });
     test('Remove subplatform', () {
       mraa.common.initialise();
       final MraaReturnCode ret =
-          mraa.common.removeSubplatform(MraaPlatformType.mraa96boards);
-      expect(ret != MraaReturnCode.mraaSuccess, isTrue);
+          mraa.common.removeSubplatform(MraaPlatformType.a96boards);
+      expect(ret != MraaReturnCode.success, isTrue);
     });
   });
 
@@ -234,8 +234,8 @@ int main() {
     test('Direction', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
       final MraaReturnCode ret =
-          mraa.gpio.direction(context, MraaGpioDirection.mraaGpioIn);
-      expect(ret, MraaReturnCode.mraaErrorInvalidHandle);
+          mraa.gpio.direction(context, MraaGpioDirection.inn);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
@@ -255,7 +255,7 @@ int main() {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret =
           mraa.gpio.edgeMode(context, MraaGpioEdge.falling);
-      expect(ret, MraaReturnCode.mraaErrorInvalidHandle);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Events', () {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
@@ -266,7 +266,7 @@ int main() {
       final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret =
           mraa.gpio.mode(context, MraaGpioOutputMode.pullup);
-      expect(ret, MraaReturnCode.mraaErrorInvalidHandle);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
     });
   });
 
@@ -280,7 +280,7 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final MraaReturnCode ret = mraa.aio.close(context);
-      expect(ret, MraaReturnCode.mraaSuccess);
+      expect(ret, MraaReturnCode.success);
     });
     test('Read', () {
       mraa.common.initialise();
@@ -299,7 +299,7 @@ int main() {
       mraa.common.initialise();
       final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final MraaReturnCode ret = mraa.aio.setBit(context, 10);
-      expect(ret, MraaReturnCode.mraaSuccess);
+      expect(ret, MraaReturnCode.success);
     });
     test('Get bit', () {
       mraa.common.initialise();
@@ -321,7 +321,7 @@ int main() {
     test('Frequency', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.frequency(context, MraaI2cMode.high);
-      expect(ret, MraaReturnCode.mraaErrorInvalidParameter);
+      expect(ret, MraaReturnCode.errorInvalidParameter);
     });
     test('Read', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
@@ -366,32 +366,32 @@ int main() {
         dataItems[i] = values[i];
       }
       final MraaReturnCode ret = mraa.i2c.write(context, data, length);
-      expect(ret, MraaReturnCode.mraaErrorUnspecified);
+      expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write byte', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.writeByte(context, 8);
-      expect(ret, MraaReturnCode.mraaErrorUnspecified);
+      expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write byte data', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.writeByteData(context, 8, 0);
-      expect(ret, MraaReturnCode.mraaErrorUnspecified);
+      expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write word data', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.writeWordData(context, 8, 0);
-      expect(ret, MraaReturnCode.mraaErrorUnspecified);
+      expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Address', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.address(context, 8);
-      expect(ret, MraaReturnCode.mraaSuccess);
+      expect(ret, MraaReturnCode.success);
     });
     test('Stop', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.stop(context);
-      expect(ret, MraaReturnCode.mraaSuccess);
+      expect(ret, MraaReturnCode.success);
     });
   });
 

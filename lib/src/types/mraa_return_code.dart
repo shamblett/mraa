@@ -10,72 +10,72 @@ part of mraa;
 /// MRAA function return(result) codes
 enum MraaReturnCode {
   /// < Expected response
-  mraaSuccess,
+  success,
 
   /// < Feature TODO
-  mraaErrorFeatureNotImplemented,
+  errorFeatureNotImplemented,
 
   /// < Feature not supported by HW
-  mraaErrorFeatureNotSupported,
+  errorFeatureNotSupported,
 
   /// < Verbosity level wrong
-  mraaErrorInvalidVerbosityLevel,
+  errorInvalidVerbosityLevel,
 
   /// < Parameter invalid
-  mraaErrorInvalidParameter,
+  errorInvalidParameter,
 
   /// < Handle invalid
-  mraaErrorInvalidHandle,
+  errorInvalidHandle,
 
   /// < No resource of that type avail
-  mraaErrorNoResources,
+  errorNoResources,
 
   /// < Resource invalid
-  mraaErrorInvalidResource,
+  errorInvalidResource,
 
   /// < Queue type incorrect
-  mraaErrorInvalidQueueType,
+  errorInvalidQueueType,
 
   /// < No data available
-  mraaErrorNoDataAvailable,
+  errorNoDataAvailable,
 
   /// < Platform not recognised
-  mraaErrorInvalidPlatform,
+  errorInvalidPlatform,
 
   /// < Board information not initialised
-  mraaErrorPlatformNotInitialised,
+  errorPlatformNotInitialised,
 
   /// < UART OW Short Circuit Detected
-  mraaErrorUartOwShorted,
+  errorUartOwShorted,
 
   /// < UART OW No devices detected
-  mraaErrorUartOwNoDevices,
+  errorUartOwNoDevices,
 
   /// UART OW Data/Bus error detected
-  mraaErrorUartOwDataError,
+  errorUartOwDataError,
 
   /// Unspecified
-  mraaErrorUnspecified
+  errorUnspecified
 }
 
 /// Return codes type support
 const Map<int, MraaReturnCode> _returnCodesValues = <int, MraaReturnCode>{
-  0: MraaReturnCode.mraaSuccess,
-  1: MraaReturnCode.mraaErrorFeatureNotImplemented,
-  2: MraaReturnCode.mraaErrorFeatureNotSupported,
-  3: MraaReturnCode.mraaErrorInvalidVerbosityLevel,
-  4: MraaReturnCode.mraaErrorInvalidParameter,
-  5: MraaReturnCode.mraaErrorInvalidHandle,
-  6: MraaReturnCode.mraaErrorNoResources,
-  7: MraaReturnCode.mraaErrorInvalidResource,
-  8: MraaReturnCode.mraaErrorInvalidQueueType,
-  9: MraaReturnCode.mraaErrorNoDataAvailable,
-  10: MraaReturnCode.mraaErrorInvalidPlatform,
-  11: MraaReturnCode.mraaErrorPlatformNotInitialised,
-  12: MraaReturnCode.mraaErrorUartOwShorted,
-  13: MraaReturnCode.mraaErrorUartOwNoDevices,
-  14: MraaReturnCode.mraaErrorUartOwDataError,
-  99: MraaReturnCode.mraaErrorUnspecified
+  0: MraaReturnCode.success,
+  1: MraaReturnCode.errorFeatureNotImplemented,
+  2: MraaReturnCode.errorFeatureNotSupported,
+  3: MraaReturnCode.errorInvalidVerbosityLevel,
+  4: MraaReturnCode.errorInvalidParameter,
+  5: MraaReturnCode.errorInvalidHandle,
+  6: MraaReturnCode.errorNoResources,
+  7: MraaReturnCode.errorInvalidResource,
+  8: MraaReturnCode.errorInvalidQueueType,
+  9: MraaReturnCode.errorNoDataAvailable,
+  10: MraaReturnCode.errorInvalidPlatform,
+  11: MraaReturnCode.errorPlatformNotInitialised,
+  12: MraaReturnCode.errorUartOwShorted,
+  13: MraaReturnCode.errorUartOwNoDevices,
+  14: MraaReturnCode.errorUartOwDataError,
+  99: MraaReturnCode.errorUnspecified
 };
 
 /// Return codes helper

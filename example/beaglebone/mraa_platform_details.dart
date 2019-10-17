@@ -16,7 +16,7 @@ int main() {
 
   print('Initialising MRAA');
   final MraaReturnCode ret = mraa.common.initialise();
-  if (ret != MraaReturnCode.mraaSuccess) {
+  if (ret != MraaReturnCode.success) {
     print(
         'Beaglebone green - failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
   }

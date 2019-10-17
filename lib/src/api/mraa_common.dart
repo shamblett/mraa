@@ -208,7 +208,7 @@ class _MraaCommon {
   /// Initialise JSON platform - mraa_init_json_platform
   /// Instantiate an unknown board using a json file
   MraaReturnCode initialiseJsonPlatform(String path) => _noJsonLoading
-      ? MraaReturnCode.mraaErrorFeatureNotSupported
+      ? MraaReturnCode.errorFeatureNotSupported
       : returnCode.fromInt(_initJsonPlatformFunc(Utf8.toUtf8(path)));
 
   /// Set the log level - mraa_set_log_level

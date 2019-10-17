@@ -10,25 +10,25 @@ part of mraa;
 /// GPIO pin directions
 enum MraaGpioDirection {
   /// Out
-  mraaGpioOut,
+  out,
 
   /// In
-  mraaGpioIn,
+  inn,
 
   /// Out high
-  mraaGpioOutHigh,
+  outHigh,
 
   /// Out Low
-  mraaGpioOutLow
+  outLow
 }
 
 /// GPIO direction type support
 const Map<int, MraaGpioDirection> _gpioDirectionValues =
     <int, MraaGpioDirection>{
-  0: MraaGpioDirection.mraaGpioOut,
-  1: MraaGpioDirection.mraaGpioIn,
-  2: MraaGpioDirection.mraaGpioOutHigh,
-  3: MraaGpioDirection.mraaGpioOutLow
+  0: MraaGpioDirection.out,
+  1: MraaGpioDirection.inn,
+  2: MraaGpioDirection.outHigh,
+  3: MraaGpioDirection.outLow
 };
 
 /// GPIO direction types helper
