@@ -34,6 +34,9 @@ typedef MraaGpioEventsType = ffi.Pointer<MraaGpioEvent> Function(
 typedef MraaGpioModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
+/// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
+/// it can use gpiolibs (exported via a kernel module through sysfs), or memory mapped IO via
+/// a /dev/uio device or /dev/mem depending again on the board configuration.
 class _MraaGpio {
   _MraaGpio(this._lib, this._noJsonLoading) {
     _setUpPointers();

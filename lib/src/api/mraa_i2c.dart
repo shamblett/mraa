@@ -51,6 +51,11 @@ typedef MraaI2cAddressType = int Function(ffi.Pointer<MraaI2cContext>, int);
 typedef MraaI2cStopType = int Function(ffi.Pointer<MraaI2cContext>);
 
 /// The I2C MRAA API
+/// An i2c context represents a master on an i2c bus and that context can communicate
+/// to multiple i2c slaves by configuring the address. It is considered best practice to
+/// make sure the address is correct before doing any calls on i2c, in case another
+/// application or even thread changed the address on that bus. Multiple instances
+/// of the same bus can exist.
 class _MraaI2c {
   _MraaI2c(this._lib, this._noJsonLoading) {
     _setUpPointers();
