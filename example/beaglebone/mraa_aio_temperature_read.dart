@@ -7,8 +7,8 @@
 
 import 'dart:ffi' as ffi;
 import 'dart:io';
-import 'dart:math';
 import 'package:mraa/mraa.dart';
+import 'upm/mraa_upm_temperature.dart';
 
 // The AIO pin for the temperature sensor, set as needed. Note the temperature sensor
 // used here is the Grove temperature sensor, recognised in the UPM library
@@ -42,17 +42,11 @@ int main() {
   final ffi.Pointer<MraaAioContext> context =
       mraa.aio.initialise(temperatureSensorAIOPin);
 
-  // Get the ADC value range for Celsius conversion
-  final int maxAdc = 1 << mraa.aio.getBit(context);
-
   print('Reading the temperature sensor values');
+  final MraaUpmTemperature temperature = MraaUpmTemperature(mraa, context);
   for (int i = 1; i <= 100; i++) {
-    final int val = mraa.aio.read(context);
-    print('$i -> Raw temperature value is : $val');
-    final double r = (maxAdc - val) * 10000.0 / val;
-    final double celsius =
-        1.0 / (log(r / 10000.0) / 3975.0 + 1.0 / 298.15) - 273.15;
-    print('$i -> Celsius temperature value is : ${celsius.toStringAsFixed(2)}');
+    final MraaUpmTemperatureValues values = temperature.getValues();
+    print(values);
     sleep(const Duration(milliseconds: 2000));
   }
 
