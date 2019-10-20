@@ -6,6 +6,7 @@
  */
 
 import 'dart:ffi' as ffi;
+import 'dart:io';
 import 'package:mraa/mraa.dart';
 import 'upm/mraa_upm_lcd.dart';
 
@@ -45,6 +46,10 @@ int main() {
 
   print('Printing to the LCD');
   lcd.write('Hello from the Dart VM');
+
+  print('Waiting 30 seconds .....');
+  sleep(const Duration(milliseconds: 30000));
+  lcd.clear();
 
   return 0;
 }
