@@ -999,7 +999,7 @@ class MraaUpmLcd {
         value |= (bitTwo != 0) ? _grayLow : 0x00;
 
         _writeReg(MraaUpmLcdDefinitions.LCD_DATA, <int>[value]);
-        sleep(CMD_SLEEP - const Duration(milliseconds: 2000));
+        sleep(CMD_SLEEP - const Duration(milliseconds: 2));
       }
     }
 
@@ -1088,7 +1088,7 @@ class MraaUpmLcd {
         data |= (bitTwo != 0) ? _grayLow : 0x00;
 
         rv = _writeReg(MraaUpmLcdDefinitions.LCD_DATA, <int>[data]);
-        sleep(CMD_SLEEP - const Duration(milliseconds: 2000));
+        sleep(CMD_SLEEP - const Duration(milliseconds: 2));
       }
     }
     return rv;
