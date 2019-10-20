@@ -60,9 +60,13 @@ class MraaUpmLcdDefinitions {
   static const int LCD_RS = 0x01; // Register select bit
   static const int LCD_DATA = 0x40;
   static const int LCD_CMD = 0x80;
+
+  static const int DISPLAY_CMD_SET_NORMAL = 0xA4;
 }
 
-/// A local support implementation of the UPM LCD sensor.
+/// A local support implementation of the UPM LCD sensor, taken from the UPM lcd/ssd1327.cxx
+/// implementation.
+///
 /// The SSD1327 is a 96x96 dot-matrix OLED/PLED segment driver with a controller.
 /// This implementation supports the Grove LED 96*96 display module,
 /// which is an OLED monochrome display.
@@ -220,11 +224,51 @@ class MraaUpmLcd {
 
   MraaReturnCode _writeChar(int value) {}
 
-  MraaReturnCode _setNormalDisplay() {}
+  MraaReturnCode _setNormalDisplay() =>
+      _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[
+        MraaUpmLcdDefinitions.DISPLAY_CMD_SET_NORMAL
+      ]); // set to normal display '1' is ON
 
-  MraaReturnCode _setHorizontalMode() {}
+  MraaReturnCode _setHorizontalMode() {
+    MraaReturnCode rv = MraaReturnCode.success;
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[0xA0]); // remap to
+    sleep(CMD_SLEEP);
+    rv = _writeReg(
+        MraaUpmLcdDefinitions.LCD_CMD, <int>[0x42]); // horizontal mode
+    sleep(CMD_SLEEP);
 
-  MraaReturnCode _setVerticalMode() {}
+    // Row Address
+    rv = _writeReg(
+        MraaUpmLcdDefinitions.LCD_CMD, <int>[0x75]); // Set Row Address
+    sleep(CMD_SLEEP);
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[0x00]); // Start 0
+    sleep(CMD_SLEEP);
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[0x5f]); // End 95
+    sleep(CMD_SLEEP);
+
+    // Column Address
+    rv = _writeReg(
+        MraaUpmLcdDefinitions.LCD_CMD, <int>[0x15]); // Set Column Address
+    sleep(CMD_SLEEP);
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD,
+        <int>[0x08]); // Start from 8th Column of driver
+    // IC. This is 0th Column for OLED
+    sleep(CMD_SLEEP);
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD,
+        <int>[0x37]); // End at  (8 + 47)th column. Each
+    // Column has 2 pixels(or segments)
+    sleep(CMD_SLEEP);
+    return rv;
+  }
+
+  MraaReturnCode _setVerticalMode() {
+    MraaReturnCode rv = MraaReturnCode.success;
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[0xA0]); // remap to
+    sleep(CMD_SLEEP);
+    rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[0x46]); // Vertical mode
+    sleep(CMD_SLEEP);
+    return rv;
+  }
 
   MraaReturnCode _writeReg(int reg, List<int> data) =>
       _mraa.i2c.writeByteData(_context, data[0], reg);
