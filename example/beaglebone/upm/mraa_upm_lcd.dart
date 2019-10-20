@@ -845,7 +845,10 @@ class MraaUpmLcdDefinitions {
 /// This implementation supports the Grove LED 96*96 display module,
 /// which is an OLED monochrome display.
 class MraaUpmLcd {
-  MraaUpmLcd(this._mraa, this._context);
+  MraaUpmLcd(this._mraa, this._context) {
+    // Set the device address
+    _mraa.i2c.address(_context, lcdDeviceAddress);
+  }
 
   /// The initialised MRAA library
   Mraa _mraa;
