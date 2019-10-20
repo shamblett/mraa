@@ -1067,7 +1067,7 @@ class MraaUpmLcd {
 
   MraaReturnCode _writeChar(int value) {
     MraaReturnCode rv = MraaReturnCode.success;
-    int calcValue = 0;
+    int calcValue = value;
     if (value < 0x20 || value > 0x7F) {
       calcValue = 0x20; // space
     }
