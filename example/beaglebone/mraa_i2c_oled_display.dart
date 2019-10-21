@@ -48,18 +48,19 @@ int main() {
   lcd.setCursor(1, 0);
   lcd.write('Hello from');
   lcd.setCursor(2, 0);
-  lcd.write('the Dart VM.');
+  lcd.write('the Dart VM');
   lcd.setCursor(4, 0);
   lcd.write('Brought to');
   lcd.setCursor(5, 0);
   lcd.write('you by FFI');
   lcd.setCursor(6, 0);
-  lcd.write('and the Intel');
+  lcd.write('and Intel\'s');
   lcd.setCursor(7, 0);
-  lcd.write('MRAA library.');
+  lcd.write('MRAA library');
 
   print('Press a key to clear the display .....');
   stdin.readByteSync();
+  lcd.setCursor(1, 0);
   lcd.clear();
 
   return 0;
