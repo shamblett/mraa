@@ -192,6 +192,8 @@ class MraaUpmLcd {
   int _grayHigh = 0;
   int _grayLow = 0;
 
+  bool _isVerticalMode = false;
+
   /// Initialise the display for use
   void initialise() {
     sleep(INIT_SLEEP);
@@ -393,6 +395,30 @@ class MraaUpmLcd {
   /// Returns to the original coordinates (0,0)
   MraaReturnCode home() => setCursor(0, 0);
 
+  /// Draws a bitmap
+  void drawBitMap(List<int> bitmap, int bytes) {
+    // Set horizontal mode for drawing
+    final bool wasVertical = _isVerticalMode;
+    _setHorizontalMode();
+
+    for (int i = 0; i < bytes; i++) {
+      for (int j = 0; j < 8; j = j + 2) {
+        int c = 0x00;
+        final int bit1 = bitmap[i] << j & 0x80;
+        final int bit2 = bitmap[i] << (j + 1) & 0x80;
+
+        // Each bit is changed to a nibble
+        c |= (bit1 == 0) ? _grayHigh : 0x00;
+        // Each bit is changed to a nibble
+        c |= (bit2 == 0) ? _grayLow : 0x00;
+        _writeChar(c);
+      }
+    }
+    if (wasVertical) {
+      _setVerticalMode();
+    }
+  }
+
   MraaReturnCode _writeChar(int value) {
     MraaReturnCode rv = MraaReturnCode.success;
     int calcValue = value;
@@ -456,6 +482,7 @@ class MraaUpmLcd {
         <int>[0x37]); // End at  (8 + 47)th column. Each
     // Column has 2 pixels(or segments)
     sleep(CMD_SLEEP);
+    _isVerticalMode = false;
     return rv;
   }
 
@@ -465,6 +492,7 @@ class MraaUpmLcd {
     sleep(CMD_SLEEP);
     rv = _writeReg(MraaUpmLcdDefinitions.LCD_CMD, <int>[0x46]); // Vertical mode
     sleep(CMD_SLEEP);
+    _isVerticalMode = true;
     return rv;
   }
 
