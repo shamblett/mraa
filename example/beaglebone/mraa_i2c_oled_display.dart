@@ -60,7 +60,7 @@ int main() {
 
   print('Press a key to clear the display .....');
   stdin.readByteSync();
-  lcd.setCursor(1, 0);
+  lcd.home();
   lcd.clear();
 
   return 0;

@@ -184,8 +184,8 @@ class MraaUpmLcd {
   ffi.Pointer<MraaI2cContext> _context;
 
   static const int lcdDeviceAddress = 0x3C;
-  static const Duration INIT_SLEEP = Duration(milliseconds: 50);
-  static const Duration CMD_SLEEP = Duration(milliseconds: 10);
+  static const Duration INIT_SLEEP = Duration(milliseconds: 3);
+  static const Duration CMD_SLEEP = Duration(milliseconds: 1);
 
   MraaReturnCode error = MraaReturnCode.success;
 
@@ -380,6 +380,7 @@ class MraaUpmLcd {
     int columnIdx, rowIdx;
 
     for (rowIdx = 0; rowIdx < 12; rowIdx++) {
+      setCursor(rowIdx, 0);
       // clear all columns
       for (columnIdx = 0; columnIdx < 12; columnIdx++) {
         _writeChar(' '.codeUnitAt(0));
@@ -415,7 +416,7 @@ class MraaUpmLcd {
         data |= (bitTwo != 0) ? _grayLow : 0x00;
 
         rv = _writeReg(MraaUpmLcdDefinitions.LCD_DATA, <int>[data]);
-        sleep(CMD_SLEEP - const Duration(milliseconds: 2));
+        sleep(CMD_SLEEP);
       }
     }
     return rv;
