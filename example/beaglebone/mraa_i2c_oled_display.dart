@@ -46,10 +46,18 @@ int main() {
 
   print('Printing to the LCD');
   lcd.setCursor(1, 0);
-  lcd.write('Hello from the Dart VM');
+  lcd.write('Hello from the');
+  lcd.setCursor(2, 0);
+  lcd.write('Dart VM.');
+  lcd.setCursor(4, 0);
+  lcd.write('Brought to you by');
+  lcd.setCursor(5, 0);
+  lcd.write('FFI and the Intel');
+  lcd.setCursor(6, 0);
+  lcd.write('MRAA library.');
 
-  print('Waiting 30 seconds .....');
-  sleep(const Duration(milliseconds: 20000));
+  print('Press a key to clear the display .....');
+  stdin.readByteSync();
   lcd.clear();
 
   return 0;
