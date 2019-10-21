@@ -45,10 +45,11 @@ int main() {
   lcd.initialise();
 
   print('Printing to the LCD');
+  lcd.setCursor(1, 0);
   lcd.write('Hello from the Dart VM');
 
   print('Waiting 30 seconds .....');
-  sleep(const Duration(milliseconds: 30000));
+  sleep(const Duration(milliseconds: 20000));
   lcd.clear();
 
   return 0;
