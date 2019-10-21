@@ -411,7 +411,7 @@ class MraaUpmLcd {
         c |= (bit1 == 0) ? _grayHigh : 0x00;
         // Each bit is changed to a nibble
         c |= (bit2 == 0) ? _grayLow : 0x00;
-        _writeChar(c);
+        _writeReg(MraaUpmLcdDefinitions.LCD_DATA, <int>[c]);
       }
     }
     if (wasVertical) {
