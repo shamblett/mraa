@@ -36,6 +36,7 @@ typedef MraaGpioEventsType = ffi.Pointer<MraaGpioEvent> Function(
 typedef MraaGpioModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioReadDirectionType = int Function(
     ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
+typedef MraaGpioCloseType = int Function(ffi.Pointer<MraaGpioContext>);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -74,6 +75,8 @@ class _MraaGpio {
       _modePointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
       _readDirectionPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
+      _closePointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -85,6 +88,7 @@ class _MraaGpio {
   dynamic _eventsFunc;
   dynamic _modeFunc;
   dynamic _readDirectionFunc;
+  dynamic _closeFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -167,6 +171,14 @@ class _MraaGpio {
     return ret;
   }
 
+  /// Close - mraa_gpio_close
+  /// Close the Gpio context
+  /// Free's the memory for the context and unexport the Gpio - sysfs interface.
+  /// Free's up the memory used by context and close related file descriptors -
+  /// chardev interface.
+  MraaReturnCode close(ffi.Pointer<MraaGpioContext> dev) =>
+      returnCode.fromInt(_closeFunc(dev));
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -196,6 +208,9 @@ class _MraaGpio {
     _readDirectionPointer = _lib
         .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
             'mraa_gpio_read_dir');
+    _closePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+            'mraa_gpio_close');
   }
 
   void _setUpFunctions() {
@@ -211,5 +226,6 @@ class _MraaGpio {
     _modeFunc = _modePointer.asFunction<MraaGpioModeType>();
     _readDirectionFunc =
         _readDirectionPointer.asFunction<MraaGpioReadDirectionType>();
+    _closeFunc = _closePointer.asFunction<MraaGpioCloseType>();
   }
 }

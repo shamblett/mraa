@@ -275,6 +275,11 @@ int main() {
       expect(ret, MraaReturnCode.errorInvalidHandle);
       expect(dir.direction, isNull);
     });
+    test('Close', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret = mraa.gpio.close(context);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {
