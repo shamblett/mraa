@@ -20,6 +20,8 @@ typedef returnMraaGpioContextIntArrayIntParameterFunc
     = ffi.Pointer<MraaGpioContext> Function(ffi.Pointer<ffi.Int32>, ffi.Int32);
 typedef returnMraaGpioEventArrayMraaGpioContextParameter
     = ffi.Pointer<MraaGpioEvent> Function(ffi.Pointer<MraaGpioContext>);
+typedef returnIntGpioContextPtrIntParametersFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
 
 /// Dart Function typedefs
 typedef MraaGpioInitialiseType = ffi.Pointer<MraaGpioContext> Function(int);
@@ -32,6 +34,8 @@ typedef MraaGpioEdgeModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioEventsType = ffi.Pointer<MraaGpioEvent> Function(
     ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioReadDirectionType = int Function(
+    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -68,6 +72,8 @@ class _MraaGpio {
       _eventsPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
       _modePointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
+      _readDirectionPointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -78,6 +84,7 @@ class _MraaGpio {
   dynamic _edgeModeFunc;
   dynamic _eventsFunc;
   dynamic _modeFunc;
+  dynamic _readDirectionFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -149,6 +156,17 @@ class _MraaGpio {
           ffi.Pointer<MraaGpioContext> dev, MraaGpioOutputMode mode) =>
       returnCode.fromInt(_modeFunc(dev, gpioOutputModes.asInt(mode)));
 
+  /// Read direction - mraa_gpio_read_dir
+  /// Read Gpio(s) direction
+  MraaReturnCode readDirection(
+      ffi.Pointer<MraaGpioContext> dev, MraaGpioDirectionRead gpioDirection) {
+    final ffi.Pointer<ffi.Int32> dir =
+        ffi.Pointer<ffi.Int32>.allocate(count: 1);
+    final MraaReturnCode ret = returnCode.fromInt(_readDirectionFunc(dev, dir));
+    gpioDirection.direction = gpioDirections.fromInt(dir.load());
+    return ret;
+  }
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -175,6 +193,9 @@ class _MraaGpio {
     _modePointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_mode');
+    _readDirectionPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
+            'mraa_gpio_read_dir');
   }
 
   void _setUpFunctions() {
@@ -188,5 +209,7 @@ class _MraaGpio {
     _edgeModeFunc = _edgeModePointer.asFunction<MraaGpioEdgeModeType>();
     _eventsFunc = _eventsPointer.asFunction<MraaGpioEventsType>();
     _modeFunc = _modePointer.asFunction<MraaGpioModeType>();
+    _readDirectionFunc =
+        _readDirectionPointer.asFunction<MraaGpioReadDirectionType>();
   }
 }

@@ -268,6 +268,13 @@ int main() {
           mraa.gpio.mode(context, MraaGpioOutputMode.pullup);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Read direction', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaGpioDirectionRead dir = MraaGpioDirectionRead();
+      final MraaReturnCode ret = mraa.gpio.readDirection(context, dir);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+      expect(dir.direction, isNull);
+    });
   });
 
   group('AIO', () {
