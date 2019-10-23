@@ -280,6 +280,16 @@ int main() {
       final MraaReturnCode ret = mraa.gpio.close(context);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Read multi', () {
+      final ffi.Pointer<MraaGpioContext> context =
+          mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
+      expect(context, isNotNull);
+      final MraaGpioMultiRead values = MraaGpioMultiRead();
+      final MraaReturnCode ret = mraa.gpio.readMulti(context, values);
+      expect(ret, MraaReturnCode.errorUnspecified);
+      expect(values.values, isNotNull);
+      expect(values.length, 4);
+    });
   });
 
   group('AIO', () {
