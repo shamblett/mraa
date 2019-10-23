@@ -298,7 +298,8 @@ int main() {
     test('Write multi', () {
       final ffi.Pointer<MraaGpioContext> context =
           mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
-      final MraaReturnCode ret = mraa.gpio.writeMulti(context, <int>[7, 8, 9, 10]);
+      final MraaReturnCode ret =
+          mraa.gpio.writeMulti(context, <int>[7, 8, 9, 10]);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Owner', () {
@@ -328,6 +329,10 @@ int main() {
           .outputDriverMode(context, MraaGpioOutputDriverMode.pushPull);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+  });
+
+  group('LED', () {
+    test('Initialise', () {});
   });
 
   group('AIO', () {
