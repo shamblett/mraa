@@ -45,6 +45,7 @@ typedef MraaGpioWriteType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioWriteMultiType = int Function(
     ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
 typedef MraaGpioOwnerType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioPinType = int Function(ffi.Pointer<MraaGpioContext>);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -93,6 +94,8 @@ class _MraaGpio {
       _writeMultiPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
       _ownerPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
+      _pinPointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -109,6 +112,7 @@ class _MraaGpio {
   dynamic _writeFunc;
   dynamic _writeMultiFunc;
   dynamic _ownerFunc;
+  dynamic _pinFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -253,6 +257,10 @@ class _MraaGpio {
     return returnCode.fromInt(_ownerFunc(dev, rawOwn));
   }
 
+  /// Pin - mraa_gpio_get_pin
+  /// Get a pin number of the gpio, invalid will return mraaGeneralError
+  int pin(ffi.Pointer<MraaGpioContext> dev) => _pinFunc(dev);
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -297,6 +305,9 @@ class _MraaGpio {
     _ownerPointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_owner');
+    _pinPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+            'mraa_gpio_get_pin');
   }
 
   void _setUpFunctions() {
@@ -317,5 +328,6 @@ class _MraaGpio {
     _writeFunc = _writePointer.asFunction<MraaGpioWriteType>();
     _writeMultiFunc = _writeMultiPointer.asFunction<MraaGpioWriteMultiType>();
     _ownerFunc = _ownerPointer.asFunction<MraaGpioOwnerType>();
+    _pinFunc = _pinPointer.asFunction<MraaGpioPinType>();
   }
 }

@@ -306,6 +306,11 @@ int main() {
       final MraaReturnCode ret = mraa.gpio.owner(context, true);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Pin', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final int ret = mraa.gpio.pin(context);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('AIO', () {
