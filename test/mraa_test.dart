@@ -311,6 +311,11 @@ int main() {
       final int ret = mraa.gpio.pin(context);
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Pin raw', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final int ret = mraa.gpio.pinRaw(context);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   group('AIO', () {
