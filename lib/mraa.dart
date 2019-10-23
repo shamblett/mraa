@@ -21,6 +21,7 @@ part 'src/types/gpio/mraa_gpio_direction_read.dart';
 part 'src/types/gpio/mraa_gpio_multi_read.dart';
 part 'src/types/aio/mraa_aio_context.dart';
 part 'src/types/i2c/mraa_i2c_context.dart';
+part 'src/types/led/mraa_led_context.dart';
 part 'src/types/mraa_platform_type.dart';
 part 'src/types/mraa_pinmode.dart';
 part 'src/types/i2c/mraa_i2c_mode.dart';
