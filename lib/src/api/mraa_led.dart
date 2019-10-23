@@ -10,9 +10,11 @@
 part of mraa;
 
 /// C Function type typedefs
+typedef returnMraaLedContextIntParameterFunc = ffi.Pointer<MraaLedContext>
+    Function(ffi.Int32);
 
 /// Dart Function typedefs
-///
+typedef MraaLedInitialiseType = ffi.Pointer<MraaLedContext> Function(int);
 
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
@@ -29,10 +31,24 @@ class _MraaLed {
   bool _noJsonLoading = false;
 
   /// C Pointers
+  ffi.Pointer<ffi.NativeFunction<returnMraaLedContextIntParameterFunc>>
+      _initPointer;
 
   /// Dart Functions
+  dynamic _initFunc;
 
-  void _setUpPointers() {}
+  /// Initialise - mraa_led_init
+  /// Initialise led context, based on led index.
+  /// Returns the led context or null
+  ffi.Pointer<MraaLedContext> initialise(int led) => _initFunc(led);
 
-  void _setUpFunctions() {}
+  void _setUpPointers() {
+    _initPointer =
+        _lib.lookup<ffi.NativeFunction<returnMraaLedContextIntParameterFunc>>(
+            'mraa_led_init');
+  }
+
+  void _setUpFunctions() {
+    _initFunc = _initPointer.asFunction<MraaLedInitialiseType>();
+  }
 }

@@ -332,7 +332,10 @@ int main() {
   });
 
   group('LED', () {
-    test('Initialise', () {});
+    test('Initialise', () {
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      expect(context, isNotNull);
+    });
   });
 
   group('AIO', () {
