@@ -322,6 +322,12 @@ int main() {
           mraa.gpio.inputMode(context, MraaGpioInputMode.activeHigh);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Output driver mode', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret = mraa.gpio
+          .outputDriverMode(context, MraaGpioOutputDriverMode.pushPull);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {

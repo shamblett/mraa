@@ -28,6 +28,7 @@ part 'src/types/gpio/mraa_gpio_edge.dart';
 part 'src/types/gpio/mraa_gpio_direction.dart';
 part 'src/types/gpio/mraa_gpio_output_mode.dart';
 part 'src/types/gpio/mraa_gpio_input_mode.dart';
+part 'src/types/gpio/mraa_gpio_output_driver_mode.dart';
 part 'src/api/mraa_common.dart';
 part 'src/api/mraa_gpio.dart';
 part 'src/api/mraa_aio.dart';

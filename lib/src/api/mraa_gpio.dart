@@ -48,6 +48,8 @@ typedef MraaGpioOwnerType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioPinType = int Function(ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioPinRawType = int Function(ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioInputModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioOutputDriverModeType = int Function(
+    ffi.Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -102,6 +104,8 @@ class _MraaGpio {
       _pinRawPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
       _inputModePointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _outputDriverModePointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -121,6 +125,7 @@ class _MraaGpio {
   dynamic _pinFunc;
   dynamic _pinRawFunc;
   dynamic _inputModeFunc;
+  dynamic _outputDriverModeFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -279,6 +284,14 @@ class _MraaGpio {
           ffi.Pointer<MraaGpioContext> dev, MraaGpioInputMode mode) =>
       returnCode.fromInt(_inputModeFunc(dev, gpioInputModes.asInt(mode)));
 
+  /// Output driver mode - mraa_gpio_out_driver_mode
+  /// Set Gpio output driver mode
+  /// This is not a standard feature, it needs custom implementation for each board.
+  MraaReturnCode outputDriverMode(
+          ffi.Pointer<MraaGpioContext> dev, MraaGpioOutputDriverMode mode) =>
+      returnCode.fromInt(
+          _outputDriverModeFunc(dev, gpioOutputDriverModes.asInt(mode)));
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -332,6 +345,9 @@ class _MraaGpio {
     _inputModePointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_input_mode');
+    _outputDriverModePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_out_driver_mode');
   }
 
   void _setUpFunctions() {
@@ -355,5 +371,7 @@ class _MraaGpio {
     _pinFunc = _pinPointer.asFunction<MraaGpioPinType>();
     _pinRawFunc = _pinRawPointer.asFunction<MraaGpioPinRawType>();
     _inputModeFunc = _inputModePointer.asFunction<MraaGpioInputModeType>();
+    _outputDriverModeFunc =
+        _outputDriverModePointer.asFunction<MraaGpioOutputDriverModeType>();
   }
 }
