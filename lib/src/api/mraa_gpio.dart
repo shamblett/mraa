@@ -47,6 +47,7 @@ typedef MraaGpioWriteMultiType = int Function(
 typedef MraaGpioOwnerType = int Function(ffi.Pointer<MraaGpioContext>, int);
 typedef MraaGpioPinType = int Function(ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioPinRawType = int Function(ffi.Pointer<MraaGpioContext>);
+typedef MraaGpioInputModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -99,6 +100,8 @@ class _MraaGpio {
       _pinPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
       _pinRawPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _inputModePointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -117,6 +120,7 @@ class _MraaGpio {
   dynamic _ownerFunc;
   dynamic _pinFunc;
   dynamic _pinRawFunc;
+  dynamic _inputModeFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -269,6 +273,12 @@ class _MraaGpio {
   /// Get a gpio number as used within sysfs, invalid will return mraaGeneralError
   int pinRaw(ffi.Pointer<MraaGpioContext> dev) => _pinRawFunc(dev);
 
+  /// Input mode - mraa_gpio_input_mode
+  /// Set Gpio input mode
+  MraaReturnCode inputMode(
+          ffi.Pointer<MraaGpioContext> dev, MraaGpioInputMode mode) =>
+      returnCode.fromInt(_inputModeFunc(dev, gpioInputModes.asInt(mode)));
+
   void _setUpPointers() {
     _initialisePointer =
         _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
@@ -319,6 +329,9 @@ class _MraaGpio {
     _pinRawPointer =
         _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
             'mraa_gpio_get_pin_raw');
+    _inputModePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_input_mode');
   }
 
   void _setUpFunctions() {
@@ -341,5 +354,6 @@ class _MraaGpio {
     _ownerFunc = _ownerPointer.asFunction<MraaGpioOwnerType>();
     _pinFunc = _pinPointer.asFunction<MraaGpioPinType>();
     _pinRawFunc = _pinRawPointer.asFunction<MraaGpioPinRawType>();
+    _inputModeFunc = _inputModePointer.asFunction<MraaGpioInputModeType>();
   }
 }

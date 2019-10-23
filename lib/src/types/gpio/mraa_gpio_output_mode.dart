@@ -15,7 +15,7 @@ enum MraaGpioOutputMode {
   /// Resistive High
   pullup,
 
-  /// Resistive High
+  /// Resistive Low
   pulldown,
 
   /// High Z State

@@ -316,6 +316,12 @@ int main() {
       final int ret = mraa.gpio.pinRaw(context);
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Input mode', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret =
+          mraa.gpio.inputMode(context, MraaGpioInputMode.activeHigh);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {
