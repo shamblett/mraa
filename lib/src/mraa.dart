@@ -54,10 +54,14 @@ class Mraa {
   /// The I2C API
   _MraaI2c i2c;
 
+  /// The LED API
+  _MraaLed led;
+
   void _setupAPI() {
     common = _MraaCommon(_lib, noJsonLoading);
     gpio = _MraaGpio(_lib, noJsonLoading);
     aio = _MraaAio(_lib, noJsonLoading);
     i2c = _MraaI2c(_lib, noJsonLoading);
+    led = _MraaLed(_lib, noJsonLoading);
   }
 }

@@ -33,3 +33,4 @@ part 'src/api/mraa_common.dart';
 part 'src/api/mraa_gpio.dart';
 part 'src/api/mraa_aio.dart';
 part 'src/api/mraa_i2c.dart';
+part 'src/api/mraa_led.dart';
