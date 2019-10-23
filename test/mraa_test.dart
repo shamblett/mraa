@@ -290,6 +290,22 @@ int main() {
       expect(values.values, isNotNull);
       expect(values.length, 4);
     });
+    test('Write', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret = mraa.gpio.write(context, 1);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Write multi', () {
+      final ffi.Pointer<MraaGpioContext> context =
+          mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
+      final MraaReturnCode ret = mraa.gpio.writeMulti(context, [7, 8, 9, 10]);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Owner', () {
+      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final MraaReturnCode ret = mraa.gpio.owner(context, true);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {

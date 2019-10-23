@@ -41,6 +41,10 @@ typedef MraaGpioReadDirectionType = int Function(
 typedef MraaGpioCloseType = int Function(ffi.Pointer<MraaGpioContext>);
 typedef MraaGpioReadMultiType = int Function(
     ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
+typedef MraaGpioWriteType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioWriteMultiType = int Function(
+    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
+typedef MraaGpioOwnerType = int Function(ffi.Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -83,6 +87,12 @@ class _MraaGpio {
       _closePointer;
   ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
       _readMultiPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _writePointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
+      _writeMultiPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+      _ownerPointer;
 
   /// Dart Functions
   dynamic _initialiseFunc;
@@ -96,6 +106,9 @@ class _MraaGpio {
   dynamic _readDirectionFunc;
   dynamic _closeFunc;
   dynamic _readMultiFunc;
+  dynamic _writeFunc;
+  dynamic _writeMultiFunc;
+  dynamic _ownerFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
@@ -192,7 +205,7 @@ class _MraaGpio {
   MraaReturnCode readMulti(
       ffi.Pointer<MraaGpioContext> dev, MraaGpioMultiRead values) {
     if (_initialiseMultiPinCount == 0) {
-      return null;
+      return MraaReturnCode.errorUnspecified;
     }
     final ffi.Pointer<ffi.Int32> rawValues =
         ffi.Pointer<ffi.Int32>.allocate(count: _initialiseMultiPinCount);
@@ -204,6 +217,40 @@ class _MraaGpio {
         rawValues.asExternalTypedData(count: _initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
     return returnCode.fromInt(intRet);
+  }
+
+  /// Write - mraa_gpio_write
+  /// Write to the Gpio Value.
+  MraaReturnCode write(ffi.Pointer<MraaGpioContext> dev, int value) =>
+      returnCode.fromInt(_writeFunc(dev, value));
+
+  /// Write multi - mraa_gpio_write_multi
+  /// Write to the Gpio(s) Value. The user must provide an integer array with a length
+  /// equal to the number of pins provided to initialiseMulti() function and in
+  /// the same order.
+  MraaReturnCode writeMulti(
+      ffi.Pointer<MraaGpioContext> dev, List<int> values) {
+    if (_initialiseMultiPinCount == 0) {
+      return MraaReturnCode.errorUnspecified;
+    }
+    if (values.length != _initialiseMultiPinCount) {
+      return MraaReturnCode.errorUnspecified;
+    }
+    final ffi.Pointer<ffi.Int32> rawValues =
+        ffi.Pointer<ffi.Int32>.allocate(count: _initialiseMultiPinCount);
+    final Int32List typedValues =
+        rawValues.asExternalTypedData(count: _initialiseMultiPinCount);
+    for (int i = 0; i < _initialiseMultiPinCount; i++) {
+      typedValues[i] = values[i];
+    }
+    return returnCode.fromInt(_writeMultiFunc(dev, rawValues));
+  }
+
+  /// Owner - mraa_gpio_owner
+  /// Change ownership of the context, true indicates become the owner
+  MraaReturnCode owner(ffi.Pointer<MraaGpioContext> dev, bool own) {
+    final int rawOwn = own ? 1 : 0;
+    return returnCode.fromInt(_ownerFunc(dev, rawOwn));
   }
 
   void _setUpPointers() {
@@ -241,6 +288,15 @@ class _MraaGpio {
     _readMultiPointer = _lib
         .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
             'mraa_gpio_read_multi');
+    _writePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_write');
+    _writeMultiPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
+            'mraa_gpio_write_multi');
+    _ownerPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+            'mraa_gpio_owner');
   }
 
   void _setUpFunctions() {
@@ -258,5 +314,8 @@ class _MraaGpio {
         _readDirectionPointer.asFunction<MraaGpioReadDirectionType>();
     _closeFunc = _closePointer.asFunction<MraaGpioCloseType>();
     _readMultiFunc = _readMultiPointer.asFunction<MraaGpioReadMultiType>();
+    _writeFunc = _writePointer.asFunction<MraaGpioWriteType>();
+    _writeMultiFunc = _writeMultiPointer.asFunction<MraaGpioWriteMultiType>();
+    _ownerFunc = _ownerPointer.asFunction<MraaGpioOwnerType>();
   }
 }
