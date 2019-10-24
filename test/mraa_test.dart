@@ -537,6 +537,12 @@ int main() {
       final MraaReturnCode ret = mraa.pwm.periodMs(context, 500);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Period microseconds', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.pwm.periodUs(context, 50000);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   return 0;

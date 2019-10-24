@@ -29,6 +29,7 @@ typedef MraaPwmWriteType = int Function(ffi.Pointer<MraaPwmContext>, double);
 typedef MraaPwmReadType = double Function(ffi.Pointer<MraaPwmContext>);
 typedef MraaPwmPeriodType = int Function(ffi.Pointer<MraaPwmContext>, double);
 typedef MraaPwmPeriodMsType = int Function(ffi.Pointer<MraaPwmContext>, int);
+typedef MraaPwmPeriodUsType = int Function(ffi.Pointer<MraaPwmContext>, int);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -59,6 +60,8 @@ class _MraaPwm {
       _periodPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
       _periodMsPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+      _periodUsPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -67,6 +70,7 @@ class _MraaPwm {
   dynamic _readFunc;
   dynamic _periodFunc;
   dynamic _periodMsFunc;
+  dynamic _periodUsFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -99,9 +103,14 @@ class _MraaPwm {
       returnCode.fromInt(_periodFunc(dev, seconds));
 
   /// Period milliseconds - mraa_pwm_period_ms
-  /// Set the PWM period as milliseconds seconds
-  MraaReturnCode periodMs(ffi.Pointer<MraaPwmContext> dev, int seconds) =>
-      returnCode.fromInt(_periodMsFunc(dev, seconds));
+  /// Set the PWM period as milliseconds
+  MraaReturnCode periodMs(ffi.Pointer<MraaPwmContext> dev, int milliseconds) =>
+      returnCode.fromInt(_periodMsFunc(dev, milliseconds));
+
+  /// Period microseconds - mraa_pwm_period_us
+  /// Set the PWM period as microseconds
+  MraaReturnCode periodUs(ffi.Pointer<MraaPwmContext> dev, int microseconds) =>
+      returnCode.fromInt(_periodUsFunc(dev, microseconds));
 
   void _setUpPointers() {
     _initPointer =
@@ -122,6 +131,9 @@ class _MraaPwm {
     _periodMsPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_period_ms');
+    _periodUsPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+            'mraa_pwm_period_us');
   }
 
   void _setUpFunctions() {
@@ -131,5 +143,6 @@ class _MraaPwm {
     _readFunc = _readPointer.asFunction<MraaPwmReadType>();
     _periodFunc = _periodPointer.asFunction<MraaPwmPeriodType>();
     _periodMsFunc = _periodMsPointer.asFunction<MraaPwmPeriodMsType>();
+    _periodUsFunc = _periodUsPointer.asFunction<MraaPwmPeriodUsType>();
   }
 }
