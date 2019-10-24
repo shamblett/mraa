@@ -504,5 +504,12 @@ int main() {
     });
   });
 
+  group('PWM', () {
+    test('Initialise', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+    });
+  });
+
   return 0;
 }

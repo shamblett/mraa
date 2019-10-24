@@ -57,11 +57,15 @@ class Mraa {
   /// The LED API
   _MraaLed led;
 
+  /// The PWM API
+  _MraaPwm pwm;
+
   void _setupAPI() {
     common = _MraaCommon(_lib, noJsonLoading);
     gpio = _MraaGpio(_lib, noJsonLoading);
     aio = _MraaAio(_lib, noJsonLoading);
     i2c = _MraaI2c(_lib, noJsonLoading);
     led = _MraaLed(_lib, noJsonLoading);
+    pwm = _MraaPwm(_lib, noJsonLoading);
   }
 }
