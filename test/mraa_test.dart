@@ -365,6 +365,18 @@ int main() {
       final MraaReturnCode ret = mraa.led.setTrigger(context, 'heartbeat');
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Clear trigger', () {
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.led.clearTrigger(context);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Close', () {
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.led.close(context);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {

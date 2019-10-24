@@ -32,6 +32,8 @@ typedef MraaLedReadMaxBrightnessType = int Function(
     ffi.Pointer<MraaLedContext>);
 typedef MraaLedSetTriggerType = int Function(
     ffi.Pointer<MraaLedContext>, ffi.Pointer<Utf8>);
+typedef MraaLedClearTriggerType = int Function(ffi.Pointer<MraaLedContext>);
+typedef MraaLedCloseType = int Function(ffi.Pointer<MraaLedContext>);
 
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
@@ -60,6 +62,10 @@ class _MraaLed {
       _readMaxBrightnessPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextStringParameterFunc>>
       _setTriggerPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>
+      _clearTriggerPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>
+      _closePointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -68,6 +74,8 @@ class _MraaLed {
   dynamic _readBrightnessFunc;
   dynamic _readMaxBrightnessFunc;
   dynamic _setTriggerFunc;
+  dynamic _clearTriggerFunc;
+  dynamic _closeFunc;
 
   /// Initialise - mraa_led_init
   /// Initialise led context, based on led index.
@@ -103,6 +111,16 @@ class _MraaLed {
           ffi.Pointer<MraaLedContext> dev, String triggerName) =>
       returnCode.fromInt(_setTriggerFunc(dev, Utf8.toUtf8(triggerName)));
 
+  /// Clear trigger - mraa_led_clear_trigger
+  /// Clear active LED trigger
+  MraaReturnCode clearTrigger(ffi.Pointer<MraaLedContext> dev) =>
+      returnCode.fromInt(_clearTriggerFunc(dev));
+
+  /// Close - mraa_led_close
+  /// Close LED file descriptors and free the context memory.
+  MraaReturnCode close(ffi.Pointer<MraaLedContext> dev) =>
+      returnCode.fromInt(_closeFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaLedContextIntParameterFunc>>(
@@ -122,6 +140,12 @@ class _MraaLed {
     _setTriggerPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaLedContextStringParameterFunc>>(
             'mraa_led_set_trigger');
+    _clearTriggerPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>(
+            'mraa_led_clear_trigger');
+    _closePointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>(
+            'mraa_led_close');
   }
 
   void _setUpFunctions() {
@@ -134,5 +158,8 @@ class _MraaLed {
     _readMaxBrightnessFunc =
         _readMaxBrightnessPointer.asFunction<MraaLedReadMaxBrightnessType>();
     _setTriggerFunc = _setTriggerPointer.asFunction<MraaLedSetTriggerType>();
+    _clearTriggerFunc =
+        _clearTriggerPointer.asFunction<MraaLedClearTriggerType>();
+    _closeFunc = _closePointer.asFunction<MraaLedCloseType>();
   }
 }
