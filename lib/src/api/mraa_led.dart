@@ -16,6 +16,8 @@ typedef returnMraaLedContextStringParameterFunc = ffi.Pointer<MraaLedContext>
     Function(ffi.Pointer<Utf8>);
 typedef returnIntMraaLedContextIntParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaLedContext>, ffi.Int32);
+typedef returnIntMraaLedContextParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaLedContext>);
 
 /// Dart Function typedefs
 typedef MraaLedInitialiseType = ffi.Pointer<MraaLedContext> Function(int);
@@ -23,6 +25,7 @@ typedef MraaLedInitialiseRawType = ffi.Pointer<MraaLedContext> Function(
     ffi.Pointer<Utf8>);
 typedef MraaLedSetBrightnessType = int Function(
     ffi.Pointer<MraaLedContext>, int);
+typedef MraaLedReadBrightnessType = int Function(ffi.Pointer<MraaLedContext>);
 
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
@@ -45,11 +48,14 @@ class _MraaLed {
       _initRawPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextIntParameterFunc>>
       _setBrightnessPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>
+      _readBrightnessPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _setBrightnessFunc;
+  dynamic _readBrightnessFunc;
 
   /// Initialise - mraa_led_init
   /// Initialise led context, based on led index.
@@ -69,6 +75,11 @@ class _MraaLed {
   MraaReturnCode setBrightness(ffi.Pointer<MraaLedContext> dev, int value) =>
       returnCode.fromInt(_setBrightnessFunc(dev, value));
 
+  /// Read brightness
+  /// Read LED brightness
+  int readBrightness(ffi.Pointer<MraaLedContext> dev) =>
+      _readBrightnessFunc(dev);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaLedContextIntParameterFunc>>(
@@ -79,6 +90,9 @@ class _MraaLed {
     _setBrightnessPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaLedContextIntParameterFunc>>(
             'mraa_led_set_brightness');
+    _readBrightnessPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>(
+            'mraa_led_read_brightness');
   }
 
   void _setUpFunctions() {
@@ -86,5 +100,7 @@ class _MraaLed {
     _initRawFunc = _initRawPointer.asFunction<MraaLedInitialiseRawType>();
     _setBrightnessFunc =
         _setBrightnessPointer.asFunction<MraaLedSetBrightnessType>();
+    _readBrightnessFunc =
+        _readBrightnessPointer.asFunction<MraaLedReadBrightnessType>();
   }
 }

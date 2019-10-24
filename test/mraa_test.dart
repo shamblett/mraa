@@ -342,11 +342,16 @@ int main() {
       expect(context, isNotNull);
     });
     test('Set brightness', () {
-      final ffi.Pointer<MraaLedContext> context =
-          mraa.led.initialiseRaw('user4');
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.led.setBrightness(context, 10);
       expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Read brightness', () {
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      expect(context, isNotNull);
+      final int ret = mraa.led.readBrightness(context);
+      expect(ret, 5);
     });
   });
 
