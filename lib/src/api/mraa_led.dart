@@ -18,6 +18,8 @@ typedef returnIntMraaLedContextIntParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaLedContext>, ffi.Int32);
 typedef returnIntMraaLedContextParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaLedContext>);
+typedef returnIntMraaLedContextStringParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaLedContext>, ffi.Pointer<Utf8>);
 
 /// Dart Function typedefs
 typedef MraaLedInitialiseType = ffi.Pointer<MraaLedContext> Function(int);
@@ -28,6 +30,8 @@ typedef MraaLedSetBrightnessType = int Function(
 typedef MraaLedReadBrightnessType = int Function(ffi.Pointer<MraaLedContext>);
 typedef MraaLedReadMaxBrightnessType = int Function(
     ffi.Pointer<MraaLedContext>);
+typedef MraaLedSetTriggerType = int Function(
+    ffi.Pointer<MraaLedContext>, ffi.Pointer<Utf8>);
 
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
@@ -54,6 +58,8 @@ class _MraaLed {
       _readBrightnessPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>
       _readMaxBrightnessPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextStringParameterFunc>>
+      _setTriggerPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -61,6 +67,7 @@ class _MraaLed {
   dynamic _setBrightnessFunc;
   dynamic _readBrightnessFunc;
   dynamic _readMaxBrightnessFunc;
+  dynamic _setTriggerFunc;
 
   /// Initialise - mraa_led_init
   /// Initialise led context, based on led index.
@@ -90,6 +97,12 @@ class _MraaLed {
   int readMaxBrightness(ffi.Pointer<MraaLedContext> dev) =>
       _readMaxBrightnessFunc(dev);
 
+  /// Set trigger - mraa_led_set_trigger
+  /// Set LED trigger to the trigger name supplied.
+  MraaReturnCode setTrigger(
+          ffi.Pointer<MraaLedContext> dev, String triggerName) =>
+      returnCode.fromInt(_setTriggerFunc(dev, Utf8.toUtf8(triggerName)));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaLedContextIntParameterFunc>>(
@@ -106,6 +119,9 @@ class _MraaLed {
     _readMaxBrightnessPointer =
         _lib.lookup<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>(
             'mraa_led_read_max_brightness');
+    _setTriggerPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaLedContextStringParameterFunc>>(
+            'mraa_led_set_trigger');
   }
 
   void _setUpFunctions() {
@@ -117,5 +133,6 @@ class _MraaLed {
         _readBrightnessPointer.asFunction<MraaLedReadBrightnessType>();
     _readMaxBrightnessFunc =
         _readMaxBrightnessPointer.asFunction<MraaLedReadMaxBrightnessType>();
+    _setTriggerFunc = _setTriggerPointer.asFunction<MraaLedSetTriggerType>();
   }
 }

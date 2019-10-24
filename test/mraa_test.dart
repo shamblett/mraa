@@ -359,6 +359,12 @@ int main() {
       final int ret = mraa.led.readMaxBrightness(context);
       expect(ret, 5);
     });
+    test('Set trigger', () {
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.led.setTrigger(context, 'heartbeat');
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {
