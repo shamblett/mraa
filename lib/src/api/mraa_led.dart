@@ -26,6 +26,8 @@ typedef MraaLedInitialiseRawType = ffi.Pointer<MraaLedContext> Function(
 typedef MraaLedSetBrightnessType = int Function(
     ffi.Pointer<MraaLedContext>, int);
 typedef MraaLedReadBrightnessType = int Function(ffi.Pointer<MraaLedContext>);
+typedef MraaLedReadMaxBrightnessType = int Function(
+    ffi.Pointer<MraaLedContext>);
 
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
@@ -50,12 +52,15 @@ class _MraaLed {
       _setBrightnessPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>
       _readBrightnessPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>
+      _readMaxBrightnessPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _setBrightnessFunc;
   dynamic _readBrightnessFunc;
+  dynamic _readMaxBrightnessFunc;
 
   /// Initialise - mraa_led_init
   /// Initialise led context, based on led index.
@@ -75,10 +80,15 @@ class _MraaLed {
   MraaReturnCode setBrightness(ffi.Pointer<MraaLedContext> dev, int value) =>
       returnCode.fromInt(_setBrightnessFunc(dev, value));
 
-  /// Read brightness
+  /// Read brightness - mraa_led_read_brightness
   /// Read LED brightness
   int readBrightness(ffi.Pointer<MraaLedContext> dev) =>
       _readBrightnessFunc(dev);
+
+  /// Read brightness - mraa_led_read_max_brightness
+  /// Read LED maximum brightness
+  int readMaxBrightness(ffi.Pointer<MraaLedContext> dev) =>
+      _readMaxBrightnessFunc(dev);
 
   void _setUpPointers() {
     _initPointer =
@@ -93,6 +103,9 @@ class _MraaLed {
     _readBrightnessPointer =
         _lib.lookup<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>(
             'mraa_led_read_brightness');
+    _readMaxBrightnessPointer =
+        _lib.lookup<ffi.NativeFunction<returnIntMraaLedContextParameterFunc>>(
+            'mraa_led_read_max_brightness');
   }
 
   void _setUpFunctions() {
@@ -102,5 +115,7 @@ class _MraaLed {
         _setBrightnessPointer.asFunction<MraaLedSetBrightnessType>();
     _readBrightnessFunc =
         _readBrightnessPointer.asFunction<MraaLedReadBrightnessType>();
+    _readMaxBrightnessFunc =
+        _readMaxBrightnessPointer.asFunction<MraaLedReadMaxBrightnessType>();
   }
 }

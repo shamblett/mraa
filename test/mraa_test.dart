@@ -353,6 +353,12 @@ int main() {
       final int ret = mraa.led.readBrightness(context);
       expect(ret, 5);
     });
+    test('Read maximum brightness', () {
+      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      expect(context, isNotNull);
+      final int ret = mraa.led.readMaxBrightness(context);
+      expect(ret, 5);
+    });
   });
 
   group('AIO', () {
