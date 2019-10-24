@@ -543,6 +543,24 @@ int main() {
       final MraaReturnCode ret = mraa.pwm.periodUs(context, 50000);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Pulse width', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.pwm.pulseWidth(context, 0.5);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Pulse width milliseconds', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.pwm.pulseWidthMs(context, 500);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Pulse width microseconds', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.pwm.pulseWidthUs(context, 50000);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   return 0;

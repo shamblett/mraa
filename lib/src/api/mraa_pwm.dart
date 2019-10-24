@@ -30,6 +30,12 @@ typedef MraaPwmReadType = double Function(ffi.Pointer<MraaPwmContext>);
 typedef MraaPwmPeriodType = int Function(ffi.Pointer<MraaPwmContext>, double);
 typedef MraaPwmPeriodMsType = int Function(ffi.Pointer<MraaPwmContext>, int);
 typedef MraaPwmPeriodUsType = int Function(ffi.Pointer<MraaPwmContext>, int);
+typedef MraaPwmPulseWidthType = int Function(
+    ffi.Pointer<MraaPwmContext>, double);
+typedef MraaPwmPulseWidthMsType = int Function(
+    ffi.Pointer<MraaPwmContext>, int);
+typedef MraaPwmPulseWidthUsType = int Function(
+    ffi.Pointer<MraaPwmContext>, int);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -62,6 +68,12 @@ class _MraaPwm {
       _periodMsPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
       _periodUsPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
+      _pulseWidthPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+      _pulseWidthMsPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+      _pulseWidthUsPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -71,6 +83,9 @@ class _MraaPwm {
   dynamic _periodFunc;
   dynamic _periodMsFunc;
   dynamic _periodUsFunc;
+  dynamic _pulseWidthFunc;
+  dynamic _pulseWidthMsFunc;
+  dynamic _pulseWidthUsFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -112,6 +127,23 @@ class _MraaPwm {
   MraaReturnCode periodUs(ffi.Pointer<MraaPwmContext> dev, int microseconds) =>
       returnCode.fromInt(_periodUsFunc(dev, microseconds));
 
+  /// Pulse width - mraa_pwm_pulsewidth
+  /// Set the PWM pulse width as seconds represented in a float
+  MraaReturnCode pulseWidth(ffi.Pointer<MraaPwmContext> dev, double seconds) =>
+      returnCode.fromInt(_pulseWidthFunc(dev, seconds));
+
+  /// Pulse width milliseconds - mraa_pwm_pulsewidth_ms
+  /// Set the PWM pulsewidth  as milliseconds
+  MraaReturnCode pulseWidthMs(
+          ffi.Pointer<MraaPwmContext> dev, int milliseconds) =>
+      returnCode.fromInt(_pulseWidthMsFunc(dev, milliseconds));
+
+  /// Pulse width microseconds - mraa_pwm_pulsewidth_us
+  /// Set the PWM pulse width as microseconds
+  MraaReturnCode pulseWidthUs(
+          ffi.Pointer<MraaPwmContext> dev, int microseconds) =>
+      returnCode.fromInt(_pulseWidthUsFunc(dev, microseconds));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -134,6 +166,15 @@ class _MraaPwm {
     _periodUsPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_period_us');
+    _pulseWidthPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
+            'mraa_pwm_pulsewidth');
+    _pulseWidthMsPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+            'mraa_pwm_pulsewidth_ms');
+    _pulseWidthUsPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+            'mraa_pwm_pulsewidth_us');
   }
 
   void _setUpFunctions() {
@@ -144,5 +185,10 @@ class _MraaPwm {
     _periodFunc = _periodPointer.asFunction<MraaPwmPeriodType>();
     _periodMsFunc = _periodMsPointer.asFunction<MraaPwmPeriodMsType>();
     _periodUsFunc = _periodUsPointer.asFunction<MraaPwmPeriodUsType>();
+    _pulseWidthFunc = _pulseWidthPointer.asFunction<MraaPwmPulseWidthType>();
+    _pulseWidthMsFunc =
+        _pulseWidthMsPointer.asFunction<MraaPwmPulseWidthMsType>();
+    _pulseWidthUsFunc =
+        _pulseWidthUsPointer.asFunction<MraaPwmPulseWidthUsType>();
   }
 }
