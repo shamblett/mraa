@@ -25,6 +25,7 @@ typedef MraaPwmInitialiseRawType = ffi.Pointer<MraaPwmContext> Function(
     int, int);
 typedef MraaPwmWriteType = int Function(ffi.Pointer<MraaPwmContext>, double);
 typedef MraaPwmReadType = double Function(ffi.Pointer<MraaPwmContext>);
+typedef MraaPwmPeriodType = int Function(ffi.Pointer<MraaPwmContext>, double);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -51,12 +52,15 @@ class _MraaPwm {
       _writePointer;
   ffi.Pointer<ffi.NativeFunction<returnDoubleMraaPwmContextParameterFunc>>
       _readPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
+      _periodPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _writeFunc;
   dynamic _readFunc;
+  dynamic _periodFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -83,6 +87,11 @@ class _MraaPwm {
   /// Values above or below this range will be set at either 0.0f or 1.0f.
   double read(ffi.Pointer<MraaPwmContext> dev) => _readFunc(dev);
 
+  /// Period - mraa_pwm_period
+  /// Set the PWM period as seconds represented in a float
+  MraaReturnCode period(ffi.Pointer<MraaPwmContext> dev, double seconds) =>
+      returnCode.fromInt(_periodFunc(dev, seconds));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -96,6 +105,9 @@ class _MraaPwm {
     _readPointer = _lib
         .lookup<ffi.NativeFunction<returnDoubleMraaPwmContextParameterFunc>>(
             'mraa_pwm_read');
+    _periodPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
+            'mraa_pwm_period');
   }
 
   void _setUpFunctions() {
@@ -103,5 +115,6 @@ class _MraaPwm {
     _initRawFunc = _initRawPointer.asFunction<MraaPwmInitialiseRawType>();
     _writeFunc = _writePointer.asFunction<MraaPwmWriteType>();
     _readFunc = _readPointer.asFunction<MraaPwmReadType>();
+    _periodFunc = _periodPointer.asFunction<MraaPwmPeriodType>();
   }
 }
