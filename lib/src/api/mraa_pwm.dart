@@ -18,6 +18,8 @@ typedef returnIntMraaPwmContextFloatParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaPwmContext>, ffi.Double);
 typedef returnDoubleMraaPwmContextParameterFunc = ffi.Double Function(
     ffi.Pointer<MraaPwmContext>);
+typedef returnIntMraaPwmContextIntParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaPwmContext>, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaPwmInitialiseType = ffi.Pointer<MraaPwmContext> Function(int);
@@ -26,6 +28,7 @@ typedef MraaPwmInitialiseRawType = ffi.Pointer<MraaPwmContext> Function(
 typedef MraaPwmWriteType = int Function(ffi.Pointer<MraaPwmContext>, double);
 typedef MraaPwmReadType = double Function(ffi.Pointer<MraaPwmContext>);
 typedef MraaPwmPeriodType = int Function(ffi.Pointer<MraaPwmContext>, double);
+typedef MraaPwmPeriodMsType = int Function(ffi.Pointer<MraaPwmContext>, int);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -54,6 +57,8 @@ class _MraaPwm {
       _readPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
       _periodPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+      _periodMsPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -61,6 +66,7 @@ class _MraaPwm {
   dynamic _writeFunc;
   dynamic _readFunc;
   dynamic _periodFunc;
+  dynamic _periodMsFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -92,6 +98,11 @@ class _MraaPwm {
   MraaReturnCode period(ffi.Pointer<MraaPwmContext> dev, double seconds) =>
       returnCode.fromInt(_periodFunc(dev, seconds));
 
+  /// Period milliseconds - mraa_pwm_period_ms
+  /// Set the PWM period as milliseconds seconds
+  MraaReturnCode periodMs(ffi.Pointer<MraaPwmContext> dev, int seconds) =>
+      returnCode.fromInt(_periodMsFunc(dev, seconds));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -108,6 +119,9 @@ class _MraaPwm {
     _periodPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
             'mraa_pwm_period');
+    _periodMsPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+            'mraa_pwm_period_ms');
   }
 
   void _setUpFunctions() {
@@ -116,5 +130,6 @@ class _MraaPwm {
     _writeFunc = _writePointer.asFunction<MraaPwmWriteType>();
     _readFunc = _readPointer.asFunction<MraaPwmReadType>();
     _periodFunc = _periodPointer.asFunction<MraaPwmPeriodType>();
+    _periodMsFunc = _periodMsPointer.asFunction<MraaPwmPeriodMsType>();
   }
 }
