@@ -341,6 +341,13 @@ int main() {
           mraa.led.initialiseRaw('user4');
       expect(context, isNotNull);
     });
+    test('Set brightness', () {
+      final ffi.Pointer<MraaLedContext> context =
+          mraa.led.initialiseRaw('user4');
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.led.setBrightness(context, 10);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   group('AIO', () {

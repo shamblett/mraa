@@ -14,11 +14,15 @@ typedef returnMraaLedContextIntParameterFunc = ffi.Pointer<MraaLedContext>
     Function(ffi.Int32);
 typedef returnMraaLedContextStringParameterFunc = ffi.Pointer<MraaLedContext>
     Function(ffi.Pointer<Utf8>);
+typedef returnIntMraaLedContextIntParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaLedContext>, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaLedInitialiseType = ffi.Pointer<MraaLedContext> Function(int);
 typedef MraaLedInitialiseRawType = ffi.Pointer<MraaLedContext> Function(
     ffi.Pointer<Utf8>);
+typedef MraaLedSetBrightnessType = int Function(
+    ffi.Pointer<MraaLedContext>, int);
 
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
@@ -39,10 +43,13 @@ class _MraaLed {
       _initPointer;
   ffi.Pointer<ffi.NativeFunction<returnMraaLedContextStringParameterFunc>>
       _initRawPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaLedContextIntParameterFunc>>
+      _setBrightnessPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
+  dynamic _setBrightnessFunc;
 
   /// Initialise - mraa_led_init
   /// Initialise led context, based on led index.
@@ -57,6 +64,11 @@ class _MraaLed {
   ffi.Pointer<MraaLedContext> initialiseRaw(String ledDev) =>
       _initRawFunc(Utf8.toUtf8(ledDev));
 
+  /// Set brightness - mraa_led_set_brightness
+  /// Set LED brightness
+  MraaReturnCode setBrightness(ffi.Pointer<MraaLedContext> dev, int value) =>
+      returnCode.fromInt(_setBrightnessFunc(dev, value));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaLedContextIntParameterFunc>>(
@@ -64,10 +76,15 @@ class _MraaLed {
     _initRawPointer = _lib
         .lookup<ffi.NativeFunction<returnMraaLedContextStringParameterFunc>>(
             'mraa_led_init_raw');
+    _setBrightnessPointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaLedContextIntParameterFunc>>(
+            'mraa_led_set_brightness');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaLedInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaLedInitialiseRawType>();
+    _setBrightnessFunc =
+        _setBrightnessPointer.asFunction<MraaLedSetBrightnessType>();
   }
 }
