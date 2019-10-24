@@ -14,11 +14,14 @@ typedef returnMraaPwmContextIntParameterFunc = ffi.Pointer<MraaPwmContext>
     Function(ffi.Int32);
 typedef returnMraaPwmContextIntIntParameterFunc = ffi.Pointer<MraaPwmContext>
     Function(ffi.Int32, ffi.Int32);
+typedef returnIntMraaPwmContextFloatParameterFunc = ffi.Int32 Function(
+    ffi.Pointer<MraaPwmContext>, ffi.Double);
 
 /// Dart Function typedefs
 typedef MraaPwmInitialiseType = ffi.Pointer<MraaPwmContext> Function(int);
 typedef MraaPwmInitialiseRawType = ffi.Pointer<MraaPwmContext> Function(
     int, int);
+typedef MraaPwmWriteType = int Function(ffi.Pointer<MraaPwmContext>, double);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -41,10 +44,13 @@ class _MraaPwm {
       _initPointer;
   ffi.Pointer<ffi.NativeFunction<returnMraaPwmContextIntIntParameterFunc>>
       _initRawPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
+      _writePointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
+  dynamic _writeFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -57,6 +63,13 @@ class _MraaPwm {
   ffi.Pointer<MraaPwmContext> initialiseRaw(int chipId, int pin) =>
       _initRawFunc(chipId, pin);
 
+  /// Write - mraa_pwm_write
+  /// Set the output duty-cycle percentage, as a double
+  /// The percentage value should lie between 0.0f (representing on 0%) and 1.0f.
+  /// Values above or below this range will be set at either 0.0f or 1.0f
+  MraaReturnCode write(ffi.Pointer<MraaPwmContext> dev, double percentage) =>
+      returnCode.fromInt(_writeFunc(dev, percentage));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -64,10 +77,14 @@ class _MraaPwm {
     _initRawPointer = _lib
         .lookup<ffi.NativeFunction<returnMraaPwmContextIntIntParameterFunc>>(
             'mraa_pwm_init_raw');
+    _writePointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
+            'mraa_pwm_write');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaPwmInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaPwmInitialiseRawType>();
+    _writeFunc = _writePointer.asFunction<MraaPwmWriteType>();
   }
 }
