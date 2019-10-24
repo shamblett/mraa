@@ -336,6 +336,11 @@ int main() {
       final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
     });
+    test('Initialise raw', () {
+      final ffi.Pointer<MraaLedContext> context =
+          mraa.led.initialiseRaw('user4');
+      expect(context, isNotNull);
+    });
   });
 
   group('AIO', () {
