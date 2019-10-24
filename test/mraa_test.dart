@@ -509,6 +509,10 @@ int main() {
       final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
     });
+    test('Initialise raw', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialiseRaw(0, 1);
+      expect(context, isNotNull);
+    });
   });
 
   return 0;

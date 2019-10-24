@@ -12,9 +12,13 @@ part of mraa;
 /// C Function type typedefs
 typedef returnMraaPwmContextIntParameterFunc = ffi.Pointer<MraaPwmContext>
     Function(ffi.Int32);
+typedef returnMraaPwmContextIntIntParameterFunc = ffi.Pointer<MraaPwmContext>
+    Function(ffi.Int32, ffi.Int32);
 
 /// Dart Function typedefs
 typedef MraaPwmInitialiseType = ffi.Pointer<MraaPwmContext> Function(int);
+typedef MraaPwmInitialiseRawType = ffi.Pointer<MraaPwmContext> Function(
+    int, int);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -35,22 +39,35 @@ class _MraaPwm {
   /// C Pointers
   ffi.Pointer<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>
       _initPointer;
+  ffi.Pointer<ffi.NativeFunction<returnMraaPwmContextIntIntParameterFunc>>
+      _initRawPointer;
 
   /// Dart Functions
   dynamic _initFunc;
+  dynamic _initRawFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
   /// Returns pwm context or NULL.
   ffi.Pointer<MraaPwmContext> initialise(int pin) => _initFunc(pin);
 
+  /// Initialise raw - mraa_pwm_init_raw
+  /// Initialise pwm context, raw mode, uses the
+  /// chip in which the PWM is under in SYSFS.
+  ffi.Pointer<MraaPwmContext> initialiseRaw(int chipId, int pin) =>
+      _initRawFunc(chipId, pin);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_init');
+    _initRawPointer = _lib
+        .lookup<ffi.NativeFunction<returnMraaPwmContextIntIntParameterFunc>>(
+            'mraa_pwm_init_raw');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaPwmInitialiseType>();
+    _initRawFunc = _initRawPointer.asFunction<MraaPwmInitialiseRawType>();
   }
 }
