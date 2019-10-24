@@ -16,12 +16,15 @@ typedef returnMraaPwmContextIntIntParameterFunc = ffi.Pointer<MraaPwmContext>
     Function(ffi.Int32, ffi.Int32);
 typedef returnIntMraaPwmContextFloatParameterFunc = ffi.Int32 Function(
     ffi.Pointer<MraaPwmContext>, ffi.Double);
+typedef returnDoubleMraaPwmContextParameterFunc = ffi.Double Function(
+    ffi.Pointer<MraaPwmContext>);
 
 /// Dart Function typedefs
 typedef MraaPwmInitialiseType = ffi.Pointer<MraaPwmContext> Function(int);
 typedef MraaPwmInitialiseRawType = ffi.Pointer<MraaPwmContext> Function(
     int, int);
 typedef MraaPwmWriteType = int Function(ffi.Pointer<MraaPwmContext>, double);
+typedef MraaPwmReadType = double Function(ffi.Pointer<MraaPwmContext>);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -46,11 +49,14 @@ class _MraaPwm {
       _initRawPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
       _writePointer;
+  ffi.Pointer<ffi.NativeFunction<returnDoubleMraaPwmContextParameterFunc>>
+      _readPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _writeFunc;
+  dynamic _readFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -70,6 +76,13 @@ class _MraaPwm {
   MraaReturnCode write(ffi.Pointer<MraaPwmContext> dev, double percentage) =>
       returnCode.fromInt(_writeFunc(dev, percentage));
 
+  /// Read - mraa_pwm_read
+  /// Read the output duty-cycle percentage, as a double
+  /// Returns a floating-point value representing percentage of output.
+  /// The value should lie between 0.0f (representing on 0%) and 1.0f.
+  /// Values above or below this range will be set at either 0.0f or 1.0f.
+  double read(ffi.Pointer<MraaPwmContext> dev) => _readFunc(dev);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -80,11 +93,15 @@ class _MraaPwm {
     _writePointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
             'mraa_pwm_write');
+    _readPointer = _lib
+        .lookup<ffi.NativeFunction<returnDoubleMraaPwmContextParameterFunc>>(
+            'mraa_pwm_read');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaPwmInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaPwmInitialiseRawType>();
     _writeFunc = _writePointer.asFunction<MraaPwmWriteType>();
+    _readFunc = _readPointer.asFunction<MraaPwmReadType>();
   }
 }

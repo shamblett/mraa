@@ -519,6 +519,12 @@ int main() {
       final MraaReturnCode ret = mraa.pwm.write(context, 0.5);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Write', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final double ret = mraa.pwm.read(context);
+      expect(ret, isPositive);
+    });
   });
 
   return 0;
