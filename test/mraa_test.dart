@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-import 'dart:ffi' as ffi;
+import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
@@ -228,60 +228,60 @@ int main() {
 
   group('GPIO', () {
     test('Initialise', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(0);
       expect(context, isNotNull);
     });
     test('Direction', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
       final MraaReturnCode ret =
           mraa.gpio.direction(context, MraaGpioDirection.inn);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
       final int ret = mraa.gpio.read(context);
       expect(ret == Mraa.mraaGeneralError, isTrue);
     });
     test('Initialise multi', () {
-      final ffi.Pointer<MraaGpioContext> context =
+      final Pointer<MraaGpioContext> context =
           mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
       expect(context, isNotNull);
     });
     test('Initialise raw', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialiseRaw(4);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialiseRaw(4);
       expect(context, isNotNull);
     });
     test('Edge mode', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret =
           mraa.gpio.edgeMode(context, MraaGpioEdge.falling);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Events', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final List<MraaGpioEvent> events = mraa.gpio.events(context);
       expect(events, isEmpty);
     });
     test('Mode', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret =
           mraa.gpio.mode(context, MraaGpioOutputMode.pullup);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read direction', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaGpioDirectionRead dir = MraaGpioDirectionRead();
       final MraaReturnCode ret = mraa.gpio.readDirection(context, dir);
       expect(ret, MraaReturnCode.errorInvalidHandle);
       expect(dir.direction, isNull);
     });
     test('Close', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret = mraa.gpio.close(context);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read multi', () {
-      final ffi.Pointer<MraaGpioContext> context =
+      final Pointer<MraaGpioContext> context =
           mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
       expect(context, isNotNull);
       final MraaGpioMultiRead values = MraaGpioMultiRead();
@@ -291,40 +291,40 @@ int main() {
       expect(values.length, 4);
     });
     test('Write', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret = mraa.gpio.write(context, 1);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Write multi', () {
-      final ffi.Pointer<MraaGpioContext> context =
+      final Pointer<MraaGpioContext> context =
           mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
       final MraaReturnCode ret =
           mraa.gpio.writeMulti(context, <int>[7, 8, 9, 10]);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Owner', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret = mraa.gpio.owner(context, true);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Pin', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final int ret = mraa.gpio.pin(context);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Pin raw', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final int ret = mraa.gpio.pinRaw(context);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Input mode', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret =
           mraa.gpio.inputMode(context, MraaGpioInputMode.activeHigh);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Output driver mode', () {
-      final ffi.Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
+      final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final MraaReturnCode ret = mraa.gpio
           .outputDriverMode(context, MraaGpioOutputDriverMode.pushPull);
       expect(ret, MraaReturnCode.errorInvalidHandle);
@@ -333,46 +333,45 @@ int main() {
 
   group('LED', () {
     test('Initialise', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
     });
     test('Initialise raw', () {
-      final ffi.Pointer<MraaLedContext> context =
-          mraa.led.initialiseRaw('user4');
+      final Pointer<MraaLedContext> context = mraa.led.initialiseRaw('user4');
       expect(context, isNotNull);
     });
     test('Set brightness', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.led.setBrightness(context, 10);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read brightness', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final int ret = mraa.led.readBrightness(context);
       expect(ret, 5);
     });
     test('Read maximum brightness', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final int ret = mraa.led.readMaxBrightness(context);
       expect(ret, 5);
     });
     test('Set trigger', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.led.setTrigger(context, 'heartbeat');
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Clear trigger', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.led.clearTrigger(context);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Close', () {
-      final ffi.Pointer<MraaLedContext> context = mraa.led.initialise(1);
+      final Pointer<MraaLedContext> context = mraa.led.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.led.close(context);
       expect(ret, MraaReturnCode.errorInvalidHandle);
@@ -382,37 +381,37 @@ int main() {
   group('AIO', () {
     test('Initialise', () {
       mraa.common.initialise();
-      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       expect(context, isNotNull);
     });
     test('Close', () {
       mraa.common.initialise();
-      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final MraaReturnCode ret = mraa.aio.close(context);
       expect(ret, MraaReturnCode.success);
     });
     test('Read', () {
       mraa.common.initialise();
-      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final int val = mraa.aio.read(context);
       expect(val.isNegative, isFalse);
     });
     test('Read double', () {
       mraa.common.initialise();
-      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final double val = mraa.aio.readDouble(context);
       // For the unsupported test board used this value will be nonsense
       expect(val < Mraa.mraaAioReadDoubleError, isFalse);
     });
     test('Set bit', () {
       mraa.common.initialise();
-      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final MraaReturnCode ret = mraa.aio.setBit(context, 10);
       expect(ret, MraaReturnCode.success);
     });
     test('Get bit', () {
       mraa.common.initialise();
-      final ffi.Pointer<MraaAioContext> context = mraa.aio.initialise(0);
+      final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final int ret = mraa.aio.getBit(context);
       expect(ret, 10);
     });
@@ -420,57 +419,54 @@ int main() {
 
   group('I2C', () {
     test('Initialise', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       expect(context, isNotNull);
     });
     test('Initialise raw', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialiseRaw(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialiseRaw(0);
       expect(context, isNotNull);
     });
     test('Frequency', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.frequency(context, MraaI2cMode.high);
       expect(ret, MraaReturnCode.errorInvalidParameter);
     });
     test('Read', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       const int length = 10;
-      final ffi.Pointer<ffi.Uint8> data =
-          ffi.Pointer<ffi.Uint8>.allocate(count: length);
+      Pointer<Uint8> data;
+      final Uint8List dataItems = data.asTypedList(length);
       final int ret = mraa.i2c.read(context, data, length);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Read byte', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final int ret = mraa.i2c.readByte(context);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Read byte data', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final int ret = mraa.i2c.readByteData(context, 0);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Read word data', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final int ret = mraa.i2c.readWordData(context, 0);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Read bytes data', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       const int length = 10;
-      final ffi.Pointer<ffi.Uint8> data =
-          ffi.Pointer<ffi.Uint8>.allocate(count: length);
+      Pointer<Uint8> data;
+      final Uint8List dataItems = data.asTypedList(length);
       final int ret = mraa.i2c.readBytesData(context, 0, data, length);
       expect(ret, Mraa.mraaGeneralError);
     });
     test('Write', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final Uint8List values = Uint8List.fromList(<int>[1, 2, 3, 4, 5]);
-      ffi.Pointer<ffi.Uint8>  data;
-      data
-          ffi.Pointer<ffi.Uint8>.;
-      final Uint8List dataItems =
-          data.asTypedList(length: values.length);
+      Pointer<Uint8> data;
+      final Uint8List dataItems = data.asTypedList(values.length);
       final int length = values.length;
       for (int i = 0; i < length; i++) {
         dataItems[i] = values[i];
@@ -479,27 +475,27 @@ int main() {
       expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write byte', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.writeByte(context, 8);
       expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write byte data', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.writeByteData(context, 8, 0);
       expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write word data', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.writeWordData(context, 8, 0);
       expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Address', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.address(context, 8);
       expect(ret, MraaReturnCode.success);
     });
     test('Stop', () {
-      final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
+      final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.stop(context);
       expect(ret, MraaReturnCode.success);
     });
@@ -507,63 +503,63 @@ int main() {
 
   group('PWM', () {
     test('Initialise', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
     });
     test('Initialise raw', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialiseRaw(0, 1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialiseRaw(0, 1);
       expect(context, isNotNull);
     });
     test('Write', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.write(context, 0.5);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final double ret = mraa.pwm.read(context);
       expect(ret, isPositive);
     });
     test('Period', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.period(context, 0.5);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Period milliseconds', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.periodMs(context, 500);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Period microseconds', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.periodUs(context, 50000);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Pulse width', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.pulseWidth(context, 0.5);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Pulse width milliseconds', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.pulseWidthMs(context, 500);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Pulse width microseconds', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.pulseWidthUs(context, 50000);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Enable', () {
-      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.enable(context, 1);
       expect(ret, MraaReturnCode.errorInvalidHandle);
