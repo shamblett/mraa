@@ -8,7 +8,7 @@
 part of mraa;
 
 /// I2C context class for the opaque mraa_i2c_context structure
-class MraaI2cContext extends ffi.Struct<MraaI2cContext> {
+class MraaI2cContext extends ffi.Struct {
   /// Construction
   factory MraaI2cContext.allocate() =>
       ffi.Pointer<MraaI2cContext>.allocate().load<MraaI2cContext>();

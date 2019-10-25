@@ -466,10 +466,11 @@ int main() {
     test('Write', () {
       final ffi.Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final Uint8List values = Uint8List.fromList(<int>[1, 2, 3, 4, 5]);
-      final ffi.Pointer<ffi.Uint8> data =
-          ffi.Pointer<ffi.Uint8>.allocate(count: values.length);
+      ffi.Pointer<ffi.Uint8>  data;
+      data
+          ffi.Pointer<ffi.Uint8>.;
       final Uint8List dataItems =
-          data.asExternalTypedData(count: values.length);
+          data.asTypedList(length: values.length);
       final int length = values.length;
       for (int i = 0; i < length; i++) {
         dataItems[i] = values[i];
@@ -559,6 +560,12 @@ int main() {
       final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.pwm.pulseWidthUs(context, 50000);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
+    test('Enable', () {
+      final ffi.Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.pwm.enable(context, 1);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
   });

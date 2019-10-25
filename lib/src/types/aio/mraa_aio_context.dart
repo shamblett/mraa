@@ -8,7 +8,7 @@
 part of mraa;
 
 /// AIO context class for the opaque mraa_aio_context structure
-class MraaAioContext extends ffi.Struct<MraaAioContext> {
+class MraaAioContext extends ffi.Struct {
   /// Construction
   factory MraaAioContext.allocate() =>
       ffi.Pointer<MraaAioContext>.allocate().load<MraaAioContext>();

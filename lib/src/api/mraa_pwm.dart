@@ -36,6 +36,7 @@ typedef MraaPwmPulseWidthMsType = int Function(
     ffi.Pointer<MraaPwmContext>, int);
 typedef MraaPwmPulseWidthUsType = int Function(
     ffi.Pointer<MraaPwmContext>, int);
+typedef MraaPwmEnableType = int Function(ffi.Pointer<MraaPwmContext>, int);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -74,6 +75,8 @@ class _MraaPwm {
       _pulseWidthMsPointer;
   ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
       _pulseWidthUsPointer;
+  ffi.Pointer<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+      _enablePointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -86,6 +89,7 @@ class _MraaPwm {
   dynamic _pulseWidthFunc;
   dynamic _pulseWidthMsFunc;
   dynamic _pulseWidthUsFunc;
+  dynamic _enableFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -144,6 +148,12 @@ class _MraaPwm {
           ffi.Pointer<MraaPwmContext> dev, int microseconds) =>
       returnCode.fromInt(_pulseWidthUsFunc(dev, microseconds));
 
+  /// Enable - mraa_pwm_enable
+  /// Set the enable status of the PWM pin.
+  /// None zero will assume on with output being driven. and 0 will disable the output.
+  MraaReturnCode enable(ffi.Pointer<MraaPwmContext> dev, int enable) =>
+      returnCode.fromInt(_enableFunc(dev, enable));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<ffi.NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -175,6 +185,9 @@ class _MraaPwm {
     _pulseWidthUsPointer = _lib
         .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_pulsewidth_us');
+    _enablePointer = _lib
+        .lookup<ffi.NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+            'mraa_pwm_enable');
   }
 
   void _setUpFunctions() {
@@ -190,5 +203,6 @@ class _MraaPwm {
         _pulseWidthMsPointer.asFunction<MraaPwmPulseWidthMsType>();
     _pulseWidthUsFunc =
         _pulseWidthUsPointer.asFunction<MraaPwmPulseWidthUsType>();
+    _enableFunc = _enablePointer.asFunction<MraaPwmEnableType>();
   }
 }
