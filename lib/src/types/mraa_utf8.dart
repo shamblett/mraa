@@ -27,14 +27,17 @@ class Utf8 extends Struct {
   }
 
   /// To
-  static Pointer<Utf8> toUtf8(String s) {
+  static List<Utf8> toUtf8(String s) {
     final Uint8List units = const Utf8Encoder().convert(s);
-    Pointer<Utf8> ptr;
-    for (int i = 0; i < units.length; i++) {
-      ptr[i].char = units[i];
+    final List<Utf8> utf8List = List<Utf8>();
+    for (int i=0; i<units.length; i++) {
+      final Utf8 tmp = Utf8();
+      tmp.char = units[i];
+      utf8List.add(tmp);
     }
-    // Add the C string null terminator '\0'
-    ptr[units.length].char = 0;
-    return ptr;
+    final Utf8 tmp = Utf8();
+    tmp.char = 0;
+    utf8List.add(tmp);
+    return utf8List;
   }
 }
