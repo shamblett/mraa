@@ -8,19 +8,18 @@
 part of mraa;
 
 /// GPIO event class
-class MraaGpioEvent extends ffi.Struct {
+class MraaGpioEvent extends Struct {
   /// Construction
-  factory MraaGpioEvent.allocate(int id, int timestamp) =>
-      ffi.Pointer<MraaGpioEvent>.allocate().load<MraaGpioEvent>()
-        ..id = id
-        ..timestamp = timestamp;
+  factory MraaGpioEvent(int id, int timestamp) => MraaGpioEvent(id, timestamp)
+    ..id = id
+    ..timestamp = timestamp;
 
-  @ffi.Int32()
+  @Int32()
 
   /// Id
   int id;
 
-  @ffi.Int64()
+  @Int64()
 
   /// Timestamp
   int timestamp;

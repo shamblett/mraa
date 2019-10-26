@@ -10,24 +10,23 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef returnStringNoParametersFunc = ffi.Pointer<Utf8> Function();
-typedef returnStringIntParametersFunc = ffi.Pointer<Utf8> Function(ffi.Int32);
-typedef returnIntNoParametersFunc = ffi.Int32 Function();
-typedef returnIntIntParametersFunc = ffi.Int32 Function(ffi.Int32);
-typedef returnIntStringParametersFunc = ffi.Int32 Function(ffi.Pointer<Utf8>);
-typedef returnInt2IntParametersFunc = ffi.Int32 Function(ffi.Int32, ffi.Int32);
-typedef returnVoidIntParametersFunc = ffi.Void Function(ffi.Int32);
-typedef returnIntUint8ParametersFunc = ffi.Int32 Function(ffi.Uint8);
-typedef returnIntIntStringParametersFunc = ffi.Int32 Function(
-    ffi.Int32, ffi.Pointer<Utf8>);
+typedef returnStringNoParametersFunc = Pointer<Utf8> Function();
+typedef returnStringIntParametersFunc = Pointer<Utf8> Function(Int32);
+typedef returnIntNoParametersFunc = Int32 Function();
+typedef returnIntIntParametersFunc = Int32 Function(Int32);
+typedef returnIntStringParametersFunc = Int32 Function(Pointer<Utf8>);
+typedef returnInt2IntParametersFunc = Int32 Function(Int32, Int32);
+typedef returnVoidIntParametersFunc = Void Function(Int32);
+typedef returnIntUint8ParametersFunc = Int32 Function(Uint8);
+typedef returnIntIntStringParametersFunc = Int32 Function(Int32, Pointer<Utf8>);
 
 /// Dart Function typedefs
-typedef MraaCommonVersionType = ffi.Pointer<Utf8> Function();
-typedef MraaCommonPlatformVersionType = ffi.Pointer<Utf8> Function(int);
+typedef MraaCommonVersionType = Pointer<Utf8> Function();
+typedef MraaCommonPlatformVersionType = Pointer<Utf8> Function(int);
 typedef MraaCommonInitialiseType = int Function();
-typedef MraaCommonPlatformNameType = ffi.Pointer<Utf8> Function();
+typedef MraaCommonPlatformNameType = Pointer<Utf8> Function();
 typedef MraaCommonPlatformTypeType = int Function();
-typedef MraaCommonInitJsonPlatformType = int Function(ffi.Pointer<Utf8>);
+typedef MraaCommonInitJsonPlatformType = int Function(Pointer<Utf8>);
 typedef MraaCommonSetLogLevelType = int Function(int);
 typedef MraaCommonPinmodeTestType = int Function(int, int);
 typedef MraaCommonADCRawBitsType = int Function();
@@ -46,18 +45,18 @@ typedef MraaCommonAioCountType = int Function();
 typedef MraaCommonI2cBusCountType = int Function();
 typedef MraaCommonI2cBusIdType = int Function(int);
 typedef MraaCommonPlatformPinCountType = int Function(int);
-typedef MraaCommonPinNameType = ffi.Pointer<Utf8> Function(int);
-typedef MraaCommonGpioLookupType = int Function(ffi.Pointer<Utf8>);
-typedef MraaCommonI2cLookupType = int Function(ffi.Pointer<Utf8>);
-typedef MraaCommonSpiLookupType = int Function(ffi.Pointer<Utf8>);
-typedef MraaCommonPwmLookupType = int Function(ffi.Pointer<Utf8>);
-typedef MraaCommonUartLookupType = int Function(ffi.Pointer<Utf8>);
+typedef MraaCommonPinNameType = Pointer<Utf8> Function(int);
+typedef MraaCommonGpioLookupType = int Function(Pointer<Utf8>);
+typedef MraaCommonI2cLookupType = int Function(Pointer<Utf8>);
+typedef MraaCommonSpiLookupType = int Function(Pointer<Utf8>);
+typedef MraaCommonPwmLookupType = int Function(Pointer<Utf8>);
+typedef MraaCommonUartLookupType = int Function(Pointer<Utf8>);
 typedef MraaCommonDefaultI2cBusType = int Function(int);
 typedef MraaCommonHasSubPlatformType = int Function();
 typedef MraaCommonIsSubPlatformIdType = int Function(int);
 typedef MraaCommonSubPlatformIdType = int Function(int);
 typedef MraaCommonSubPlatformIndexType = int Function(int);
-typedef MraaCommonAddSubplatformType = int Function(int, ffi.Pointer<Utf8>);
+typedef MraaCommonAddSubplatformType = int Function(int, Pointer<Utf8>);
 typedef MraaCommonRemoveSubplatformType = int Function(int);
 
 /// The Common MRAA API
@@ -69,76 +68,55 @@ class _MraaCommon {
   }
 
   /// The MRAA library
-  ffi.DynamicLibrary _lib;
+  DynamicLibrary _lib;
 
   bool _noJsonLoading = false;
 
   /// C Pointers
-  ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>> _versionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _initialisePointer;
-  ffi.Pointer<ffi.NativeFunction<returnStringNoParametersFunc>>
-      _platformNamePointer;
-  ffi.Pointer<ffi.NativeFunction<returnStringIntParametersFunc>>
+  Pointer<NativeFunction<returnStringNoParametersFunc>> _versionPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _initialisePointer;
+  Pointer<NativeFunction<returnStringNoParametersFunc>> _platformNamePointer;
+  Pointer<NativeFunction<returnStringIntParametersFunc>>
       _platformVersionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
-      _platformTypePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _platformTypePointer;
+  Pointer<NativeFunction<returnIntStringParametersFunc>>
       _initJsonPlatformPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
-      _setLogLevelPointer;
-  ffi.Pointer<ffi.NativeFunction<returnInt2IntParametersFunc>>
-      _pinmodeTestPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _adcRawBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _setLogLevelPointer;
+  Pointer<NativeFunction<returnInt2IntParametersFunc>> _pinmodeTestPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _adcRawBitsPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>>
       _platformAdcRawBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
-      _adcSupportedBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _adcSupportedBitsPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>>
       _platformAdcSupportedBitsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
-      _setPriorityPointer;
-  ffi.Pointer<ffi.NativeFunction<returnVoidIntParametersFunc>>
-      _resultPrintPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _setPriorityPointer;
+  Pointer<NativeFunction<returnVoidIntParametersFunc>> _resultPrintPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>>
       _platformCombinedTypePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _pinCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _uartCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
-      _spiBusCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _pwmCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _gpioCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>> _aioCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
-      _i2cBusCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>> _i2cBusIdPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntUint8ParametersFunc>>
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _pinCountPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _uartCountPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _spiBusCountPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _pwmCountPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _gpioCountPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _aioCountPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _i2cBusCountPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _i2cBusIdPointer;
+  Pointer<NativeFunction<returnIntUint8ParametersFunc>>
       _platformPinCountPointer;
-  ffi.Pointer<ffi.NativeFunction<returnStringIntParametersFunc>>
-      _pinNamePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
-      _gpioLookupPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
-      _i2cLookupPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
-      _spiLookupPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
-      _pwmLookupPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntStringParametersFunc>>
-      _uartLookupPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntUint8ParametersFunc>>
-      _defaultI2cBusPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntNoParametersFunc>>
-      _hasSubPlatformPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
-      _isSubPlatformIdPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
-      _subPlatformIdPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
-      _subPlatformIndexPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntStringParametersFunc>>
+  Pointer<NativeFunction<returnStringIntParametersFunc>> _pinNamePointer;
+  Pointer<NativeFunction<returnIntStringParametersFunc>> _gpioLookupPointer;
+  Pointer<NativeFunction<returnIntStringParametersFunc>> _i2cLookupPointer;
+  Pointer<NativeFunction<returnIntStringParametersFunc>> _spiLookupPointer;
+  Pointer<NativeFunction<returnIntStringParametersFunc>> _pwmLookupPointer;
+  Pointer<NativeFunction<returnIntStringParametersFunc>> _uartLookupPointer;
+  Pointer<NativeFunction<returnIntUint8ParametersFunc>> _defaultI2cBusPointer;
+  Pointer<NativeFunction<returnIntNoParametersFunc>> _hasSubPlatformPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _isSubPlatformIdPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _subPlatformIdPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _subPlatformIndexPointer;
+  Pointer<NativeFunction<returnIntIntStringParametersFunc>>
       _addSubplatformPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntIntParametersFunc>>
-      _removeSubplatformPointer;
+  Pointer<NativeFunction<returnIntIntParametersFunc>> _removeSubplatformPointer;
 
   /// Dart Functions
   dynamic _versionFunc;
@@ -385,117 +363,109 @@ class _MraaCommon {
           _removeSubplatformFunc(platformTypes.asInt(subplatformType)));
 
   void _setUpPointers() {
-    _versionPointer =
-        _lib.lookup<ffi.NativeFunction<returnStringNoParametersFunc>>(
-            'mraa_get_version');
+    _versionPointer = _lib.lookup<NativeFunction<returnStringNoParametersFunc>>(
+        'mraa_get_version');
     _initialisePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>('mraa_init');
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>('mraa_init');
     _platformNamePointer =
-        _lib.lookup<ffi.NativeFunction<returnStringNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnStringNoParametersFunc>>(
             'mraa_get_platform_name');
     _platformVersionPointer =
-        _lib.lookup<ffi.NativeFunction<returnStringIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnStringIntParametersFunc>>(
             'mraa_get_platform_version');
     _platformTypePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
             'mraa_get_platform_type');
     if (!_noJsonLoading) {
       _initJsonPlatformPointer =
-          _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+          _lib.lookup<NativeFunction<returnIntStringParametersFunc>>(
               'mraa_init_json_platform');
     }
     _setLogLevelPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_set_log_level');
     _pinmodeTestPointer =
-        _lib.lookup<ffi.NativeFunction<returnInt2IntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnInt2IntParametersFunc>>(
             'mraa_pin_mode_test');
-    _adcRawBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
-            'mraa_adc_raw_bits');
+    _adcRawBitsPointer = _lib
+        .lookup<NativeFunction<returnIntNoParametersFunc>>('mraa_adc_raw_bits');
     _platformAdcRawBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_get_platform_adc_raw_bits');
     _adcSupportedBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
             'mraa_adc_supported_bits');
     _platformAdcSupportedBitsPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_get_platform_adc_supported_bits');
     _setPriorityPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_set_priority');
     _resultPrintPointer =
-        _lib.lookup<ffi.NativeFunction<returnVoidIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnVoidIntParametersFunc>>(
             'mraa_result_print');
     _platformCombinedTypePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
             'mraa_get_platform_combined_type');
-    _pinCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
-            'mraa_get_pin_count');
-    _uartCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
-            'mraa_get_uart_count');
+    _pinCountPointer = _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
+        'mraa_get_pin_count');
+    _uartCountPointer = _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
+        'mraa_get_uart_count');
     _spiBusCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
             'mraa_get_spi_bus_count');
-    _pwmCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
-            'mraa_get_pwm_count');
-    _gpioCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
-            'mraa_get_gpio_count');
-    _aioCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
-            'mraa_get_aio_count');
+    _pwmCountPointer = _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
+        'mraa_get_pwm_count');
+    _gpioCountPointer = _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
+        'mraa_get_gpio_count');
+    _aioCountPointer = _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
+        'mraa_get_aio_count');
     _i2cBusCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
             'mraa_get_i2c_bus_count');
-    _i2cBusIdPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
-            'mraa_get_i2c_bus_id');
+    _i2cBusIdPointer = _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
+        'mraa_get_i2c_bus_id');
     _platformPinCountPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntUint8ParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntUint8ParametersFunc>>(
             'mraa_get_platform_pin_count');
     _pinNamePointer =
-        _lib.lookup<ffi.NativeFunction<returnStringIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnStringIntParametersFunc>>(
             'mraa_get_pin_name');
     _gpioLookupPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntStringParametersFunc>>(
             'mraa_gpio_lookup');
     _i2cLookupPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntStringParametersFunc>>(
             'mraa_i2c_lookup');
     _spiLookupPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntStringParametersFunc>>(
             'mraa_spi_lookup');
     _pwmLookupPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntStringParametersFunc>>(
             'mraa_pwm_lookup');
     _uartLookupPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntStringParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntStringParametersFunc>>(
             'mraa_uart_lookup');
     _defaultI2cBusPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntUint8ParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntUint8ParametersFunc>>(
             'mraa_get_default_i2c_bus');
     _hasSubPlatformPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntNoParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntNoParametersFunc>>(
             'mraa_has_sub_platform');
     _isSubPlatformIdPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_is_sub_platform_id');
     _subPlatformIdPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_get_sub_platform_id');
     _subPlatformIndexPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_get_sub_platform_index');
     _addSubplatformPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntStringParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntStringParametersFunc>>(
             'mraa_add_subplatform');
     _removeSubplatformPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntIntParametersFunc>>(
             'mraa_remove_subplatform');
   }
 

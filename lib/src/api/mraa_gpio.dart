@@ -10,46 +10,46 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef returnMraaGpioContextIntParameterFunc = ffi.Pointer<MraaGpioContext>
-    Function(ffi.Int32);
-typedef returnIntGpioContextIntParametersFunc = ffi.Int32 Function(
-    ffi.Pointer<MraaGpioContext>, ffi.Int32);
-typedef returnIntGpioContextParametersFunc = ffi.Int32 Function(
-    ffi.Pointer<MraaGpioContext>);
-typedef returnMraaGpioContextIntArrayIntParameterFunc
-    = ffi.Pointer<MraaGpioContext> Function(ffi.Pointer<ffi.Int32>, ffi.Int32);
+typedef returnMraaGpioContextIntParameterFunc = Pointer<MraaGpioContext>
+    Function(Int32);
+typedef returnIntGpioContextIntParametersFunc = Int32 Function(
+    Pointer<MraaGpioContext>, Int32);
+typedef returnIntGpioContextParametersFunc = Int32 Function(
+    Pointer<MraaGpioContext>);
+typedef returnMraaGpioContextIntArrayIntParameterFunc = Pointer<MraaGpioContext>
+    Function(Pointer<Int32>, Int32);
 typedef returnMraaGpioEventArrayMraaGpioContextParameter
-    = ffi.Pointer<MraaGpioEvent> Function(ffi.Pointer<MraaGpioContext>);
-typedef returnIntGpioContextPtrIntParametersFunc = ffi.Int32 Function(
-    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
-typedef returnMraaGpioContextIntArrayParameterFunc
-    = ffi.Pointer<MraaGpioContext> Function(ffi.Pointer<ffi.Int32>);
+    = Pointer<MraaGpioEvent> Function(Pointer<MraaGpioContext>);
+typedef returnIntGpioContextPtrIntParametersFunc = Int32 Function(
+    Pointer<MraaGpioContext>, Pointer<Int32>);
+typedef returnMraaGpioContextIntArrayParameterFunc = Pointer<MraaGpioContext>
+    Function(Pointer<Int32>);
 
 /// Dart Function typedefs
-typedef MraaGpioInitialiseType = ffi.Pointer<MraaGpioContext> Function(int);
-typedef MraaGpioDirectionType = int Function(ffi.Pointer<MraaGpioContext>, int);
-typedef MraaGpioReadType = int Function(ffi.Pointer<MraaGpioContext>);
-typedef MraaGpioInitialiseMultiType = ffi.Pointer<MraaGpioContext> Function(
-    ffi.Pointer<ffi.Int32>, int);
-typedef MraaGpioInitialiseRawType = ffi.Pointer<MraaGpioContext> Function(int);
-typedef MraaGpioEdgeModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
-typedef MraaGpioEventsType = ffi.Pointer<MraaGpioEvent> Function(
-    ffi.Pointer<MraaGpioContext>);
-typedef MraaGpioModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
+typedef MraaGpioInitialiseType = Pointer<MraaGpioContext> Function(int);
+typedef MraaGpioDirectionType = int Function(Pointer<MraaGpioContext>, int);
+typedef MraaGpioReadType = int Function(Pointer<MraaGpioContext>);
+typedef MraaGpioInitialiseMultiType = Pointer<MraaGpioContext> Function(
+    Pointer<Int32>, int);
+typedef MraaGpioInitialiseRawType = Pointer<MraaGpioContext> Function(int);
+typedef MraaGpioEdgeModeType = int Function(Pointer<MraaGpioContext>, int);
+typedef MraaGpioEventsType = Pointer<MraaGpioEvent> Function(
+    Pointer<MraaGpioContext>);
+typedef MraaGpioModeType = int Function(Pointer<MraaGpioContext>, int);
 typedef MraaGpioReadDirectionType = int Function(
-    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
-typedef MraaGpioCloseType = int Function(ffi.Pointer<MraaGpioContext>);
+    Pointer<MraaGpioContext>, Pointer<Int32>);
+typedef MraaGpioCloseType = int Function(Pointer<MraaGpioContext>);
 typedef MraaGpioReadMultiType = int Function(
-    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
-typedef MraaGpioWriteType = int Function(ffi.Pointer<MraaGpioContext>, int);
+    Pointer<MraaGpioContext>, Pointer<Int32>);
+typedef MraaGpioWriteType = int Function(Pointer<MraaGpioContext>, int);
 typedef MraaGpioWriteMultiType = int Function(
-    ffi.Pointer<MraaGpioContext>, ffi.Pointer<ffi.Int32>);
-typedef MraaGpioOwnerType = int Function(ffi.Pointer<MraaGpioContext>, int);
-typedef MraaGpioPinType = int Function(ffi.Pointer<MraaGpioContext>);
-typedef MraaGpioPinRawType = int Function(ffi.Pointer<MraaGpioContext>);
-typedef MraaGpioInputModeType = int Function(ffi.Pointer<MraaGpioContext>, int);
+    Pointer<MraaGpioContext>, Pointer<Int32>);
+typedef MraaGpioOwnerType = int Function(Pointer<MraaGpioContext>, int);
+typedef MraaGpioPinType = int Function(Pointer<MraaGpioContext>);
+typedef MraaGpioPinRawType = int Function(Pointer<MraaGpioContext>);
+typedef MraaGpioInputModeType = int Function(Pointer<MraaGpioContext>, int);
 typedef MraaGpioOutputDriverModeType = int Function(
-    ffi.Pointer<MraaGpioContext>, int);
+    Pointer<MraaGpioContext>, int);
 
 /// The GPIO MRAA API
 /// Gpio is the General Purpose IO interface to libmraa. Its features depend on the board type used,
@@ -62,49 +62,41 @@ class _MraaGpio {
   }
 
   /// The MRAA library
-  ffi.DynamicLibrary _lib;
+  DynamicLibrary _lib;
 
   bool _noJsonLoading = false;
 
   int _initialiseMultiPinCount = 0;
 
   /// C Pointers
-  ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
+  Pointer<NativeFunction<returnMraaGpioContextIntParameterFunc>>
       _initialisePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>>
       _directionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
-      _readPointer;
-  ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>
+  Pointer<NativeFunction<returnIntGpioContextParametersFunc>> _readPointer;
+  Pointer<NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>
       _initialiseMultiPointer;
-  ffi.Pointer<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>
+  Pointer<NativeFunction<returnMraaGpioContextIntParameterFunc>>
       _initialiseRawPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>>
       _edgeModePointer;
-  ffi.Pointer<
-          ffi.NativeFunction<returnMraaGpioEventArrayMraaGpioContextParameter>>
+  Pointer<NativeFunction<returnMraaGpioEventArrayMraaGpioContextParameter>>
       _eventsPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
-      _modePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>> _modePointer;
+  Pointer<NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
       _readDirectionPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
-      _closePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextParametersFunc>> _closePointer;
+  Pointer<NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
       _readMultiPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
-      _writePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>> _writePointer;
+  Pointer<NativeFunction<returnIntGpioContextPtrIntParametersFunc>>
       _writeMultiPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
-      _ownerPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
-      _pinPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextParametersFunc>>
-      _pinRawPointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>> _ownerPointer;
+  Pointer<NativeFunction<returnIntGpioContextParametersFunc>> _pinPointer;
+  Pointer<NativeFunction<returnIntGpioContextParametersFunc>> _pinRawPointer;
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>>
       _inputModePointer;
-  ffi.Pointer<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>
+  Pointer<NativeFunction<returnIntGpioContextIntParametersFunc>>
       _outputDriverModePointer;
 
   /// Dart Functions
@@ -129,27 +121,26 @@ class _MraaGpio {
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number
-  ffi.Pointer<MraaGpioContext> initialise(int pin) => _initialiseFunc(pin);
+  Pointer<MraaGpioContext> initialise(int pin) => _initialiseFunc(pin);
 
   /// GPIO direction - mraa_gpio_dir
   /// Set Gpio(s) direction
   MraaReturnCode direction(
-          ffi.Pointer<MraaGpioContext> context, MraaGpioDirection direction) =>
+          Pointer<MraaGpioContext> context, MraaGpioDirection direction) =>
       returnCode
           .fromInt(_directionFunc(context, gpioDirections.asInt(direction)));
 
   /// Read - mraa_gpio_read
   /// Read the Gpio value. This can be 0 or 1.
   /// A response of -1 means that there was a fatal error.
-  int read(ffi.Pointer<MraaGpioContext> context) => _readFunc(context);
+  int read(Pointer<MraaGpioContext> context) => _readFunc(context);
 
   /// Initialise multi - mraa_gpio_init_multi
   /// Initialise gpio_context, based on board number, for multiple pins (can be one).
-  ffi.Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
-    final ffi.Pointer<ffi.Int32> mpins =
-        ffi.Pointer<ffi.Int32>.allocate(count: numPins);
+  Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
+    Pointer<Int32> mpins;
     final Int32List values = Int32List.fromList(pins);
-    final Int32List dataItems = mpins.asExternalTypedData(count: values.length);
+    final Int32List dataItems = mpins.asTypedList(values.length);
     final int length = values.length;
     for (int i = 0; i < length; i++) {
       dataItems[i] = values[i];
@@ -161,13 +152,12 @@ class _MraaGpio {
   /// Initialise raw - mraa_gpio_init_raw
   /// Initialise gpio context without any mapping to a pin
   /// Pin supplied is as listed in SYSFS
-  ffi.Pointer<MraaGpioContext> initialiseRaw(int gpioPin) =>
+  Pointer<MraaGpioContext> initialiseRaw(int gpioPin) =>
       _initialiseRawFunc(gpioPin);
 
   /// Edge mode - mraa_gpio_edge_mode
   /// Set the edge mode on the gpio
-  MraaReturnCode edgeMode(
-          ffi.Pointer<MraaGpioContext> dev, MraaGpioEdge mode) =>
+  MraaReturnCode edgeMode(Pointer<MraaGpioContext> dev, MraaGpioEdge mode) =>
       returnCode.fromInt(_edgeModeFunc(dev, gpioEdge.asInt(mode)));
 
   /// Events - mraa_gpio_get_events
@@ -176,35 +166,33 @@ class _MraaGpio {
   /// An event with negative id value indicates that no event was triggered for the respective pin.
   /// The list length is that of the number of pins provided in initialiseMulti(). Note if this
   /// has not been called we cant get the event list so we return null.
-  List<MraaGpioEvent> events(ffi.Pointer<MraaGpioContext> dev) {
+  List<MraaGpioEvent> events(Pointer<MraaGpioContext> dev) {
     if (_initialiseMultiPinCount == 0) {
       return null;
     }
-    final ffi.Pointer<MraaGpioEvent> mevents = _eventsFunc(dev);
+    final Pointer<MraaGpioEvent> mevents = _eventsFunc(dev);
     final List<MraaGpioEvent> events = <MraaGpioEvent>[];
     if (mevents.address == 0) {
       return events;
     }
     for (int i = 0; i < _initialiseMultiPinCount; i++) {
-      events.add(mevents.elementAt(i).load());
+      events.add(mevents[i]);
     }
     return events;
   }
 
   /// Mode - mraa_gpio_mode
   /// Set Gpio(s) Output Mode,
-  MraaReturnCode mode(
-          ffi.Pointer<MraaGpioContext> dev, MraaGpioOutputMode mode) =>
+  MraaReturnCode mode(Pointer<MraaGpioContext> dev, MraaGpioOutputMode mode) =>
       returnCode.fromInt(_modeFunc(dev, gpioOutputModes.asInt(mode)));
 
   /// Read direction - mraa_gpio_read_dir
   /// Read Gpio(s) direction
   MraaReturnCode readDirection(
-      ffi.Pointer<MraaGpioContext> dev, MraaGpioDirectionRead gpioDirection) {
-    final ffi.Pointer<ffi.Int32> dir =
-        ffi.Pointer<ffi.Int32>.allocate(count: 1);
+      Pointer<MraaGpioContext> dev, MraaGpioDirectionRead gpioDirection) {
+    Pointer<Int32> dir;
     final MraaReturnCode ret = returnCode.fromInt(_readDirectionFunc(dev, dir));
-    gpioDirection.direction = gpioDirections.fromInt(dir.load());
+    gpioDirection.direction = gpioDirections.fromInt(dir.value);
     return ret;
   }
 
@@ -213,50 +201,47 @@ class _MraaGpio {
   /// Free's the memory for the context and unexport the Gpio - sysfs interface.
   /// Free's up the memory used by context and close related file descriptors -
   /// chardev interface.
-  MraaReturnCode close(ffi.Pointer<MraaGpioContext> dev) =>
+  MraaReturnCode close(Pointer<MraaGpioContext> dev) =>
       returnCode.fromInt(_closeFunc(dev));
 
   /// Read multi - mraa_gpio_read_multi
   /// Read the Gpio(s) value. Reads the number of pins provided to
   /// the initialiseMulti() function.
   MraaReturnCode readMulti(
-      ffi.Pointer<MraaGpioContext> dev, MraaGpioMultiRead values) {
+      Pointer<MraaGpioContext> dev, MraaGpioMultiRead values) {
     if (_initialiseMultiPinCount == 0) {
       return MraaReturnCode.errorUnspecified;
     }
-    final ffi.Pointer<ffi.Int32> rawValues =
-        ffi.Pointer<ffi.Int32>.allocate(count: _initialiseMultiPinCount);
+    Pointer<Int32> rawValues;
     int intRet = _readMultiFunc(dev, rawValues);
     if (intRet == Mraa.mraaGeneralError) {
       intRet = 99; // unspecified
     }
     final Int32List typedValues =
-        rawValues.asExternalTypedData(count: _initialiseMultiPinCount);
+        rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
     return returnCode.fromInt(intRet);
   }
 
   /// Write - mraa_gpio_write
   /// Write to the Gpio Value.
-  MraaReturnCode write(ffi.Pointer<MraaGpioContext> dev, int value) =>
+  MraaReturnCode write(Pointer<MraaGpioContext> dev, int value) =>
       returnCode.fromInt(_writeFunc(dev, value));
 
   /// Write multi - mraa_gpio_write_multi
   /// Write to the Gpio(s) Value. The user must provide an integer array with a length
   /// equal to the number of pins provided to initialiseMulti() function and in
   /// the same order.
-  MraaReturnCode writeMulti(
-      ffi.Pointer<MraaGpioContext> dev, List<int> values) {
+  MraaReturnCode writeMulti(Pointer<MraaGpioContext> dev, List<int> values) {
     if (_initialiseMultiPinCount == 0) {
       return MraaReturnCode.errorUnspecified;
     }
     if (values.length != _initialiseMultiPinCount) {
       return MraaReturnCode.errorUnspecified;
     }
-    final ffi.Pointer<ffi.Int32> rawValues =
-        ffi.Pointer<ffi.Int32>.allocate(count: _initialiseMultiPinCount);
+    Pointer<Int32> rawValues;
     final Int32List typedValues =
-        rawValues.asExternalTypedData(count: _initialiseMultiPinCount);
+        rawValues.asTypedList(_initialiseMultiPinCount);
     for (int i = 0; i < _initialiseMultiPinCount; i++) {
       typedValues[i] = values[i];
     }
@@ -265,88 +250,87 @@ class _MraaGpio {
 
   /// Owner - mraa_gpio_owner
   /// Change ownership of the context, true indicates become the owner
-  MraaReturnCode owner(ffi.Pointer<MraaGpioContext> dev, bool own) {
+  MraaReturnCode owner(Pointer<MraaGpioContext> dev, bool own) {
     final int rawOwn = own ? 1 : 0;
     return returnCode.fromInt(_ownerFunc(dev, rawOwn));
   }
 
   /// Pin - mraa_gpio_get_pin
   /// Get a pin number of the gpio, invalid will return mraaGeneralError
-  int pin(ffi.Pointer<MraaGpioContext> dev) => _pinFunc(dev);
+  int pin(Pointer<MraaGpioContext> dev) => _pinFunc(dev);
 
   /// Pin raw - mraa_gpio_get_pin_raw
   /// Get a gpio number as used within sysfs, invalid will return mraaGeneralError
-  int pinRaw(ffi.Pointer<MraaGpioContext> dev) => _pinRawFunc(dev);
+  int pinRaw(Pointer<MraaGpioContext> dev) => _pinRawFunc(dev);
 
   /// Input mode - mraa_gpio_input_mode
   /// Set Gpio input mode
   MraaReturnCode inputMode(
-          ffi.Pointer<MraaGpioContext> dev, MraaGpioInputMode mode) =>
+          Pointer<MraaGpioContext> dev, MraaGpioInputMode mode) =>
       returnCode.fromInt(_inputModeFunc(dev, gpioInputModes.asInt(mode)));
 
   /// Output driver mode - mraa_gpio_out_driver_mode
   /// Set Gpio output driver mode
   /// This is not a standard feature, it needs custom implementation for each board.
   MraaReturnCode outputDriverMode(
-          ffi.Pointer<MraaGpioContext> dev, MraaGpioOutputDriverMode mode) =>
+          Pointer<MraaGpioContext> dev, MraaGpioOutputDriverMode mode) =>
       returnCode.fromInt(
           _outputDriverModeFunc(dev, gpioOutputDriverModes.asInt(mode)));
 
   void _setUpPointers() {
     _initialisePointer =
-        _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<returnMraaGpioContextIntParameterFunc>>(
             'mraa_gpio_init');
     _directionPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_dir');
     _readPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextParametersFunc>>(
             'mraa_gpio_read');
-    _initialiseMultiPointer = _lib.lookup<
-            ffi.NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>(
-        'mraa_gpio_init_multi');
+    _initialiseMultiPointer = _lib
+        .lookup<NativeFunction<returnMraaGpioContextIntArrayIntParameterFunc>>(
+            'mraa_gpio_init_multi');
     _initialiseRawPointer =
-        _lib.lookup<ffi.NativeFunction<returnMraaGpioContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<returnMraaGpioContextIntParameterFunc>>(
             'mraa_gpio_init_raw');
     _edgeModePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_edge_mode');
     _eventsPointer = _lib.lookup<
-            ffi.NativeFunction<
-                returnMraaGpioEventArrayMraaGpioContextParameter>>(
+            NativeFunction<returnMraaGpioEventArrayMraaGpioContextParameter>>(
         'mraa_gpio_get_events');
     _modePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_mode');
-    _readDirectionPointer = _lib
-        .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
+    _readDirectionPointer =
+        _lib.lookup<NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
             'mraa_gpio_read_dir');
     _closePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextParametersFunc>>(
             'mraa_gpio_close');
-    _readMultiPointer = _lib
-        .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
+    _readMultiPointer =
+        _lib.lookup<NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
             'mraa_gpio_read_multi');
     _writePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_write');
-    _writeMultiPointer = _lib
-        .lookup<ffi.NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
+    _writeMultiPointer =
+        _lib.lookup<NativeFunction<returnIntGpioContextPtrIntParametersFunc>>(
             'mraa_gpio_write_multi');
     _ownerPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_owner');
     _pinPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextParametersFunc>>(
             'mraa_gpio_get_pin');
     _pinRawPointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextParametersFunc>>(
             'mraa_gpio_get_pin_raw');
     _inputModePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_input_mode');
     _outputDriverModePointer =
-        _lib.lookup<ffi.NativeFunction<returnIntGpioContextIntParametersFunc>>(
+        _lib.lookup<NativeFunction<returnIntGpioContextIntParametersFunc>>(
             'mraa_gpio_out_driver_mode');
   }
 

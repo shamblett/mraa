@@ -11,12 +11,12 @@ part of mraa;
 class Mraa {
   /// Default uses the platform library
   Mraa() {
-    _lib = ffi.DynamicLibrary.open('libmraa.so');
+    _lib = DynamicLibrary.open('libmraa.so');
   }
 
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
-    _lib = ffi.DynamicLibrary.open(libPath);
+    _lib = DynamicLibrary.open(libPath);
   }
 
   /// AIO read error
@@ -40,7 +40,7 @@ class Mraa {
   }
 
   /// The MRAA library
-  ffi.DynamicLibrary _lib;
+  DynamicLibrary _lib;
 
   /// The common API
   _MraaCommon common;

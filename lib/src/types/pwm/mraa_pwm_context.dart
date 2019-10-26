@@ -8,8 +8,4 @@
 part of mraa;
 
 /// PWM context class for the opaque mraa_pwm_context structure
-class MraaPwmContext extends ffi.Struct {
-  /// Construction
-  factory MraaPwmContext.allocate() =>
-      ffi.Pointer<MraaPwmContext>.allocate().load<MraaPwmContext>();
-}
+class MraaPwmContext extends Struct {}

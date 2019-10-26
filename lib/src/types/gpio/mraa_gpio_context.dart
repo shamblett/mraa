@@ -8,8 +8,4 @@
 part of mraa;
 
 /// GPIO context class for the opaque mraa_gpio_context structure
-class MraaGpioContext extends ffi.Struct {
-  /// Construction
-  factory MraaGpioContext.allocate() =>
-      ffi.Pointer<MraaGpioContext>.allocate().load<MraaGpioContext>();
-}
+class MraaGpioContext extends Struct {}

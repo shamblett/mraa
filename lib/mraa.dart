@@ -8,7 +8,7 @@
 library mraa;
 
 import 'dart:convert';
-import 'dart:ffi' as ffi;
+import 'dart:ffi';
 import 'dart:typed_data';
 
 part 'src/mraa.dart';
