@@ -13,23 +13,23 @@ part of mraa;
 typedef returnMraaLedContextIntParameterFunc = Pointer<MraaLedContext> Function(
     Int32);
 typedef returnMraaLedContextStringParameterFunc = Pointer<MraaLedContext>
-    Function(Pointer<Utf8>);
+    Function(Pointer<ffi.Utf8>);
 typedef returnIntMraaLedContextIntParameterFunc = Int32 Function(
     Pointer<MraaLedContext>, Int32);
 typedef returnIntMraaLedContextParameterFunc = Int32 Function(
     Pointer<MraaLedContext>);
 typedef returnIntMraaLedContextStringParameterFunc = Int32 Function(
-    Pointer<MraaLedContext>, Pointer<Utf8>);
+    Pointer<MraaLedContext>, Pointer<ffi.Utf8>);
 
 /// Dart Function typedefs
 typedef MraaLedInitialiseType = Pointer<MraaLedContext> Function(int);
 typedef MraaLedInitialiseRawType = Pointer<MraaLedContext> Function(
-    Pointer<Utf8>);
+    Pointer<ffi.Utf8>);
 typedef MraaLedSetBrightnessType = int Function(Pointer<MraaLedContext>, int);
 typedef MraaLedReadBrightnessType = int Function(Pointer<MraaLedContext>);
 typedef MraaLedReadMaxBrightnessType = int Function(Pointer<MraaLedContext>);
 typedef MraaLedSetTriggerType = int Function(
-    Pointer<MraaLedContext>, Pointer<Utf8>);
+    Pointer<MraaLedContext>, Pointer<ffi.Utf8>);
 typedef MraaLedClearTriggerType = int Function(Pointer<MraaLedContext>);
 typedef MraaLedCloseType = int Function(Pointer<MraaLedContext>);
 
@@ -84,7 +84,7 @@ class _MraaLed {
   /// This method expects only one unique LED identifier which would be "function" name most often.
   /// For instance, initialiseRaw("user4")
   Pointer<MraaLedContext> initialiseRaw(String ledDev) =>
-      _initRawFunc(Utf8.toUtf8(ledDev));
+      _initRawFunc(ffi.Utf8.toUtf8(ledDev));
 
   /// Set brightness - mraa_led_set_brightness
   /// Set LED brightness
@@ -103,7 +103,7 @@ class _MraaLed {
   /// Set trigger - mraa_led_set_trigger
   /// Set LED trigger to the trigger name supplied.
   MraaReturnCode setTrigger(Pointer<MraaLedContext> dev, String triggerName) =>
-      returnCode.fromInt(_setTriggerFunc(dev, Utf8.toUtf8(triggerName)));
+      returnCode.fromInt(_setTriggerFunc(dev, ffi.Utf8.toUtf8(triggerName)));
 
   /// Clear trigger - mraa_led_clear_trigger
   /// Clear active LED trigger

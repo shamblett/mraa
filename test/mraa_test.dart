@@ -458,7 +458,7 @@ int main() {
     test('Read bytes data', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       const int length = 10;
-      Pointer<Uint8> data = allocate<Uint8>(count: length);
+      final Pointer<Uint8> data = allocate<Uint8>(count: length);
       final Uint8List dataItems = data.asTypedList(length);
       final int ret = mraa.i2c.readBytesData(context, 0, data, length);
       expect(ret, Mraa.mraaGeneralError);
