@@ -7,12 +7,11 @@
 
 library mraa;
 
-import 'dart:convert';
 import 'dart:ffi';
 import 'dart:typed_data';
+import 'package:ffi/ffi.dart';
 
 part 'src/mraa.dart';
-part 'src/types/mraa_utf8.dart';
 part 'src/types/mraa_return_code.dart';
 part 'src/types/mraa_enum_helper.dart';
 part 'src/types/gpio/mraa_gpio_context.dart';

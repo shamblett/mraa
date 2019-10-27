@@ -138,7 +138,7 @@ class _MraaGpio {
   /// Initialise multi - mraa_gpio_init_multi
   /// Initialise gpio_context, based on board number, for multiple pins (can be one).
   Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
-    Pointer<Int32> mpins;
+    final Pointer<Int32> mpins = allocate<Int32>(count: numPins);
     final Int32List values = Int32List.fromList(pins);
     final Int32List dataItems = mpins.asTypedList(values.length);
     final int length = values.length;
@@ -190,7 +190,7 @@ class _MraaGpio {
   /// Read Gpio(s) direction
   MraaReturnCode readDirection(
       Pointer<MraaGpioContext> dev, MraaGpioDirectionRead gpioDirection) {
-    Pointer<Int32> dir;
+    final Pointer<Int32> dir = allocate<Int32>(count: 1);
     final MraaReturnCode ret = returnCode.fromInt(_readDirectionFunc(dev, dir));
     gpioDirection.direction = gpioDirections.fromInt(dir.value);
     return ret;
@@ -212,7 +212,8 @@ class _MraaGpio {
     if (_initialiseMultiPinCount == 0) {
       return MraaReturnCode.errorUnspecified;
     }
-    Pointer<Int32> rawValues;
+    final Pointer<Int32> rawValues =
+        allocate<Int32>(count: _initialiseMultiPinCount);
     int intRet = _readMultiFunc(dev, rawValues);
     if (intRet == Mraa.mraaGeneralError) {
       intRet = 99; // unspecified
@@ -239,7 +240,7 @@ class _MraaGpio {
     if (values.length != _initialiseMultiPinCount) {
       return MraaReturnCode.errorUnspecified;
     }
-    Pointer<Int32> rawValues;
+    final Pointer<Int32> rawValues = allocate<Int32>(count: values.length);
     final Int32List typedValues =
         rawValues.asTypedList(_initialiseMultiPinCount);
     for (int i = 0; i < _initialiseMultiPinCount; i++) {
