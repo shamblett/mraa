@@ -14,10 +14,13 @@ typedef returnMraaSpiContextIntParameterFunc = Pointer<MraaSpiContext> Function(
     Int32);
 typedef returnMraaSpiContextIntIntParameterFunc = Pointer<MraaSpiContext>
     Function(Int32, Int32);
+typedef returnIntMraaSpiContextIntParameterFunc = Int32 Function(
+    Pointer<MraaSpiContext>, Int32);
 
 /// Dart Function typedefs
 typedef MraaSpiInitialiseType = Pointer<MraaSpiContext> Function(int);
 typedef MraaSpiInitialiseRawType = Pointer<MraaSpiContext> Function(int, int);
+typedef MraaSpiModeType = int Function(Pointer<MraaSpiContext>, int);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -38,10 +41,12 @@ class _MraaSpi {
   Pointer<NativeFunction<returnMraaSpiContextIntParameterFunc>> _initPointer;
   Pointer<NativeFunction<returnMraaSpiContextIntIntParameterFunc>>
       _initRawPointer;
+  Pointer<NativeFunction<returnIntMraaSpiContextIntParameterFunc>> _modePointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
+  dynamic _modeFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -52,6 +57,11 @@ class _MraaSpi {
   Pointer<MraaSpiContext> initialiseRaw(int busId, int cs) =>
       _initRawFunc(busId, cs);
 
+  /// Mode - mraa_spi_mode
+  /// Set the SPI device mode. see spidev 0-3.
+  MraaReturnCode mode(Pointer<MraaSpiContext> dev, MraaSpiMode mode) =>
+      returnCode.fromInt(_modeFunc(dev, spiMode.asInt(mode)));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -59,10 +69,14 @@ class _MraaSpi {
     _initRawPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntIntParameterFunc>>(
             'mraa_spi_init_raw');
+    _modePointer =
+        _lib.lookup<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>(
+            'mraa_spi_mode');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaSpiInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaSpiInitialiseRawType>();
+    _modeFunc = _modePointer.asFunction<MraaSpiModeType>();
   }
 }

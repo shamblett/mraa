@@ -595,6 +595,12 @@ int main() {
       final Pointer<MraaSpiContext> context = mraa.spi.initialiseRaw(1, 1);
       expect(context, isNotNull);
     });
+    test('Mode', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.spi.mode(context, MraaSpiMode.mode0);
+      expect(ret, MraaReturnCode.errorInvalidParameter);
+    });
   });
 
   return 0;
