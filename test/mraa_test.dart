@@ -601,6 +601,12 @@ int main() {
       final MraaReturnCode ret = mraa.spi.mode(context, MraaSpiMode.mode0);
       expect(ret, MraaReturnCode.errorInvalidParameter);
     });
+    test('Frequency', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.spi.frequency(context, 115000);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;

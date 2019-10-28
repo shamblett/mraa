@@ -21,6 +21,7 @@ typedef returnIntMraaSpiContextIntParameterFunc = Int32 Function(
 typedef MraaSpiInitialiseType = Pointer<MraaSpiContext> Function(int);
 typedef MraaSpiInitialiseRawType = Pointer<MraaSpiContext> Function(int, int);
 typedef MraaSpiModeType = int Function(Pointer<MraaSpiContext>, int);
+typedef MraaSpiFrequencyType = int Function(Pointer<MraaSpiContext>, int);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -42,11 +43,14 @@ class _MraaSpi {
   Pointer<NativeFunction<returnMraaSpiContextIntIntParameterFunc>>
       _initRawPointer;
   Pointer<NativeFunction<returnIntMraaSpiContextIntParameterFunc>> _modePointer;
+  Pointer<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>
+      _frequencyPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _modeFunc;
+  dynamic _frequencyFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -62,6 +66,11 @@ class _MraaSpi {
   MraaReturnCode mode(Pointer<MraaSpiContext> dev, MraaSpiMode mode) =>
       returnCode.fromInt(_modeFunc(dev, spiMode.asInt(mode)));
 
+  /// Frequency - mraa_spi_frequency
+  /// Set the SPI device operating clock frequency in Hz
+  MraaReturnCode frequency(Pointer<MraaSpiContext> dev, int hz) =>
+      returnCode.fromInt(_frequencyFunc(dev, hz));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -72,11 +81,15 @@ class _MraaSpi {
     _modePointer =
         _lib.lookup<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>(
             'mraa_spi_mode');
+    _frequencyPointer =
+        _lib.lookup<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>(
+            'mraa_spi_frequency');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaSpiInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaSpiInitialiseRawType>();
     _modeFunc = _modePointer.asFunction<MraaSpiModeType>();
+    _frequencyFunc = _frequencyPointer.asFunction<MraaSpiFrequencyType>();
   }
 }
