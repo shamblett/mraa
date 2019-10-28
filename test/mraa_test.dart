@@ -693,6 +693,11 @@ int main() {
       final Pointer<MraaUartContext> context = mraa.uart.initialise(1);
       expect(context, isNotNull);
     });
+    test('Initialise raw', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+    });
   });
 
   return 0;
