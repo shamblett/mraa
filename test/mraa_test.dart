@@ -619,6 +619,16 @@ int main() {
       final int ret = mraa.spi.writeWord(context, 45000);
       expect(ret, 1138);
     });
+    test('Write buffer', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final List<int> values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
+      final Uint8List data = Uint8List(values.length);
+      data.setAll(0, values);
+      final Uint8List ret = mraa.spi.writeBuffer(context, data, data.length);
+      expect(ret, isNotNull);
+      expect(ret.length, data.length);
+    });
   });
 
   return 0;

@@ -20,6 +20,8 @@ typedef returnIntMraaSpiContextUint8ParameterFunc = Int32 Function(
     Pointer<MraaSpiContext>, Uint8);
 typedef returnIntMraaSpiContextUint16ParameterFunc = Int32 Function(
     Pointer<MraaSpiContext>, Uint16);
+typedef returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc = Pointer<Uint8>
+    Function(Pointer<MraaSpiContext>, Pointer<Uint8>, Int32);
 
 /// Dart Function typedefs
 typedef MraaSpiInitialiseType = Pointer<MraaSpiContext> Function(int);
@@ -28,6 +30,8 @@ typedef MraaSpiModeType = int Function(Pointer<MraaSpiContext>, int);
 typedef MraaSpiFrequencyType = int Function(Pointer<MraaSpiContext>, int);
 typedef MraaSpiWriteType = int Function(Pointer<MraaSpiContext>, int);
 typedef MraaSpiWriteWordType = int Function(Pointer<MraaSpiContext>, int);
+typedef MraaSpiWriteBufferType = Pointer<Uint8> Function(
+    Pointer<MraaSpiContext>, Pointer<Uint8>, int);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -55,6 +59,8 @@ class _MraaSpi {
       _writePointer;
   Pointer<NativeFunction<returnIntMraaSpiContextUint16ParameterFunc>>
       _writeWordPointer;
+  Pointer<NativeFunction<returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>
+      _writeBufferPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -63,6 +69,7 @@ class _MraaSpi {
   dynamic _frequencyFunc;
   dynamic _writeFunc;
   dynamic _writeWordFunc;
+  dynamic _writeBufferFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -94,6 +101,23 @@ class _MraaSpi {
   int writeWord(Pointer<MraaSpiContext> dev, int data) =>
       _writeWordFunc(dev, data);
 
+  /// Write buffer - mraa_spi-write_buf
+  /// Write Buffer of bytes to the SPI device. The pointer return has to be
+  /// free'd by the caller. It will return a NULL pointer in cases of error.
+  /// Maximum length is 4096
+  Uint8List writeBuffer(
+      Pointer<MraaSpiContext> dev, Uint8List data, int length) {
+    final Pointer<Uint8> ptr = ffi.allocate<Uint8>(count: length);
+    final Uint8List ptrData = ptr.asTypedList(length);
+    ptrData.setAll(0, data);
+    final Pointer<Uint8> retData = _writeBufferFunc(dev, ptr, length);
+    final Uint8List retDataList = retData.asTypedList(length);
+    final Uint8List ret = Uint8List(length);
+    ret.setAll(0, retDataList);
+    ffi.free(retData);
+    return ret;
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -113,6 +137,10 @@ class _MraaSpi {
     _writeWordPointer =
         _lib.lookup<NativeFunction<returnIntMraaSpiContextUint16ParameterFunc>>(
             'mraa_spi_write_word');
+    _writeBufferPointer = _lib.lookup<
+            NativeFunction<
+                returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>(
+        'mraa_spi_write_buf');
   }
 
   void _setUpFunctions() {
@@ -122,5 +150,6 @@ class _MraaSpi {
     _frequencyFunc = _frequencyPointer.asFunction<MraaSpiFrequencyType>();
     _writeFunc = _writePointer.asFunction<MraaSpiWriteType>();
     _writeWordFunc = _writeWordPointer.asFunction<MraaSpiWriteWordType>();
+    _writeBufferFunc = _writeBufferPointer.asFunction<MraaSpiWriteBufferType>();
   }
 }
