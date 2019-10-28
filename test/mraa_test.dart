@@ -591,6 +591,10 @@ int main() {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(1);
       expect(context, isNotNull);
     });
+    test('Initialise raw', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialiseRaw(1, 1);
+      expect(context, isNotNull);
+    });
   });
 
   return 0;
