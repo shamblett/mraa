@@ -141,10 +141,7 @@ class _MraaGpio {
     final Pointer<Int32> mpins = ffi.allocate<Int32>(count: numPins);
     final Int32List values = Int32List.fromList(pins);
     final Int32List dataItems = mpins.asTypedList(values.length);
-    final int length = values.length;
-    for (int i = 0; i < length; i++) {
-      dataItems[i] = values[i];
-    }
+    dataItems.setAll(0, values);
     _initialiseMultiPinCount = numPins;
     return _initialiseMultiFunc(mpins, numPins);
   }
@@ -221,6 +218,7 @@ class _MraaGpio {
     final Int32List typedValues =
         rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
+    ffi.free(rawValues);
     return returnCode.fromInt(intRet);
   }
 
@@ -243,9 +241,7 @@ class _MraaGpio {
     final Pointer<Int32> rawValues = ffi.allocate<Int32>(count: values.length);
     final Int32List typedValues =
         rawValues.asTypedList(_initialiseMultiPinCount);
-    for (int i = 0; i < _initialiseMultiPinCount; i++) {
-      typedValues[i] = values[i];
-    }
+    typedValues.setAll(0, values);
     return returnCode.fromInt(_writeMultiFunc(dev, rawValues));
   }
 

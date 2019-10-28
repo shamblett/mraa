@@ -436,7 +436,6 @@ int main() {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       const int length = 10;
       final Pointer<Uint8> data = allocate<Uint8>(count: length);
-      final Uint8List dataItems = data.asTypedList(length);
       final int ret = mraa.i2c.read(context, data, length);
       expect(ret, Mraa.mraaGeneralError);
     });
@@ -459,7 +458,6 @@ int main() {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       const int length = 10;
       final Pointer<Uint8> data = allocate<Uint8>(count: length);
-      final Uint8List dataItems = data.asTypedList(length);
       final int ret = mraa.i2c.readBytesData(context, 0, data, length);
       expect(ret, Mraa.mraaGeneralError);
     });
@@ -468,11 +466,8 @@ int main() {
       final Uint8List values = Uint8List.fromList(<int>[1, 2, 3, 4, 5]);
       final Pointer<Uint8> data = allocate<Uint8>(count: values.length);
       final Uint8List dataItems = data.asTypedList(values.length);
-      final int length = values.length;
-      for (int i = 0; i < length; i++) {
-        dataItems[i] = values[i];
-      }
-      final MraaReturnCode ret = mraa.i2c.write(context, data, length);
+      dataItems.setAll(0, values);
+      final MraaReturnCode ret = mraa.i2c.write(context, data, values.length);
       expect(ret, MraaReturnCode.errorUnspecified);
     });
     test('Write byte', () {
