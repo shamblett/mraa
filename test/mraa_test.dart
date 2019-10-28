@@ -611,7 +611,7 @@ int main() {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
       expect(context, isNotNull);
       final int ret = mraa.spi.write(context, 127);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret == Mraa.mraaGeneralError, isFalse);
     });
     test('Write word', () {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
@@ -678,6 +678,12 @@ int main() {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.spi.bitsPerWord(context, 8);
+      expect(ret, MraaReturnCode.success);
+    });
+    test('Stop', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.spi.stop(context);
       expect(ret, MraaReturnCode.success);
     });
   });

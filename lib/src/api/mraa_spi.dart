@@ -28,6 +28,8 @@ typedef returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc = Int32
     Function(Pointer<MraaSpiContext>, Pointer<Uint8>, Pointer<Uint8>, Int32);
 typedef returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc = Int32
     Function(Pointer<MraaSpiContext>, Pointer<Uint16>, Pointer<Uint16>, Uint32);
+typedef returnIntMraaSpiContextParameterFunc = Int32 Function(
+    Pointer<MraaSpiContext>);
 
 /// Dart Function typedefs
 typedef MraaSpiInitialiseType = Pointer<MraaSpiContext> Function(int);
@@ -46,6 +48,7 @@ typedef MraaSpiTransferBufferWordType = int Function(
     Pointer<MraaSpiContext>, Pointer<Uint16>, Pointer<Uint16>, int);
 typedef MraaSpiLsbModeType = int Function(Pointer<MraaSpiContext>, int);
 typedef MraaSpiBitsPerWordType = int Function(Pointer<MraaSpiContext>, int);
+typedef MraaSpiStopType = int Function(Pointer<MraaSpiContext>);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -91,6 +94,7 @@ class _MraaSpi {
       _lsbModePointer;
   Pointer<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>
       _bitsPerWordPointer;
+  Pointer<NativeFunction<returnIntMraaSpiContextParameterFunc>> _stopPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -105,6 +109,7 @@ class _MraaSpi {
   dynamic _transferBufferWordFunc;
   dynamic _lsbModeFunc;
   dynamic _bitsPerWordFunc;
+  dynamic _stopFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -219,6 +224,11 @@ class _MraaSpi {
   MraaReturnCode bitsPerWord(Pointer<MraaSpiContext> dev, int bits) =>
       returnCode.fromInt(_bitsPerWordFunc(dev, bits));
 
+  /// Stop - mraa_spi_stop
+  /// De-inits an mraa_spi_context device
+  MraaReturnCode stop(Pointer<MraaSpiContext> dev) =>
+      returnCode.fromInt(_stopFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -260,6 +270,9 @@ class _MraaSpi {
     _bitsPerWordPointer =
         _lib.lookup<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>(
             'mraa_spi_bit_per_word');
+    _stopPointer =
+        _lib.lookup<NativeFunction<returnIntMraaSpiContextParameterFunc>>(
+            'mraa_spi_stop');
   }
 
   void _setUpFunctions() {
@@ -278,5 +291,6 @@ class _MraaSpi {
         _transferBufferWordPointer.asFunction<MraaSpiTransferBufferWordType>();
     _lsbModeFunc = _lsbModePointer.asFunction<MraaSpiLsbModeType>();
     _bitsPerWordFunc = _bitsPerWordPointer.asFunction<MraaSpiBitsPerWordType>();
+    _stopFunc = _stopPointer.asFunction<MraaSpiStopType>();
   }
 }
