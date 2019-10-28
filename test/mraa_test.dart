@@ -572,6 +572,12 @@ int main() {
       final MraaReturnCode ret = mraa.pwm.close(context);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Max period', () {
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final int ret = mraa.pwm.maxPeriod(context);
+      expect(ret, 5);
+    });
   });
 
   return 0;

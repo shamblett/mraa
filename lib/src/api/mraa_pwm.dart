@@ -37,6 +37,7 @@ typedef MraaPwmPulseWidthUsType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmEnableType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmOwnerType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmCloseType = int Function(Pointer<MraaPwmContext>);
+typedef MraaPwmMaxPeriodType = int Function(Pointer<MraaPwmContext>);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -78,6 +79,8 @@ class _MraaPwm {
   Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
       _ownerPointer;
   Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>> _closePointer;
+  Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>>
+      _maxPeriodPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -93,6 +96,7 @@ class _MraaPwm {
   dynamic _enableFunc;
   dynamic _ownerFunc;
   dynamic _closeFunc;
+  dynamic _maxPeriodFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -168,6 +172,10 @@ class _MraaPwm {
   MraaReturnCode close(Pointer<MraaPwmContext> dev) =>
       returnCode.fromInt(_closeFunc(dev));
 
+  /// Maximum period - mraa_pwm_get_max_period
+  /// Get the maximum pwm period in us
+  int maxPeriod(Pointer<MraaPwmContext> dev) => _maxPeriodFunc(dev);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -208,6 +216,9 @@ class _MraaPwm {
     _closePointer =
         _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
             'mraa_pwm_close');
+    _maxPeriodPointer =
+        _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
+            'mraa_pwm_get_max_period');
   }
 
   void _setUpFunctions() {
@@ -226,5 +237,6 @@ class _MraaPwm {
     _enableFunc = _enablePointer.asFunction<MraaPwmEnableType>();
     _ownerFunc = _ownerPointer.asFunction<MraaPwmOwnerType>();
     _closeFunc = _closePointer.asFunction<MraaPwmCloseType>();
+    _maxPeriodFunc = _maxPeriodPointer.asFunction<MraaPwmMaxPeriodType>();
   }
 }
