@@ -661,12 +661,18 @@ int main() {
       final Uint16List data = Uint16List(values.length);
       data.setAll(0, values);
       final MraaSpiTransferBuffer<Uint16List> buffer =
-      MraaSpiTransferBuffer<Uint16List>();
+          MraaSpiTransferBuffer<Uint16List>();
       buffer.dataSent = data;
       final MraaReturnCode ret =
-      mraa.spi.transferBufferWord(context, buffer, data.length);
+          mraa.spi.transferBufferWord(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
+    });
+    test('Lsb mode', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.spi.lsbMode(context, true);
+      expect(ret, MraaReturnCode.success);
     });
   });
 

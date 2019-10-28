@@ -44,6 +44,7 @@ typedef MraaSpiTransferBufferType = int Function(
     Pointer<MraaSpiContext>, Pointer<Uint8>, Pointer<Uint8>, int);
 typedef MraaSpiTransferBufferWordType = int Function(
     Pointer<MraaSpiContext>, Pointer<Uint16>, Pointer<Uint16>, int);
+typedef MraaSpiLsbModeType = int Function(Pointer<MraaSpiContext>, int);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -85,6 +86,8 @@ class _MraaSpi {
           NativeFunction<
               returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>
       _transferBufferWordPointer;
+  Pointer<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>
+      _lsbModePointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -97,6 +100,7 @@ class _MraaSpi {
   dynamic _writeBufferWordFunc;
   dynamic _transferBufferFunc;
   dynamic _transferBufferWordFunc;
+  dynamic _lsbModeFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -198,6 +202,14 @@ class _MraaSpi {
     return status;
   }
 
+  /// Lsb mode - mraa_spi_lsbmode
+  /// Change the SPI lsb mode
+  /// True indicates use the least significant bit transmission
+  MraaReturnCode lsbMode(Pointer<MraaSpiContext> dev, bool lsb) {
+    final int mode = lsb ? 1 : 0;
+    return returnCode.fromInt(_lsbModeFunc(dev, mode));
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -233,6 +245,9 @@ class _MraaSpi {
             NativeFunction<
                 returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>(
         'mraa_spi_transfer_buf_word');
+    _lsbModePointer =
+        _lib.lookup<NativeFunction<returnIntMraaSpiContextIntParameterFunc>>(
+            'mraa_spi_lsbmode');
   }
 
   void _setUpFunctions() {
@@ -249,5 +264,6 @@ class _MraaSpi {
         _transferBufferPointer.asFunction<MraaSpiTransferBufferType>();
     _transferBufferWordFunc =
         _transferBufferWordPointer.asFunction<MraaSpiTransferBufferWordType>();
+    _lsbModeFunc = _lsbModePointer.asFunction<MraaSpiLsbModeType>();
   }
 }
