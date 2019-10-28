@@ -18,6 +18,8 @@ typedef returnIntMraaSpiContextIntParameterFunc = Int32 Function(
     Pointer<MraaSpiContext>, Int32);
 typedef returnIntMraaSpiContextUint8ParameterFunc = Int32 Function(
     Pointer<MraaSpiContext>, Uint8);
+typedef returnIntMraaSpiContextUint16ParameterFunc = Int32 Function(
+    Pointer<MraaSpiContext>, Uint16);
 
 /// Dart Function typedefs
 typedef MraaSpiInitialiseType = Pointer<MraaSpiContext> Function(int);
@@ -25,6 +27,7 @@ typedef MraaSpiInitialiseRawType = Pointer<MraaSpiContext> Function(int, int);
 typedef MraaSpiModeType = int Function(Pointer<MraaSpiContext>, int);
 typedef MraaSpiFrequencyType = int Function(Pointer<MraaSpiContext>, int);
 typedef MraaSpiWriteType = int Function(Pointer<MraaSpiContext>, int);
+typedef MraaSpiWriteWordType = int Function(Pointer<MraaSpiContext>, int);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -50,6 +53,8 @@ class _MraaSpi {
       _frequencyPointer;
   Pointer<NativeFunction<returnIntMraaSpiContextUint8ParameterFunc>>
       _writePointer;
+  Pointer<NativeFunction<returnIntMraaSpiContextUint16ParameterFunc>>
+      _writeWordPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -57,6 +62,7 @@ class _MraaSpi {
   dynamic _modeFunc;
   dynamic _frequencyFunc;
   dynamic _writeFunc;
+  dynamic _writeWordFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -82,6 +88,12 @@ class _MraaSpi {
   /// Returns data received on the miso line or -1 in case of error
   int write(Pointer<MraaSpiContext> dev, int data) => _writeFunc(dev, data);
 
+  /// Write word - mraa_spi_write_word
+  /// Write Two Bytes to the SPI device.
+  /// Returns data received on the miso line or -1 in case of error
+  int writeWord(Pointer<MraaSpiContext> dev, int data) =>
+      _writeWordFunc(dev, data);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -98,6 +110,9 @@ class _MraaSpi {
     _writePointer =
         _lib.lookup<NativeFunction<returnIntMraaSpiContextUint8ParameterFunc>>(
             'mraa_spi_write');
+    _writeWordPointer =
+        _lib.lookup<NativeFunction<returnIntMraaSpiContextUint16ParameterFunc>>(
+            'mraa_spi_write_word');
   }
 
   void _setUpFunctions() {
@@ -106,5 +121,6 @@ class _MraaSpi {
     _modeFunc = _modePointer.asFunction<MraaSpiModeType>();
     _frequencyFunc = _frequencyPointer.asFunction<MraaSpiFrequencyType>();
     _writeFunc = _writePointer.asFunction<MraaSpiWriteType>();
+    _writeWordFunc = _writeWordPointer.asFunction<MraaSpiWriteWordType>();
   }
 }

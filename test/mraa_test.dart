@@ -613,6 +613,12 @@ int main() {
       final int ret = mraa.spi.write(context, 127);
       expect(ret, Mraa.mraaGeneralError);
     });
+    test('Write word', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final int ret = mraa.spi.writeWord(context, 45000);
+      expect(ret, 1138);
+    });
   });
 
   return 0;
