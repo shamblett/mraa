@@ -28,6 +28,7 @@ part 'src/types/mraa_platform_type.dart';
 part 'src/types/mraa_pinmode.dart';
 part 'src/types/i2c/mraa_i2c_mode.dart';
 part 'src/types/spi/mraa_spi_mode.dart';
+part 'src/types/spi/mraa_spi_transfer_buffer.dart';
 part 'src/types/gpio/mraa_gpio_edge.dart';
 part 'src/types/gpio/mraa_gpio_direction.dart';
 part 'src/types/gpio/mraa_gpio_output_mode.dart';

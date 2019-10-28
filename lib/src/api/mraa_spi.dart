@@ -24,6 +24,10 @@ typedef returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc = Pointer<Uint8>
     Function(Pointer<MraaSpiContext>, Pointer<Uint8>, Int32);
 typedef returnPtrUint16MraaSpiContextPtrUint16IntParameterFunc = Pointer<Uint16>
     Function(Pointer<MraaSpiContext>, Pointer<Uint16>, Int32);
+typedef returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc = Int32
+    Function(Pointer<MraaSpiContext>, Pointer<Uint8>, Pointer<Uint8>, Int32);
+typedef returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc = Int32
+    Function(Pointer<MraaSpiContext>, Pointer<Uint16>, Pointer<Uint16>, Int32);
 
 /// Dart Function typedefs
 typedef MraaSpiInitialiseType = Pointer<MraaSpiContext> Function(int);
@@ -36,6 +40,10 @@ typedef MraaSpiWriteBufferType = Pointer<Uint8> Function(
     Pointer<MraaSpiContext>, Pointer<Uint8>, int);
 typedef MraaSpiWriteBufferWordType = Pointer<Uint16> Function(
     Pointer<MraaSpiContext>, Pointer<Uint16>, int);
+typedef MraaSpiTransferBufferType = int Function(
+    Pointer<MraaSpiContext>, Pointer<Uint8>, Pointer<Uint8>, int);
+typedef MraaSpiTransferBufferWordType = int Function(
+    Pointer<MraaSpiContext>, Pointer<Uint16>, Pointer<Uint16>, int);
 
 /// The SPI MRAA API
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
@@ -69,6 +77,14 @@ class _MraaSpi {
           NativeFunction<
               returnPtrUint16MraaSpiContextPtrUint16IntParameterFunc>>
       _writeBufferWordPointer;
+  Pointer<
+          NativeFunction<
+              returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc>>
+      _transferBufferPointer;
+  Pointer<
+          NativeFunction<
+              returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>
+      _transferBufferWordPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -79,6 +95,8 @@ class _MraaSpi {
   dynamic _writeWordFunc;
   dynamic _writeBufferFunc;
   dynamic _writeBufferWordFunc;
+  dynamic _transferBufferFunc;
+  dynamic _transferBufferWordFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
@@ -144,6 +162,42 @@ class _MraaSpi {
     return ret;
   }
 
+  /// Transfer buffer - mraa_spi_transfer_buf
+  /// Transfer Buffer of bytes to the SPI device. Both send and recv buffers are passed in
+  /// Maximum length 4096 both ways
+  MraaReturnCode transferBuffer(Pointer<MraaSpiContext> dev,
+      MraaSpiTransferBuffer<Uint8List> buffer, int length) {
+    final Pointer<Uint8> ptr = ffi.allocate<Uint8>(count: length);
+    final Uint8List ptrData = ptr.asTypedList(length);
+    ptrData.setAll(0, buffer.dataSent);
+    final Pointer<Uint8> retData = ffi.allocate<Uint8>(count: length);
+    final MraaReturnCode status =
+        returnCode.fromInt(_transferBufferFunc(dev, ptr, retData, length));
+    final Uint8List retDataList = retData.asTypedList(length);
+    buffer.dataReceived = Uint8List(length);
+    buffer.dataReceived.setAll(0, retDataList);
+    ffi.free(retData);
+    return status;
+  }
+
+  /// Transfer buffer word - mraa_spi_transfer_buf_word
+  /// Transfer Buffer of words to the SPI device. Both send and recv buffers are passed in
+  /// Maximum length 4096 both ways
+  MraaReturnCode transferBufferWord(Pointer<MraaSpiContext> dev,
+      MraaSpiTransferBuffer<Uint16List> buffer, int length) {
+    final Pointer<Uint16> ptr = ffi.allocate<Uint16>(count: length);
+    final Uint16List ptrData = ptr.asTypedList(length);
+    ptrData.setAll(0, buffer.dataSent);
+    final Pointer<Uint16> retData = ffi.allocate<Uint16>(count: length);
+    final MraaReturnCode status =
+        returnCode.fromInt(_transferBufferWordFunc(dev, ptr, retData, length));
+    final Uint16List retDataList = retData.asTypedList(length);
+    buffer.dataReceived = Uint16List(length);
+    buffer.dataReceived.setAll(0, retDataList);
+    ffi.free(retData);
+    return status;
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaSpiContextIntParameterFunc>>(
@@ -171,6 +225,14 @@ class _MraaSpi {
             NativeFunction<
                 returnPtrUint16MraaSpiContextPtrUint16IntParameterFunc>>(
         'mraa_spi_write_buf_word');
+    _transferBufferPointer = _lib.lookup<
+            NativeFunction<
+                returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc>>(
+        'mraa_spi_transfer_buf');
+    _transferBufferWordPointer = _lib.lookup<
+            NativeFunction<
+                returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>(
+        'mraa_spi_transfer_buf_word');
   }
 
   void _setUpFunctions() {
@@ -183,5 +245,9 @@ class _MraaSpi {
     _writeBufferFunc = _writeBufferPointer.asFunction<MraaSpiWriteBufferType>();
     _writeBufferWordFunc =
         _writeBufferWordPointer.asFunction<MraaSpiWriteBufferWordType>();
+    _transferBufferFunc =
+        _transferBufferPointer.asFunction<MraaSpiTransferBufferType>();
+    _transferBufferWordFunc =
+        _transferBufferWordPointer.asFunction<MraaSpiTransferBufferWordType>();
   }
 }

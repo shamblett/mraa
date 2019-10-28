@@ -640,6 +640,34 @@ int main() {
       expect(ret, isNotNull);
       expect(ret.length, data.length);
     });
+    test('Transfer buffer', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final List<int> values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
+      final Uint8List data = Uint8List(values.length);
+      data.setAll(0, values);
+      final MraaSpiTransferBuffer<Uint8List> buffer =
+          MraaSpiTransferBuffer<Uint8List>();
+      buffer.dataSent = data;
+      final MraaReturnCode ret =
+          mraa.spi.transferBuffer(context, buffer, data.length);
+      expect(ret, MraaReturnCode.success);
+      expect(buffer.dataReceived.length, data.length);
+    });
+    test('Transfer buffer word', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final List<int> values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
+      final Uint16List data = Uint16List(values.length);
+      data.setAll(0, values);
+      final MraaSpiTransferBuffer<Uint16List> buffer =
+      MraaSpiTransferBuffer<Uint16List>();
+      buffer.dataSent = data;
+      final MraaReturnCode ret =
+      mraa.spi.transferBufferWord(context, buffer, data.length);
+      expect(ret, MraaReturnCode.success);
+      expect(buffer.dataReceived.length, data.length);
+    });
   });
 
   return 0;
