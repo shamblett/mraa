@@ -14,11 +14,14 @@ typedef returnMraaUartContextIntParameterFunc = Pointer<MraaUartContext>
     Function(Int32);
 typedef returnMraaUartContextStringParameterFunc = Pointer<MraaUartContext>
     Function(Pointer<ffi.Utf8>);
+typedef returnIntMraaUartContextParameterFunc = Int32 Function(
+    Pointer<MraaUartContext>);
 
 /// Dart Function typedefs
 typedef MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
 typedef MraaUartInitialiseRawType = Pointer<MraaUartContext> Function(
     Pointer<ffi.Utf8>);
+typedef MraaUartFlushType = int Function(Pointer<MraaUartContext>);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -39,10 +42,12 @@ class _MraaUart {
   Pointer<NativeFunction<returnMraaUartContextIntParameterFunc>> _initPointer;
   Pointer<NativeFunction<returnMraaUartContextStringParameterFunc>>
       _initRawPointer;
+  Pointer<NativeFunction<returnIntMraaUartContextParameterFunc>> _flushPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
+  dynamic _flushFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -54,6 +59,11 @@ class _MraaUart {
   Pointer<MraaUartContext> initialiseRaw(String path) =>
       _initRawFunc(ffi.Utf8.toUtf8(path));
 
+  /// Flush - mraa_uart_flush
+  /// Flush the outbound data. Blocks until complete.
+  MraaReturnCode flush(Pointer<MraaUartContext> dev) =>
+      returnCode.fromInt(_flushFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -61,10 +71,14 @@ class _MraaUart {
     _initRawPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextStringParameterFunc>>(
             'mraa_uart_init_raw');
+    _flushPointer =
+        _lib.lookup<NativeFunction<returnIntMraaUartContextParameterFunc>>(
+            'mraa_uart_flush');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaUartInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaUartInitialiseRawType>();
+    _flushFunc = _flushPointer.asFunction<MraaUartFlushType>();
   }
 }

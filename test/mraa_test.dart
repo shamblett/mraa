@@ -698,6 +698,12 @@ int main() {
           mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
     });
+    test('Flush', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.uart.flush(context);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;
