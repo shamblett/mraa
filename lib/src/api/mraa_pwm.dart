@@ -38,6 +38,7 @@ typedef MraaPwmEnableType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmOwnerType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmCloseType = int Function(Pointer<MraaPwmContext>);
 typedef MraaPwmMaxPeriodType = int Function(Pointer<MraaPwmContext>);
+typedef MraaPwmMinPeriodType = int Function(Pointer<MraaPwmContext>);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -81,6 +82,8 @@ class _MraaPwm {
   Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>> _closePointer;
   Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>>
       _maxPeriodPointer;
+  Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>>
+      _minPeriodPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -97,6 +100,7 @@ class _MraaPwm {
   dynamic _ownerFunc;
   dynamic _closeFunc;
   dynamic _maxPeriodFunc;
+  dynamic _minPeriodFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -176,6 +180,10 @@ class _MraaPwm {
   /// Get the maximum pwm period in us
   int maxPeriod(Pointer<MraaPwmContext> dev) => _maxPeriodFunc(dev);
 
+  /// Minimum period - mraa_pwm_get_min_period
+  /// Get the minimum pwm period in us
+  int minPeriod(Pointer<MraaPwmContext> dev) => _minPeriodFunc(dev);
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -219,6 +227,9 @@ class _MraaPwm {
     _maxPeriodPointer =
         _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
             'mraa_pwm_get_max_period');
+    _minPeriodPointer =
+        _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
+            'mraa_pwm_get_min_period');
   }
 
   void _setUpFunctions() {
@@ -238,5 +249,6 @@ class _MraaPwm {
     _ownerFunc = _ownerPointer.asFunction<MraaPwmOwnerType>();
     _closeFunc = _closePointer.asFunction<MraaPwmCloseType>();
     _maxPeriodFunc = _maxPeriodPointer.asFunction<MraaPwmMaxPeriodType>();
+    _minPeriodFunc = _minPeriodPointer.asFunction<MraaPwmMinPeriodType>();
   }
 }
