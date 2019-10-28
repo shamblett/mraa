@@ -33,6 +33,7 @@ typedef MraaPwmPulseWidthType = int Function(Pointer<MraaPwmContext>, double);
 typedef MraaPwmPulseWidthMsType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmPulseWidthUsType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmEnableType = int Function(Pointer<MraaPwmContext>, int);
+typedef MraaPwmOwnerType = int Function(Pointer<MraaPwmContext>, int);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -71,6 +72,8 @@ class _MraaPwm {
       _pulseWidthUsPointer;
   Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
       _enablePointer;
+  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+      _ownerPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -84,6 +87,7 @@ class _MraaPwm {
   dynamic _pulseWidthMsFunc;
   dynamic _pulseWidthUsFunc;
   dynamic _enableFunc;
+  dynamic _ownerFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -146,6 +150,14 @@ class _MraaPwm {
   MraaReturnCode enable(Pointer<MraaPwmContext> dev, int enable) =>
       returnCode.fromInt(_enableFunc(dev, enable));
 
+  /// Owner - mraa_pwm_owner
+  /// Change(take) ownership of context
+  /// True indicates take ownership
+  MraaReturnCode owner(Pointer<MraaPwmContext> dev, bool owner) {
+    final int rawBool = owner ? 1 : 0;
+    return returnCode.fromInt(_ownerFunc(dev, rawBool));
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -180,6 +192,9 @@ class _MraaPwm {
     _enablePointer =
         _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_enable');
+    _ownerPointer =
+        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+            'mraa_pwm_owner');
   }
 
   void _setUpFunctions() {
@@ -196,5 +211,6 @@ class _MraaPwm {
     _pulseWidthUsFunc =
         _pulseWidthUsPointer.asFunction<MraaPwmPulseWidthUsType>();
     _enableFunc = _enablePointer.asFunction<MraaPwmEnableType>();
+    _ownerFunc = _ownerPointer.asFunction<MraaPwmOwnerType>();
   }
 }
