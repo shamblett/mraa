@@ -674,6 +674,12 @@ int main() {
       final MraaReturnCode ret = mraa.spi.lsbMode(context, true);
       expect(ret, MraaReturnCode.success);
     });
+    test('Bits per word', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.spi.bitsPerWord(context, 8);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;
