@@ -607,6 +607,12 @@ int main() {
       final MraaReturnCode ret = mraa.spi.frequency(context, 115000);
       expect(ret, MraaReturnCode.success);
     });
+    test('Write', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
+      expect(context, isNotNull);
+      final int ret = mraa.spi.write(context, 127);
+      expect(ret, Mraa.mraaGeneralError);
+    });
   });
 
   return 0;
