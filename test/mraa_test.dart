@@ -566,6 +566,12 @@ int main() {
       final MraaReturnCode ret = mraa.pwm.owner(context, true);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
+    test('Close', () {
+      final Pointer<MraaPwmContext> context = mraa.pwm.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.pwm.close(context);
+      expect(ret, MraaReturnCode.errorInvalidHandle);
+    });
   });
 
   return 0;

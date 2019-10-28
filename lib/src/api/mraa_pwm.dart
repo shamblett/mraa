@@ -20,6 +20,8 @@ typedef returnDoubleMraaPwmContextParameterFunc = Double Function(
     Pointer<MraaPwmContext>);
 typedef returnIntMraaPwmContextIntParameterFunc = Int32 Function(
     Pointer<MraaPwmContext>, Int32);
+typedef returnIntMraaPwmContextParameterFunc = Int32 Function(
+    Pointer<MraaPwmContext>);
 
 /// Dart Function typedefs
 typedef MraaPwmInitialiseType = Pointer<MraaPwmContext> Function(int);
@@ -34,6 +36,7 @@ typedef MraaPwmPulseWidthMsType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmPulseWidthUsType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmEnableType = int Function(Pointer<MraaPwmContext>, int);
 typedef MraaPwmOwnerType = int Function(Pointer<MraaPwmContext>, int);
+typedef MraaPwmCloseType = int Function(Pointer<MraaPwmContext>);
 
 /// The PWM MRAA API
 /// PWM is the Pulse Width Modulation interface to libmraa.
@@ -74,6 +77,7 @@ class _MraaPwm {
       _enablePointer;
   Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
       _ownerPointer;
+  Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>> _closePointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -88,6 +92,7 @@ class _MraaPwm {
   dynamic _pulseWidthUsFunc;
   dynamic _enableFunc;
   dynamic _ownerFunc;
+  dynamic _closeFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping
@@ -158,6 +163,11 @@ class _MraaPwm {
     return returnCode.fromInt(_ownerFunc(dev, rawBool));
   }
 
+  /// Close - mraa_pwm_close
+  /// Close and unexport the PWM pin
+  MraaReturnCode close(Pointer<MraaPwmContext> dev) =>
+      returnCode.fromInt(_closeFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaPwmContextIntParameterFunc>>(
@@ -195,6 +205,9 @@ class _MraaPwm {
     _ownerPointer =
         _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_owner');
+    _closePointer =
+        _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
+            'mraa_pwm_close');
   }
 
   void _setUpFunctions() {
@@ -212,5 +225,6 @@ class _MraaPwm {
         _pulseWidthUsPointer.asFunction<MraaPwmPulseWidthUsType>();
     _enableFunc = _enablePointer.asFunction<MraaPwmEnableType>();
     _ownerFunc = _ownerPointer.asFunction<MraaPwmOwnerType>();
+    _closeFunc = _closePointer.asFunction<MraaPwmCloseType>();
   }
 }
