@@ -710,6 +710,12 @@ int main() {
       final MraaReturnCode ret = mraa.uart.sendBreak(context, 0);
       expect(ret, MraaReturnCode.success);
     });
+    test('Baud rate', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.uart.baudRate(context, 9600);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;
