@@ -586,5 +586,12 @@ int main() {
     });
   });
 
+  group('SPI', () {
+    test('Initialise', () {
+      final Pointer<MraaSpiContext> context = mraa.spi.initialise(1);
+      expect(context, isNotNull);
+    });
+  });
+
   return 0;
 }

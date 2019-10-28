@@ -60,6 +60,9 @@ class Mraa {
   /// The PWM API
   _MraaPwm pwm;
 
+  /// The SPI API
+  _MraaSpi spi;
+
   void _setupAPI() {
     common = _MraaCommon(_lib, noJsonLoading);
     gpio = _MraaGpio(_lib, noJsonLoading);
@@ -67,5 +70,6 @@ class Mraa {
     i2c = _MraaI2c(_lib, noJsonLoading);
     led = _MraaLed(_lib, noJsonLoading);
     pwm = _MraaPwm(_lib, noJsonLoading);
+    spi = _MraaSpi(_lib, noJsonLoading);
   }
 }
