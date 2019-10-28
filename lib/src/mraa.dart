@@ -63,6 +63,9 @@ class Mraa {
   /// The SPI API
   _MraaSpi spi;
 
+  /// The UART API
+  _MraaUart uart;
+
   void _setupAPI() {
     common = _MraaCommon(_lib, noJsonLoading);
     gpio = _MraaGpio(_lib, noJsonLoading);
@@ -71,5 +74,6 @@ class Mraa {
     led = _MraaLed(_lib, noJsonLoading);
     pwm = _MraaPwm(_lib, noJsonLoading);
     spi = _MraaSpi(_lib, noJsonLoading);
+    uart = _MraaUart(_lib, noJsonLoading);
   }
 }

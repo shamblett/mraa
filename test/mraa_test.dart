@@ -688,5 +688,12 @@ int main() {
     });
   });
 
+  group('UART', () {
+    test('Initialise', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(1);
+      expect(context, isNotNull);
+    });
+  });
+
   return 0;
 }
