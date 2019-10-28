@@ -16,12 +16,15 @@ typedef returnMraaUartContextStringParameterFunc = Pointer<MraaUartContext>
     Function(Pointer<ffi.Utf8>);
 typedef returnIntMraaUartContextParameterFunc = Int32 Function(
     Pointer<MraaUartContext>);
+typedef returnIntMraaUartContextParameterIntFunc = Int32 Function(
+    Pointer<MraaUartContext>, Int32);
 
 /// Dart Function typedefs
 typedef MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
 typedef MraaUartInitialiseRawType = Pointer<MraaUartContext> Function(
     Pointer<ffi.Utf8>);
 typedef MraaUartFlushType = int Function(Pointer<MraaUartContext>);
+typedef MraaUartSendBreakType = int Function(Pointer<MraaUartContext>, int);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -43,11 +46,14 @@ class _MraaUart {
   Pointer<NativeFunction<returnMraaUartContextStringParameterFunc>>
       _initRawPointer;
   Pointer<NativeFunction<returnIntMraaUartContextParameterFunc>> _flushPointer;
+  Pointer<NativeFunction<returnIntMraaUartContextParameterIntFunc>>
+      _sendBreakPointer;
 
   /// Dart Functions
   dynamic _initFunc;
   dynamic _initRawFunc;
   dynamic _flushFunc;
+  dynamic _sendBreakFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -64,6 +70,14 @@ class _MraaUart {
   MraaReturnCode flush(Pointer<MraaUartContext> dev) =>
       returnCode.fromInt(_flushFunc(dev));
 
+  /// Send break - mraa_uart_sendbreak
+  /// Send a break to the device. Blocks until complete.
+  /// If duration is 0, send a break lasting at least 250 milliseconds,
+  /// and not more than 500 milliseconds. When non zero, the break duration
+  /// is implementation specific.
+  MraaReturnCode sendBreak(Pointer<MraaUartContext> dev, int duration) =>
+      returnCode.fromInt(_sendBreakFunc(dev, duration));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -74,11 +88,15 @@ class _MraaUart {
     _flushPointer =
         _lib.lookup<NativeFunction<returnIntMraaUartContextParameterFunc>>(
             'mraa_uart_flush');
+    _sendBreakPointer =
+        _lib.lookup<NativeFunction<returnIntMraaUartContextParameterIntFunc>>(
+            'mraa_uart_sendbreak');
   }
 
   void _setUpFunctions() {
     _initFunc = _initPointer.asFunction<MraaUartInitialiseType>();
     _initRawFunc = _initRawPointer.asFunction<MraaUartInitialiseRawType>();
     _flushFunc = _flushPointer.asFunction<MraaUartFlushType>();
+    _sendBreakFunc = _sendBreakPointer.asFunction<MraaUartSendBreakType>();
   }
 }
