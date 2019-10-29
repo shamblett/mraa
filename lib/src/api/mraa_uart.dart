@@ -24,6 +24,8 @@ typedef returnIntMraaUartContextParameter3IntFunc = Int32 Function(
     Pointer<MraaUartContext>, Int32, Int32, Int32);
 typedef returnIntMraaUartContextParameter2IntFunc = Int32 Function(
     Pointer<MraaUartContext>, Int32, Int32);
+typedef returnStringMraaUartContextParameterFunc = Pointer<ffi.Utf8> Function(
+    Pointer<MraaUartContext>);
 
 /// Dart Function typedefs
 typedef MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
@@ -39,6 +41,8 @@ typedef MraaUartFlowControlType = int Function(
 typedef MraaUartTimeoutType = int Function(
     Pointer<MraaUartContext>, int, int, int);
 typedef MraaUartNonBlockingType = int Function(Pointer<MraaUartContext>, int);
+typedef MraaUartDevicePathType = Pointer<ffi.Utf8> Function(
+    Pointer<MraaUartContext>);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -72,6 +76,8 @@ class _MraaUart {
       _timeoutPointer;
   Pointer<NativeFunction<returnIntMraaUartContextParameterIntFunc>>
       _nonBlockingPointer;
+  Pointer<NativeFunction<returnStringMraaUartContextParameterFunc>>
+      _devicePathPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -83,6 +89,7 @@ class _MraaUart {
   dynamic _flowControlFunc;
   dynamic _timeoutFunc;
   dynamic _nonBlockingFunc;
+  dynamic _devicePathFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -146,6 +153,11 @@ class _MraaUart {
     return returnCode.fromInt(_nonBlockingFunc(dev, block));
   }
 
+  /// Device path - mraa_uart_get_dev_path
+  /// Get the tty device path, for example "/dev/ttyS0"
+  String devicePath(Pointer<MraaUartContext> dev) =>
+      ffi.Utf8.fromUtf8(_devicePathFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -174,6 +186,9 @@ class _MraaUart {
     _nonBlockingPointer =
         _lib.lookup<NativeFunction<returnIntMraaUartContextParameterIntFunc>>(
             'mraa_uart_set_non_blocking');
+    _devicePathPointer =
+        _lib.lookup<NativeFunction<returnStringMraaUartContextParameterFunc>>(
+            'mraa_uart_get_dev_path');
   }
 
   void _setUpFunctions() {
@@ -188,5 +203,6 @@ class _MraaUart {
     _timeoutFunc = _timeoutPointer.asFunction<MraaUartTimeoutType>();
     _nonBlockingFunc =
         _nonBlockingPointer.asFunction<MraaUartNonBlockingType>();
+    _devicePathFunc = _devicePathPointer.asFunction<MraaUartDevicePathType>();
   }
 }

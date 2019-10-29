@@ -741,6 +741,14 @@ int main() {
       final MraaReturnCode ret = mraa.uart.nonBlocking(context, false);
       expect(ret, MraaReturnCode.success);
     });
+    test('Device path', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      final String ret = mraa.uart.devicePath(context);
+      expect(ret, isNotNull);
+      expect(ret, 'dev/ttyS0');
+    });
   });
 
   return 0;
