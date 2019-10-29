@@ -20,6 +20,8 @@ typedef returnIntMraaUartContextParameterIntFunc = Int32 Function(
     Pointer<MraaUartContext>, Int32);
 typedef returnIntMraaUartContextParameterUintFunc = Int32 Function(
     Pointer<MraaUartContext>, Uint32);
+typedef returnIntMraaUartContextParameter3IntFunc = Int32 Function(
+    Pointer<MraaUartContext>, Int32, Int32, Int32);
 
 /// Dart Function typedefs
 typedef MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
@@ -28,6 +30,8 @@ typedef MraaUartInitialiseRawType = Pointer<MraaUartContext> Function(
 typedef MraaUartFlushType = int Function(Pointer<MraaUartContext>);
 typedef MraaUartSendBreakType = int Function(Pointer<MraaUartContext>, int);
 typedef MraaUartBaudRateType = int Function(Pointer<MraaUartContext>, int);
+typedef MraaUartModeType = int Function(
+    Pointer<MraaUartContext>, int, int, int);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -53,6 +57,8 @@ class _MraaUart {
       _sendBreakPointer;
   Pointer<NativeFunction<returnIntMraaUartContextParameterUintFunc>>
       _baudRatePointer;
+  Pointer<NativeFunction<returnIntMraaUartContextParameter3IntFunc>>
+      _modePointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -60,6 +66,7 @@ class _MraaUart {
   dynamic _flushFunc;
   dynamic _sendBreakFunc;
   dynamic _baudRateFunc;
+  dynamic _modeFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -90,6 +97,15 @@ class _MraaUart {
   MraaReturnCode baudRate(Pointer<MraaUartContext> dev, int baud) =>
       returnCode.fromInt(_baudRateFunc(dev, baud));
 
+  /// Mode - mraa_uart_set_mode
+  /// Set the transfer mode.
+  /// For example setting the mode to 8N1 would be
+  /// mode(context, 8,MraaUartParity,none , 1)
+  MraaReturnCode mode(Pointer<MraaUartContext> dev, int byteSize,
+          MraaUartParity parity, int stopBits) =>
+      returnCode.fromInt(
+          _modeFunc(dev, byteSize, uartParity.asInt(parity), stopBits));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -106,6 +122,9 @@ class _MraaUart {
     _baudRatePointer =
         _lib.lookup<NativeFunction<returnIntMraaUartContextParameterUintFunc>>(
             'mraa_uart_set_baudrate');
+    _modePointer =
+        _lib.lookup<NativeFunction<returnIntMraaUartContextParameter3IntFunc>>(
+            'mraa_uart_set_mode');
   }
 
   void _setUpFunctions() {
@@ -114,5 +133,6 @@ class _MraaUart {
     _flushFunc = _flushPointer.asFunction<MraaUartFlushType>();
     _sendBreakFunc = _sendBreakPointer.asFunction<MraaUartSendBreakType>();
     _baudRateFunc = _baudRatePointer.asFunction<MraaUartBaudRateType>();
+    _modeFunc = _modePointer.asFunction<MraaUartModeType>();
   }
 }

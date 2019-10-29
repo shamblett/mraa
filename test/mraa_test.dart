@@ -716,6 +716,13 @@ int main() {
       final MraaReturnCode ret = mraa.uart.baudRate(context, 9600);
       expect(ret, MraaReturnCode.success);
     });
+    test('Mode', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret =
+          mraa.uart.mode(context, 8, MraaUartParity.even, 1);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;
