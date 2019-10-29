@@ -749,6 +749,31 @@ int main() {
       expect(ret, isNotNull);
       expect(ret, 'dev/ttyS0');
     });
+    test('Settings - invalid parameters', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      final MraaUartSettings settings = MraaUartSettings();
+      final MraaReturnCode ret = mraa.uart.settings(-1, settings);
+      expect(ret, MraaReturnCode.errorInvalidParameter);
+    });
+    test('Settings - index', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      final MraaUartSettings settings = MraaUartSettings();
+      final MraaReturnCode ret = mraa.uart.settings(1, settings);
+      expect(ret, MraaReturnCode.errorInvalidResource);
+    });
+    test('Settings - device path', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      final MraaUartSettings settings = MraaUartSettings();
+      settings.devicePath = 'dev/ttyS0';
+      final MraaReturnCode ret = mraa.uart.settings(-1, settings);
+      expect(ret, MraaReturnCode.errorInvalidResource);
+    });
   });
 
   return 0;

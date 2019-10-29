@@ -26,6 +26,16 @@ typedef returnIntMraaUartContextParameter2IntFunc = Int32 Function(
     Pointer<MraaUartContext>, Int32, Int32);
 typedef returnStringMraaUartContextParameterFunc = Pointer<ffi.Utf8> Function(
     Pointer<MraaUartContext>);
+typedef returnIntInt2String4Int2UIntParameterFunc = Int32 Function(
+    Int32,
+    Pointer<ffi.Utf8>,
+    Pointer<ffi.Utf8>,
+    Pointer<Int32>,
+    Pointer<Int32>,
+    Pointer<Int32>,
+    Pointer<Int32>,
+    Pointer<Uint32>,
+    Pointer<Uint32>);
 
 /// Dart Function typedefs
 typedef MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
@@ -43,6 +53,16 @@ typedef MraaUartTimeoutType = int Function(
 typedef MraaUartNonBlockingType = int Function(Pointer<MraaUartContext>, int);
 typedef MraaUartDevicePathType = Pointer<ffi.Utf8> Function(
     Pointer<MraaUartContext>);
+typedef MraaUartSettingsType = int Function(
+    int,
+    Pointer<ffi.Utf8>,
+    Pointer<ffi.Utf8>,
+    Pointer<Int32>,
+    Pointer<Int32>,
+    Pointer<Int32>,
+    Pointer<Int32>,
+    Pointer<Uint32>,
+    Pointer<Uint32>);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -78,6 +98,8 @@ class _MraaUart {
       _nonBlockingPointer;
   Pointer<NativeFunction<returnStringMraaUartContextParameterFunc>>
       _devicePathPointer;
+  Pointer<NativeFunction<returnIntInt2String4Int2UIntParameterFunc>>
+      _settingsPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -90,6 +112,7 @@ class _MraaUart {
   dynamic _timeoutFunc;
   dynamic _nonBlockingFunc;
   dynamic _devicePathFunc;
+  dynamic _settingsFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -158,6 +181,60 @@ class _MraaUart {
   String devicePath(Pointer<MraaUartContext> dev) =>
       ffi.Utf8.fromUtf8(_devicePathFunc(dev));
 
+  /// Settings - mraa_uart_settings
+  /// Get the current settings of an UART. This is an unintrusive function.
+  /// Meaning it intends not to change anything, only read the values.
+  /// All but the first index parameter are "outparameters". That means they can contain values on return.
+  /// If any parameter is not interesting it will be set to null.
+  /// The device path parameter can be either an in or out parameter.
+  /// If a negative index is supplied, the UART is identified using its device path instead.
+  /// This functionality is intended for and needed by for instance USB serial adapters.
+  /// In case of a non-success return value, the out parameters are undefined and will be
+  /// set as passed in, see [MraaUartSettings].
+  MraaReturnCode settings(int index, MraaUartSettings settings) {
+    // Check for either a valid index or a device path
+    if (index < 0 && settings.devicePath == null) {
+      return MraaReturnCode.errorInvalidParameter;
+    }
+
+    // Construct the parameter list
+    Pointer<ffi.Utf8> ptrDevicePath;
+    if (settings.devicePath == null) {
+      ptrDevicePath = nullptr;
+    } else {
+      ptrDevicePath = ffi.Utf8.toUtf8(settings.devicePath);
+    }
+    final Pointer<ffi.Utf8> ptrName = nullptr;
+    final Pointer<Int32> ptrBaudrate = ffi.allocate<Int32>(count: 1);
+    final Pointer<Int32> ptrDataBits = ffi.allocate<Int32>(count: 1);
+    final Pointer<Int32> ptrStopBits = ffi.allocate<Int32>(count: 1);
+    final Pointer<Int32> ptrParity = ffi.allocate<Int32>(count: 1);
+    final Pointer<Uint32> ptrRtsCts = ffi.allocate<Uint32>(count: 1);
+    final Pointer<Uint32> ptrXonXoff = ffi.allocate<Uint32>(count: 1);
+
+    // Get the settings
+    final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
+        ptrDataBits, ptrStopBits, ptrParity, ptrRtsCts, ptrXonXoff);
+
+    // If not success just return the status
+    if (returnCode.fromInt(ret) != MraaReturnCode.success) {
+      return returnCode.fromInt(ret);
+    }
+
+    // Set the output parameters
+    settings.devicePath = ffi.Utf8.fromUtf8(ptrDevicePath);
+    settings.name = ffi.Utf8.fromUtf8(ptrName);
+    settings.baudRate = ptrBaudrate.value;
+    settings.dataBits = ptrDataBits.value;
+    settings.stopBits = ptrStopBits.value;
+    settings.parity = uartParity.fromInt(ptrParity.value);
+    settings.rtsCts = ptrRtsCts.value != 0;
+    settings.xonXoff = ptrXonXoff.value != 0;
+
+    // End
+    return MraaReturnCode.success;
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -189,6 +266,9 @@ class _MraaUart {
     _devicePathPointer =
         _lib.lookup<NativeFunction<returnStringMraaUartContextParameterFunc>>(
             'mraa_uart_get_dev_path');
+    _settingsPointer =
+        _lib.lookup<NativeFunction<returnIntInt2String4Int2UIntParameterFunc>>(
+            'mraa_uart_settings');
   }
 
   void _setUpFunctions() {
@@ -204,5 +284,6 @@ class _MraaUart {
     _nonBlockingFunc =
         _nonBlockingPointer.asFunction<MraaUartNonBlockingType>();
     _devicePathFunc = _devicePathPointer.asFunction<MraaUartDevicePathType>();
+    _settingsFunc = _settingsPointer.asFunction<MraaUartSettingsType>();
   }
 }
