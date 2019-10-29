@@ -36,6 +36,8 @@ typedef MraaUartModeType = int Function(
     Pointer<MraaUartContext>, int, int, int);
 typedef MraaUartFlowControlType = int Function(
     Pointer<MraaUartContext>, int, int);
+typedef MraaUartTimeoutType = int Function(
+    Pointer<MraaUartContext>, int, int, int);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -65,6 +67,8 @@ class _MraaUart {
       _modePointer;
   Pointer<NativeFunction<returnIntMraaUartContextParameter2IntFunc>>
       _flowControlPointer;
+  Pointer<NativeFunction<returnIntMraaUartContextParameter3IntFunc>>
+      _timeoutPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -74,6 +78,7 @@ class _MraaUart {
   dynamic _baudRateFunc;
   dynamic _modeFunc;
   dynamic _flowControlFunc;
+  dynamic _timeoutFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -124,6 +129,12 @@ class _MraaUart {
     return returnCode.fromInt(_flowControlFunc(dev, xon, rts));
   }
 
+  /// Timeout - mraa_uart_set_timeout
+  /// Set the timeout for read and write operations <= 0 will disable that timeout.
+  MraaReturnCode timeout(
+          Pointer<MraaUartContext> dev, int read, int write, int interChar) =>
+      returnCode.fromInt(_timeoutFunc(dev, read, write, interChar));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -146,6 +157,9 @@ class _MraaUart {
     _flowControlPointer =
         _lib.lookup<NativeFunction<returnIntMraaUartContextParameter2IntFunc>>(
             'mraa_uart_set_flowcontrol');
+    _timeoutPointer =
+        _lib.lookup<NativeFunction<returnIntMraaUartContextParameter3IntFunc>>(
+            'mraa_uart_set_timeout');
   }
 
   void _setUpFunctions() {
@@ -157,5 +171,6 @@ class _MraaUart {
     _modeFunc = _modePointer.asFunction<MraaUartModeType>();
     _flowControlFunc =
         _flowControlPointer.asFunction<MraaUartFlowControlType>();
+    _timeoutFunc = _timeoutPointer.asFunction<MraaUartTimeoutType>();
   }
 }
