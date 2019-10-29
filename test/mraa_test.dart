@@ -781,13 +781,24 @@ int main() {
       final MraaReturnCode ret = mraa.uart.stop(context);
       expect(ret, MraaReturnCode.success);
     });
+    test('Write', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      mraa.uart.flush(context);
+      final MraaUartBuffer buffer = MraaUartBuffer();
+      buffer.data = 'Hello UART';
+      final int ret = mraa.uart.write(context, buffer, buffer.length);
+      expect(ret, buffer.length);
+    });
     test('Read', () {
       final Pointer<MraaUartContext> context =
           mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
       mraa.uart.flush(context);
       final MraaUartBuffer buffer = MraaUartBuffer();
-      final int ret = mraa.uart.read(context, buffer, 10);
+      buffer.data = '';
+      final int ret = mraa.uart.read(context, buffer, buffer.length);
       if (ret != Mraa.mraaGeneralError) {
         expect(ret, 10);
         expect(buffer.length, 10);
