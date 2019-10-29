@@ -781,6 +781,20 @@ int main() {
       final MraaReturnCode ret = mraa.uart.stop(context);
       expect(ret, MraaReturnCode.success);
     });
+    test('Read', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      mraa.uart.flush(context);
+      final MraaUartBuffer buffer = MraaUartBuffer();
+      final int ret = mraa.uart.read(context, buffer, 10);
+      if (ret != Mraa.mraaGeneralError) {
+        expect(ret, 10);
+        expect(buffer.length, 10);
+      } else {
+        expect(ret, Mraa.mraaGeneralError);
+      }
+    });
   });
 
   return 0;

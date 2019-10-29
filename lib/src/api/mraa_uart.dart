@@ -36,6 +36,8 @@ typedef returnIntInt2String4Int2UIntParameterFunc = Int32 Function(
     Pointer<Int32>,
     Pointer<Uint32>,
     Pointer<Uint32>);
+typedef returnIntMraaUartContextStringIntParameterFunc = Int32 Function(
+    Pointer<MraaUartContext>, Pointer<ffi.Utf8>, Int32);
 
 /// Dart Function typedefs
 typedef MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
@@ -64,6 +66,8 @@ typedef MraaUartSettingsType = int Function(
     Pointer<Uint32>,
     Pointer<Uint32>);
 typedef MraaUartStopType = int Function(Pointer<MraaUartContext>);
+typedef MraaUartReadType = int Function(
+    Pointer<MraaUartContext>, Pointer<ffi.Utf8>, int);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -102,6 +106,8 @@ class _MraaUart {
   Pointer<NativeFunction<returnIntInt2String4Int2UIntParameterFunc>>
       _settingsPointer;
   Pointer<NativeFunction<returnIntMraaUartContextParameterFunc>> _stopPointer;
+  Pointer<NativeFunction<returnIntMraaUartContextStringIntParameterFunc>>
+      _readPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -116,6 +122,7 @@ class _MraaUart {
   dynamic _devicePathFunc;
   dynamic _settingsFunc;
   dynamic _stopFunc;
+  dynamic _readFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -243,6 +250,26 @@ class _MraaUart {
   MraaReturnCode stop(Pointer<MraaUartContext> dev) =>
       returnCode.fromInt(_stopFunc(dev));
 
+  /// Read - mraa_uart_read
+  /// Read bytes from the device into a buffer
+  /// Returns the number of bytes read, or mraaGeneralError
+  int read(Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
+    if (length <= 0) {
+      return Mraa.mraaGeneralError;
+    }
+    final Pointer<ffi.Utf8> ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
+    final int ret = _readFunc(dev, ptrBuffer, length);
+    if (ret == Mraa.mraaGeneralError) {
+      return ret;
+    }
+    try {
+      buffer.data = ffi.Utf8.fromUtf8(ptrBuffer);
+    } on FormatException {
+      return Mraa.mraaGeneralError;
+    }
+    return ret;
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -280,6 +307,9 @@ class _MraaUart {
     _stopPointer =
         _lib.lookup<NativeFunction<returnIntMraaUartContextParameterFunc>>(
             'mraa_uart_stop');
+    _readPointer = _lib
+        .lookup<NativeFunction<returnIntMraaUartContextStringIntParameterFunc>>(
+            'mraa_uart_read');
   }
 
   void _setUpFunctions() {
@@ -297,5 +327,6 @@ class _MraaUart {
     _devicePathFunc = _devicePathPointer.asFunction<MraaUartDevicePathType>();
     _settingsFunc = _settingsPointer.asFunction<MraaUartSettingsType>();
     _stopFunc = _stopPointer.asFunction<MraaUartStopType>();
+    _readFunc = _readPointer.asFunction<MraaUartReadType>();
   }
 }

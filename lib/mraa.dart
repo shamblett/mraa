@@ -27,6 +27,7 @@ part 'src/types/spi/mraa_spi_context.dart';
 part 'src/types/uart/mraa_uart_context.dart';
 part 'src/types/uart/mraa_uart_parity.dart';
 part 'src/types/uart/mraa_uart_settings.dart';
+part 'src/types/uart/mraa_uart_buffer.dart';
 part 'src/types/mraa_platform_type.dart';
 part 'src/types/mraa_pinmode.dart';
 part 'src/types/i2c/mraa_i2c_mode.dart';
