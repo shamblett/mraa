@@ -37,4 +37,33 @@ class MraaUartSettings {
   /// True if xon/xoff flow control is enabled
   bool xonXoff;
 
+  @override
+  String toString() {
+    StringBuffer sb = StringBuffer();
+    sb.writeln('UART Settings.....');
+    devicePath == null
+        ? sb.writeln('Device Path: not set')
+        : sb.writeln('Device Path: $devicePath');
+    name == null ? sb.writeln('Name: not set') : sb.writeln('Name: $name');
+    baudRate == null
+        ? sb.writeln('Baud Rate: not set')
+        : sb.writeln('Baud Rate: $baudRate');
+    dataBits == null
+        ? sb.writeln('Data Bits: not set')
+        : sb.writeln('Data Bits: $dataBits');
+    stopBits == null
+        ? sb.writeln('Stop Bits: not set')
+        : sb.writeln('Stop Bits: $stopBits');
+    parity == null
+        ? sb.writeln('Parity: not set')
+        : sb.writeln('Parity: ${uartParity.asString(parity)}');
+    rtsCts == null
+        ? sb.writeln('RTS/CTS: not set')
+        : sb.writeln('RTS/CTS: $rtsCts - true is RTS');
+    xonXoff == null
+        ? sb.writeln('XON/XOFF: not set')
+        : sb.writeln('XON/XOFF: $xonXoff - true is enabled');
+    sb.writeln();
+    return sb.toString();
+  }
 }
