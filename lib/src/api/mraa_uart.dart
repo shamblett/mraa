@@ -38,6 +38,7 @@ typedef MraaUartFlowControlType = int Function(
     Pointer<MraaUartContext>, int, int);
 typedef MraaUartTimeoutType = int Function(
     Pointer<MraaUartContext>, int, int, int);
+typedef MraaUartNonBlockingType = int Function(Pointer<MraaUartContext>, int);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -69,6 +70,8 @@ class _MraaUart {
       _flowControlPointer;
   Pointer<NativeFunction<returnIntMraaUartContextParameter3IntFunc>>
       _timeoutPointer;
+  Pointer<NativeFunction<returnIntMraaUartContextParameterIntFunc>>
+      _nonBlockingPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -79,6 +82,7 @@ class _MraaUart {
   dynamic _modeFunc;
   dynamic _flowControlFunc;
   dynamic _timeoutFunc;
+  dynamic _nonBlockingFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -135,6 +139,13 @@ class _MraaUart {
           Pointer<MraaUartContext> dev, int read, int write, int interChar) =>
       returnCode.fromInt(_timeoutFunc(dev, read, write, interChar));
 
+  /// Non blocking - mraa_uart_set_nonblocking
+  /// Set the blocking state for write operations
+  MraaReturnCode nonBlocking(Pointer<MraaUartContext> dev, bool nonBlock) {
+    final int block = nonBlock ? 1 : 0;
+    return returnCode.fromInt(_nonBlockingFunc(dev, block));
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -160,6 +171,9 @@ class _MraaUart {
     _timeoutPointer =
         _lib.lookup<NativeFunction<returnIntMraaUartContextParameter3IntFunc>>(
             'mraa_uart_set_timeout');
+    _nonBlockingPointer =
+        _lib.lookup<NativeFunction<returnIntMraaUartContextParameterIntFunc>>(
+            'mraa_uart_set_non_blocking');
   }
 
   void _setUpFunctions() {
@@ -172,5 +186,7 @@ class _MraaUart {
     _flowControlFunc =
         _flowControlPointer.asFunction<MraaUartFlowControlType>();
     _timeoutFunc = _timeoutPointer.asFunction<MraaUartTimeoutType>();
+    _nonBlockingFunc =
+        _nonBlockingPointer.asFunction<MraaUartNonBlockingType>();
   }
 }

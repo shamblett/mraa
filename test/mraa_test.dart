@@ -735,6 +735,12 @@ int main() {
       final MraaReturnCode ret = mraa.uart.timeout(context, 10, 10, 5);
       expect(ret, MraaReturnCode.success);
     });
+    test('Non blocking', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(1);
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.uart.nonBlocking(context, false);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;
