@@ -63,6 +63,7 @@ typedef MraaUartSettingsType = int Function(
     Pointer<Int32>,
     Pointer<Uint32>,
     Pointer<Uint32>);
+typedef MraaUartStopType = int Function(Pointer<MraaUartContext>);
 
 /// The UART MRAA API
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
@@ -100,6 +101,7 @@ class _MraaUart {
       _devicePathPointer;
   Pointer<NativeFunction<returnIntInt2String4Int2UIntParameterFunc>>
       _settingsPointer;
+  Pointer<NativeFunction<returnIntMraaUartContextParameterFunc>> _stopPointer;
 
   /// Dart Functions
   dynamic _initFunc;
@@ -113,6 +115,7 @@ class _MraaUart {
   dynamic _nonBlockingFunc;
   dynamic _devicePathFunc;
   dynamic _settingsFunc;
+  dynamic _stopFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with
@@ -235,6 +238,11 @@ class _MraaUart {
     return MraaReturnCode.success;
   }
 
+  /// Stop - mraa_uart_stop
+  /// Destroy a UART context
+  MraaReturnCode stop(Pointer<MraaUartContext> dev) =>
+      returnCode.fromInt(_stopFunc(dev));
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<returnMraaUartContextIntParameterFunc>>(
@@ -269,6 +277,9 @@ class _MraaUart {
     _settingsPointer =
         _lib.lookup<NativeFunction<returnIntInt2String4Int2UIntParameterFunc>>(
             'mraa_uart_settings');
+    _stopPointer =
+        _lib.lookup<NativeFunction<returnIntMraaUartContextParameterFunc>>(
+            'mraa_uart_stop');
   }
 
   void _setUpFunctions() {
@@ -285,5 +296,6 @@ class _MraaUart {
         _nonBlockingPointer.asFunction<MraaUartNonBlockingType>();
     _devicePathFunc = _devicePathPointer.asFunction<MraaUartDevicePathType>();
     _settingsFunc = _settingsPointer.asFunction<MraaUartSettingsType>();
+    _stopFunc = _stopPointer.asFunction<MraaUartStopType>();
   }
 }

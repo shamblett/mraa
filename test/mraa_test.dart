@@ -774,6 +774,13 @@ int main() {
       final MraaReturnCode ret = mraa.uart.settings(-1, settings);
       expect(ret, MraaReturnCode.errorInvalidResource);
     });
+    test('Stop', () {
+      final Pointer<MraaUartContext> context =
+          mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      final MraaReturnCode ret = mraa.uart.stop(context);
+      expect(ret, MraaReturnCode.success);
+    });
   });
 
   return 0;
