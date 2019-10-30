@@ -23,8 +23,7 @@ import 'support/mraa_platform_helper.dart';
 int main() {
   // Setup
   final MraaPlatformHelper helper = MraaPlatformHelper();
-  print(
-      'Platform is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+  print('OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
   final Mraa mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
