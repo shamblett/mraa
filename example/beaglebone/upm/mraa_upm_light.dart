@@ -44,7 +44,6 @@ class MraaUpmLight {
     values.raw = _mraa.aio.read(_context);
     values.lux = 10000.0 /
         pow(((maxAdc - values.raw) * 10.0 / values.raw) * 15.0, 4.0 / 3.0);
-    values.validAt = DateTime.now();
     return values;
   }
 }

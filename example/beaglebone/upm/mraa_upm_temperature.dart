@@ -11,6 +11,11 @@ import 'package:mraa/mraa.dart';
 
 /// The values class for the UPM temperature class
 class MraaUpmTemperatureValues {
+  /// Construction
+  MraaUpmTemperatureValues() {
+    validAt = DateTime.now();
+  }
+
   /// Raw value
   int raw;
 
@@ -30,6 +35,15 @@ class MraaUpmTemperatureValues {
 class MraaUpmTemperature {
   MraaUpmTemperature(this._mraa, this._context);
 
+  /// Scaling factor for raw analog value from the ADC, useful for mixed 3.3V/5V boards, default 1.0
+  static const double scale = 1.0;
+
+  /// Zero power resistance, this is 100K (default) for v1.1-v1.2 and 10K for v1.0 of the sensor
+  static const int r0 = 100000;
+
+  /// Thermistor nominal B constant, this is 4275 (default) for v1.1-v1.2 and 3975 for v1.0 of the sensor
+  static const int b = 4275;
+
   /// The initialised MRAA library
   Mraa _mraa;
 
@@ -38,13 +52,18 @@ class MraaUpmTemperature {
 
   /// Get the raw and Celsius temperature values and timestamp them.
   MraaUpmTemperatureValues getValues() {
-    // Get the ADC value range for temperature conversion
-    final int maxAdc = 1 << _mraa.aio.getBit(_context);
     final MraaUpmTemperatureValues values = MraaUpmTemperatureValues();
     values.raw = _mraa.aio.read(_context);
-    final double r = (maxAdc - values.raw) * 10000.0 / values.raw;
-    values.celsius = 1.0 / (log(r / 10000.0) / 3975.0 + 1.0 / 298.15) - 273.15;
-    values.validAt = DateTime.now();
+    // Check for error
+    if (values.raw == Mraa.generalError) {
+      values.celsius = -1.0;
+      return values;
+    }
+
+    // Calculate celsius
+    final double r = 1023.0 - values.raw * r0 / values.raw;
+    values.celsius = 1.0 / (log(r / r0) / b + 1.0 / 298.15) - 273.15;
+
     return values;
   }
 }
