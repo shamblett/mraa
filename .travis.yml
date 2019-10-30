@@ -9,7 +9,7 @@ dart_task:
     xvfb: false
 script:
   pub run test test/mraa_test.dart
-  pub run test test/mraa_platform_test.dart
+
 branches:
     only:
     - master
