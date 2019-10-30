@@ -16,7 +16,10 @@ import 'support/mraa_platform_helper.dart';
 @TestOn('VM && Linux')
 
 // We always use our package supplied library in test as it is an Mraa
-// library compiled to use a mock board
+// library compiled to use a mock board, this means that some values used
+// in the tests below are as supplied by the mock board implementation, some devices
+// however, e.g. PWM are not supported by the mock board implementation and therefore
+// cannot be tested. In all cases the API call itself is exercised for correctness.
 int main() {
   // Setup
   final MraaPlatformHelper helper = MraaPlatformHelper();
@@ -56,19 +59,26 @@ int main() {
       mraa.common.initialise();
       final String platformVersion = mraa.common.platformVersion(0);
       print('The current platform version is : $platformVersion');
-    }, skip: true); //TODO causes crash
+      expect(platformVersion.contains('mock'), isTrue);
+    });
 
     test('Platform types', () {
       mraa.common.initialise();
       final MraaPlatformType ret = mraa.common.platformType();
       if (ret != null) {
         print('Platform type is : ${platformTypes.asString(ret)}');
+        expect(ret, MraaPlatformType.mockPlatform);
       }
     });
     test('Pin mode test', () {
-      mraa.common.initialise();
-      final bool ret = mraa.common.pinmodeTest(2, MraaPinmode.aio);
+      final MraaReturnCode ok = mraa.common.initialise();
+      expect(ok, MraaReturnCode.success);
+      bool ret = mraa.common.pinmodeTest(2, MraaPinmode.aio);
       expect(ret, isFalse);
+      ret = mraa.common.pinmodeTest(0, MraaPinmode.valid);
+      expect(ret, isTrue);
+      ret = mraa.common.pinmodeTest(0, MraaPinmode.gpio);
+      expect(ret, isTrue);
     });
     test('ADC raw bits', () {
       mraa.common.initialise();
@@ -160,6 +170,8 @@ int main() {
       expect(ret, 'ADC0');
       ret = mraa.common.pinName(2);
       expect(ret, 'I2C0SDA');
+      ret = mraa.common.pinName(0);
+      expect(ret, 'GPIO0');
     });
     test('GPIO lookup', () {
       mraa.common.initialise();
@@ -167,6 +179,8 @@ int main() {
       expect(ret, Mraa.mraaGeneralError);
       ret = mraa.common.gpioLookup('I2C0SDA');
       expect(ret, Mraa.mraaGeneralError);
+      ret = mraa.common.gpioLookup('GPIO0');
+      expect(ret, 0);
     });
     test('I2C lookup', () {
       mraa.common.initialise();
@@ -430,7 +444,7 @@ int main() {
     test('Frequency', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final MraaReturnCode ret = mraa.i2c.frequency(context, MraaI2cMode.high);
-      expect(ret, MraaReturnCode.errorInvalidParameter);
+      expect(ret, MraaReturnCode.success);
     });
     test('Read', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
@@ -599,7 +613,7 @@ int main() {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
       expect(context, isNotNull);
       final MraaReturnCode ret = mraa.spi.mode(context, MraaSpiMode.mode0);
-      expect(ret, MraaReturnCode.errorInvalidParameter);
+      expect(ret, MraaReturnCode.success);
     });
     test('Frequency', () {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);

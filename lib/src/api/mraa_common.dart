@@ -178,8 +178,13 @@ class _MraaCommon {
   /// Platform version - mraa_get_platform_version
   /// Return the platform's versioning info, the information given depends per platform and can be NULL.
   /// platform_offset has to be given. 0 for main platform, 1 for sub platform.
-  String platformVersion(int platformOffset) =>
-      ffi.Utf8.fromUtf8(_platformVersionFunc(platformOffset));
+  String platformVersion(int platformOffset) {
+    Pointer<ffi.Utf8> retPtr = _platformVersionFunc(platformOffset);
+    if (retPtr == nullptr) {
+      return 'No platform version set - maybe a mock board?';
+    }
+    return ffi.Utf8.fromUtf8(_platformVersionFunc(platformOffset));
+  }
 
   /// Platform type - mraa_get_platform_type
   /// Get platform type, board must be initialised.
@@ -202,7 +207,7 @@ class _MraaCommon {
   /// True if the mode is supported
   bool pinmodeTest(int pin, MraaPinmode mode) {
     final int ret = _pinModeTestFunc(pin, pinmode.asInt(mode));
-    return ret == 1;
+    return ret != 0;
   }
 
   /// ADC raw bits - mraa_adc_raw_bits

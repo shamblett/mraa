@@ -40,7 +40,6 @@ class MraaUartSettings {
   @override
   String toString() {
     StringBuffer sb = StringBuffer();
-    sb.writeln('UART Settings.....');
     devicePath == null
         ? sb.writeln('Device Path: not set')
         : sb.writeln('Device Path: $devicePath');
