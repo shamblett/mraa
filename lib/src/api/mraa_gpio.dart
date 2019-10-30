@@ -100,24 +100,24 @@ class _MraaGpio {
       _outputDriverModePointer;
 
   /// Dart Functions
-  dynamic _initialiseFunc;
-  dynamic _directionFunc;
-  dynamic _readFunc;
-  dynamic _initialiseMultiFunc;
-  dynamic _initialiseRawFunc;
-  dynamic _edgeModeFunc;
-  dynamic _eventsFunc;
-  dynamic _modeFunc;
-  dynamic _readDirectionFunc;
-  dynamic _closeFunc;
-  dynamic _readMultiFunc;
-  dynamic _writeFunc;
-  dynamic _writeMultiFunc;
-  dynamic _ownerFunc;
-  dynamic _pinFunc;
-  dynamic _pinRawFunc;
-  dynamic _inputModeFunc;
-  dynamic _outputDriverModeFunc;
+  MraaGpioInitialiseType _initialiseFunc;
+  MraaGpioDirectionType _directionFunc;
+  MraaGpioReadType _readFunc;
+  MraaGpioInitialiseMultiType _initialiseMultiFunc;
+  MraaGpioInitialiseRawType _initialiseRawFunc;
+  MraaGpioEdgeModeType _edgeModeFunc;
+  MraaGpioEventsType _eventsFunc;
+  MraaGpioModeType _modeFunc;
+  MraaGpioReadDirectionType _readDirectionFunc;
+  MraaGpioCloseType _closeFunc;
+  MraaGpioReadMultiType _readMultiFunc;
+  MraaGpioWriteType _writeFunc;
+  MraaGpioWriteMultiType _writeMultiFunc;
+  MraaGpioOwnerType _ownerFunc;
+  MraaGpioPinType _pinFunc;
+  MraaGpioPinRawType _pinRawFunc;
+  MraaGpioInputModeType _inputModeFunc;
+  MraaGpioOutputDriverModeType _outputDriverModeFunc;
 
   /// Initialise - mraa_gpio_init
   /// Initialise gpio_context, based on board number

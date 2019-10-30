@@ -64,14 +64,14 @@ class _MraaLed {
   Pointer<NativeFunction<returnIntMraaLedContextParameterFunc>> _closePointer;
 
   /// Dart Functions
-  dynamic _initFunc;
-  dynamic _initRawFunc;
-  dynamic _setBrightnessFunc;
-  dynamic _readBrightnessFunc;
-  dynamic _readMaxBrightnessFunc;
-  dynamic _setTriggerFunc;
-  dynamic _clearTriggerFunc;
-  dynamic _closeFunc;
+  MraaLedInitialiseType _initFunc;
+  MraaLedInitialiseRawType _initRawFunc;
+  MraaLedSetBrightnessType _setBrightnessFunc;
+  MraaLedReadBrightnessType _readBrightnessFunc;
+  MraaLedReadMaxBrightnessType _readMaxBrightnessFunc;
+  MraaLedSetTriggerType _setTriggerFunc;
+  MraaLedClearTriggerType _clearTriggerFunc;
+  MraaLedCloseType _closeFunc;
 
   /// Initialise - mraa_led_init
   /// Initialise led context, based on led index.

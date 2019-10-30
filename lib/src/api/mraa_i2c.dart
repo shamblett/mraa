@@ -29,6 +29,7 @@ typedef returnIntMraaI2CContextUint16Uint8ParameterFunc = Int32 Function(
 
 /// Dart Function typedefs
 typedef MraaI2cInitialiseType = Pointer<MraaI2cContext> Function(int);
+typedef MraaI2cInitialiseRawType = Pointer<MraaI2cContext> Function(int);
 typedef MraaI2cFrequencyType = int Function(Pointer<MraaI2cContext>, int);
 typedef MraaI2cReadType = int Function(
     Pointer<MraaI2cContext>, Pointer<Uint8>, int);
@@ -94,20 +95,20 @@ class _MraaI2c {
   Pointer<NativeFunction<returnIntMraaI2CContextParameterFunc>> _stopPointer;
 
   /// Dart Functions
-  dynamic _initFunc;
-  dynamic _initRawFunc;
-  dynamic _frequencyFunc;
-  dynamic _readFunc;
-  dynamic _readByteFunc;
-  dynamic _readByteDataFunc;
-  dynamic _readWordDataFunc;
-  dynamic _readBytesDataFunc;
-  dynamic _writeFunc;
-  dynamic _writeByteFunc;
-  dynamic _writeByteDataFunc;
-  dynamic _writeWordDataFunc;
-  dynamic _addressFunc;
-  dynamic _stopFunc;
+  MraaI2cInitialiseType _initFunc;
+  MraaI2cInitialiseRawType _initRawFunc;
+  MraaI2cFrequencyType _frequencyFunc;
+  MraaI2cReadType _readFunc;
+  MraaI2cReadByteType _readByteFunc;
+  MraaI2cReadByteDataType _readByteDataFunc;
+  MraaI2cReadWordDataType _readWordDataFunc;
+  MraaI2cReadBytesDataType _readBytesDataFunc;
+  MraaI2cWriteType _writeFunc;
+  MraaI2cWriteByteType _writeByteFunc;
+  MraaI2cWriteByteDataType _writeByteDataFunc;
+  MraaI2cWriteWordDataType _writeWordDataFunc;
+  MraaI2cAddressType _addressFunc;
+  MraaI2cStopType _stopFunc;
 
   /// Initialise - mraa_i2c_init
   /// Initialise I2C context, using board defintions

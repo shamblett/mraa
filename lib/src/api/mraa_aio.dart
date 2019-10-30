@@ -52,12 +52,12 @@ class _MraaAio {
   Pointer<NativeFunction<returnIntMraaAioContextParameterFunc>> _getBitPointer;
 
   /// Dart Functions
-  dynamic _initFunc;
-  dynamic _readFunc;
-  dynamic _readDoubleFunc;
-  dynamic _closeFunc;
-  dynamic _setBitFunc;
-  dynamic _getBitFunc;
+  MraaAioInitialiseType _initFunc;
+  MraaAioReadType _readFunc;
+  MraaAioReadDoubleType _readDoubleFunc;
+  MraaAioCloseType _closeFunc;
+  MraaAioSetBitType _setBitFunc;
+  MraaAioGetBitType _getBitFunc;
 
   /// Initialise - mraa_aio_init
   /// Initialise an Analog input device, connected to the specified pin.

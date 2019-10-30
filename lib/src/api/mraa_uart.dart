@@ -114,20 +114,20 @@ class _MraaUart {
       _writePointer;
 
   /// Dart Functions
-  dynamic _initFunc;
-  dynamic _initRawFunc;
-  dynamic _flushFunc;
-  dynamic _sendBreakFunc;
-  dynamic _baudRateFunc;
-  dynamic _modeFunc;
-  dynamic _flowControlFunc;
-  dynamic _timeoutFunc;
-  dynamic _nonBlockingFunc;
-  dynamic _devicePathFunc;
-  dynamic _settingsFunc;
-  dynamic _stopFunc;
-  dynamic _readFunc;
-  dynamic _writeFunc;
+  MraaUartInitialiseType _initFunc;
+  MraaUartInitialiseRawType _initRawFunc;
+  MraaUartFlushType _flushFunc;
+  MraaUartSendBreakType _sendBreakFunc;
+  MraaUartBaudRateType _baudRateFunc;
+  MraaUartModeType _modeFunc;
+  MraaUartFlowControlType _flowControlFunc;
+  MraaUartTimeoutType _timeoutFunc;
+  MraaUartNonBlockingType _nonBlockingFunc;
+  MraaUartDevicePathType _devicePathFunc;
+  MraaUartSettingsType _settingsFunc;
+  MraaUartStopType _stopFunc;
+  MraaUartReadType _readFunc;
+  MraaUartWriteType _writeFunc;
 
   /// Initialise - mraa_uart_init
   /// Initialise a uart context, uses board mapping when supplied with

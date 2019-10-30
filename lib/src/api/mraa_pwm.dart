@@ -86,21 +86,21 @@ class _MraaPwm {
       _minPeriodPointer;
 
   /// Dart Functions
-  dynamic _initFunc;
-  dynamic _initRawFunc;
-  dynamic _writeFunc;
-  dynamic _readFunc;
-  dynamic _periodFunc;
-  dynamic _periodMsFunc;
-  dynamic _periodUsFunc;
-  dynamic _pulseWidthFunc;
-  dynamic _pulseWidthMsFunc;
-  dynamic _pulseWidthUsFunc;
-  dynamic _enableFunc;
-  dynamic _ownerFunc;
-  dynamic _closeFunc;
-  dynamic _maxPeriodFunc;
-  dynamic _minPeriodFunc;
+  MraaPwmInitialiseType _initFunc;
+  MraaPwmInitialiseRawType _initRawFunc;
+  MraaPwmWriteType _writeFunc;
+  MraaPwmReadType _readFunc;
+  MraaPwmPeriodType _periodFunc;
+  MraaPwmPeriodMsType _periodMsFunc;
+  MraaPwmPeriodUsType _periodUsFunc;
+  MraaPwmPulseWidthType _pulseWidthFunc;
+  MraaPwmPulseWidthMsType _pulseWidthMsFunc;
+  MraaPwmPulseWidthUsType _pulseWidthUsFunc;
+  MraaPwmEnableType _enableFunc;
+  MraaPwmOwnerType _ownerFunc;
+  MraaPwmCloseType _closeFunc;
+  MraaPwmMaxPeriodType _maxPeriodFunc;
+  MraaPwmMinPeriodType _minPeriodFunc;
 
   /// Initialise - mraa_pwm_init
   /// Initialise pwm_context, uses board mapping

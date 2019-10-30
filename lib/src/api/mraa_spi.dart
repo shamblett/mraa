@@ -97,19 +97,19 @@ class _MraaSpi {
   Pointer<NativeFunction<returnIntMraaSpiContextParameterFunc>> _stopPointer;
 
   /// Dart Functions
-  dynamic _initFunc;
-  dynamic _initRawFunc;
-  dynamic _modeFunc;
-  dynamic _frequencyFunc;
-  dynamic _writeFunc;
-  dynamic _writeWordFunc;
-  dynamic _writeBufferFunc;
-  dynamic _writeBufferWordFunc;
-  dynamic _transferBufferFunc;
-  dynamic _transferBufferWordFunc;
-  dynamic _lsbModeFunc;
-  dynamic _bitsPerWordFunc;
-  dynamic _stopFunc;
+  MraaSpiInitialiseType  _initFunc;
+  MraaSpiInitialiseRawType _initRawFunc;
+  MraaSpiModeType _modeFunc;
+  MraaSpiFrequencyType _frequencyFunc;
+  MraaSpiWriteType _writeFunc;
+  MraaSpiWriteWordType _writeWordFunc;
+  MraaSpiWriteBufferType _writeBufferFunc;
+  MraaSpiWriteBufferWordType _writeBufferWordFunc;
+  MraaSpiTransferBufferType _transferBufferFunc;
+  MraaSpiTransferBufferWordType _transferBufferWordFunc;
+  MraaSpiLsbModeType _lsbModeFunc;
+  MraaSpiBitsPerWordType _bitsPerWordFunc;
+  MraaSpiStopType _stopFunc;
 
   /// Initialise - mraa_spi_init
   /// Initialise SPI_context, uses board mapping. Sets the muxes
