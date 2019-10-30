@@ -30,8 +30,9 @@ typedef MraaAioGetBitType = int Function(Pointer<MraaAioContext>);
 /// The AIO MRAA API
 /// AIO is the analogue input & output interface to libmraa.
 /// It is used to read or set the voltage applied to an AIO pin.
-class _MraaAio {
-  _MraaAio(this._lib, this._noJsonLoading) {
+class MraaAio {
+  /// Construction
+  MraaAio(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

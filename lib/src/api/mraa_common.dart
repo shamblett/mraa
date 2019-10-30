@@ -62,8 +62,9 @@ typedef MraaCommonRemoveSubplatformType = int Function(int);
 
 /// The Common MRAA API
 /// Defines the basic shared values for libmraa
-class _MraaCommon {
-  _MraaCommon(this._lib, this._noJsonLoading) {
+class MraaCommon {
+  /// Construction
+  MraaCommon(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

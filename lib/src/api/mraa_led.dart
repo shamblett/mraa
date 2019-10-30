@@ -36,8 +36,9 @@ typedef MraaLedCloseType = int Function(Pointer<MraaLedContext>);
 /// The LED MRAA API
 /// LED is the Light Emitting Diode interface to libmraa.
 /// It is used to access the on board LED's via sysfs.
-class _MraaLed {
-  _MraaLed(this._lib, this._noJsonLoading) {
+class MraaLed {
+  /// Construction
+  MraaLed(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

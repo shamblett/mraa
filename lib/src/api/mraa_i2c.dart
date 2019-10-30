@@ -54,8 +54,9 @@ typedef MraaI2cStopType = int Function(Pointer<MraaI2cContext>);
 /// make sure the address is correct before doing any calls on i2c, in case another
 /// application or even thread changed the address on that bus. Multiple instances
 /// of the same bus can exist.
-class _MraaI2c {
-  _MraaI2c(this._lib, this._noJsonLoading) {
+class MraaI2c {
+  /// Construction
+  MraaI2c(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

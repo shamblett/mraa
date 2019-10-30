@@ -54,8 +54,9 @@ typedef MraaSpiStopType = int Function(Pointer<MraaSpiContext>);
 /// An SPI object in libmraa represents a spidev device. Linux spidev devices
 /// are created per spi bus and every chip select available on that bus has another
 /// spidev 'file'.
-class _MraaSpi {
-  _MraaSpi(this._lib, this._noJsonLoading) {
+class MraaSpi {
+  /// Construction
+  MraaSpi(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

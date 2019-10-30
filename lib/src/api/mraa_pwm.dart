@@ -45,8 +45,9 @@ typedef MraaPwmMinPeriodType = int Function(Pointer<MraaPwmContext>);
 /// It allows the generation of a signal on a pin. Some boards may have higher or
 /// lower levels of resolution so make sure you check the board & pin you
 /// are using before hand.
-class _MraaPwm {
-  _MraaPwm(this._lib, this._noJsonLoading) {
+class MraaPwm {
+  /// Construction
+  MraaPwm(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

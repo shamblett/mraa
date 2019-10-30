@@ -75,8 +75,9 @@ typedef MraaUartWriteType = int Function(
 /// UART is the Universal asynchronous receiver/transmitter interface to libmraa.
 /// It allows the exposure of UART pins on supported boards.
 /// With functionality to expand at a later date.
-class _MraaUart {
-  _MraaUart(this._lib, this._noJsonLoading) {
+class MraaUart {
+  /// Construction
+  MraaUart(this._lib, this._noJsonLoading) {
     _setUpPointers();
     _setUpFunctions();
   }

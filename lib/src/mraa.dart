@@ -43,37 +43,37 @@ class Mraa {
   DynamicLibrary _lib;
 
   /// The common API
-  _MraaCommon common;
+  MraaCommon common;
 
   /// The GPIO API
-  _MraaGpio gpio;
+  MraaGpio gpio;
 
   /// The AIO API
-  _MraaAio aio;
+  MraaAio aio;
 
   /// The I2C API
-  _MraaI2c i2c;
+  MraaI2c i2c;
 
   /// The LED API
-  _MraaLed led;
+  MraaLed led;
 
   /// The PWM API
-  _MraaPwm pwm;
+  MraaPwm pwm;
 
   /// The SPI API
-  _MraaSpi spi;
+  MraaSpi spi;
 
   /// The UART API
-  _MraaUart uart;
+  MraaUart uart;
 
   void _setupAPI() {
-    common = _MraaCommon(_lib, noJsonLoading);
-    gpio = _MraaGpio(_lib, noJsonLoading);
-    aio = _MraaAio(_lib, noJsonLoading);
-    i2c = _MraaI2c(_lib, noJsonLoading);
-    led = _MraaLed(_lib, noJsonLoading);
-    pwm = _MraaPwm(_lib, noJsonLoading);
-    spi = _MraaSpi(_lib, noJsonLoading);
-    uart = _MraaUart(_lib, noJsonLoading);
+    common = MraaCommon(_lib, noJsonLoading);
+    gpio = MraaGpio(_lib, noJsonLoading);
+    aio = MraaAio(_lib, noJsonLoading);
+    i2c = MraaI2c(_lib, noJsonLoading);
+    led = MraaLed(_lib, noJsonLoading);
+    pwm = MraaPwm(_lib, noJsonLoading);
+    spi = MraaSpi(_lib, noJsonLoading);
+    uart = MraaUart(_lib, noJsonLoading);
   }
 }
