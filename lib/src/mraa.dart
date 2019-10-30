@@ -20,13 +20,13 @@ class Mraa {
   }
 
   /// AIO read error
-  static const int mraaAioReadError = -1;
+  static const int aioReadError = -1;
 
   /// AIO read double error
-  static const double mraaAioReadDoubleError = -1.0;
+  static const double aioReadDoubleError = -1.0;
 
   /// General common function error
-  static const int mraaGeneralError = -1;
+  static const int generalError = -1;
 
   /// Do not use JSON platform loading, some versions of MRAA do not
   /// support this, must be set for MRAA API 1.0.0 usage. Set this before

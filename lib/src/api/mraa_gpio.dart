@@ -212,7 +212,7 @@ class _MraaGpio {
     final Pointer<Int32> rawValues =
         ffi.allocate<Int32>(count: _initialiseMultiPinCount);
     int intRet = _readMultiFunc(dev, rawValues);
-    if (intRet == Mraa.mraaGeneralError) {
+    if (intRet == Mraa.generalError) {
       intRet = 99; // unspecified
     }
     final Int32List typedValues =

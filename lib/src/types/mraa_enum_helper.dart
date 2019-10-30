@@ -28,7 +28,7 @@ class MraaEnumHelper<T extends dynamic> {
     if (_valuesMap.containsValue(code)) {
       return _valuesMap.keys.firstWhere((int e) => _valuesMap[e] == code);
     }
-    return Mraa.mraaGeneralError;
+    return Mraa.generalError;
   }
 
   /// As string

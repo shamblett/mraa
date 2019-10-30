@@ -102,7 +102,7 @@ int main() {
     test('Set priority', () {
       mraa.common.initialise();
       final int ret = mraa.common.setPriority(50);
-      expect(ret == Mraa.mraaGeneralError, isTrue);
+      expect(ret == Mraa.generalError, isTrue);
     });
     test('Result print', () {
       mraa.common.initialise();
@@ -175,31 +175,31 @@ int main() {
     test('GPIO lookup', () {
       mraa.common.initialise();
       int ret = mraa.common.gpioLookup('ADC0');
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
       ret = mraa.common.gpioLookup('I2C0SDA');
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
       ret = mraa.common.gpioLookup('GPIO0');
       expect(ret, 0);
     });
     test('I2C lookup', () {
       mraa.common.initialise();
       final int ret = mraa.common.i2cLookup('I2C6');
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('SPI lookup', () {
       mraa.common.initialise();
       final int ret = mraa.common.spiLookup('SPI2');
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('PWM lookup', () {
       mraa.common.initialise();
       final int ret = mraa.common.pwmLookup('PWM0');
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('UART lookup', () {
       mraa.common.initialise();
       final int ret = mraa.common.uartLookup('UART1');
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Default I2C bus', () {
       mraa.common.initialise();
@@ -254,7 +254,7 @@ int main() {
     test('Read', () {
       final Pointer<MraaGpioContext> context = mraa.gpio.initialise(71);
       final int ret = mraa.gpio.read(context);
-      expect(ret == Mraa.mraaGeneralError, isTrue);
+      expect(ret == Mraa.generalError, isTrue);
     });
     test('Initialise multi', () {
       final Pointer<MraaGpioContext> context =
@@ -324,12 +324,12 @@ int main() {
     test('Pin', () {
       final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final int ret = mraa.gpio.pin(context);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Pin raw', () {
       final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
       final int ret = mraa.gpio.pinRaw(context);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Input mode', () {
       final Pointer<MraaGpioContext> context = mraa.gpio.initialise(1);
@@ -415,7 +415,7 @@ int main() {
       final Pointer<MraaAioContext> context = mraa.aio.initialise(0);
       final double val = mraa.aio.readDouble(context);
       // For the unsupported test board used this value will be nonsense
-      expect(val < Mraa.mraaAioReadDoubleError, isFalse);
+      expect(val < Mraa.aioReadDoubleError, isFalse);
     });
     test('Set bit', () {
       mraa.common.initialise();
@@ -450,29 +450,29 @@ int main() {
       const int length = 10;
       final Pointer<Uint8> data = allocate<Uint8>(count: length);
       final int ret = mraa.i2c.read(context, data, length);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Read byte', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final int ret = mraa.i2c.readByte(context);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Read byte data', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final int ret = mraa.i2c.readByteData(context, 0);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Read word data', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       final int ret = mraa.i2c.readWordData(context, 0);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Read bytes data', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
       const int length = 10;
       final Pointer<Uint8> data = allocate<Uint8>(count: length);
       final int ret = mraa.i2c.readBytesData(context, 0, data, length);
-      expect(ret, Mraa.mraaGeneralError);
+      expect(ret, Mraa.generalError);
     });
     test('Write', () {
       final Pointer<MraaI2cContext> context = mraa.i2c.initialise(0);
@@ -624,7 +624,7 @@ int main() {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
       expect(context, isNotNull);
       final int ret = mraa.spi.write(context, 127);
-      expect(ret == Mraa.mraaGeneralError, isFalse);
+      expect(ret == Mraa.generalError, isFalse);
     });
     test('Write word', () {
       final Pointer<MraaSpiContext> context = mraa.spi.initialise(0);
@@ -812,11 +812,11 @@ int main() {
       final MraaUartBuffer buffer = MraaUartBuffer();
       buffer.data = '';
       final int ret = mraa.uart.read(context, buffer, buffer.length);
-      if (ret != Mraa.mraaGeneralError) {
+      if (ret != Mraa.generalError) {
         expect(ret, 10);
         expect(buffer.length, 10);
       } else {
-        expect(ret, Mraa.mraaGeneralError);
+        expect(ret, Mraa.generalError);
       }
     });
   });

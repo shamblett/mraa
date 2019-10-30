@@ -179,7 +179,7 @@ class _MraaCommon {
   /// Return the platform's versioning info, the information given depends per platform and can be NULL.
   /// platform_offset has to be given. 0 for main platform, 1 for sub platform.
   String platformVersion(int platformOffset) {
-    Pointer<ffi.Utf8> retPtr = _platformVersionFunc(platformOffset);
+    final Pointer<ffi.Utf8> retPtr = _platformVersionFunc(platformOffset);
     if (retPtr == nullptr) {
       return 'No platform version set - maybe a mock board?';
     }

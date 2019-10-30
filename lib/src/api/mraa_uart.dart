@@ -260,17 +260,17 @@ class _MraaUart {
   /// Returns the number of bytes read, or mraaGeneralError
   int read(Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
     if (length <= 0) {
-      return Mraa.mraaGeneralError;
+      return Mraa.generalError;
     }
     final Pointer<ffi.Utf8> ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
     final int ret = _readFunc(dev, ptrBuffer, length);
-    if (ret == Mraa.mraaGeneralError) {
+    if (ret == Mraa.generalError) {
       return ret;
     }
     try {
       buffer.data = ffi.Utf8.fromUtf8(ptrBuffer);
     } on FormatException {
-      return Mraa.mraaGeneralError;
+      return Mraa.generalError;
     }
     return ret;
   }
@@ -280,7 +280,7 @@ class _MraaUart {
   /// Returns the number of bytes written, or mraaGeneralError
   int write(Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
     if (length <= 0) {
-      return Mraa.mraaGeneralError;
+      return Mraa.generalError;
     }
     final Pointer<ffi.Utf8> ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
     final int ret = _writeFunc(dev, ptrBuffer, length);
