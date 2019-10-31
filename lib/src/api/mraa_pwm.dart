@@ -6,44 +6,46 @@
  */
 
 // ignore_for_file: avoid_positional_boolean_parameters
+// ignore_for_file: avoid_private_typedef_functions
 
 part of mraa;
 
 /// C Function type typedefs
-typedef returnMraaPwmContextIntParameterFunc = Pointer<MraaPwmContext> Function(
+typedef _returnMraaPwmContextIntParameterFunc = Pointer<MraaPwmContext> Function(
     Int32);
-typedef returnMraaPwmContextIntIntParameterFunc = Pointer<MraaPwmContext>
+typedef _returnMraaPwmContextIntIntParameterFunc = Pointer<MraaPwmContext>
     Function(Int32, Int32);
-typedef returnIntMraaPwmContextFloatParameterFunc = Int32 Function(
+typedef _returnIntMraaPwmContextFloatParameterFunc = Int32 Function(
     Pointer<MraaPwmContext>, Double);
-typedef returnDoubleMraaPwmContextParameterFunc = Double Function(
+typedef _returnDoubleMraaPwmContextParameterFunc = Double Function(
     Pointer<MraaPwmContext>);
-typedef returnIntMraaPwmContextIntParameterFunc = Int32 Function(
+typedef _returnIntMraaPwmContextIntParameterFunc = Int32 Function(
     Pointer<MraaPwmContext>, Int32);
-typedef returnIntMraaPwmContextParameterFunc = Int32 Function(
+typedef _returnIntMraaPwmContextParameterFunc = Int32 Function(
     Pointer<MraaPwmContext>);
 
 /// Dart Function typedefs
-typedef MraaPwmInitialiseType = Pointer<MraaPwmContext> Function(int);
-typedef MraaPwmInitialiseRawType = Pointer<MraaPwmContext> Function(int, int);
-typedef MraaPwmWriteType = int Function(Pointer<MraaPwmContext>, double);
-typedef MraaPwmReadType = double Function(Pointer<MraaPwmContext>);
-typedef MraaPwmPeriodType = int Function(Pointer<MraaPwmContext>, double);
-typedef MraaPwmPeriodMsType = int Function(Pointer<MraaPwmContext>, int);
-typedef MraaPwmPeriodUsType = int Function(Pointer<MraaPwmContext>, int);
-typedef MraaPwmPulseWidthType = int Function(Pointer<MraaPwmContext>, double);
-typedef MraaPwmPulseWidthMsType = int Function(Pointer<MraaPwmContext>, int);
-typedef MraaPwmPulseWidthUsType = int Function(Pointer<MraaPwmContext>, int);
-typedef MraaPwmEnableType = int Function(Pointer<MraaPwmContext>, int);
-typedef MraaPwmOwnerType = int Function(Pointer<MraaPwmContext>, int);
-typedef MraaPwmCloseType = int Function(Pointer<MraaPwmContext>);
-typedef MraaPwmMaxPeriodType = int Function(Pointer<MraaPwmContext>);
-typedef MraaPwmMinPeriodType = int Function(Pointer<MraaPwmContext>);
+typedef _MraaPwmInitialiseType = Pointer<MraaPwmContext> Function(int);
+typedef _MraaPwmInitialiseRawType = Pointer<MraaPwmContext> Function(int, int);
+typedef _MraaPwmWriteType = int Function(Pointer<MraaPwmContext>, double);
+typedef _MraaPwmReadType = double Function(Pointer<MraaPwmContext>);
+typedef _MraaPwmPeriodType = int Function(Pointer<MraaPwmContext>, double);
+typedef _MraaPwmPeriodMsType = int Function(Pointer<MraaPwmContext>, int);
+typedef _MraaPwmPeriodUsType = int Function(Pointer<MraaPwmContext>, int);
+typedef _MraaPwmPulseWidthType = int Function(Pointer<MraaPwmContext>, double);
+typedef _MraaPwmPulseWidthMsType = int Function(Pointer<MraaPwmContext>, int);
+typedef _MraaPwmPulseWidthUsType = int Function(Pointer<MraaPwmContext>, int);
+typedef _MraaPwmEnableType = int Function(Pointer<MraaPwmContext>, int);
+typedef _MraaPwmOwnerType = int Function(Pointer<MraaPwmContext>, int);
+typedef _MraaPwmCloseType = int Function(Pointer<MraaPwmContext>);
+typedef _MraaPwmMaxPeriodType = int Function(Pointer<MraaPwmContext>);
+typedef _MraaPwmMinPeriodType = int Function(Pointer<MraaPwmContext>);
 
 /// The PWM MRAA API
-/// PWM is the Pulse Width Modulation interface to libmraa.
+///
+/// PWM is the Pulse Width Modulation interface to MRAA.
 /// It allows the generation of a signal on a pin. Some boards may have higher or
-/// lower levels of resolution so make sure you check the board & pin you
+/// lower levels of resolution so make sure yocheck the board & pin you
 /// are using before hand.
 class MraaPwm {
   /// Construction
@@ -58,70 +60,74 @@ class MraaPwm {
   bool _noJsonLoading = false;
 
   /// C Pointers
-  Pointer<NativeFunction<returnMraaPwmContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<returnMraaPwmContextIntIntParameterFunc>>
+  Pointer<NativeFunction<_returnMraaPwmContextIntParameterFunc>> _initPointer;
+  Pointer<NativeFunction<_returnMraaPwmContextIntIntParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<returnDoubleMraaPwmContextParameterFunc>> _readPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
+  Pointer<NativeFunction<_returnDoubleMraaPwmContextParameterFunc>> _readPointer;
+  Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _periodPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _periodMsPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _periodUsPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _pulseWidthPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _pulseWidthMsPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _pulseWidthUsPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _enablePointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _ownerPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>> _closePointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>> _closePointer;
+  Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
       _maxPeriodPointer;
-  Pointer<NativeFunction<returnIntMraaPwmContextParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
       _minPeriodPointer;
 
   /// Dart Functions
-  MraaPwmInitialiseType _initFunc;
-  MraaPwmInitialiseRawType _initRawFunc;
-  MraaPwmWriteType _writeFunc;
-  MraaPwmReadType _readFunc;
-  MraaPwmPeriodType _periodFunc;
-  MraaPwmPeriodMsType _periodMsFunc;
-  MraaPwmPeriodUsType _periodUsFunc;
-  MraaPwmPulseWidthType _pulseWidthFunc;
-  MraaPwmPulseWidthMsType _pulseWidthMsFunc;
-  MraaPwmPulseWidthUsType _pulseWidthUsFunc;
-  MraaPwmEnableType _enableFunc;
-  MraaPwmOwnerType _ownerFunc;
-  MraaPwmCloseType _closeFunc;
-  MraaPwmMaxPeriodType _maxPeriodFunc;
-  MraaPwmMinPeriodType _minPeriodFunc;
+  _MraaPwmInitialiseType _initFunc;
+  _MraaPwmInitialiseRawType _initRawFunc;
+  _MraaPwmWriteType _writeFunc;
+  _MraaPwmReadType _readFunc;
+  _MraaPwmPeriodType _periodFunc;
+  _MraaPwmPeriodMsType _periodMsFunc;
+  _MraaPwmPeriodUsType _periodUsFunc;
+  _MraaPwmPulseWidthType _pulseWidthFunc;
+  _MraaPwmPulseWidthMsType _pulseWidthMsFunc;
+  _MraaPwmPulseWidthUsType _pulseWidthUsFunc;
+  _MraaPwmEnableType _enableFunc;
+  _MraaPwmOwnerType _ownerFunc;
+  _MraaPwmCloseType _closeFunc;
+  _MraaPwmMaxPeriodType _maxPeriodFunc;
+  _MraaPwmMinPeriodType _minPeriodFunc;
 
   /// Initialise - mraa_pwm_init
-  /// Initialise pwm_context, uses board mapping
+  ///
+  /// Initialise an [MraaPwmContext] uses board mapping
   /// Returns pwm context or NULL.
   Pointer<MraaPwmContext> initialise(int pin) => _initFunc(pin);
 
   /// Initialise raw - mraa_pwm_init_raw
-  /// Initialise pwm context, raw mode, uses the
+  ///
+  /// Initialise an [MraaPwmContext], raw mode, uses the
   /// chip in which the PWM is under in SYSFS.
   Pointer<MraaPwmContext> initialiseRaw(int chipId, int pin) =>
       _initRawFunc(chipId, pin);
 
   /// Write - mraa_pwm_write
-  /// Set the output duty-cycle percentage, as a double
+  ///
+  /// Set the output duty-cycle percentage, as a double.
   /// The percentage value should lie between 0.0f (representing on 0%) and 1.0f.
   /// Values above or below this range will be set at either 0.0f or 1.0f
   MraaReturnCode write(Pointer<MraaPwmContext> dev, double percentage) =>
       returnCode.fromInt(_writeFunc(dev, percentage));
 
   /// Read - mraa_pwm_read
+  ///
   /// Read the output duty-cycle percentage, as a double
   /// Returns a floating-point value representing percentage of output.
   /// The value should lie between 0.0f (representing on 0%) and 1.0f.
@@ -129,127 +135,138 @@ class MraaPwm {
   double read(Pointer<MraaPwmContext> dev) => _readFunc(dev);
 
   /// Period - mraa_pwm_period
-  /// Set the PWM period as seconds represented in a float
+  ///
+  /// Set the PWM period as seconds represented in a double
   MraaReturnCode period(Pointer<MraaPwmContext> dev, double seconds) =>
       returnCode.fromInt(_periodFunc(dev, seconds));
 
   /// Period milliseconds - mraa_pwm_period_ms
-  /// Set the PWM period as milliseconds
+  ///
+  /// Set the PWM period in milliseconds
   MraaReturnCode periodMs(Pointer<MraaPwmContext> dev, int milliseconds) =>
       returnCode.fromInt(_periodMsFunc(dev, milliseconds));
 
   /// Period microseconds - mraa_pwm_period_us
-  /// Set the PWM period as microseconds
+  ///
+  /// Set the PWM periodin microseconds
   MraaReturnCode periodUs(Pointer<MraaPwmContext> dev, int microseconds) =>
       returnCode.fromInt(_periodUsFunc(dev, microseconds));
 
   /// Pulse width - mraa_pwm_pulsewidth
-  /// Set the PWM pulse width as seconds represented in a float
+  ///
+  /// Set the PWM pulse width as seconds represented in a double
   MraaReturnCode pulseWidth(Pointer<MraaPwmContext> dev, double seconds) =>
       returnCode.fromInt(_pulseWidthFunc(dev, seconds));
 
   /// Pulse width milliseconds - mraa_pwm_pulsewidth_ms
-  /// Set the PWM pulsewidth  as milliseconds
+  ///
+  /// Set the PWM pulse width  in milliseconds
   MraaReturnCode pulseWidthMs(Pointer<MraaPwmContext> dev, int milliseconds) =>
       returnCode.fromInt(_pulseWidthMsFunc(dev, milliseconds));
 
   /// Pulse width microseconds - mraa_pwm_pulsewidth_us
-  /// Set the PWM pulse width as microseconds
+  ///
+  /// Set the PWM pulse width in microseconds
   MraaReturnCode pulseWidthUs(Pointer<MraaPwmContext> dev, int microseconds) =>
       returnCode.fromInt(_pulseWidthUsFunc(dev, microseconds));
 
   /// Enable - mraa_pwm_enable
+  ///
   /// Set the enable status of the PWM pin.
   /// None zero will assume on with output being driven. and 0 will disable the output.
   MraaReturnCode enable(Pointer<MraaPwmContext> dev, int enable) =>
       returnCode.fromInt(_enableFunc(dev, enable));
 
   /// Owner - mraa_pwm_owner
+  ///
   /// Change(take) ownership of context
-  /// True indicates take ownership
+  /// Owner set to true indicates a take ownership
   MraaReturnCode owner(Pointer<MraaPwmContext> dev, bool owner) {
     final int rawBool = owner ? 1 : 0;
     return returnCode.fromInt(_ownerFunc(dev, rawBool));
   }
 
   /// Close - mraa_pwm_close
+  ///
   /// Close and unexport the PWM pin
   MraaReturnCode close(Pointer<MraaPwmContext> dev) =>
       returnCode.fromInt(_closeFunc(dev));
 
   /// Maximum period - mraa_pwm_get_max_period
-  /// Get the maximum pwm period in us
+  ///
+  /// The maximum PWM period in us
   int maxPeriod(Pointer<MraaPwmContext> dev) => _maxPeriodFunc(dev);
 
   /// Minimum period - mraa_pwm_get_min_period
-  /// Get the minimum pwm period in us
+  ///
+  /// The minimum PWM period in us
   int minPeriod(Pointer<MraaPwmContext> dev) => _minPeriodFunc(dev);
 
   void _setUpPointers() {
     _initPointer =
-        _lib.lookup<NativeFunction<returnMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_init');
     _initRawPointer =
-        _lib.lookup<NativeFunction<returnMraaPwmContextIntIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnMraaPwmContextIntIntParameterFunc>>(
             'mraa_pwm_init_raw');
     _writePointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>(
             'mraa_pwm_write');
     _readPointer =
-        _lib.lookup<NativeFunction<returnDoubleMraaPwmContextParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnDoubleMraaPwmContextParameterFunc>>(
             'mraa_pwm_read');
     _periodPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>(
             'mraa_pwm_period');
     _periodMsPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_period_ms');
     _periodUsPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_period_us');
     _pulseWidthPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextFloatParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>(
             'mraa_pwm_pulsewidth');
     _pulseWidthMsPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_pulsewidth_ms');
     _pulseWidthUsPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_pulsewidth_us');
     _enablePointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_enable');
     _ownerPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextIntParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>(
             'mraa_pwm_owner');
     _closePointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextParameterFunc>>(
             'mraa_pwm_close');
     _maxPeriodPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextParameterFunc>>(
             'mraa_pwm_get_max_period');
     _minPeriodPointer =
-        _lib.lookup<NativeFunction<returnIntMraaPwmContextParameterFunc>>(
+        _lib.lookup<NativeFunction<_returnIntMraaPwmContextParameterFunc>>(
             'mraa_pwm_get_min_period');
   }
 
   void _setUpFunctions() {
-    _initFunc = _initPointer.asFunction<MraaPwmInitialiseType>();
-    _initRawFunc = _initRawPointer.asFunction<MraaPwmInitialiseRawType>();
-    _writeFunc = _writePointer.asFunction<MraaPwmWriteType>();
-    _readFunc = _readPointer.asFunction<MraaPwmReadType>();
-    _periodFunc = _periodPointer.asFunction<MraaPwmPeriodType>();
-    _periodMsFunc = _periodMsPointer.asFunction<MraaPwmPeriodMsType>();
-    _periodUsFunc = _periodUsPointer.asFunction<MraaPwmPeriodUsType>();
-    _pulseWidthFunc = _pulseWidthPointer.asFunction<MraaPwmPulseWidthType>();
+    _initFunc = _initPointer.asFunction<_MraaPwmInitialiseType>();
+    _initRawFunc = _initRawPointer.asFunction<_MraaPwmInitialiseRawType>();
+    _writeFunc = _writePointer.asFunction<_MraaPwmWriteType>();
+    _readFunc = _readPointer.asFunction<_MraaPwmReadType>();
+    _periodFunc = _periodPointer.asFunction<_MraaPwmPeriodType>();
+    _periodMsFunc = _periodMsPointer.asFunction<_MraaPwmPeriodMsType>();
+    _periodUsFunc = _periodUsPointer.asFunction<_MraaPwmPeriodUsType>();
+    _pulseWidthFunc = _pulseWidthPointer.asFunction<_MraaPwmPulseWidthType>();
     _pulseWidthMsFunc =
-        _pulseWidthMsPointer.asFunction<MraaPwmPulseWidthMsType>();
+        _pulseWidthMsPointer.asFunction<_MraaPwmPulseWidthMsType>();
     _pulseWidthUsFunc =
-        _pulseWidthUsPointer.asFunction<MraaPwmPulseWidthUsType>();
-    _enableFunc = _enablePointer.asFunction<MraaPwmEnableType>();
-    _ownerFunc = _ownerPointer.asFunction<MraaPwmOwnerType>();
-    _closeFunc = _closePointer.asFunction<MraaPwmCloseType>();
-    _maxPeriodFunc = _maxPeriodPointer.asFunction<MraaPwmMaxPeriodType>();
-    _minPeriodFunc = _minPeriodPointer.asFunction<MraaPwmMinPeriodType>();
+        _pulseWidthUsPointer.asFunction<_MraaPwmPulseWidthUsType>();
+    _enableFunc = _enablePointer.asFunction<_MraaPwmEnableType>();
+    _ownerFunc = _ownerPointer.asFunction<_MraaPwmOwnerType>();
+    _closeFunc = _closePointer.asFunction<_MraaPwmCloseType>();
+    _maxPeriodFunc = _maxPeriodPointer.asFunction<_MraaPwmMaxPeriodType>();
+    _minPeriodFunc = _minPeriodPointer.asFunction<_MraaPwmMinPeriodType>();
   }
 }
