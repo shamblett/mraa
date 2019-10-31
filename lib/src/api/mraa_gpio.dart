@@ -178,7 +178,7 @@ class MraaGpio {
     }
     final Pointer<MraaGpioEvent> mevents = _eventsFunc(dev);
     final List<MraaGpioEvent> events = <MraaGpioEvent>[];
-    if (mevents.address == 0) {
+    if (mevents == nullptr) {
       return events;
     }
     for (int i = 0; i < _initialiseMultiPinCount; i++) {
