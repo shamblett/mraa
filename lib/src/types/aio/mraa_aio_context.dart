@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// AIO context class for the opaque mraa_aio_context structure
+/// AIO context class for the opaque MRAA mraa_aio_context structure
 class MraaAioContext extends Struct {}

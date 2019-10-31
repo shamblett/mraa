@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// UART context class for the opaque mraa_uart_context structure
+/// UART context for the opaque MRAA mraa_uart_context structure.
 class MraaUartContext extends Struct {}

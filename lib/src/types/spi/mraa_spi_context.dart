@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// SPI context class for the opaque mraa_spi_context structure
+/// SPI context class for the opaque MRAA mraa_spi_context structure
 class MraaSpiContext extends Struct {}

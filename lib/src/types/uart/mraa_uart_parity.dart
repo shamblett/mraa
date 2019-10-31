@@ -9,7 +9,7 @@ part of mraa;
 
 // ignore_for_file: public_member_api_docs
 
-/// UART parities
+/// UART parities.
 enum MraaUartParity { none, even, odd, mark, space }
 
 /// SPI mode type support

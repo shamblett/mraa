@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// Mraa platform types
+/// MRAA platform types
 enum MraaPlatformType {
   /// The Generation 1 Galileo platform (RevD)
   intelGalileoGen1,

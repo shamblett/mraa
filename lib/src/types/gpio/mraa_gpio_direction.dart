@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// GPIO pin directions
+/// GPIO pin directions.
 enum MraaGpioDirection {
   /// Out
   out,

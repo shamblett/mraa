@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// Gpio Edge types for interrupts
+/// GPIO Edge types for interrupts.
 enum MraaGpioEdge {
   /// No interrupt on Gpio
   none,

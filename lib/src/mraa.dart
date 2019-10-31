@@ -7,7 +7,16 @@
 
 part of mraa;
 
-/// The main MRAA class
+/// The main MRAA interface.
+///
+/// MRAA allows Dart to interface with the I/O on Galileo, Edison & other platforms,
+/// with a structured and sane API where port names/numbering matches the board that you are on.
+/// Use of MRAA does not tie you to specific hardware with board detection done at runtime you can create
+/// portable code that will work across the supported platforms.
+///
+/// The intent is to make it easier for developers and sensor manufacturers to map their sensors &
+/// actuators on top of supported hardware and to allow control of low level communication protocol
+/// using Dart.
 class Mraa {
   /// Default uses the platform library
   Mraa() {
@@ -29,7 +38,7 @@ class Mraa {
   static const int generalError = -1;
 
   /// Do not use JSON platform loading, some versions of MRAA do not
-  /// support this, must be set for MRAA API 1.0.0 usage. Set this before
+  /// support this, must be set for MRAA API <2.0.0 usage. Set this before
   /// initialising.
   bool noJsonLoading = false;
 

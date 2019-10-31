@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// A send/receive transfer buffer.
+/// An SPI send/receive transfer buffer.
 /// Normally uses Uint8List(byte) or Uint16List(Word) transfers
 class MraaSpiTransferBuffer<T> {
   /// Data sent to the device

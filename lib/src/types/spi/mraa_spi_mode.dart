@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// SPI modes
+/// SPI modes.
 enum MraaSpiMode {
   /// CPOL = 0, CPHA = 0, Clock idle low, data is clocked in on rising edge, output data (change) on falling edge
   mode0,

@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// I2C context class for the opaque mraa_i2c_context structure
+/// I2C context class for the opaque MRAA mraa_i2c_context structure
 class MraaI2cContext extends Struct {}

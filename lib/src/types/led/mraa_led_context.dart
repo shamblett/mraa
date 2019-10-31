@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// LED context class for the opaque mraa_led_context structure
+/// LED context class for the opaque MRAA mraa_led_context structure
 class MraaLedContext extends Struct {}

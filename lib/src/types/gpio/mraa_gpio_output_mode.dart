@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// GPIO output modes
+/// GPIO output modes.
 enum MraaGpioOutputMode {
   /// Default. Strong high and low
   strong,

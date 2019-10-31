@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// The direction of a GPIO pin as read
+/// The direction of a GPIO pin as read.
 class MraaGpioDirectionRead {
   /// The direction
   MraaGpioDirection direction;

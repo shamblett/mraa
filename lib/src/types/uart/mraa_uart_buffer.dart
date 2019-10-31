@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// UART RX/TX buffer class
+/// UART RX/TX buffer.
 class MraaUartBuffer {
   /// The TX/RX buffer
   String data;

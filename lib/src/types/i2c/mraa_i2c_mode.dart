@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// I2C speeds/modes
+/// I2C speeds/modes.
 enum MraaI2cMode {
   /// Standard
   std,

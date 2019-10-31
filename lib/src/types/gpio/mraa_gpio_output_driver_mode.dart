@@ -7,7 +7,7 @@
 
 part of mraa;
 
-/// GPIO output driver modes
+/// GPIO output driver modes.
 enum MraaGpioOutputDriverMode {
   /// Open Drain Configuration
   openDrain,
