@@ -1,4 +1,6 @@
 # mraa
+[![Build Status](https://travis-ci.org/shamblett/mraa.svg?branch=master)](https://travis-ci.org/shamblett/mraa)
+
 An implementation of the [Intel MRAA linux library](https://iotdk.intel.com/docs/master/mraa/index.html) for Dart.
 
 This is a full implementation of MRAA allowing low level access to sensor devices 
