@@ -325,7 +325,7 @@ class MraaCommon {
   /// Platform pin count - mraa_get_platform_pin_count
   ///
   /// Get the specified platform pin count, the board must be initialised.
-  /// [platformOffset] is 0 for the main platform, 1 for a sub platform.
+  /// [offset] is 0 for the main platform, 1 for a sub platform.
   int platformPinCount(int offset) => _platformPinCountFunc(offset);
 
   /// Pin name - mraa_get_pin_name
