@@ -29,10 +29,6 @@ int main() {
 
   // Test groups
   group('Common', () {
-    test('Not initialised', () {
-      final Mraa mraa = Mraa();
-      expect(() => mraa.common.version(), throwsNoSuchMethodError);
-    });
     test('Version', () {
       final String mraaVersion = mraa.common.version();
       print('MRAA Version is : $mraaVersion');
