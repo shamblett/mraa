@@ -29,8 +29,8 @@ typedef _returnStringMraaUartContextParameterFunc = Pointer<ffi.Utf8> Function(
     Pointer<MraaUartContext>);
 typedef _returnIntInt2String4Int2UIntParameterFunc = Int32 Function(
     Int32,
-    Pointer<ffi.Utf8>,
-    Pointer<ffi.Utf8>,
+    Pointer<Pointer<ffi.Utf8>>,
+    Pointer<Pointer<ffi.Utf8>>,
     Pointer<Int32>,
     Pointer<Int32>,
     Pointer<Int32>,
@@ -58,8 +58,8 @@ typedef _MraaUartDevicePathType = Pointer<ffi.Utf8> Function(
     Pointer<MraaUartContext>);
 typedef _MraaUartSettingsType = int Function(
     int,
-    Pointer<ffi.Utf8>,
-    Pointer<ffi.Utf8>,
+    Pointer<Pointer<ffi.Utf8>>,
+    Pointer<Pointer<ffi.Utf8>>,
     Pointer<Int32>,
     Pointer<Int32>,
     Pointer<Int32>,
@@ -227,19 +227,17 @@ class MraaUart {
     }
 
     // Construct the parameter list
-    Pointer<ffi.Utf8> ptrDevicePath;
-    if (settings.devicePath == null) {
-      ptrDevicePath = nullptr;
-    } else {
-      ptrDevicePath = ffi.Utf8.toUtf8(settings.devicePath);
+    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate(count: 1);
+    if (index < 0) {
+      ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
     }
-    final Pointer<ffi.Utf8> ptrName = nullptr;
-    final Pointer<Int32> ptrBaudrate = ffi.allocate<Int32>(count: 1);
-    final Pointer<Int32> ptrDataBits = ffi.allocate<Int32>(count: 1);
-    final Pointer<Int32> ptrStopBits = ffi.allocate<Int32>(count: 1);
-    final Pointer<Int32> ptrParity = ffi.allocate<Int32>(count: 1);
-    final Pointer<Uint32> ptrRtsCts = ffi.allocate<Uint32>(count: 1);
-    final Pointer<Uint32> ptrXonXoff = ffi.allocate<Uint32>(count: 1);
+    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrBaudrate = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrDataBits = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrStopBits = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrParity = ffi.allocate(count: 1);
+    final Pointer<Uint32> ptrRtsCts = ffi.allocate(count: 1);
+    final Pointer<Uint32> ptrXonXoff = ffi.allocate(count: 1);
 
     // Get the settings
     final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
@@ -251,8 +249,8 @@ class MraaUart {
     }
 
     // Set the output parameters
-    settings.devicePath = ffi.Utf8.fromUtf8(ptrDevicePath);
-    settings.name = ffi.Utf8.fromUtf8(ptrName);
+    settings.devicePath = ffi.Utf8.fromUtf8(ptrDevicePath.value);
+    settings.name = ffi.Utf8.fromUtf8(ptrName.value);
     settings.baudRate = ptrBaudrate.value;
     settings.dataBits = ptrDataBits.value;
     settings.stopBits = ptrStopBits.value;

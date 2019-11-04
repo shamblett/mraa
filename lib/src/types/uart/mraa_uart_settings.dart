@@ -10,7 +10,8 @@ part of mraa;
 /// UART settings as read back from the platform.
 ///
 /// The device path can be set when passed to the settings function
-/// in which case this will be used rather than the UART device index.
+/// in which case this will be used rather than the UART device index,
+/// which itself must be set to -1.
 /// Any setting can be null on return from the settings function call.
 class MraaUartSettings {
   /// The device path of the UART, eg: /dev/ttyS0

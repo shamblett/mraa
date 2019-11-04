@@ -5,12 +5,15 @@
  * Copyright :  S.Hamblett
  */
 
+import 'dart:ffi' as ffi;
+
 import 'package:mraa/mraa.dart';
 
-/// Get some UART details for the Beaglebone Green
+/// Get some UART details.
 int main() {
-  // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading
-  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
+  // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
+  // Please change this for your platform.
+  final Mraa mraa = Mraa.fromLib('grove/lib/libmraa.so.2.0.0');
   mraa.noJsonLoading = true;
   mraa.initialise();
 
@@ -18,7 +21,7 @@ int main() {
   final MraaReturnCode ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
     print(
-        'Beaglebone green - failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
+        'Failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');
@@ -34,6 +37,19 @@ int main() {
   if (uartCount == 0) {
     print('There are no UART devices found on this platform, exiting');
     return 0;
+  }
+
+  print('There are $uartCount UART devices found on this platform');
+  print('');
+  print('UART device paths');
+  print('');
+  for (int i = 0; i < uartCount; i++) {
+    final ffi.Pointer<MraaUartContext> context = mraa.uart.initialise(i);
+    if (context == ffi.nullptr) {
+      print('Uanble to initialise context for device $i - continuing');
+    }
+    final String devicePath = mraa.uart.devicePath(context);
+    print('Path for UART device index $i is $devicePath');
   }
 
   print('UART device settings');

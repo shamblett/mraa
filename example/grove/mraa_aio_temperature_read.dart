@@ -8,16 +8,17 @@
 import 'dart:ffi' as ffi;
 import 'dart:io';
 import 'package:mraa/mraa.dart';
-import 'upm/mraa_upm_light.dart';
+import 'upm/mraa_upm_temperature.dart';
 
-// The AIO pin for the light sensor, set as needed. Note the light sensor
-// used here is the Grove light sensor, recognised in the UPM library
-// simply as a light device.
-const int lightSensorAIOPin = 0;
+// The AIO pin for the temperature sensor, set as needed. Note the temperature sensor
+// used here is the Grove temperature sensor, recognised in the UPM library
+// simply as a temperature device.
+const int temperatureSensorAIOPin = 2;
 
-/// Read the current light value using AIO from the Beagleboone Greens light sensor
+/// Read the current temperature value using AIO from the Grove temperature sensor
 int main() {
-  // Initialise form our Beaglebone Mraa lib version 2.0.0 with no JSON loading
+  // Initialise form our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
+  // Please change this for your platform.
   final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
   mraa.noJsonLoading = true;
   mraa.initialise();
@@ -30,22 +31,22 @@ int main() {
   final MraaReturnCode ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
     print(
-        'Beaglebone Green - failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
+        'Failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');
   final String platformName = mraa.common.platformName();
   print('The platform name is : $platformName');
 
-  /// The light sensor initialisation
+  /// Initialise the temperature sensor
   print('Initialising AIO');
   final ffi.Pointer<MraaAioContext> context =
-      mraa.aio.initialise(lightSensorAIOPin);
+      mraa.aio.initialise(temperatureSensorAIOPin);
 
-  print('Reading the light sensor values');
-  final MraaUpmLight light = MraaUpmLight(mraa, context);
+  print('Reading the temperature sensor values');
+  final MraaUpmTemperature temperature = MraaUpmTemperature(mraa, context);
   for (int i = 1; i <= 100; i++) {
-    final MraaUpmLightValues values = light.getValues();
+    final MraaUpmTemperatureValues values = temperature.getValues();
     print(values);
     sleep(const Duration(milliseconds: 2000));
   }

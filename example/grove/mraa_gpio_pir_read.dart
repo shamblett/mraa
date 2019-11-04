@@ -9,12 +9,13 @@ import 'dart:ffi' as ffi;
 import 'dart:io';
 import 'package:mraa/mraa.dart';
 
-// The GPIO pin for the PIR motion sensor, set as needed.
+// The GPIO pin for the Grove PIR motion sensor, set as needed.
 const int pirSensorGPIOPin = 73;
 
-/// Check if the PIR motion sensor has been triggered
+/// Check if the Grove PIR motion sensor has been triggered
 int main() {
-  // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading
+  // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
+  // Please change this for your platform.
   final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
   mraa.noJsonLoading = true;
   mraa.initialise();
@@ -27,7 +28,7 @@ int main() {
   final MraaReturnCode ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
     print(
-        'Beaglebone Green - failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
+        'Failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');
