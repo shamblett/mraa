@@ -13,7 +13,7 @@ import 'package:mraa/mraa.dart';
 int main() {
   // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
   // Please change this for your platform.
-  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
+  final Mraa mraa = Mraa.fromLib('grove/lib/libmraa.so.2.0.0');
   mraa.noJsonLoading = true;
   mraa.initialise();
 
