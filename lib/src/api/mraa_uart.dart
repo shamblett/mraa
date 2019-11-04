@@ -227,17 +227,17 @@ class MraaUart {
     }
 
     // Construct the parameter list
-    Pointer<Pointer<ffi.Utf8>> ptrDevicePath;
+    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate(count: 1);
     if (index < 0) {
       ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
     }
-    Pointer<Pointer<ffi.Utf8>> ptrName;
-    Pointer<Int32> ptrBaudrate;
-    Pointer<Int32> ptrDataBits;
-    Pointer<Int32> ptrStopBits;
-    Pointer<Int32> ptrParity;
-    Pointer<Uint32> ptrRtsCts;
-    Pointer<Uint32> ptrXonXoff;
+    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrBaudrate = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrDataBits = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrStopBits = ffi.allocate(count: 1);
+    final Pointer<Int32> ptrParity = ffi.allocate(count: 1);
+    final Pointer<Uint32> ptrRtsCts = ffi.allocate(count: 1);
+    final Pointer<Uint32> ptrXonXoff = ffi.allocate(count: 1);
 
     // Get the settings
     final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
