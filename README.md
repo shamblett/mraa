@@ -20,8 +20,8 @@ mraa.aio.read(0);
 ```
 Other API functions for GPIO, I2C etc are accessed in a similar manner.
 
-The examples directory contains a general usage example and several runnable examples for the 
-Beaglebone range of development boards showing access to light, temperature and PIR sensors and 
+The examples directory contains a general usage example and several runnable examples for a 
+generic range of development boards that use the [Grove system](http://wiki.seeedstudio.com/Grove_System) sensor family comprising light, temperature and PIR sensors and 
 output to a small OLED display.
 
 Note that to access some devices, GPIO is an example here, you may need
