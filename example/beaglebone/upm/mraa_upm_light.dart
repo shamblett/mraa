@@ -40,8 +40,13 @@ class MraaUpmLight {
   MraaUpmLightValues getValues() {
     // Get the ADC value range for Lux conversion
     final int maxAdc = (1 << _mraa.aio.getBit(_context)) - 1;
+    final int raw = _mraa.aio.read(_context);
+    return calculateLux(raw, maxAdc);
+  }
+
+  MraaUpmLightValues calculateLux(int rawValue, int maxAdc) {
     final MraaUpmLightValues values = MraaUpmLightValues();
-    values.raw = _mraa.aio.read(_context);
+    values.raw = rawValue;
     values.lux = 10000.0 /
         pow(((maxAdc - values.raw) * 10.0 / values.raw) * 15.0, 4.0 / 3.0);
     return values;
