@@ -750,7 +750,27 @@ int main() {
       final MraaReturnCode ret = mraa.uart.nonBlocking(context, false);
       expect(ret, MraaReturnCode.success);
     });
-    test('Device path', () {
+    test('Device path from index valid', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
+      expect(context, isNotNull);
+      final String ret = mraa.uart.devicePathFromIndex(0);
+      expect(ret, isNotNull);
+      expect(ret, 'dummy');
+    });
+    test('Device path from index invalid', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
+      expect(context, isNotNull);
+      final String ret = mraa.uart.devicePathFromIndex(2);
+      expect(ret, isNull);
+    });
+    test('Device path initialise by index', () {
+      final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
+      expect(context, isNotNull);
+      final String ret = mraa.uart.devicePath(context);
+      expect(ret, isNotNull);
+      expect(ret, 'dummy');
+    }, skip: true);
+    test('Device path initialise raw', () {
       final Pointer<MraaUartContext> context =
           mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
