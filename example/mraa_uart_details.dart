@@ -41,21 +41,25 @@ int main() {
   print('');
   print('UART device paths');
   print('');
+  final List<String> devices = List<String>();
   for (int i = 0; i < uartCount; i++) {
     final String devicePath = mraa.uart.devicePathFromIndex(i);
     print('Path for UART device index $i is $devicePath');
+    devices.add(devicePath);
   }
 
+  print('');
   print('UART device settings');
   print('');
-  for (int i = 0; i < uartCount; i++) {
-    print('Settings for UART device index $i');
+  for (String device in devices) {
+    print('Settings for UART device $device');
     final MraaUartSettings settings = MraaUartSettings();
-    final MraaReturnCode ret = mraa.uart.settings(i, settings);
+    settings.devicePath = device;
+    final MraaReturnCode ret = mraa.uart.settings(-1, settings);
     if (ret != MraaReturnCode.success) {
-      print('Unable to get settings for UART index $i');
+      print('Unable to get settings for UART device $device');
     } else {
-      print('Settings for UART device $i.....');
+      print('Settings for UART device $device .....');
       print(settings);
     }
   }

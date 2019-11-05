@@ -261,7 +261,6 @@ class MraaUart {
     if (index < 0) {
       ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
     }
-    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate();
     final Pointer<Int32> ptrBaudrate = ffi.allocate();
     final Pointer<Int32> ptrDataBits = ffi.allocate();
     final Pointer<Int32> ptrStopBits = ffi.allocate();
@@ -270,7 +269,7 @@ class MraaUart {
     final Pointer<Uint32> ptrXonXoff = ffi.allocate();
 
     // Get the settings
-    final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
+    final int ret = _settingsFunc(index, ptrDevicePath, nullptr, ptrBaudrate,
         ptrDataBits, ptrStopBits, ptrParity, ptrRtsCts, ptrXonXoff);
 
     // If not success just return the status
@@ -280,7 +279,7 @@ class MraaUart {
 
     // Set the output parameters
     settings.devicePath = ffi.Utf8.fromUtf8(ptrDevicePath.value);
-    settings.name = ffi.Utf8.fromUtf8(ptrName.value);
+    settings.name = null;
     settings.baudRate = ptrBaudrate.value;
     settings.dataBits = ptrDataBits.value;
     settings.stopBits = ptrStopBits.value;
