@@ -52,7 +52,6 @@ int main() {
   print('UART device settings');
   print('');
   for (String device in devices) {
-    print('Settings for UART device $device');
     final MraaUartSettings settings = MraaUartSettings();
     settings.devicePath = device;
     final MraaReturnCode ret = mraa.uart.settings(-1, settings);
