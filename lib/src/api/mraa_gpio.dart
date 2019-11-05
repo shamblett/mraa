@@ -18,8 +18,8 @@ typedef _returnIntGpioContextIntParametersFunc = Int32 Function(
     Pointer<MraaGpioContext>, Int32);
 typedef _returnIntGpioContextParametersFunc = Int32 Function(
     Pointer<MraaGpioContext>);
-typedef _returnMraaGpioContextIntArrayIntParameterFunc = Pointer<MraaGpioContext>
-    Function(Pointer<Int32>, Int32);
+typedef _returnMraaGpioContextIntArrayIntParameterFunc
+    = Pointer<MraaGpioContext> Function(Pointer<Int32>, Int32);
 typedef _returnMraaGpioEventArrayMraaGpioContextParameter
     = Pointer<MraaGpioEvent> Function(Pointer<MraaGpioContext>);
 typedef _returnIntGpioContextPtrIntParametersFunc = Int32 Function(

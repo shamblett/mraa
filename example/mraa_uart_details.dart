@@ -5,8 +5,6 @@
  * Copyright :  S.Hamblett
  */
 
-import 'dart:ffi' as ffi;
-
 import 'package:mraa/mraa.dart';
 
 /// Get some UART details.
@@ -44,11 +42,7 @@ int main() {
   print('UART device paths');
   print('');
   for (int i = 0; i < uartCount; i++) {
-    final ffi.Pointer<MraaUartContext> context = mraa.uart.initialise(i);
-    if (context == ffi.nullptr) {
-      print('Uanble to initialise context for device $i - continuing');
-    }
-    final String devicePath = mraa.uart.devicePath(context);
+    final String devicePath = mraa.uart.devicePathFromIndex(i);
     print('Path for UART device index $i is $devicePath');
   }
 

@@ -206,8 +206,38 @@ class MraaUart {
   /// Device path - mraa_uart_get_dev_path
   ///
   /// Get the tty device path, for example "/dev/ttyS0"
-  String devicePath(Pointer<MraaUartContext> dev) =>
-      ffi.Utf8.fromUtf8(_devicePathFunc(dev));
+  String devicePath(Pointer<MraaUartContext> dev) {
+    Pointer<ffi.Utf8> ptrPath = ffi.allocate();
+    ptrPath = _devicePathFunc(dev);
+    if (ptrPath == nullptr) {
+      return null;
+    }
+    return ffi.Utf8.fromUtf8(ptrPath);
+  }
+
+  /// Device path from index
+  /// Given a UART index get the associated device path.
+  /// Can return null if the index does not map to a UART device
+  String devicePathFromIndex(int index) {
+    if (index < 0) {
+      return null;
+    }
+    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate();
+    final int ret = _settingsFunc(index, ptrDevicePath, nullptr, nullptr,
+        nullptr, nullptr, nullptr, nullptr, nullptr);
+
+    // If not success return null
+    if (returnCode.fromInt(ret) != MraaReturnCode.success) {
+      return null;
+    }
+
+    // Set the output parameters
+    try {
+      return ffi.Utf8.fromUtf8(ptrDevicePath.value);
+    } on FormatException {
+      return null;
+    }
+  }
 
   /// Settings - mraa_uart_settings
   ///
@@ -227,17 +257,17 @@ class MraaUart {
     }
 
     // Construct the parameter list
-    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate(count: 1);
+    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate();
     if (index < 0) {
       ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
     }
-    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate(count: 1);
-    final Pointer<Int32> ptrBaudrate = ffi.allocate(count: 1);
-    final Pointer<Int32> ptrDataBits = ffi.allocate(count: 1);
-    final Pointer<Int32> ptrStopBits = ffi.allocate(count: 1);
-    final Pointer<Int32> ptrParity = ffi.allocate(count: 1);
-    final Pointer<Uint32> ptrRtsCts = ffi.allocate(count: 1);
-    final Pointer<Uint32> ptrXonXoff = ffi.allocate(count: 1);
+    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate();
+    final Pointer<Int32> ptrBaudrate = ffi.allocate();
+    final Pointer<Int32> ptrDataBits = ffi.allocate();
+    final Pointer<Int32> ptrStopBits = ffi.allocate();
+    final Pointer<Int32> ptrParity = ffi.allocate();
+    final Pointer<Uint32> ptrRtsCts = ffi.allocate();
+    final Pointer<Uint32> ptrXonXoff = ffi.allocate();
 
     // Get the settings
     final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,

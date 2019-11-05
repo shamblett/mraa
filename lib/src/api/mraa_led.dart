@@ -11,8 +11,8 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef _returnMraaLedContextIntParameterFunc = Pointer<MraaLedContext> Function(
-    Int32);
+typedef _returnMraaLedContextIntParameterFunc = Pointer<MraaLedContext>
+    Function(Int32);
 typedef _returnMraaLedContextStringParameterFunc = Pointer<MraaLedContext>
     Function(Pointer<ffi.Utf8>);
 typedef _returnIntMraaLedContextIntParameterFunc = Int32 Function(
@@ -142,8 +142,8 @@ class MraaLed {
     _readMaxBrightnessPointer =
         _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
             'mraa_led_read_max_brightness');
-    _setTriggerPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>(
+    _setTriggerPointer = _lib
+        .lookup<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>(
             'mraa_led_set_trigger');
     _clearTriggerPointer =
         _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(

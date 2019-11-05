@@ -12,8 +12,8 @@
 part of mraa;
 
 /// C Function signature typedefs
-typedef _returnMraaAioContextIntParameterFunc = Pointer<MraaAioContext> Function(
-    Int32);
+typedef _returnMraaAioContextIntParameterFunc = Pointer<MraaAioContext>
+    Function(Int32);
 typedef _returnIntMraaAioContextParameterFunc = Int32 Function(
     Pointer<MraaAioContext>);
 typedef _returnFloatMraaAioContextParameterFunc = Float Function(

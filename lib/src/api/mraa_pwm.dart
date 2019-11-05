@@ -11,8 +11,8 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef _returnMraaPwmContextIntParameterFunc = Pointer<MraaPwmContext> Function(
-    Int32);
+typedef _returnMraaPwmContextIntParameterFunc = Pointer<MraaPwmContext>
+    Function(Int32);
 typedef _returnMraaPwmContextIntIntParameterFunc = Pointer<MraaPwmContext>
     Function(Int32, Int32);
 typedef _returnIntMraaPwmContextFloatParameterFunc = Int32 Function(
@@ -65,7 +65,8 @@ class MraaPwm {
       _initRawPointer;
   Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnDoubleMraaPwmContextParameterFunc>> _readPointer;
+  Pointer<NativeFunction<_returnDoubleMraaPwmContextParameterFunc>>
+      _readPointer;
   Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _periodPointer;
   Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
