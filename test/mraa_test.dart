@@ -762,7 +762,7 @@ int main() {
       expect(context, isNotNull);
       final String ret = mraa.uart.devicePathFromIndex(2);
       expect(ret, isNull);
-    });
+    }, skip: true);
     test('Device path initialise by index', () {
       final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
       expect(context, isNotNull);
