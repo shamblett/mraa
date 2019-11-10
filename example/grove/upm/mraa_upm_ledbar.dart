@@ -52,8 +52,17 @@ class MraaUpmLedBar {
 
   ///Initialise - must be called before use
   void initialise() {
-    _mraa.gpio.direction(_dev.gpioClk, MraaGpioDirection.out);
-    _mraa.gpio.direction(_dev.gpioData, MraaGpioDirection.out);
+    MraaReturnCode ret;
+    ret = _mraa.gpio.direction(_dev.gpioClk, MraaGpioDirection.out);
+    if (ret != MraaReturnCode.success) {
+      print(
+          'initialise - Failed to set direction for clock pin, statis is ${returnCode.asString(ret)}');
+    }
+    ret = _mraa.gpio.direction(_dev.gpioData, MraaGpioDirection.out);
+    if (ret != MraaReturnCode.success) {
+      print(
+          'initialise - Failed to set direction for data pin, statis is ${returnCode.asString(ret)}');
+    }
     setLowIntensityValue(0x00);
     setHighIntensityValue(0xFF);
     _dev.commandWord = 0x0000; // all defaults
@@ -132,26 +141,52 @@ class MraaUpmLedBar {
   }
 
   void lockData() {
+    MraaReturnCode ret;
     _mraa.gpio.write(_dev.gpioData, 0);
+    if (ret != MraaReturnCode.success) {
+      print(
+          'lockdata - Failed to write 0 to data pin, outside loop, status is ${returnCode.asString(ret)}');
+    }
     sleep(const Duration(microseconds: 220));
     for (int idx = 0; idx < 4; idx++) {
       _mraa.gpio.write(_dev.gpioData, 1);
-      _mraa.gpio.write(_dev.gpioData, 0);
+      if (ret != MraaReturnCode.success) {
+        print(
+            'lockdata - Failed to write 1 to data pin, status is ${returnCode.asString(ret)}');
+      }
+      ret = _mraa.gpio.write(_dev.gpioData, 0);
+      if (ret != MraaReturnCode.success) {
+        print(
+            'lockdata - Failed to write 0 to data pin, statis is ${returnCode.asString(ret)}');
+      }
     }
   }
 
   void send16BitBlock(int data) {
+    MraaReturnCode ret;
     int localData = data;
     for (int bitIdx = 0; bitIdx < 16; bitIdx++) {
       int state = localData & 0x8000 == 1 ? 1 : 0;
       _mraa.gpio.write(_dev.gpioData, state);
+      if (ret != MraaReturnCode.success) {
+        print(
+            'send16BitBlock - Failed to write state to data pin, status is ${returnCode.asString(ret)}, state is $state');
+      }
       state = _mraa.gpio.read(_dev.gpioClk);
+      if (state == Mraa.generalError) {
+        print(
+            'send16BitBlock - Failed to read state of clock pin, status is ${returnCode.asString(ret)}');
+      }
       if (state != 0) {
         state = 0;
       } else {
         state = 1;
       }
-      _mraa.gpio.write(_dev.gpioClk, state);
+      ret = _mraa.gpio.write(_dev.gpioClk, state);
+      if (ret != MraaReturnCode.success) {
+        print(
+            'send16BitBlock - Failed to write state to clock pin, status is ${returnCode.asString(ret)}, state is $state');
+      }
       localData <<= 1;
     }
   }
