@@ -59,8 +59,8 @@ class MraaUpmLedBar {
     _dev.commandWord = 0x0000; // all defaults
     _dev.bitStates = Uint16List(ledPerInstance);
     autoRefresh = true;
-    clearAll();
     _dev.maxLed = ledPerInstance;
+    clearAll();
     _dev.initialized = true;
   }
 
