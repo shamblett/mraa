@@ -167,7 +167,7 @@ class MraaUpmLedBar {
     int localData = data;
     for (int bitIdx = 0; bitIdx < 16; bitIdx++) {
       int state = localData & 0x8000 == 1 ? 1 : 0;
-      _mraa.gpio.write(_dev.gpioData, state);
+      ret = _mraa.gpio.write(_dev.gpioData, state);
       if (ret != MraaReturnCode.success) {
         print(
             'send16BitBlock - Failed to write state to data pin, status is ${returnCode.asString(ret)}, state is $state');
