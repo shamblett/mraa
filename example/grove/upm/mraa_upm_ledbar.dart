@@ -147,7 +147,7 @@ class MraaUpmLedBar {
       print(
           'lockdata - Failed to write 0 to data pin, outside loop, status is ${returnCode.asString(ret)}');
     }
-    sleep(const Duration(microseconds: 220));
+    sleep(const Duration(milliseconds: 10));
     for (int idx = 0; idx < 4; idx++) {
       ret = _mraa.gpio.write(_dev.gpioData, 1);
       if (ret != MraaReturnCode.success) {
