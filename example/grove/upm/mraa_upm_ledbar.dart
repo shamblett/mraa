@@ -22,6 +22,8 @@ class My9221Context {
 
   int maxLed;
 
+  int instances;
+
   // An array of Uint16's representing our bit states (on/off)
   // intensities.  Only the low 8 bits are used, but in the future
   // 16bit support can work here as well.
@@ -66,6 +68,7 @@ class MraaUpmLedBar {
     setLowIntensityValue(0x00);
     setHighIntensityValue(0xFF);
     _dev.commandWord = 0x0000; // all defaults
+    _dev.instances = 1;
     _dev.bitStates = Uint16List(ledPerInstance);
     autoRefresh = true;
     _dev.maxLed = ledPerInstance;
@@ -165,8 +168,9 @@ class MraaUpmLedBar {
   void send16BitBlock(int data) {
     MraaReturnCode ret;
     int localData = data;
+    int state = 0;
     for (int bitIdx = 0; bitIdx < 16; bitIdx++) {
-      int state = localData & 0x8000 == 1 ? 1 : 0;
+      state = localData & 0x8000 == 1 ? 1 : 0;
       ret = _mraa.gpio.write(_dev.gpioData, state);
       if (ret != MraaReturnCode.success) {
         print(
