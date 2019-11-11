@@ -12,8 +12,8 @@ import 'package:mraa/mraa.dart';
 import 'upm/mraa_upm_ledbar.dart';
 
 // The GPIO pins for the Grove Led bar, set as needed.
-const int clockGPIOPin = 60;
-const int dataGPIOPin = 71;
+const int clockGPIOPin = 59;
+const int dataGPIOPin = 57;
 
 /// An exercise for the Grove Led Bar
 int main() {
