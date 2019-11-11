@@ -193,9 +193,8 @@ class MraaUpmLedBar {
   void send16BitBlock(int data) {
     MraaReturnCode ret;
     int localData = data;
-    int state = 0;
     for (int bitIdx = 0; bitIdx < 16; bitIdx++) {
-      state = localData & 0x8000 == 1 ? 1 : 0;
+      int state = (localData & 0x8000) != 0 ? 1 : 0;
       ret = _mraa.gpio.write(_dev.gpioData, state);
       print('Sent state $state, local data is $localData');
       if (ret != MraaReturnCode.success) {
