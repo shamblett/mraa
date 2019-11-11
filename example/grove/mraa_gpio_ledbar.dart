@@ -69,7 +69,7 @@ int main() {
   print('Random');
   for (int i = 0; i < 21; i++) {
     final int state = Random().nextInt(1023);
-    //ledbar.send16BitBlock(state);
+    ledbar.send16BitBlock(state);
     sleep(const Duration(milliseconds: 300));
   }
 
