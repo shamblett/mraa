@@ -14,7 +14,7 @@ class My9221Context {
   ffi.Pointer<MraaGpioContext> gpioClk;
   ffi.Pointer<MraaGpioContext> gpioData;
 
-  bool autoRefresh;
+  bool autoRefresh = true;
   // We're only doing 8-bit greyscale, so the high order bits are
   // always 0
   int lowIntensity;
@@ -134,12 +134,13 @@ class MraaUpmLedBar {
   int get maxLed => _dev.maxLed;
 
   void refresh() {
-    for (int i = 0; i < _dev.maxLed; i++) {
-      if (i % 12 == 0) {
-        send16BitBlock(_dev.commandWord);
-      }
+    send16BitBlock(_dev.commandWord);
+    for (int i = 0; i < 10; i++) {
       send16BitBlock(_dev.bitStates[i]);
     }
+    // Two extra empty bits for padding the command to the correct length
+    send16BitBlock(0x00);
+    send16BitBlock(0x00);
     lockData();
   }
 
@@ -150,7 +151,7 @@ class MraaUpmLedBar {
       print(
           'lockdata - Failed to write 0 to data pin, outside loop, status is ${returnCode.asString(ret)}');
     }
-    sleep(const Duration(milliseconds: 10));
+    sleep(const Duration(microseconds: 10));
     for (int idx = 0; idx < 4; idx++) {
       ret = _mraa.gpio.write(_dev.gpioData, 1);
       if (ret != MraaReturnCode.success) {
