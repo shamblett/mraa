@@ -79,9 +79,10 @@ int main() {
 
   print('Random');
   for (int i = 0; i < 21; i++) {
-    final double state = Random().nextDouble() * 10.0;
-    ledbar.setLevel(state);
-    sleep(const Duration(milliseconds: 300));
+    final int state = Random().nextInt(9);
+    ledbar.setLed(state, on: true);
+    sleep(const Duration(milliseconds: 2000));
+    ledbar.setLed(state, on: false);
   }
 
   return 0;

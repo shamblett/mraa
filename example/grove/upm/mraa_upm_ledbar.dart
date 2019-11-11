@@ -106,7 +106,6 @@ class MraaUpmLedBar {
 
       localLevel -= 8;
     }
-    ;
 
     int state = 0;
     for (int i = 0; i < _dev.maxLed; i++) {
