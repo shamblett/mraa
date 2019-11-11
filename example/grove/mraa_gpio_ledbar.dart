@@ -56,7 +56,7 @@ int main() {
   sleep(const Duration(milliseconds: 2000));
 
   print('Exercising the Led Bar');
-  ledbar.setLed(10, on: true);
+  ledbar.setLed(7, on: true);
   sleep(const Duration(milliseconds: 500));
 
   ledbar.setLed(9, on: true);
@@ -79,8 +79,8 @@ int main() {
 
   print('Random');
   for (int i = 0; i < 21; i++) {
-    final int state = Random().nextInt(1023);
-    ledbar.send16BitBlock(state);
+    final double state = Random().nextDouble() * 10.0;
+    ledbar.setLevel(state);
     sleep(const Duration(milliseconds: 300));
   }
 
