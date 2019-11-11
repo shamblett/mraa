@@ -65,14 +65,17 @@ int main() {
   ledbar.setLed(8, on: true);
   sleep(const Duration(milliseconds: 500));
 
-  ledbar.setLed(1, on: false);
+  ledbar.setLed(1, on: true);
   sleep(const Duration(milliseconds: 500));
 
-  ledbar.setLed(2, on: false);
+  ledbar.setLed(2, on: true);
   sleep(const Duration(milliseconds: 500));
 
-  ledbar.setLed(3, on: false);
+  ledbar.setLed(3, on: true);
   sleep(const Duration(milliseconds: 500));
+
+  ledbar.clearAll();
+  sleep(const Duration(milliseconds: 2000));
 
   print('Random');
   for (int i = 0; i < 21; i++) {
