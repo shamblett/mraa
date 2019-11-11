@@ -173,25 +173,20 @@ class MraaUpmLedBar {
   }
 
   void lockData() {
-    MraaReturnCode ret;
-    ret = _mraa.gpio.write(_dev.gpioData, 0);
-    if (ret != MraaReturnCode.success) {
-      print(
-          'lockdata - Failed to write 0 to data pin, outside loop, status is ${returnCode.asString(ret)}');
-    }
-    sleep(const Duration(microseconds: 10));
+    _mraa.gpio.write(_dev.gpioData, 0);
+    _mraa.gpio.write(_dev.gpioClk, 1);
+    _mraa.gpio.write(_dev.gpioClk, 0);
+    _mraa.gpio.write(_dev.gpioClk, 1);
+    _mraa.gpio.write(_dev.gpioClk, 0);
+    sleep(const Duration(microseconds: 240));
+
     for (int idx = 0; idx < 4; idx++) {
-      ret = _mraa.gpio.write(_dev.gpioData, 1);
-      if (ret != MraaReturnCode.success) {
-        print(
-            'lockdata - Failed to write 1 to data pin, status is ${returnCode.asString(ret)}');
-      }
-      ret = _mraa.gpio.write(_dev.gpioData, 0);
-      if (ret != MraaReturnCode.success) {
-        print(
-            'lockdata - Failed to write 0 to data pin, statis is ${returnCode.asString(ret)}');
-      }
+      _mraa.gpio.write(_dev.gpioData, 1);
+      _mraa.gpio.write(_dev.gpioData, 0);
     }
+    sleep(const Duration(microseconds: 1));
+    _mraa.gpio.write(_dev.gpioClk, 1);
+    _mraa.gpio.write(_dev.gpioClk, 0);
   }
 
   void send16BitBlock(int data) {
