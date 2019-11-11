@@ -47,6 +47,14 @@ int main() {
   final MraaUpmLedBar ledbar = MraaUpmLedBar(mraa, clockContext, dataContext);
   ledbar.initialise();
 
+  print('All on/off');
+  ledbar.clearAll();
+  sleep(const Duration(milliseconds: 2000));
+  ledbar.setAll();
+  sleep(const Duration(milliseconds: 2000));
+  ledbar.clearAll();
+  sleep(const Duration(milliseconds: 2000));
+
   print('Exercising the Led Bar');
   ledbar.setLed(10, on: true);
   sleep(const Duration(milliseconds: 500));

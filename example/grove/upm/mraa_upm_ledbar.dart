@@ -173,7 +173,6 @@ class MraaUpmLedBar {
   }
 
   void lockData() {
-    print('latching');
     _mraa.gpio.write(_dev.gpioData, 0);
     _mraa.gpio.write(_dev.gpioClk, 1);
     _mraa.gpio.write(_dev.gpioClk, 0);
