@@ -43,10 +43,18 @@ int main() {
       mraa.aio.initialise(soundSensorAIOPin);
 
   print('Reading the sound sensor values');
+  int value = 0;
   for (int i = 1; i <= 100; i++) {
-    final int value = mraa.aio.read(context);
-    print('Current sound value is : $value');
-    sleep(const Duration(milliseconds: 2000));
+    // Read the value 5 times, 20ms apart and get an average
+    for (int i = 1; i <= 5; i++) {
+      value += mraa.aio.read(context);
+      sleep(const Duration(milliseconds: 20));
+    }
+    print('Current smoothed sound value is : $value');
+    print('Current scaled value is ${value / 100}');
+    value = 0;
+
+    sleep(const Duration(milliseconds: 200));
   }
 
   return 0;
