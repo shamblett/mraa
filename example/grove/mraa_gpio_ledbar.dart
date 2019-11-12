@@ -56,13 +56,13 @@ int main() {
   sleep(const Duration(milliseconds: 2000));
 
   print('Exercising the Led Bar');
-  ledbar.setLed(7, on: true);
-  sleep(const Duration(milliseconds: 500));
-
   ledbar.setLed(9, on: true);
   sleep(const Duration(milliseconds: 500));
 
   ledbar.setLed(8, on: true);
+  sleep(const Duration(milliseconds: 500));
+
+  ledbar.setLed(7, on: true);
   sleep(const Duration(milliseconds: 500));
 
   ledbar.setLed(1, on: true);
@@ -77,12 +77,19 @@ int main() {
   ledbar.clearAll();
   sleep(const Duration(milliseconds: 2000));
 
-  print('Random');
-  for (int i = 0; i < 21; i++) {
+  print('Random single bars');
+  for (int i = 0; i < 19; i++) {
     final int state = Random().nextInt(9);
     ledbar.setLed(state, on: true);
     sleep(const Duration(milliseconds: 2000));
     ledbar.setLed(state, on: false);
+  }
+
+  print('Random levels');
+  for (int i = 0; i < 19; i++) {
+    final int state = Random().nextInt(10);
+    ledbar.setLevel(state);
+    sleep(const Duration(milliseconds: 2000));
   }
 
   return 0;

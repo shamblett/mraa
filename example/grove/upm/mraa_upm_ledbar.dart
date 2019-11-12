@@ -7,7 +7,6 @@
 
 import 'dart:ffi' as ffi;
 import 'dart:io';
-import 'dart:math';
 import 'dart:typed_data';
 import 'package:mraa/mraa.dart';
 
@@ -91,27 +90,22 @@ class MraaUpmLedBar {
   /// Set level (0-10)
   /// Level 0 means all leds off
   /// Level 10 means all leds on
-  /// Level 4.5 means 4 LEDs on and the 5th LED's half on
-  void setLevel(double level) {
-    double localLevel = level;
-    localLevel = max(0, min(10, level));
-    localLevel *=
-        8; // there are 8 (noticable) levels of brightness on each segment
-
-    // Place number of 'level' of 1-bits on __state
-    for (int i = 0; i < 10; i++) {
-      _dev.bitStates[i] = (localLevel > 8)
-          ? ~0
-          : (localLevel > 0) ? ~(~0 << localLevel.toInt()) : 0;
-
-      localLevel -= 8;
+  void setLevel(int level) {
+    clearAll();
+    if ( level <= 0 ) {
+      return;
+    }
+    if (level >= 10) {
+      setAll();
+      return;
     }
 
-    int state = 0;
-    for (int i = 0; i < _dev.maxLed; i++) {
-      state += _dev.bitStates[i] << i;
+    for (int i = 0; i < level; i++) {
+      _dev.bitStates[i] = 1;
     }
-    send16BitBlock(state);
+    if (_dev.autoRefresh) {
+      refresh();
+    }
   }
 
   void setLed(int led, {bool on}) {
