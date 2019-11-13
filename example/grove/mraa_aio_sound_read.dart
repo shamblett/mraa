@@ -8,6 +8,7 @@
 import 'dart:ffi' as ffi;
 import 'dart:io';
 import 'package:mraa/mraa.dart';
+import 'upm/mraa_upm_sound.dart';
 
 // The AIO pin for the sound sensor, set as needed. Note the sound sensor
 // used here is the Grove sound sensor, recognised in the UPM library
@@ -43,17 +44,11 @@ int main() {
       mraa.aio.initialise(soundSensorAIOPin);
 
   print('Reading the sound sensor values');
-  int value = 0;
+  final MraaUpmSound sound = MraaUpmSound(mraa, context);
   for (int i = 1; i <= 100; i++) {
-    // Read the value 5 times, 20ms apart and get an average
-    for (int i = 1; i <= 5; i++) {
-      value += mraa.aio.read(context);
-      sleep(const Duration(milliseconds: 20));
-    }
-    print('Current smoothed sound value is : $value');
-    print('Current scaled value is ${value / 100}');
-    value = 0;
-
+    print('Current raw sound value is : ${sound.rawValue()}');
+    print('Current smoothed sound value is : ${sound.value()}');
+    print('Current scaled value is ${sound.scaledValue()}');
     sleep(const Duration(milliseconds: 200));
   }
 
