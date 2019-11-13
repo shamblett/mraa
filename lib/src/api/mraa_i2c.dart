@@ -11,8 +11,8 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef _returnMraaI2cContextIntParameterFunc = Pointer<MraaI2cContext> Function(
-    Int32);
+typedef _returnMraaI2cContextIntParameterFunc = Pointer<MraaI2cContext>
+    Function(Int32);
 typedef _returnIntMraaI2CContextIntParameterFunc = Int32 Function(
     Pointer<MraaI2cContext>, Int32);
 typedef _returnIntMraaI2CContextUint8ArrayIntParameterFunc = Int32 Function(
@@ -21,9 +21,9 @@ typedef _returnIntMraaI2CContextParameterFunc = Int32 Function(
     Pointer<MraaI2cContext>);
 typedef _returnIntMraaI2CContextUint8ParameterFunc = Int32 Function(
     Pointer<MraaI2cContext>, Uint8);
-typedef _returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc = Int32 Function(
-    Pointer<MraaI2cContext>, Uint8, Pointer<Uint8>, Int32);
-typedef _returnIntMraaI2CContextUint8Uint8ParameterFunc = Int32 Function(
+typedef _returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc = Int32
+    Function(Pointer<MraaI2cContext>, Uint8, Pointer<Uint8>, Int32);
+typedef _returnIntMraaI2CContext2Uint8ParameterFunc = Int32 Function(
     Pointer<MraaI2cContext>, Uint8, Uint8);
 typedef _returnIntMraaI2CContextUint16Uint8ParameterFunc = Int32 Function(
     Pointer<MraaI2cContext>, Uint16, Uint8);
@@ -51,11 +51,11 @@ typedef _MraaI2cStopType = int Function(Pointer<MraaI2cContext>);
 
 /// The I2C MRAA API
 ///
-/// An I2C context represents a master on an iI2C bus and that context can communicate
-/// to multiple I2C slaves by configuring the address. It is considered best practice to
-/// make sure the address is correct before doing any calls on I2C, in case another
-/// application changed the address on that bus. Multiple instances
-/// of the same bus can exist.
+/// An I2C context represents a master on an iI2C bus and that context
+/// can communicate to multiple I2C slaves by configuring the address.
+/// It is considered best practice to make sure the address is correct
+/// before doing any calls on I2C, in case another application changed the
+/// address on that bus. Multiple instances of the same bus can exist.
 class MraaI2c {
   /// Construction
   MraaI2c(this._lib, this._noJsonLoading) {
@@ -64,13 +64,14 @@ class MraaI2c {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>> _initRawPointer;
+  Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
+      _initRawPointer;
   Pointer<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>
       _frequencyPointer;
   Pointer<NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
@@ -89,7 +90,7 @@ class MraaI2c {
       _writePointer;
   Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _writeBytePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8Uint8ParameterFunc>>
+  Pointer<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>
       _writeByteDataPointer;
   Pointer<NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>
       _writeWordDataPointer;
@@ -240,7 +241,7 @@ class MraaI2c {
         _lib.lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_write_byte');
     _writeByteDataPointer = _lib
-        .lookup<NativeFunction<_returnIntMraaI2CContextUint8Uint8ParameterFunc>>(
+        .lookup<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>(
             'mraa_i2c_write_byte_data');
     _writeWordDataPointer = _lib.lookup<
             NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>(

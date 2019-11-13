@@ -11,8 +11,8 @@
 part of mraa;
 
 /// C Function type typedefs
-typedef _returnMraaLedContextIntParameterFunc = Pointer<MraaLedContext> Function(
-    Int32);
+typedef _returnMraaLedContextIntParameterFunc = Pointer<MraaLedContext>
+    Function(Int32);
 typedef _returnMraaLedContextStringParameterFunc = Pointer<MraaLedContext>
     Function(Pointer<ffi.Utf8>);
 typedef _returnIntMraaLedContextIntParameterFunc = Int32 Function(
@@ -46,9 +46,9 @@ class MraaLed {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaLedContextIntParameterFunc>> _initPointer;
@@ -86,7 +86,8 @@ class MraaLed {
   ///
   /// Initialise a a [MraaLedContext] based on LED function name.
   /// The structure of a LED entry in sysfs is "devicename:colour:function"
-  /// This method expects only one unique LED identifier which would be "function" name most often.
+  /// This method expects only one unique LED identifier which would be
+  /// "function" name most often.
   /// For instance, initialiseRaw("user4")
   Pointer<MraaLedContext> initialiseRaw(String ledDev) =>
       _initRawFunc(ffi.Utf8.toUtf8(ledDev));
@@ -142,8 +143,8 @@ class MraaLed {
     _readMaxBrightnessPointer =
         _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
             'mraa_led_read_max_brightness');
-    _setTriggerPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>(
+    _setTriggerPointer = _lib
+        .lookup<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>(
             'mraa_led_set_trigger');
     _clearTriggerPointer =
         _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(

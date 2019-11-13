@@ -12,8 +12,8 @@
 part of mraa;
 
 /// C Function signature typedefs
-typedef _returnMraaAioContextIntParameterFunc = Pointer<MraaAioContext> Function(
-    Int32);
+typedef _returnMraaAioContextIntParameterFunc = Pointer<MraaAioContext>
+    Function(Int32);
 typedef _returnIntMraaAioContextParameterFunc = Int32 Function(
     Pointer<MraaAioContext>);
 typedef _returnFloatMraaAioContextParameterFunc = Float Function(
@@ -41,9 +41,9 @@ class MraaAio {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaAioContextIntParameterFunc>> _initPointer;
@@ -85,13 +85,15 @@ class MraaAio {
 
   /// Close - mraa_aio_close
   ///
-  /// Close the analogue input context, this will free the memory for the context.
+  /// Close the analogue input context, this will free the
+  /// memory for the context.
   MraaReturnCode close(Pointer<MraaAioContext> dev) =>
       returnCode.fromInt(_closeFunc(dev));
 
   /// Set bit - mraa_aio_set_bit
   ///
-  /// Set the bit value which MRAA will shift the raw reading from the ADC to, i.e. 10bits
+  /// Set the bit value which MRAA will shift the raw reading
+  /// from the ADC to, i.e. 10bits
   MraaReturnCode setBit(Pointer<MraaAioContext> dev, int bits) =>
       returnCode.fromInt(_setBitFunc(dev, bits));
 

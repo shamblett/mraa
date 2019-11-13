@@ -34,9 +34,11 @@ class My9221Context {
   bool initialized;
 }
 
-/// Grove – LED Bar is comprised of a 10 segment LED gauge bar and an MY9221 LED controlling chip.
-/// It can be used as an indicator for remaining battery life, voltage, water level, music volume
-/// or other values that require a gradient display. There are 10 LED bars in the LED bar graph:
+/// Grove – LED Bar is comprised of a 10 segment LED gauge bar and an MY9221
+/// LED controlling chip.
+/// It can be used as an indicator for remaining battery life, voltage,
+/// water level, music volume or other values that require a gradient display.
+/// There are 10 LED bars in the LED bar graph:
 /// one red, one yellow, one light green, and seven green bars.
 class MraaUpmLedBar {
   MraaUpmLedBar(Mraa mraa, ffi.Pointer<MraaGpioContext> clockPin,
@@ -57,13 +59,13 @@ class MraaUpmLedBar {
     MraaReturnCode ret;
     ret = _mraa.gpio.direction(_dev.gpioClk, MraaGpioDirection.out);
     if (ret != MraaReturnCode.success) {
-      print(
-          'initialise - Failed to set direction for clock pin, statis is ${returnCode.asString(ret)}');
+      print('initialise - Failed to set direction for clock pin, statis is '
+          '${returnCode.asString(ret)}');
     }
     ret = _mraa.gpio.direction(_dev.gpioData, MraaGpioDirection.out);
     if (ret != MraaReturnCode.success) {
-      print(
-          'initialise - Failed to set direction for data pin, statis is ${returnCode.asString(ret)}');
+      print('initialise - Failed to set direction for data pin, statis is '
+          '${returnCode.asString(ret)}');
     }
     setLowIntensityValue(0x00);
     setHighIntensityValue(0xFF);
@@ -92,7 +94,7 @@ class MraaUpmLedBar {
   /// Level 10 means all leds on
   void setLevel(int level) {
     clearAll();
-    if ( level <= 0 ) {
+    if (level <= 0) {
       return;
     }
     if (level >= 10) {
@@ -189,13 +191,13 @@ class MraaUpmLedBar {
       int state = (localData & 0x8000) != 0 ? 1 : 0;
       ret = _mraa.gpio.write(_dev.gpioData, state);
       if (ret != MraaReturnCode.success) {
-        print(
-            'send16BitBlock - Failed to write state to data pin, status is ${returnCode.asString(ret)}, state is $state');
+        print('send16BitBlock - Failed to write state to data pin, status is '
+            '${returnCode.asString(ret)}, state is $state');
       }
       state = _mraa.gpio.read(_dev.gpioClk);
       if (state == Mraa.generalError) {
-        print(
-            'send16BitBlock - Failed to read state of clock pin, status is ${returnCode.asString(ret)}');
+        print('send16BitBlock - Failed to read state of clock pin, status is '
+            '${returnCode.asString(ret)}');
       }
       if (state != 0) {
         state = 0;
@@ -204,8 +206,8 @@ class MraaUpmLedBar {
       }
       ret = _mraa.gpio.write(_dev.gpioClk, state);
       if (ret != MraaReturnCode.success) {
-        print(
-            'send16BitBlock - Failed to write state to clock pin, status is ${returnCode.asString(ret)}, state is $state');
+        print('send16BitBlock - Failed to write state to clock pin, status is '
+            '${returnCode.asString(ret)}, state is $state');
       }
       localData <<= 1;
     }

@@ -178,10 +178,10 @@ class MraaUpmLcd {
   }
 
   /// The initialised MRAA library
-  Mraa _mraa;
+  final Mraa _mraa;
 
   /// The initialised I2C context
-  ffi.Pointer<MraaI2cContext> _context;
+  final ffi.Pointer<MraaI2cContext> _context;
 
   static const int lcdDeviceAddress = 0x3C;
   static const Duration INIT_SLEEP = Duration(milliseconds: 3);
@@ -312,7 +312,8 @@ class MraaUpmLcd {
   }
 
   /// Draws an image.
-  /// Pixels are arranged in one byte for 8 vertical pixels and not addressed individually.
+  /// Pixels are arranged in one byte for 8 vertical pixels and not
+  /// addressed individually.
   MraaReturnCode draw(Uint8List data, int bytes) {
     const MraaReturnCode error = MraaReturnCode.success;
 

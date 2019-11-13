@@ -16,9 +16,9 @@ const int pirSensorGPIOPin = 73;
 int main() {
   // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
   // Please change this for your platform.
-  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
-  mraa.noJsonLoading = true;
-  mraa.initialise();
+  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0')
+    ..noJsonLoading = true
+    ..initialise();
 
   // Version
   final String mraaVersion = mraa.common.version();
@@ -27,8 +27,8 @@ int main() {
   print('Initialising MRAA');
   final MraaReturnCode ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
-    print(
-        'Failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
+    print('Failed to initialise MRAA, return code is '
+        '${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');

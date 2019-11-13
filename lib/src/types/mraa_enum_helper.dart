@@ -13,7 +13,7 @@ class MraaEnumHelper<T extends dynamic> {
   MraaEnumHelper(this._valuesMap);
 
   /// Values map
-  Map<int, T> _valuesMap;
+  final Map<int, T> _valuesMap;
 
   /// From int
   T fromInt(int index) {

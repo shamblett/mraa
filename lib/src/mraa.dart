@@ -11,12 +11,13 @@ part of mraa;
 ///
 /// MRAA allows Dart to interface with the I/O on Galileo, Edison & other platforms,
 /// with a structured and sane API where port names/numbering matches the board that you are on.
-/// Use of MRAA does not tie you to specific hardware with board detection done at runtime you can create
-/// portable code that will work across the supported platforms.
+/// Use of MRAA does not tie you to specific hardware with board detection
+/// done at runtime you can create portable code that will work across
+/// the supported platforms.
 ///
-/// The intent is to make it easier for developers and sensor manufacturers to map their sensors &
-/// actuators on top of supported hardware and to allow control of low level communication protocol
-/// using Dart.
+/// The intent is to make it easier for developers and sensor manufacturers
+/// to map their sensors & actuators on top of supported hardware and to allow
+/// control of low level communication protocol using Dart.
 class Mraa {
   /// Default uses the platform library
   Mraa() {
@@ -32,7 +33,7 @@ class Mraa {
   static const int aioReadError = -1;
 
   /// AIO read double error
-  static const double aioReadDoubleError = -1.0;
+  static const double aioReadDoubleError = -1;
 
   /// General common function error
   static const int generalError = -1;

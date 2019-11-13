@@ -26,8 +26,8 @@ class MraaUpmTemperatureValues {
   DateTime validAt;
 
   @override
-  String toString() =>
-      'Temperature values at $validAt :: Raw : $raw : Celsius ${celsius.toStringAsFixed(2)}';
+  String toString() => 'Temperature values at $validAt :: Raw : $raw : Celsius '
+      '${celsius.toStringAsFixed(2)}';
 }
 
 /// A local support implementation of the UPM temperature sensor
@@ -36,19 +36,21 @@ class MraaUpmTemperature {
   MraaUpmTemperature(this._mraa, this._context);
 
   /// Scaling factor for raw analog value from the ADC, useful for mixed 3.3V/5V boards, default 1.0
-  static const double scale = 1.0;
+  static const double scale = 1;
 
-  /// Zero power resistance, this is 100K (default) for v1.1-v1.2 and 10K for v1.0 of the sensor
+  /// Zero power resistance, this is 100K (default) for v1.1-v1.2
+  /// and 10K for v1.0 of the sensor
   static const int r0 = 100000;
 
-  /// Thermistor nominal B constant, this is 4275 (default) for v1.1-v1.2 and 3975 for v1.0 of the sensor
+  /// Thermistor nominal B constant, this is 4275 (default)
+  /// for v1.1-v1.2 and 3975 for v1.0 of the sensor
   static const int b = 4275;
 
   /// The initialised MRAA library
-  Mraa _mraa;
+  final Mraa _mraa;
 
   /// The initialised device context
-  ffi.Pointer<MraaAioContext> _context;
+  final ffi.Pointer<MraaAioContext> _context;
 
   /// Get the raw and Celsius temperature values and timestamp them.
   MraaUpmTemperatureValues getValues() {

@@ -10,18 +10,19 @@ import 'dart:io';
 import 'package:mraa/mraa.dart';
 import 'upm/mraa_upm_temperature.dart';
 
-// The AIO pin for the temperature sensor, set as needed. Note the temperature sensor
-// used here is the Grove temperature sensor, recognised in the UPM library
-// simply as a temperature device.
+// The AIO pin for the temperature sensor, set as needed.
+// Note the temperature sensor used here is the Grove temperature
+// sensor, recognised in the UPM library simply as a temperature device.
 const int temperatureSensorAIOPin = 2;
 
-/// Read the current temperature value using AIO from the Grove temperature sensor
+/// Read the current temperature value using AIO from the Grove
+/// temperature sensor
 int main() {
   // Initialise form our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
   // Please change this for your platform.
-  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0');
-  mraa.noJsonLoading = true;
-  mraa.initialise();
+  final Mraa mraa = Mraa.fromLib('lib/libmraa.so.2.0.0')
+    ..noJsonLoading = true
+    ..initialise();
 
   // Version
   final String mraaVersion = mraa.common.version();
@@ -30,8 +31,8 @@ int main() {
   print('Initialising MRAA');
   final MraaReturnCode ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
-    print(
-        'Failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
+    print('Failed to initialise MRAA, return code is '
+        '${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');

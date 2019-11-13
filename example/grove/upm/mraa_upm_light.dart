@@ -31,10 +31,10 @@ class MraaUpmLight {
   MraaUpmLight(this._mraa, this._context);
 
   /// The initialised MRAA library
-  Mraa _mraa;
+  final Mraa _mraa;
 
   /// The initialised device context
-  ffi.Pointer<MraaAioContext> _context;
+  final ffi.Pointer<MraaAioContext> _context;
 
   /// Get the raw and Lux light values and timestamp them.
   MraaUpmLightValues getValues() {
