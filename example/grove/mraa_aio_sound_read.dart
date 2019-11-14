@@ -13,7 +13,7 @@ import 'upm/mraa_upm_sound.dart';
 // The AIO pin for the sound sensor, set as needed. Note the sound sensor
 // used here is the Grove sound sensor, recognised in the UPM library
 // simply as a sound device.
-const int soundSensorAIOPin = 2;
+const int soundSensorAIOPin = 4;
 
 /// Read the sound level from the sound sensor
 int main() {

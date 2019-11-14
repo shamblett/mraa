@@ -13,7 +13,7 @@ import 'package:mraa/mraa.dart';
 /// The main component of the module is a simple microphone, which is based
 /// on the LM386 amplifier and an electret microphone.
 class MraaUpmSound {
-  MraaUpmSound(this._mraa, this._context, [this.sampleCount]);
+  MraaUpmSound(this._mraa, this._context, [this.sampleCount = 5]);
 
   /// The initialised MRAA library
   final Mraa _mraa;
@@ -22,7 +22,7 @@ class MraaUpmSound {
   final ffi.Pointer<MraaAioContext> _context;
 
   /// The sample count
-  int sampleCount = 5;
+  final int sampleCount;
 
   /// Get a raw value directly from the sound sensor
   int rawValue() => _mraa.aio.read(_context);
