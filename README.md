@@ -20,9 +20,8 @@ mraa.aio.read(0);
 ```
 Other API functions for GPIO, I2C etc are accessed in a similar manner.
 
-The examples directory contains a general usage example and several runnable examples for a 
-generic range of development boards that use the [Grove system](http://wiki.seeedstudio.com/Grove_System) sensor family comprising light, temperature and PIR sensors and 
-output to a small OLED display.
+The examples directory contains some general usage examples. Examples of using mrra with
+real sensors can be found in the [grove](https://pub.dev/packages/grove) package. 
 
 Note that to access some devices, GPIO is an example here, you may need
 elevated permissions, this can be achieved by running Dart under sudo, running
