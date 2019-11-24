@@ -17,7 +17,8 @@ class MraaUartSettings {
   /// The device path of the UART, eg: /dev/ttyS0
   String devicePath;
 
-  /// The name of the UART
+  /// The name of the UART, not set by the settings API call
+  /// the user must name the device themselves.
   String name;
 
   /// The current Baud rate (0–4M)
