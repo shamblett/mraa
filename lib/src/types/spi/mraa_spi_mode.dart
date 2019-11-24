@@ -9,16 +9,20 @@ part of mraa;
 
 /// SPI modes.
 enum MraaSpiMode {
-  /// CPOL = 0, CPHA = 0, Clock idle low, data is clocked in on rising edge, output data (change) on falling edge
+  /// CPOL = 0, CPHA = 0, Clock idle low, data is clocked in on rising edge,
+  /// output data (change) on falling edge
   mode0,
 
-  /// CPOL = 0, CPHA = 1, Clock idle low, data is clocked in on falling edge, output data (change) on rising edge
+  /// CPOL = 0, CPHA = 1, Clock idle low, data is clocked in on falling edge,
+  /// output data (change) on rising edge
   mode1,
 
-  /// CPOL = 1, CPHA = 0, Clock idle low, data is clocked in on falling edge, output data (change) on rising edge
+  /// CPOL = 1, CPHA = 0, Clock idle low, data is clocked in on falling edge,
+  /// output data (change) on rising edge
   mode2,
 
-  /// CPOL = 1, CPHA = 1, Clock idle low, data is clocked in on rising, edge output data (change) on falling edge
+  /// CPOL = 1, CPHA = 1, Clock idle low, data is clocked in on rising, edge
+  /// output data (change) on falling edge
   mode3
 }
 

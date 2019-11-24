@@ -11,15 +11,15 @@ import 'package:mraa/mraa.dart';
 int main() {
   // Initialise from our Beaglebone Mraa lib version 2.0.0 with no JSON loading.
   // Please change this for your platform.
-  final Mraa mraa = Mraa.fromLib('grove/lib/libmraa.so.2.0.0');
+  final Mraa mraa = Mraa.fromLib('beaglebone/lib/libmraa.so.2.0.0');
   mraa.noJsonLoading = true;
   mraa.initialise();
 
   print('Initialising MRAA');
   final MraaReturnCode ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
-    print(
-        'Failed to initialise MRAA, return code is ${returnCode.asString(ret)}');
+    print('Failed to initialise MRAA, return code is '
+        '${returnCode.asString(ret)}');
   }
 
   print('Getting platform name');
@@ -41,24 +41,21 @@ int main() {
   print('');
   print('UART device paths');
   print('');
-  final List<String> devices = List<String>();
   for (int i = 0; i < uartCount; i++) {
     final String devicePath = mraa.uart.devicePathFromIndex(i);
     print('Path for UART device index $i is $devicePath');
-    devices.add(devicePath);
   }
 
-  print('');
   print('UART device settings');
   print('');
-  for (String device in devices) {
+  for (int i = 0; i < uartCount; i++) {
+    print('Settings for UART device index $i');
     final MraaUartSettings settings = MraaUartSettings();
-    settings.devicePath = device;
-    final MraaReturnCode ret = mraa.uart.settings(-1, settings);
+    final MraaReturnCode ret = mraa.uart.settings(i, settings);
     if (ret != MraaReturnCode.success) {
-      print('Unable to get settings for UART device $device');
+      print('Unable to get settings for UART index $i');
     } else {
-      print('Settings for UART device $device .....');
+      print('Settings for UART device $i.....');
       print(settings);
     }
   }

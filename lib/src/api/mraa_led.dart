@@ -46,9 +46,9 @@ class MraaLed {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaLedContextIntParameterFunc>> _initPointer;
@@ -86,7 +86,8 @@ class MraaLed {
   ///
   /// Initialise a a [MraaLedContext] based on LED function name.
   /// The structure of a LED entry in sysfs is "devicename:colour:function"
-  /// This method expects only one unique LED identifier which would be "function" name most often.
+  /// This method expects only one unique LED identifier which would be
+  /// "function" name most often.
   /// For instance, initialiseRaw("user4")
   Pointer<MraaLedContext> initialiseRaw(String ledDev) =>
       _initRawFunc(ffi.Utf8.toUtf8(ledDev));

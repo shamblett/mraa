@@ -14,7 +14,7 @@ class MraaPlatformHelper {
     _loadOsDetails();
   }
 
-  Map<String, String> _osMap = Map<String, String>();
+  final Map<String, String> _osMap = <String, String>{};
   Map<String, String> get osMap => _osMap;
 
   String _distName = 'None';
@@ -44,7 +44,7 @@ class MraaPlatformHelper {
     const String osFilePath = '/etc/os-release';
     final File osFile = File(osFilePath);
     final List<String> lines = osFile.readAsLinesSync();
-    for (String line in lines) {
+    for (final String line in lines) {
       if (line.isEmpty) {
         continue;
       }

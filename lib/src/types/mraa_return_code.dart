@@ -12,7 +12,7 @@ enum MraaReturnCode {
   /// < Expected response
   success,
 
-  /// < Feature TODO
+  /// < Feature
   errorFeatureNotImplemented,
 
   /// < Feature not supported by HW

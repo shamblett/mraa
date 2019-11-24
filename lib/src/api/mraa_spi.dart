@@ -54,8 +54,8 @@ typedef _MraaSpiStopType = int Function(Pointer<MraaSpiContext>);
 /// The SPI MRAA API
 ///
 /// An SPI object in MRAA represents a spidev device. Linux spidev devices
-/// are created per SPI bus and every chip select available on that bus has another
-/// spidev 'file'.
+/// are created per SPI bus and every chip select available on that
+/// bus has another spidev 'file'.
 class MraaSpi {
   /// Construction
   MraaSpi(this._lib, this._noJsonLoading) {
@@ -64,9 +64,9 @@ class MraaSpi {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaSpiContextIntParameterFunc>> _initPointer;
@@ -122,7 +122,8 @@ class MraaSpi {
 
   /// Initialise raw- mraa_spi_init_raw
   ///
-  /// Initialise an [MraaSpiContext] without any board configuration, selects a bus and a mux.
+  /// Initialise an [MraaSpiContext] without any board configuration,
+  /// selects a bus and a mux.
   Pointer<MraaSpiContext> initialiseRaw(int busId, int cs) =>
       _initRawFunc(busId, cs);
 
@@ -141,13 +142,15 @@ class MraaSpi {
   /// Write - mraa_spi_write
   ///
   /// Write Single Byte to the SPI device.
-  /// Returns data received on the miso line or [Mraa.generalError] in case of error
+  /// Returns data received on the miso line or [Mraa.generalError]
+  /// in case of error.
   int write(Pointer<MraaSpiContext> dev, int data) => _writeFunc(dev, data);
 
   /// Write word - mraa_spi_write_word
   ///
   /// Write Two Bytes to the SPI device.
-  /// Returns data received on the miso line or [Mraa.generalError] in case of error
+  /// Returns data received on the miso line or [Mraa.generalError]
+  /// in case of error.
   int writeWord(Pointer<MraaSpiContext> dev, int data) =>
       _writeWordFunc(dev, data);
 
@@ -195,8 +198,8 @@ class MraaSpi {
 
   /// Transfer buffer - mraa_spi_transfer_buf
   ///
-  /// Transfer a buffer of bytes to the SPI device. Both send and receive buffers are passed in
-  /// using the [buffer] parameter.
+  /// Transfer a buffer of bytes to the SPI device. Both send and receive
+  /// buffers are passed in using the [buffer] parameter.
   /// Maximum length 4096 both ways
   MraaReturnCode transferBuffer(Pointer<MraaSpiContext> dev,
       MraaSpiTransferBuffer<Uint8List> buffer, int length) {
@@ -222,8 +225,8 @@ class MraaSpi {
 
   /// Transfer buffer word - mraa_spi_transfer_buf_word
   ///
-  /// Transfer a buffer of words to the SPI device. Both send and receive buffers are passed in
-  /// using the [buffer] parameter.
+  /// Transfer a buffer of words to the SPI device. Both send and receive
+  /// buffers are passed in using the [buffer] parameter.
   /// Maximum length 4096 both ways
   MraaReturnCode transferBufferWord(Pointer<MraaSpiContext> dev,
       MraaSpiTransferBuffer<Uint16List> buffer, int length) {

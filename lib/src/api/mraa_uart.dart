@@ -85,9 +85,9 @@ class MraaUart {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaUartContextIntParameterFunc>> _initPointer;
@@ -190,7 +190,8 @@ class MraaUart {
 
   /// Timeout - mraa_uart_set_timeout
   ///
-  /// Set the timeout for read and write operations <= 0 will disable the timeout.
+  /// Set the timeout for read and write operations <= 0 will
+  /// disable the timeout.
   MraaReturnCode timeout(
           Pointer<MraaUartContext> dev, int read, int write, int interChar) =>
       returnCode.fromInt(_timeoutFunc(dev, read, write, interChar));
@@ -243,13 +244,16 @@ class MraaUart {
   ///
   /// Get the current settings of a UART. This is an unintrusive function.
   /// Meaning it intends not to change anything, only read the values.
-  /// All but the first index parameter are settable, i.e. they can contain values on return.
+  /// All but the first index parameter are settable, i.e. they can contain
+  /// values on return.
   /// If any parameter is not set it will be set to null.
   /// The device path parameter can be either an in or out parameter.
-  /// If a negative index is supplied, the UART is identified using the supplied device path instead.
-  /// This functionality is intended for and needed by for instance USB serial adapters.
-  /// In case of a non-success return value, the out parameters are undefined and will be
-  /// set as passed in, see [MraaUartSettings].
+  /// If a negative index is supplied, the UART is identified using the
+  /// supplied device path instead.
+  /// This functionality is intended for and needed by for instance USB
+  /// serial adapters.
+  /// In case of a non-success return value, the out parameters are undefined
+  /// and will be set as passed in, see [MraaUartSettings].
   MraaReturnCode settings(int index, MraaUartSettings settings) {
     // Check for either a valid index or a device path
     if (index < 0 && settings.devicePath == null) {
@@ -261,6 +265,7 @@ class MraaUart {
     if (index < 0) {
       ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
     }
+    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate();
     final Pointer<Int32> ptrBaudrate = ffi.allocate();
     final Pointer<Int32> ptrDataBits = ffi.allocate();
     final Pointer<Int32> ptrStopBits = ffi.allocate();
@@ -269,7 +274,7 @@ class MraaUart {
     final Pointer<Uint32> ptrXonXoff = ffi.allocate();
 
     // Get the settings
-    final int ret = _settingsFunc(index, ptrDevicePath, nullptr, ptrBaudrate,
+    final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
         ptrDataBits, ptrStopBits, ptrParity, ptrRtsCts, ptrXonXoff);
 
     // If not success just return the status
@@ -279,7 +284,7 @@ class MraaUart {
 
     // Set the output parameters
     settings.devicePath = ffi.Utf8.fromUtf8(ptrDevicePath.value);
-    settings.name = null;
+    settings.name = ffi.Utf8.fromUtf8(ptrName.value);
     settings.baudRate = ptrBaudrate.value;
     settings.dataBits = ptrDataBits.value;
     settings.stopBits = ptrStopBits.value;

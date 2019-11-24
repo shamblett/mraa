@@ -17,9 +17,10 @@ import 'support/mraa_platform_helper.dart';
 
 // We always use our package supplied library in test as it is an Mraa
 // library compiled to use a mock board, this means that some values used
-// in the tests below are as supplied by the mock board implementation, some devices
-// however, e.g. PWM are not supported by the mock board implementation and therefore
-// cannot be tested. In all cases the API call itself is exercised for correctness.
+// in the tests below are as supplied by the mock board implementation,
+// some devices however, e.g. PWM are not supported by the mock board
+// implementation and therefore cannot be tested. In all cases the API
+// call itself is exercised for correctness.
 int main() {
   // Setup
   final MraaPlatformHelper helper = MraaPlatformHelper();
@@ -762,7 +763,7 @@ int main() {
       expect(context, isNotNull);
       final String ret = mraa.uart.devicePathFromIndex(2);
       expect(ret, isNull);
-    }, skip: true);
+    });
     test('Device path initialise by index', () {
       final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
       expect(context, isNotNull);

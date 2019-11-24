@@ -53,8 +53,9 @@ typedef _MraaGpioOutputDriverModeType = int Function(
 
 /// The GPIO MRAA API
 ///
-/// GPIO is the General Purpose IO interface to MRAA. Its features depend on the board type used,
-/// it can use gpiolibs (exported via a kernel module through sysfs), or memory mapped IO via
+/// GPIO is the General Purpose IO interface to MRAA. Its features
+/// depend on the board type used, it can use gpiolibs (exported via a
+/// kernel module through sysfs), or memory mapped IO via
 /// a /dev/uio device or /dev/mem depending again depending on the board configuration.
 class MraaGpio {
   /// Construction
@@ -64,9 +65,9 @@ class MraaGpio {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   int _initialiseMultiPinCount = 0;
 
@@ -168,10 +169,14 @@ class MraaGpio {
   /// Events - mraa_gpio_get_events
   ///
   /// Get an array of [MraaGpioEvent] structures describing triggered events.
-  /// Returns a list of events containing pairs of pin id's and the associated timestamp.
-  /// An event with negative id value indicates that no event was triggered for the respective pin.
-  /// The list length is that of the number of pins provided in [initialiseMulti]. Note if this method
-  /// has not been called we can't get the event list so null is returned.
+  /// Returns a list of events containing pairs of pin id's and
+  /// the associated timestamp.
+  /// An event with negative id value indicates that no event was
+  /// triggered for the respective pin.
+  /// The list length is that of the number of pins provided in
+  /// [initialiseMulti].
+  /// Note if this method has not been called we can't get the event list
+  /// so null is returned.
   List<MraaGpioEvent> events(Pointer<MraaGpioContext> dev) {
     if (_initialiseMultiPinCount == 0) {
       return null;
@@ -207,9 +212,10 @@ class MraaGpio {
   /// Close - mraa_gpio_close
   ///
   /// Close the [MraaGpioContext]
-  /// Free's the memory for the context and unexports the Gpio - sysfs interface.
-  /// Free's up the memory used by context and closes any related file descriptors -
-  /// chardev interface.
+  /// Free's the memory for the context and unexports the
+  /// Gpio - sysfs interface.
+  /// Free's up the memory used by context and closes any related
+  /// file descriptors - chardev interface.
   MraaReturnCode close(Pointer<MraaGpioContext> dev) =>
       returnCode.fromInt(_closeFunc(dev));
 
@@ -244,9 +250,9 @@ class MraaGpio {
 
   /// Write multi - mraa_gpio_write_multi
   ///
-  /// Write multiple values to the GPIO. The user must provide an integer array with a length
-  /// equal to the number of pins provided to [initialiseMulti()] method and in
-  /// the same order.
+  /// Write multiple values to the GPIO. The user must provide an
+  /// integer array with a length equal to the number of pins provided
+  /// to [initialiseMulti()] method and in the same order.
   MraaReturnCode writeMulti(Pointer<MraaGpioContext> dev, List<int> values) {
     if (_initialiseMultiPinCount == 0) {
       return MraaReturnCode.errorUnspecified;
@@ -277,7 +283,8 @@ class MraaGpio {
 
   /// Pin raw - mraa_gpio_get_pin_raw
   ///
-  /// Get a GPIO number as used within sysfs, returns [Mraa.generalError] on failure.
+  /// Get a GPIO number as used within sysfs,
+  /// returns [Mraa.generalError] on failure.
   int pinRaw(Pointer<MraaGpioContext> dev) => _pinRawFunc(dev);
 
   /// Input mode - mraa_gpio_input_mode
@@ -290,7 +297,8 @@ class MraaGpio {
   /// Output driver mode - mraa_gpio_out_driver_mode
   ///
   /// Set the GPIO output driver mode.
-  /// This is not a standard feature, it needs a custom implementation for each board.
+  /// This is not a standard feature, it needs a custom implementation
+  /// for each board.
   MraaReturnCode outputDriverMode(
           Pointer<MraaGpioContext> dev, MraaGpioOutputDriverMode mode) =>
       returnCode.fromInt(

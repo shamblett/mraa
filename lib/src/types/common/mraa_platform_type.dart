@@ -134,7 +134,8 @@ const Map<int, MraaPlatformType> _platformTypeValues = <int, MraaPlatformType>{
 MraaEnumHelper<MraaPlatformType> platformTypes =
     MraaEnumHelper<MraaPlatformType>(_platformTypeValues);
 
-/// Get sub platform and main platform from a platform combined type function call
+/// Get sub platform and main platform from a platform combined
+/// type function call.
 class MraaCombinedTypeDecode {
   /// Main platform type
   MraaPlatformType mainPlatform;

@@ -44,9 +44,9 @@ typedef _MraaPwmMinPeriodType = int Function(Pointer<MraaPwmContext>);
 /// The PWM MRAA API
 ///
 /// PWM is the Pulse Width Modulation interface to MRAA.
-/// It allows the generation of a signal on a pin. Some boards may have higher or
-/// lower levels of resolution so make sure yocheck the board & pin you
-/// are using before hand.
+/// It allows the generation of a signal on a pin. Some boards may
+/// have higher or lower levels of resolution so make sure you
+/// check the board & pin you are using before hand.
 class MraaPwm {
   /// Construction
   MraaPwm(this._lib, this._noJsonLoading) {
@@ -55,9 +55,9 @@ class MraaPwm {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaPwmContextIntParameterFunc>> _initPointer;
@@ -122,7 +122,8 @@ class MraaPwm {
   /// Write - mraa_pwm_write
   ///
   /// Set the output duty-cycle percentage, as a double.
-  /// The percentage value should lie between 0.0f (representing on 0%) and 1.0f.
+  /// The percentage value should lie between 0.0f
+  /// (representing on 0%) and 1.0f.
   /// Values above or below this range will be set at either 0.0f or 1.0f
   MraaReturnCode write(Pointer<MraaPwmContext> dev, double percentage) =>
       returnCode.fromInt(_writeFunc(dev, percentage));
@@ -174,7 +175,8 @@ class MraaPwm {
   /// Enable - mraa_pwm_enable
   ///
   /// Set the enable status of the PWM pin.
-  /// None zero will assume on with output being driven. and 0 will disable the output.
+  /// None zero will assume on with output being driven. and 0 will
+  /// disable the output.
   MraaReturnCode enable(Pointer<MraaPwmContext> dev, int enable) =>
       returnCode.fromInt(_enableFunc(dev, enable));
 

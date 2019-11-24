@@ -1,6 +1,6 @@
 name: mraa
 description: A Dart FFI wrapper implementation of the Intel linux MRAA device library
-version: 1.0.0
+version: 1.1.0
 author: Steve Hamblett <steve.hamblett@linux.com>
 homepage: https://github.com/shamblett/mraa
 
