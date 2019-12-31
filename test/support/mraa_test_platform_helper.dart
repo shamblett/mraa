@@ -9,6 +9,11 @@ import 'package:test/test.dart';
 import 'mraa_platform_helper.dart';
 
 // ignore_for_file: unused_local_variable
+// ignore_for_file: omit_local_variable_types
+// ignore_for_file: unnecessary_final
+// ignore_for_file: cascade_invocations
+// ignore_for_file: avoid_print
+
 @TestOn('VM && Linux')
 int main() {
   test('Initialise', () {

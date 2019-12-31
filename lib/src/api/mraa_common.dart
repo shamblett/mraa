@@ -11,6 +11,11 @@
 
 part of mraa;
 
+// ignore_for_file: omit_local_variable_types
+// ignore_for_file: unnecessary_final
+// ignore_for_file: cascade_invocations
+// ignore_for_file: avoid_print
+
 /// C Function signature typedefs
 typedef _returnMraaCommonStringNoParametersFunc = Pointer<ffi.Utf8> Function();
 typedef _returnMraaCommonStringIntParametersFunc = Pointer<ffi.Utf8> Function(
@@ -77,7 +82,7 @@ class MraaCommon {
   /// The MRAA library
   final DynamicLibrary _lib;
 
-  bool _noJsonLoading = false;
+  final bool _noJsonLoading;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaCommonStringNoParametersFunc>>

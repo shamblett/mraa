@@ -7,6 +7,10 @@
 
 part of mraa;
 
+// ignore_for_file: omit_local_variable_types
+// ignore_for_file: unnecessary_final
+// ignore_for_file: cascade_invocations
+
 /// Generic enumeration helper class
 class MraaEnumHelper<T extends dynamic> {
   /// Construction
@@ -26,6 +30,7 @@ class MraaEnumHelper<T extends dynamic> {
   /// As int
   int asInt(T code) {
     if (_valuesMap.containsValue(code)) {
+      // ignore: avoid_types_on_closure_parameters
       return _valuesMap.keys.firstWhere((int e) => _valuesMap[e] == code);
     }
     return Mraa.generalError;
