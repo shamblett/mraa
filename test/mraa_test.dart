@@ -767,7 +767,11 @@ int main() {
       final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final String ret = mraa.uart.devicePathFromIndex(2);
-      expect(ret, isNull);
+      if (helper.isUbuntu()) {
+        expect(ret, isNotNull);
+      } else {
+        expect(ret, isNull);
+      }
     });
     test('Device path initialise by index', () {
       final Pointer<MraaUartContext> context = mraa.uart.initialise(0);
