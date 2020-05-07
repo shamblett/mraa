@@ -5,15 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-// ignore_for_file: avoid_positional_boolean_parameters
-// ignore_for_file: avoid_private_typedef_functions
-
 part of mraa;
-
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
 
 /// C Function type typedefs
 typedef _returnMraaPwmContextIntParameterFunc = Pointer<MraaPwmContext>
@@ -191,7 +183,7 @@ class MraaPwm {
   /// Change(take) ownership of context
   /// Owner set to true indicates a take ownership
   MraaReturnCode owner(Pointer<MraaPwmContext> dev, bool owner) {
-    final int rawBool = owner ? 1 : 0;
+    final rawBool = owner ? 1 : 0;
     return returnCode.fromInt(_ownerFunc(dev, rawBool));
   }
 

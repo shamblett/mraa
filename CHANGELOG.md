@@ -1,3 +1,6 @@
+# 1.1.2
+Linter + pana updates
+``
 # 1.1.1
 Linter updates
 

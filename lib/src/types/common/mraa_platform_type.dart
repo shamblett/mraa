@@ -7,10 +7,6 @@
 
 part of mraa;
 
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-
 /// MRAA platform types
 enum MraaPlatformType {
   /// The Generation 1 Galileo platform (RevD)
@@ -150,7 +146,7 @@ class MraaCombinedTypeDecode {
 
 /// Combined type function decoder
 MraaCombinedTypeDecode decodeCombinedType(int value) {
-  final MraaCombinedTypeDecode ret = MraaCombinedTypeDecode();
+  final ret = MraaCombinedTypeDecode();
   ret.mainPlatform = platformTypes.fromInt(value & 0xFF);
   ret.subPlatform = platformTypes.fromInt(value & (0xFF00 << 8));
   return ret;

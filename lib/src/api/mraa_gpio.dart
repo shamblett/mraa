@@ -5,16 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-// ignore_for_file: avoid_positional_boolean_parameters
-
-// ignore_for_file: avoid_private_typedef_functions
-
 part of mraa;
-
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
 
 /// C Function signature typedefs
 typedef _returnMraaGpioContextIntParameterFunc = Pointer<MraaGpioContext>
@@ -151,9 +142,9 @@ class MraaGpio {
   ///
   /// Initialise a [MraaGpioContext] for multiple pins (can be one).
   Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
-    final Pointer<Int32> mpins = ffi.allocate<Int32>(count: numPins);
-    final Int32List values = Int32List.fromList(pins);
-    final Int32List dataItems = mpins.asTypedList(values.length);
+    final mpins = ffi.allocate<Int32>(count: numPins);
+    final values = Int32List.fromList(pins);
+    final dataItems = mpins.asTypedList(values.length);
     dataItems.setAll(0, values);
     _initialiseMultiPinCount = numPins;
     return _initialiseMultiFunc(mpins, numPins);
@@ -187,12 +178,12 @@ class MraaGpio {
     if (_initialiseMultiPinCount == 0) {
       return null;
     }
-    final Pointer<MraaGpioEvent> mevents = _eventsFunc(dev);
-    final List<MraaGpioEvent> events = <MraaGpioEvent>[];
+    final mevents = _eventsFunc(dev);
+    final events = <MraaGpioEvent>[];
     if (mevents == nullptr) {
       return events;
     }
-    for (int i = 0; i < _initialiseMultiPinCount; i++) {
+    for (var i = 0; i < _initialiseMultiPinCount; i++) {
       events.add(mevents[i]);
     }
     return events;
@@ -209,8 +200,8 @@ class MraaGpio {
   /// Read the GPIO's direction.
   MraaReturnCode readDirection(
       Pointer<MraaGpioContext> dev, MraaGpioDirectionRead gpioDirection) {
-    final Pointer<Int32> dir = ffi.allocate<Int32>(count: 1);
-    final MraaReturnCode ret = returnCode.fromInt(_readDirectionFunc(dev, dir));
+    final dir = ffi.allocate<Int32>(count: 1);
+    final ret = returnCode.fromInt(_readDirectionFunc(dev, dir));
     gpioDirection.direction = gpioDirections.fromInt(dir.value);
     return ret;
   }
@@ -235,14 +226,12 @@ class MraaGpio {
     if (_initialiseMultiPinCount == 0) {
       return MraaReturnCode.errorUnspecified;
     }
-    final Pointer<Int32> rawValues =
-        ffi.allocate<Int32>(count: _initialiseMultiPinCount);
-    int intRet = _readMultiFunc(dev, rawValues);
+    final rawValues = ffi.allocate<Int32>(count: _initialiseMultiPinCount);
+    var intRet = _readMultiFunc(dev, rawValues);
     if (intRet == Mraa.generalError) {
       intRet = 99; // unspecified
     }
-    final Int32List typedValues =
-        rawValues.asTypedList(_initialiseMultiPinCount);
+    final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
     ffi.free(rawValues);
     return returnCode.fromInt(intRet);
@@ -266,9 +255,8 @@ class MraaGpio {
     if (values.length != _initialiseMultiPinCount) {
       return MraaReturnCode.errorUnspecified;
     }
-    final Pointer<Int32> rawValues = ffi.allocate<Int32>(count: values.length);
-    final Int32List typedValues =
-        rawValues.asTypedList(_initialiseMultiPinCount);
+    final rawValues = ffi.allocate<Int32>(count: values.length);
+    final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     typedValues.setAll(0, values);
     return returnCode.fromInt(_writeMultiFunc(dev, rawValues));
   }
@@ -278,7 +266,7 @@ class MraaGpio {
   /// Change ownership of a [MraaGpioContext], setting [own] true indicates
   /// you wish to become the owner.
   MraaReturnCode owner(Pointer<MraaGpioContext> dev, bool own) {
-    final int rawOwn = own ? 1 : 0;
+    final rawOwn = own ? 1 : 0;
     return returnCode.fromInt(_ownerFunc(dev, rawOwn));
   }
 

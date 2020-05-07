@@ -5,15 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-// ignore_for_file: avoid_positional_boolean_parameters
-// ignore_for_file: avoid_private_typedef_functions
-
 part of mraa;
-
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
 
 /// C Function type typedefs
 typedef _returnMraaUartContextIntParameterFunc = Pointer<MraaUartContext>
@@ -189,8 +181,8 @@ class MraaUart {
   /// RTS/CTS is out of band hardware flow control
   MraaReturnCode flowControl(
       Pointer<MraaUartContext> dev, bool xonXoff, bool rtsCts) {
-    final int xon = xonXoff ? 1 : 0;
-    final int rts = rtsCts ? 1 : 0;
+    final xon = xonXoff ? 1 : 0;
+    final rts = rtsCts ? 1 : 0;
     return returnCode.fromInt(_flowControlFunc(dev, xon, rts));
   }
 
@@ -206,7 +198,7 @@ class MraaUart {
   ///
   /// Set the blocking state for write operations
   MraaReturnCode nonBlocking(Pointer<MraaUartContext> dev, bool nonBlock) {
-    final int block = nonBlock ? 1 : 0;
+    final block = nonBlock ? 1 : 0;
     return returnCode.fromInt(_nonBlockingFunc(dev, block));
   }
 
@@ -214,7 +206,7 @@ class MraaUart {
   ///
   /// Get the tty device path, for example "/dev/ttyS0"
   String devicePath(Pointer<MraaUartContext> dev) {
-    Pointer<ffi.Utf8> ptrPath = ffi.allocate();
+    var ptrPath = ffi.allocate();
     ptrPath = _devicePathFunc(dev);
     if (ptrPath == nullptr) {
       return null;
@@ -229,9 +221,9 @@ class MraaUart {
     if (index < 0) {
       return null;
     }
-    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate();
-    final int ret = _settingsFunc(index, ptrDevicePath, nullptr, nullptr,
-        nullptr, nullptr, nullptr, nullptr, nullptr);
+    final ptrDevicePath = ffi.allocate<Pointer<ffi.Utf8>>();
+    final ret = _settingsFunc(index, ptrDevicePath, nullptr, nullptr, nullptr,
+        nullptr, nullptr, nullptr, nullptr);
 
     // If not success return null
     if (returnCode.fromInt(ret) != MraaReturnCode.success) {
@@ -267,20 +259,20 @@ class MraaUart {
     }
 
     // Construct the parameter list
-    final Pointer<Pointer<ffi.Utf8>> ptrDevicePath = ffi.allocate();
+    final ptrDevicePath = ffi.allocate<Pointer<ffi.Utf8>>();
     if (index < 0) {
       ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
     }
-    final Pointer<Pointer<ffi.Utf8>> ptrName = ffi.allocate();
-    final Pointer<Int32> ptrBaudrate = ffi.allocate();
-    final Pointer<Int32> ptrDataBits = ffi.allocate();
-    final Pointer<Int32> ptrStopBits = ffi.allocate();
-    final Pointer<Int32> ptrParity = ffi.allocate();
-    final Pointer<Uint32> ptrRtsCts = ffi.allocate();
-    final Pointer<Uint32> ptrXonXoff = ffi.allocate();
+    final ptrName = ffi.allocate<Pointer<ffi.Utf8>>();
+    final ptrBaudrate = ffi.allocate<Int32>();
+    final ptrDataBits = ffi.allocate<Int32>();
+    final ptrStopBits = ffi.allocate<Int32>();
+    final ptrParity = ffi.allocate<Int32>();
+    final ptrRtsCts = ffi.allocate<Uint32>();
+    final ptrXonXoff = ffi.allocate<Uint32>();
 
     // Get the settings
-    final int ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
+    final ret = _settingsFunc(index, ptrDevicePath, ptrName, ptrBaudrate,
         ptrDataBits, ptrStopBits, ptrParity, ptrRtsCts, ptrXonXoff);
 
     // If not success just return the status
@@ -316,8 +308,8 @@ class MraaUart {
     if (length <= 0) {
       return Mraa.generalError;
     }
-    final Pointer<ffi.Utf8> ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
-    final int ret = _readFunc(dev, ptrBuffer, length);
+    final ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
+    final ret = _readFunc(dev, ptrBuffer, length);
     if (ret == Mraa.generalError) {
       return ret;
     }
@@ -337,8 +329,8 @@ class MraaUart {
     if (length <= 0) {
       return Mraa.generalError;
     }
-    final Pointer<ffi.Utf8> ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
-    final int ret = _writeFunc(dev, ptrBuffer, length);
+    final ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
+    final ret = _writeFunc(dev, ptrBuffer, length);
     ffi.free(ptrBuffer);
     return ret;
   }

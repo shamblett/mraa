@@ -7,10 +7,6 @@
 
 part of mraa;
 
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-
 /// UART settings as read back from the platform.
 ///
 /// The device path can be set when passed to the settings function
@@ -45,7 +41,7 @@ class MraaUartSettings {
 
   @override
   String toString() {
-    final StringBuffer sb = StringBuffer();
+    final sb = StringBuffer();
     devicePath == null
         ? sb.writeln('Device Path: not set')
         : sb.writeln('Device Path: $devicePath');

@@ -5,15 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-// ignore_for_file: avoid_positional_boolean_parameters
-// ignore_for_file: avoid_private_typedef_functions
-
 part of mraa;
-
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
 
 /// C Function type typedefs
 typedef _returnMraaSpiContextIntParameterFunc = Pointer<MraaSpiContext>
@@ -167,15 +159,15 @@ class MraaSpi {
   /// Maximum length is 4096
   Uint8List writeBuffer(
       Pointer<MraaSpiContext> dev, Uint8List data, int length) {
-    final Pointer<Uint8> ptr = ffi.allocate<Uint8>(count: length);
-    final Uint8List ptrData = ptr.asTypedList(length);
+    final ptr = ffi.allocate<Uint8>(count: length);
+    final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, data);
-    final Pointer<Uint8> retData = _writeBufferFunc(dev, ptr, length);
+    final retData = _writeBufferFunc(dev, ptr, length);
     if (retData == nullptr) {
       return null;
     }
-    final Uint8List retDataList = retData.asTypedList(length);
-    final Uint8List ret = Uint8List(length);
+    final retDataList = retData.asTypedList(length);
+    final ret = Uint8List(length);
     ret.setAll(0, retDataList);
     ffi.free(retData);
     return ret;
@@ -188,15 +180,15 @@ class MraaSpi {
   /// Maximum length is 4096
   Uint16List writeBufferWord(
       Pointer<MraaSpiContext> dev, Uint16List data, int length) {
-    final Pointer<Uint16> ptr = ffi.allocate<Uint16>(count: length);
-    final Uint16List ptrData = ptr.asTypedList(length);
+    final ptr = ffi.allocate<Uint16>(count: length);
+    final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, data);
-    final Pointer<Uint16> retData = _writeBufferWordFunc(dev, ptr, length);
+    final retData = _writeBufferWordFunc(dev, ptr, length);
     if (retData == nullptr) {
       return null;
     }
-    final Uint16List retDataList = retData.asTypedList(length);
-    final Uint16List ret = Uint16List(length);
+    final retDataList = retData.asTypedList(length);
+    final ret = Uint16List(length);
     ret.setAll(0, retDataList);
     ffi.free(retData);
     return ret;
@@ -209,11 +201,11 @@ class MraaSpi {
   /// Maximum length 4096 both ways
   MraaReturnCode transferBuffer(Pointer<MraaSpiContext> dev,
       MraaSpiTransferBuffer<Uint8List> buffer, int length) {
-    final Pointer<Uint8> ptr = ffi.allocate<Uint8>(count: length);
-    final Uint8List ptrData = ptr.asTypedList(length);
+    final ptr = ffi.allocate<Uint8>(count: length);
+    final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
-    final Pointer<Uint8> retData = ffi.allocate<Uint8>(count: length);
-    final MraaReturnCode status =
+    final retData = ffi.allocate<Uint8>(count: length);
+    final status =
         returnCode.fromInt(_transferBufferFunc(dev, ptr, retData, length));
     if (status != MraaReturnCode.success) {
       return status;
@@ -222,7 +214,7 @@ class MraaSpi {
       buffer.dataReceived = null;
       return status;
     }
-    final Uint8List retDataList = retData.asTypedList(length);
+    final retDataList = retData.asTypedList(length);
     buffer.dataReceived = Uint8List(length);
     buffer.dataReceived.setAll(0, retDataList);
     ffi.free(retData);
@@ -236,13 +228,13 @@ class MraaSpi {
   /// Maximum length 4096 both ways
   MraaReturnCode transferBufferWord(Pointer<MraaSpiContext> dev,
       MraaSpiTransferBuffer<Uint16List> buffer, int length) {
-    final Pointer<Uint16> ptr = ffi.allocate<Uint16>(count: length);
-    final Uint16List ptrData = ptr.asTypedList(length);
+    final ptr = ffi.allocate<Uint16>(count: length);
+    final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
-    final Pointer<Uint16> retData = ffi.allocate<Uint16>(count: length);
-    final MraaReturnCode status =
+    final retData = ffi.allocate<Uint16>(count: length);
+    final status =
         returnCode.fromInt(_transferBufferWordFunc(dev, ptr, retData, length));
-    final Uint16List retDataList = retData.asTypedList(length);
+    final retDataList = retData.asTypedList(length);
     if (status != MraaReturnCode.success) {
       return status;
     }
@@ -261,7 +253,7 @@ class MraaSpi {
   /// Change the SPI LSB mode
   /// [lsb] set to true indicates use the least significant bit transmission
   MraaReturnCode lsbMode(Pointer<MraaSpiContext> dev, bool lsb) {
-    final int mode = lsb ? 1 : 0;
+    final mode = lsb ? 1 : 0;
     return returnCode.fromInt(_lsbModeFunc(dev, mode));
   }
 

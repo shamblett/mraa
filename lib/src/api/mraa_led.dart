@@ -5,15 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-// ignore_for_file: avoid_positional_boolean_parameters
-// ignore_for_file: avoid_private_typedef_functions
-
 part of mraa;
-
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
 
 /// C Function type typedefs
 typedef _returnMraaLedContextIntParameterFunc = Pointer<MraaLedContext>

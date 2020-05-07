@@ -7,11 +7,6 @@
 
 import 'dart:io';
 
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
-
 /// Platform support helper class for testing
 class MraaPlatformHelper {
   /// Construction
@@ -46,14 +41,14 @@ class MraaPlatformHelper {
   }
 
   void _loadOsDetails() {
-    const String osFilePath = '/etc/os-release';
-    final File osFile = File(osFilePath);
-    final List<String> lines = osFile.readAsLinesSync();
-    for (final String line in lines) {
+    const osFilePath = '/etc/os-release';
+    final osFile = File(osFilePath);
+    final lines = osFile.readAsLinesSync();
+    for (final line in lines) {
       if (line.isEmpty) {
         continue;
       }
-      final List<String> vals = line.split('=');
+      final vals = line.split('=');
       vals[1] = vals[1].replaceAll('"', '');
       _osMap[vals[0]] = vals[1];
     }

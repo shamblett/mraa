@@ -5,16 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-// ignore_for_file: avoid_positional_boolean_parameters
-
-// ignore_for_file: avoid_private_typedef_functions
-
 part of mraa;
-
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: unnecessary_final
-// ignore_for_file: cascade_invocations
-// ignore_for_file: avoid_print
 
 /// C Function signature typedefs
 typedef _returnMraaCommonStringNoParametersFunc = Pointer<ffi.Utf8> Function();
@@ -229,7 +220,7 @@ class MraaCommon {
   /// depends per platform and can be NULL.
   /// [platformOffset] is 0 for the main platform, and 1 for sub platform.
   String platformVersion(int platformOffset) {
-    final Pointer<ffi.Utf8> retPtr = _platformVersionFunc(platformOffset);
+    final retPtr = _platformVersionFunc(platformOffset);
     if (retPtr == nullptr) {
       return 'No platform version set - maybe a mock board?';
     }
@@ -261,7 +252,7 @@ class MraaCommon {
   /// Checks if a pin is able to use the requested mode.
   /// Returns true if the mode is supported.
   bool pinmodeTest(int pin, MraaPinmode mode) {
-    final int ret = _pinModeTestFunc(pin, pinmode.asInt(mode));
+    final ret = _pinModeTestFunc(pin, pinmode.asInt(mode));
     return ret != 0;
   }
 
@@ -416,7 +407,7 @@ class MraaCommon {
   /// Detect the presence of sub platform.
   /// Returns true if a sub platform is present and initialized.
   bool hasSubPlatform() {
-    final int ret = _hasSubPlatformFunc();
+    final ret = _hasSubPlatformFunc();
     return ret == 1;
   }
 
@@ -425,7 +416,7 @@ class MraaCommon {
   /// Check if a pin or bus id includes a sub platform mask.
   /// Returns true if the pin or bus id is for a sub platform.
   bool isSubPlatformId(int pinOrBusId) {
-    final int ret = _isSubPlatformIdFunc(pinOrBusId);
+    final ret = _isSubPlatformIdFunc(pinOrBusId);
     return ret == 1;
   }
 
