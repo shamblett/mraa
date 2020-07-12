@@ -65,15 +65,24 @@ typedef _MraaCommonRemoveSubplatformType = int Function(int);
 /// Defines the basic shared functions and values for MRAA.
 class MraaCommon {
   /// Construction
-  MraaCommon(this._lib, this._noJsonLoading) {
+  MraaCommon(this._lib, this._noJsonLoading, this._useGrovePi) {
     _setUpPointers();
     _setUpFunctions();
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
   }
 
   /// The MRAA library
   final DynamicLibrary _lib;
 
   final bool _noJsonLoading;
+
+  final _useGrovePi;
+
+  // Pin offset if we are using the grove pi shield.
+  int _grovePiPinOffset = 0;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaCommonStringNoParametersFunc>>
@@ -252,7 +261,7 @@ class MraaCommon {
   /// Checks if a pin is able to use the requested mode.
   /// Returns true if the mode is supported.
   bool pinmodeTest(int pin, MraaPinmode mode) {
-    final ret = _pinModeTestFunc(pin, pinmode.asInt(mode));
+    final ret = _pinModeTestFunc(pin + _grovePiPinOffset, pinmode.asInt(mode));
     return ret != 0;
   }
 
@@ -365,7 +374,8 @@ class MraaCommon {
   /// Pin name - mraa_get_pin_name
   ///
   /// Get the name of a pin, the board must be initialised.
-  String pinName(int pinNumber) => ffi.Utf8.fromUtf8(_pinNameFunc(pinNumber));
+  String pinName(int pinNumber) =>
+      ffi.Utf8.fromUtf8(_pinNameFunc(pinNumber + _grovePiPinOffset));
 
   /// GPIO lookup - mraa_gpio_lookup
   ///

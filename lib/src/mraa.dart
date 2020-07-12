@@ -38,15 +38,27 @@ class Mraa {
   /// General common function error
   static const int generalError = -1;
 
+  /// Grove PI pin offset value
+  static const int grovePiPinOffset = 512;
+
   /// Do not use JSON platform loading, some versions of MRAA do not
   /// support this, must be set for MRAA API <2.0.0 usage. Set this before
   /// initialising.
   bool noJsonLoading = false;
 
+  /// Use the Grove Pi shield.
+  /// Set this if you are using GPIO/AIO devices on a Raspberry PI through the
+  /// Grove Pi shield. Set this before initialising.
+  bool useGrovePi = false;
+
   /// Initialise the package, note this does NOT do an MRAA initialise
   /// if you need this call it separately. You MUST call this before usage.
   void initialise() {
     _setupAPI();
+    // Initialise the sub platform if using Grove Pi
+    if (useGrovePi) {
+      common.addSubplatform(MraaPlatformType.grovepi, '0');
+    }
   }
 
   /// The MRAA library
@@ -77,12 +89,12 @@ class Mraa {
   MraaUart uart;
 
   void _setupAPI() {
-    common = MraaCommon(_lib, noJsonLoading);
-    gpio = MraaGpio(_lib, noJsonLoading);
-    aio = MraaAio(_lib, noJsonLoading);
+    common = MraaCommon(_lib, noJsonLoading, useGrovePi);
+    gpio = MraaGpio(_lib, noJsonLoading, useGrovePi);
+    aio = MraaAio(_lib, noJsonLoading, useGrovePi);
     i2c = MraaI2c(_lib, noJsonLoading);
     led = MraaLed(_lib, noJsonLoading);
-    pwm = MraaPwm(_lib, noJsonLoading);
+    pwm = MraaPwm(_lib, noJsonLoading, useGrovePi);
     spi = MraaSpi(_lib, noJsonLoading);
     uart = MraaUart(_lib, noJsonLoading);
   }

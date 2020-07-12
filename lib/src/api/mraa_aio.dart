@@ -31,9 +31,13 @@ typedef _MraaAioGetBitType = int Function(Pointer<MraaAioContext>);
 /// It is used to read or set the voltage applied to an AIO pin.
 class MraaAio {
   /// Construction
-  MraaAio(this._lib, this._noJsonLoading) {
+  MraaAio(this._lib, this._noJsonLoading, this._useGrovePi) {
     _setUpPointers();
     _setUpFunctions();
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
   }
 
   /// The MRAA library
@@ -41,6 +45,11 @@ class MraaAio {
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  final _useGrovePi;
+
+  // Pin offset if we are using the grove pi shield.
+  int _grovePiPinOffset = 0;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaAioContextIntParameterFunc>> _initPointer;
@@ -65,7 +74,8 @@ class MraaAio {
   /// Initialise an analogue input device connected to the specified pin.
   /// AIO pins are always 0 indexed regardless of their position.
   /// Check your board mapping for details.
-  Pointer<MraaAioContext> initialise(int pin) => _initFunc(pin);
+  Pointer<MraaAioContext> initialise(int pin) =>
+      _initFunc(pin + _grovePiPinOffset);
 
   /// Read - mraa_aio_read_float
   ///

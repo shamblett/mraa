@@ -55,16 +55,25 @@ typedef _MraaGpioOutputDriverModeType = int Function(
 /// a /dev/uio device or /dev/mem depending again depending on the board configuration.
 class MraaGpio {
   /// Construction
-  MraaGpio(this._lib, this._noJsonLoading) {
+  MraaGpio(this._lib, this._noJsonLoading, this._useGrovePi) {
     _setUpPointers();
     _setUpFunctions();
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
   }
 
   /// The MRAA library
   final DynamicLibrary _lib;
 
   // ignore: unused_field
-  final bool _noJsonLoading;
+  final _noJsonLoading;
+
+  final _useGrovePi;
+
+  // Pin offset if we are using the grove pi shield.
+  int _grovePiPinOffset = 0;
 
   int _initialiseMultiPinCount = 0;
 
@@ -122,7 +131,8 @@ class MraaGpio {
   /// Initialise - mraa_gpio_init
   ///
   /// Initialise a [MraaGpioContext] based on pin number
-  Pointer<MraaGpioContext> initialise(int pin) => _initialiseFunc(pin);
+  Pointer<MraaGpioContext> initialise(int pin) =>
+      _initialiseFunc(pin + _grovePiPinOffset);
 
   /// GPIO direction - mraa_gpio_dir
   ///
@@ -142,6 +152,9 @@ class MraaGpio {
   ///
   /// Initialise a [MraaGpioContext] for multiple pins (can be one).
   Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
+    pins.forEach((int pin) {
+      pin += _grovePiPinOffset;
+    });
     final mpins = ffi.allocate<Int32>(count: numPins);
     final values = Int32List.fromList(pins);
     final dataItems = mpins.asTypedList(values.length);
@@ -155,7 +168,7 @@ class MraaGpio {
   /// Initialise a [MraaGpioContext] without any mapping to a pin.
   /// The [gpioPin] supplied is as listed in SYSFS.
   Pointer<MraaGpioContext> initialiseRaw(int gpioPin) =>
-      _initialiseRawFunc(gpioPin);
+      _initialiseRawFunc(gpioPin + _grovePiPinOffset);
 
   /// Edge mode - mraa_gpio_edge_mode
   ///
@@ -273,13 +286,14 @@ class MraaGpio {
   /// Pin - mraa_gpio_get_pin
   ///
   /// Get a pin number of the GPIO, returns [Mraa.generalError] on failure.
-  int pin(Pointer<MraaGpioContext> dev) => _pinFunc(dev);
+  int pin(Pointer<MraaGpioContext> dev) => _pinFunc(dev) - _grovePiPinOffset;
 
   /// Pin raw - mraa_gpio_get_pin_raw
   ///
   /// Get a GPIO number as used within sysfs,
   /// returns [Mraa.generalError] on failure.
-  int pinRaw(Pointer<MraaGpioContext> dev) => _pinRawFunc(dev);
+  int pinRaw(Pointer<MraaGpioContext> dev) =>
+      _pinRawFunc(dev) - _grovePiPinOffset;
 
   /// Input mode - mraa_gpio_input_mode
   ///

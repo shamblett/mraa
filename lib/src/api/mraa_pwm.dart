@@ -46,9 +46,13 @@ typedef _MraaPwmMinPeriodType = int Function(Pointer<MraaPwmContext>);
 /// check the board & pin you are using before hand.
 class MraaPwm {
   /// Construction
-  MraaPwm(this._lib, this._noJsonLoading) {
+  MraaPwm(this._lib, this._noJsonLoading, this._useGrovePi) {
     _setUpPointers();
     _setUpFunctions();
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
   }
 
   /// The MRAA library
@@ -56,6 +60,11 @@ class MraaPwm {
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  final _useGrovePi;
+
+  // Pin offset if we are using the grove pi shield.
+  int _grovePiPinOffset = 0;
 
   /// C Pointers
   Pointer<NativeFunction<_returnMraaPwmContextIntParameterFunc>> _initPointer;
@@ -108,14 +117,15 @@ class MraaPwm {
   ///
   /// Initialise an [MraaPwmContext] uses board mapping
   /// Returns pwm context or NULL.
-  Pointer<MraaPwmContext> initialise(int pin) => _initFunc(pin);
+  Pointer<MraaPwmContext> initialise(int pin) =>
+      _initFunc(pin + _grovePiPinOffset);
 
   /// Initialise raw - mraa_pwm_init_raw
   ///
   /// Initialise an [MraaPwmContext], raw mode, uses the
   /// chip in which the PWM is under in SYSFS.
   Pointer<MraaPwmContext> initialiseRaw(int chipId, int pin) =>
-      _initRawFunc(chipId, pin);
+      _initRawFunc(chipId, pin + _grovePiPinOffset);
 
   /// Write - mraa_pwm_write
   ///
