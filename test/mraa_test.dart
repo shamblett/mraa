@@ -5,6 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
+import 'dart:io';
 import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:ffi/ffi.dart';
@@ -740,16 +741,6 @@ int main() {
       final ret = mraa.uart.devicePathFromIndex(0);
       expect(ret, isNotNull);
       expect(ret, 'dummy');
-    });
-    test('Device path from index invalid', () {
-      final context = mraa.uart.initialise(0);
-      expect(context, isNotNull);
-      final ret = mraa.uart.devicePathFromIndex(2);
-      if (helper.isUbuntu()) {
-        expect(ret, isNotNull);
-      } else {
-        expect(ret, isNull);
-      }
     });
     test('Device path initialise by index', () {
       final context = mraa.uart.initialise(0);
