@@ -1,3 +1,6 @@
+# 1.2.0
+Issue 2
+
 # 1.1.2
 Linter + pana updates
 ``
