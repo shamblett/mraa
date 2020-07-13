@@ -132,12 +132,12 @@ int main() {
     test('Pin', () {
       final context = mraa.gpio.initialise(1);
       final ret = mraa.gpio.pin(context);
-      expect(ret, -1 * (Mraa.grovePiPinOffset + Mraa.generalError));
+      expect(ret, Mraa.generalError);
     });
     test('Pin raw', () {
       final context = mraa.gpio.initialise(1);
       final ret = mraa.gpio.pinRaw(context);
-      expect(ret, -1 * (Mraa.grovePiPinOffset + Mraa.generalError));
+      expect(ret, Mraa.generalError);
     });
     test('Input mode', () {
       final context = mraa.gpio.initialise(1);

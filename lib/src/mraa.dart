@@ -36,7 +36,7 @@ class Mraa {
   static const double aioReadDoubleError = -1;
 
   /// General common function error
-  static final int generalError = -1;
+  static int generalError = -1;
 
   /// Grove PI pin offset value
   static const int grovePiPinOffset = 512;
@@ -49,7 +49,12 @@ class Mraa {
   /// Use the Grove Pi shield.
   /// Set this if you are using GPIO/AIO devices on a Raspberry PI through the
   /// Grove Pi shield. Set this before initialising.
-  bool useGrovePi = false;
+  bool _useGrovePi = false;
+  bool get useGrovePi => _useGrovePi;
+  set useGrovePi(bool flag) {
+    flag ? generalError = -511 : -1;
+    _useGrovePi = flag;
+  }
 
   /// Initialise the package, note this does NOT do an MRAA initialise
   /// if you need this call it separately. You MUST call this before usage.
