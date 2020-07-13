@@ -36,7 +36,9 @@ class Mraa {
   static const double aioReadDoubleError = -1;
 
   /// General common function error
-  static int generalError = -1;
+  static int _generalError = -1;
+  static int get generalError => _generalError;
+  static set generalError(int val) {}
 
   /// Grove PI pin offset value
   static const int grovePiPinOffset = 512;
@@ -52,7 +54,7 @@ class Mraa {
   bool _useGrovePi = false;
   bool get useGrovePi => _useGrovePi;
   set useGrovePi(bool flag) {
-    flag ? generalError = -511 : -1;
+    _generalError = flag ? -511 : -1;
     _useGrovePi = flag;
   }
 
