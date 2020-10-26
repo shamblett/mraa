@@ -797,7 +797,7 @@ int main() {
       expect(context, isNotNull);
       mraa.uart.flush(context);
       final buffer = MraaUartBuffer();
-      buffer.byteData.addAll([0xDE, 0xAD, 0xBE, 0xEF]);
+      buffer.byteData = Uint8List.fromList([0xDE, 0xAD, 0xBE, 0xEF]);
       final ret = mraa.uart.writeBytes(context, buffer, buffer.byteLength);
       expect(ret, buffer.byteLength);
     });
