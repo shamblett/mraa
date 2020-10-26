@@ -349,7 +349,7 @@ class MraaUart {
       return ret;
     }
     try {
-      buffer.uintData = ptrBuffer.asTypedList(ret);
+      buffer.byteData = ptrBuffer.asTypedList(ret);
     } on Exception {
       return Mraa.generalError;
     }
@@ -383,13 +383,13 @@ class MraaUart {
     if (length <= 0) {
       return Mraa.generalError;
     }
-    if (buffer.uintData.isEmpty || buffer.uintLength < length) {
+    if (buffer.byteData.isEmpty || buffer.byteLength < length) {
       return Mraa.generalError;
     }
     final ptrBuffer = ffi.allocate<Uint8>(count: length);
     var count = 0;
     ptrBuffer.asTypedList(length).forEach((e) {
-      e = buffer.uintData[count];
+      e = buffer.byteData[count];
       count++;
     });
     final ret = _writeFunc(dev, ptrBuffer, length);

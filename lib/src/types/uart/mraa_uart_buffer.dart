@@ -15,9 +15,9 @@ class MraaUartBuffer {
   /// UTF8 Length
   int get utf8Length => utf8Data == null ? 0 : utf8Data.length;
 
-  /// The TX/RX buffer for Uint8 methods
-  Uint8List uintData;
+  /// The TX/RX buffer for byte(Uint8) methods
+  Uint8List byteData;
 
   /// Uint Length
-  int get uintLength => uintData == null ? 0 : uintData.length;
+  int get byteLength => byteData == null ? 0 : byteData.length;
 }
