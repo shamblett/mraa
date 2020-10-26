@@ -788,20 +788,20 @@ int main() {
       expect(context, isNotNull);
       mraa.uart.flush(context);
       final buffer = MraaUartBuffer();
-      buffer.data = 'Hello UART';
-      final ret = mraa.uart.write(context, buffer, buffer.length);
-      expect(ret, buffer.length);
+      buffer.utf8Data = 'Hello UART';
+      final ret = mraa.uart.writeUtf8(context, buffer, buffer.utf8Length);
+      expect(ret, buffer.utf8Length);
     });
     test('Read', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
       mraa.uart.flush(context);
       final buffer = MraaUartBuffer();
-      buffer.data = '';
-      final ret = mraa.uart.read(context, buffer, buffer.length);
+      buffer.utf8Data = '';
+      final ret = mraa.uart.readUtf8(context, buffer, buffer.utf8Length);
       if (ret != Mraa.generalError) {
         expect(ret, 10);
-        expect(buffer.length, 10);
+        expect(buffer.utf8Length, 10);
       } else {
         expect(ret, Mraa.generalError);
       }

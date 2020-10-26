@@ -36,6 +36,8 @@ typedef _returnIntInt2String4Int2UIntParameterFunc = Int32 Function(
     Pointer<Uint32>);
 typedef _returnIntMraaUartContextStringIntParameterFunc = Int32 Function(
     Pointer<MraaUartContext>, Pointer<ffi.Utf8>, Int32);
+typedef _returnIntMraaUartContextUintIntParameterFunc = Int32 Function(
+    Pointer<MraaUartContext>, Pointer<Uint8>, Int32);
 
 /// Dart Function typedefs
 typedef _MraaUartInitialiseType = Pointer<MraaUartContext> Function(int);
@@ -64,10 +66,14 @@ typedef _MraaUartSettingsType = int Function(
     Pointer<Uint32>,
     Pointer<Uint32>);
 typedef _MraaUartStopType = int Function(Pointer<MraaUartContext>);
+typedef _MraaUartReadUtf8Type = int Function(
+    Pointer<MraaUartContext>, Pointer<ffi.Utf8>, int);
 typedef _MraaUartReadType = int Function(
+    Pointer<MraaUartContext>, Pointer<Uint8>, int);
+typedef _MraaUartWriteUtf8Type = int Function(
     Pointer<MraaUartContext>, Pointer<ffi.Utf8>, int);
 typedef _MraaUartWriteType = int Function(
-    Pointer<MraaUartContext>, Pointer<ffi.Utf8>, int);
+    Pointer<MraaUartContext>, Pointer<Uint8>, int);
 
 /// The UART MRAA API
 ///
@@ -110,8 +116,12 @@ class MraaUart {
       _settingsPointer;
   Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>> _stopPointer;
   Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
+      _readPointerUtf8;
+  Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _readPointer;
   Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
+      _writePointerUtf8;
+  Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _writePointer;
 
   /// Dart Functions
@@ -127,7 +137,9 @@ class MraaUart {
   _MraaUartDevicePathType _devicePathFunc;
   _MraaUartSettingsType _settingsFunc;
   _MraaUartStopType _stopFunc;
+  _MraaUartReadUtf8Type _readFuncUtf8;
   _MraaUartReadType _readFunc;
+  _MraaUartWriteUtf8Type _writeFuncUtf8;
   _MraaUartWriteType _writeFunc;
 
   /// Initialise - mraa_uart_init
@@ -300,36 +312,86 @@ class MraaUart {
   MraaReturnCode stop(Pointer<MraaUartContext> dev) =>
       returnCode.fromInt(_stopFunc(dev));
 
-  /// Read - mraa_uart_read
+  /// Read UTF8 - mraa_uart_read
   ///
-  /// Read bytes from the device into a buffer
+  /// Read bytes as UTF8 from the device into a buffer
   /// Returns the number of bytes read, or [Mraa.generalError].
-  int read(Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
+  int readUtf8(
+      Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
     if (length <= 0) {
       return Mraa.generalError;
     }
     final ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
-    final ret = _readFunc(dev, ptrBuffer, length);
+    final ret = _readFuncUtf8(dev, ptrBuffer, length);
     if (ret == Mraa.generalError) {
       return ret;
     }
     try {
-      buffer.data = ffi.Utf8.fromUtf8(ptrBuffer);
+      buffer.utf8Data = ffi.Utf8.fromUtf8(ptrBuffer);
     } on FormatException {
       return Mraa.generalError;
     }
     return ret;
   }
 
-  /// Write - mraa_uart_write
+  /// Read unsigned bytes - mraa_uart_read
   ///
-  /// Write bytes to the device from a buffer
-  /// Returns the number of bytes written, or [Mraa.generalError]
-  int write(Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
+  /// Read bytes from the device into a buffer
+  /// Returns the number of bytes read, or [Mraa.generalError].
+  int readBytes(
+      Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
     if (length <= 0) {
       return Mraa.generalError;
     }
-    final ptrBuffer = ffi.allocate<ffi.Utf8>(count: length);
+    final ptrBuffer = ffi.allocate<Uint8>(count: length);
+    final ret = _readFunc(dev, ptrBuffer, length);
+    if (ret == Mraa.generalError) {
+      return ret;
+    }
+    try {
+      buffer.uintData = ptrBuffer.asTypedList(ret);
+    } on Exception {
+      return Mraa.generalError;
+    }
+    return ret;
+  }
+
+  /// Write UTF8 - mraa_uart_write
+  ///
+  /// Write bytes as UTF8 to the device from a buffer
+  /// Returns the number of bytes written, or [Mraa.generalError]
+  int writeUtf8(
+      Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
+    if (length <= 0) {
+      return Mraa.generalError;
+    }
+    if (buffer.utf8Data.isEmpty || buffer.utf8Length < length) {
+      return Mraa.generalError;
+    }
+    final ptrBuffer = ffi.Utf8.toUtf8(buffer.utf8Data);
+    final ret = _writeFuncUtf8(dev, ptrBuffer, length);
+    ffi.free(ptrBuffer);
+    return ret;
+  }
+
+  /// Write bytes - mraa_uart_write
+  ///
+  /// Write bytes to the device from a buffer.
+  /// Returns the number of bytes written, or [Mraa.generalError]
+  int writeBytes(
+      Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
+    if (length <= 0) {
+      return Mraa.generalError;
+    }
+    if (buffer.uintData.isEmpty || buffer.uintLength < length) {
+      return Mraa.generalError;
+    }
+    final ptrBuffer = ffi.allocate<Uint8>(count: length);
+    var count = 0;
+    ptrBuffer.asTypedList(length).forEach((e) {
+      e = buffer.uintData[count];
+      count++;
+    });
     final ret = _writeFunc(dev, ptrBuffer, length);
     ffi.free(ptrBuffer);
     return ret;
@@ -372,12 +434,18 @@ class MraaUart {
     _stopPointer =
         _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterFunc>>(
             'mraa_uart_stop');
-    _readPointer = _lib.lookup<
+    _readPointerUtf8 = _lib.lookup<
             NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>(
         'mraa_uart_read');
-    _writePointer = _lib.lookup<
+    _readPointer = _lib
+        .lookup<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>(
+            'mraa_uart_read');
+    _writePointerUtf8 = _lib.lookup<
             NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>(
         'mraa_uart_write');
+    _writePointer = _lib
+        .lookup<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>(
+            'mraa_uart_write');
   }
 
   void _setUpFunctions() {
@@ -395,7 +463,9 @@ class MraaUart {
     _devicePathFunc = _devicePathPointer.asFunction<_MraaUartDevicePathType>();
     _settingsFunc = _settingsPointer.asFunction<_MraaUartSettingsType>();
     _stopFunc = _stopPointer.asFunction<_MraaUartStopType>();
+    _readFuncUtf8 = _readPointerUtf8.asFunction<_MraaUartReadUtf8Type>();
     _readFunc = _readPointer.asFunction<_MraaUartReadType>();
+    _writeFuncUtf8 = _writePointerUtf8.asFunction<_MraaUartWriteUtf8Type>();
     _writeFunc = _writePointer.asFunction<_MraaUartWriteType>();
   }
 }
