@@ -74,6 +74,8 @@ typedef _MraaUartWriteUtf8Type = int Function(
     Pointer<MraaUartContext>, Pointer<ffi.Utf8>, int);
 typedef _MraaUartWriteType = int Function(
     Pointer<MraaUartContext>, Pointer<Uint8>, int);
+typedef _MraaUartDataAvailableType = int Function(
+    Pointer<MraaUartContext>, int);
 
 /// The UART MRAA API
 ///
@@ -123,6 +125,8 @@ class MraaUart {
       _writePointerUtf8;
   Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _writePointer;
+  Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
+      _dataAvailablePointer;
 
   /// Dart Functions
   _MraaUartInitialiseType _initFunc;
@@ -141,6 +145,7 @@ class MraaUart {
   _MraaUartReadType _readFunc;
   _MraaUartWriteUtf8Type _writeFuncUtf8;
   _MraaUartWriteType _writeFunc;
+  _MraaUartDataAvailableType _dataAvailableFunc;
 
   /// Initialise - mraa_uart_init
   ///
@@ -397,6 +402,16 @@ class MraaUart {
     return ret;
   }
 
+  /// Data available.
+  ///
+  /// Check to see if data is available on the device for reading.
+  /// If [millisecondsToWait] is 0 the method returns immediately.
+  /// Returns true if data available, false otherwise.
+  bool dataAvailable(Pointer<MraaUartContext> dev, int millisecondsToWait) {
+    final ret = _dataAvailableFunc(dev, millisecondsToWait);
+    return ret == 1;
+  }
+
   void _setUpPointers() {
     _initPointer =
         _lib.lookup<NativeFunction<_returnMraaUartContextIntParameterFunc>>(
@@ -446,6 +461,9 @@ class MraaUart {
     _writePointer = _lib
         .lookup<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>(
             'mraa_uart_write');
+    _dataAvailablePointer =
+        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>(
+            'mraa_uart_data_available');
   }
 
   void _setUpFunctions() {
@@ -467,5 +485,7 @@ class MraaUart {
     _readFunc = _readPointer.asFunction<_MraaUartReadType>();
     _writeFuncUtf8 = _writePointerUtf8.asFunction<_MraaUartWriteUtf8Type>();
     _writeFunc = _writePointer.asFunction<_MraaUartWriteType>();
+    _dataAvailableFunc =
+        _dataAvailablePointer.asFunction<_MraaUartDataAvailableType>();
   }
 }
