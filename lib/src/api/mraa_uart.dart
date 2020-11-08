@@ -321,6 +321,7 @@ class MraaUart {
   ///
   /// Read bytes as UTF8 from the device into a buffer
   /// Returns the number of bytes read, or [Mraa.generalError].
+  /// @Deprecated('Use [readBytes] instead and convert to UTF or String yourself')
   int readUtf8(
       Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
     if (length <= 0) {
@@ -365,6 +366,7 @@ class MraaUart {
   ///
   /// Write bytes as UTF8 to the device from a buffer
   /// Returns the number of bytes written, or [Mraa.generalError]
+  @Deprecated('Use [writeBytes] instead and convert to UTF or String yourself')
   int writeUtf8(
       Pointer<MraaUartContext> dev, MraaUartBuffer buffer, int length) {
     if (length <= 0) {

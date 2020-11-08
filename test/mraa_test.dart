@@ -783,15 +783,6 @@ int main() {
       final ret = mraa.uart.stop(context);
       expect(ret, MraaReturnCode.success);
     });
-    test('Write UTf8', () {
-      final context = mraa.uart.initialiseRaw('dev/ttyS0');
-      expect(context, isNotNull);
-      mraa.uart.flush(context);
-      final buffer = MraaUartBuffer();
-      buffer.utf8Data = 'Hello UART';
-      final ret = mraa.uart.writeUtf8(context, buffer, buffer.utf8Length);
-      expect(ret, buffer.utf8Length);
-    });
     test('Write Uint8', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
@@ -800,20 +791,6 @@ int main() {
       buffer.byteData = Uint8List.fromList([0xDE, 0xAD, 0xBE, 0xEF]);
       final ret = mraa.uart.writeBytes(context, buffer, buffer.byteLength);
       expect(ret, buffer.byteLength);
-    });
-    test('Read UTF8', () {
-      final context = mraa.uart.initialiseRaw('dev/ttyS0');
-      expect(context, isNotNull);
-      mraa.uart.flush(context);
-      final buffer = MraaUartBuffer();
-      buffer.utf8Data = '';
-      final ret = mraa.uart.readUtf8(context, buffer, buffer.utf8Length);
-      if (ret != Mraa.generalError) {
-        expect(ret, 10);
-        expect(buffer.utf8Length, 10);
-      } else {
-        expect(ret, Mraa.generalError);
-      }
     });
     test('Read Uint8', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
@@ -828,6 +805,12 @@ int main() {
       } else {
         expect(ret, Mraa.generalError);
       }
+    });
+    test('Data Available', () {
+      final context = mraa.uart.initialiseRaw('dev/ttyS0');
+      expect(context, isNotNull);
+      var ret = mraa.uart.dataAvailable(context, 1);
+      expect(ret, isNotNull);
     });
   });
 
