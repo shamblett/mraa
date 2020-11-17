@@ -1,3 +1,6 @@
+# 1.3.1
+Issue 3 - Uart writeBytes bug fix
+
 # 1.3.0
 Issue 3
 
