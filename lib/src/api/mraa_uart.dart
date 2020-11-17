@@ -394,11 +394,8 @@ class MraaUart {
       return Mraa.generalError;
     }
     final ptrBuffer = ffi.allocate<Uint8>(count: length);
-    var count = 0;
-    ptrBuffer.asTypedList(length).forEach((e) {
-      e = buffer.byteData[count];
-      count++;
-    });
+    final typedBuffer = ptrBuffer.asTypedList(length);
+    typedBuffer.setAll(0, buffer.byteData);
     final ret = _writeFunc(dev, ptrBuffer, length);
     ffi.free(ptrBuffer);
     return ret;
