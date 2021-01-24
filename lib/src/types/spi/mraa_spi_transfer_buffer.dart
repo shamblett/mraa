@@ -11,8 +11,8 @@ part of mraa;
 /// Normally uses Uint8List(byte) or Uint16List(Word) transfers
 class MraaSpiTransferBuffer<T> {
   /// Data sent to the device
-  T dataSent;
+  late T dataSent;
 
   /// Data received from the device
-  T dataReceived;
+  late T dataReceived;
 }

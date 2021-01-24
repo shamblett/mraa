@@ -17,16 +17,16 @@ class MraaPlatformHelper {
   final Map<String, String> _osMap = <String, String>{};
   Map<String, String> get osMap => _osMap;
 
-  String _distName = 'None';
+  String? _distName = 'None';
 
   /// Is this a Centos distro
-  bool isCentos() => _distName.toLowerCase().contains('centos');
+  bool isCentos() => _distName!.toLowerCase().contains('centos');
 
   /// Is this a Fedora distro
-  bool isFedora() => _distName.toLowerCase().contains('fedora');
+  bool isFedora() => _distName!.toLowerCase().contains('fedora');
 
   /// Is this an Ubuntu  distro
-  bool isUbuntu() => _distName.toLowerCase().contains('ubunto');
+  bool isUbuntu() => _distName!.toLowerCase().contains('ubunto');
 
   /// Get the correct test library
   String getTestLib() {

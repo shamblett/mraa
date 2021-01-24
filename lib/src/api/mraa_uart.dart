@@ -90,62 +90,65 @@ class MraaUart {
   }
 
   /// The MRAA library
-  final DynamicLibrary _lib;
+  final DynamicLibrary? _lib;
 
   // ignore: unused_field
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaUartContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaUartContextStringParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaUartContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaUartContextStringParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>> _flushPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>>
+      _flushPointer;
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
       _sendBreakPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
       _baudRatePointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
       _modePointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameter2IntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameter2IntFunc>>
       _flowControlPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
       _timeoutPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
       _nonBlockingPointer;
-  Pointer<NativeFunction<_returnStringMraaUartContextParameterFunc>>
+  late Pointer<NativeFunction<_returnStringMraaUartContextParameterFunc>>
       _devicePathPointer;
-  Pointer<NativeFunction<_returnIntInt2String4Int2UIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntInt2String4Int2UIntParameterFunc>>
       _settingsPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>> _stopPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>>
+      _stopPointer;
+  late Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
       _readPointerUtf8;
-  Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _readPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
       _writePointerUtf8;
-  Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
       _dataAvailablePointer;
 
   /// Dart Functions
-  _MraaUartInitialiseType _initFunc;
-  _MraaUartInitialiseRawType _initRawFunc;
-  _MraaUartFlushType _flushFunc;
-  _MraaUartSendBreakType _sendBreakFunc;
-  _MraaUartBaudRateType _baudRateFunc;
-  _MraaUartModeType _modeFunc;
-  _MraaUartFlowControlType _flowControlFunc;
-  _MraaUartTimeoutType _timeoutFunc;
-  _MraaUartNonBlockingType _nonBlockingFunc;
-  _MraaUartDevicePathType _devicePathFunc;
-  _MraaUartSettingsType _settingsFunc;
-  _MraaUartStopType _stopFunc;
-  _MraaUartReadUtf8Type _readFuncUtf8;
-  _MraaUartReadType _readFunc;
-  _MraaUartWriteUtf8Type _writeFuncUtf8;
-  _MraaUartWriteType _writeFunc;
-  _MraaUartDataAvailableType _dataAvailableFunc;
+  late _MraaUartInitialiseType _initFunc;
+  late _MraaUartInitialiseRawType _initRawFunc;
+  late _MraaUartFlushType _flushFunc;
+  late _MraaUartSendBreakType _sendBreakFunc;
+  late _MraaUartBaudRateType _baudRateFunc;
+  late _MraaUartModeType _modeFunc;
+  late _MraaUartFlowControlType _flowControlFunc;
+  late _MraaUartTimeoutType _timeoutFunc;
+  late _MraaUartNonBlockingType _nonBlockingFunc;
+  late _MraaUartDevicePathType _devicePathFunc;
+  late _MraaUartSettingsType _settingsFunc;
+  late _MraaUartStopType _stopFunc;
+  late _MraaUartReadUtf8Type _readFuncUtf8;
+  late _MraaUartReadType _readFunc;
+  late _MraaUartWriteUtf8Type _writeFuncUtf8;
+  late _MraaUartWriteType _writeFunc;
+  late _MraaUartDataAvailableType _dataAvailableFunc;
 
   /// Initialise - mraa_uart_init
   ///
@@ -162,7 +165,7 @@ class MraaUart {
   /// Flush - mraa_uart_flush
   ///
   /// Flush the outbound data. Blocks until complete.
-  MraaReturnCode flush(Pointer<MraaUartContext> dev) =>
+  MraaReturnCode? flush(Pointer<MraaUartContext> dev) =>
       returnCode.fromInt(_flushFunc(dev));
 
   /// Send break - mraa_uart_sendbreak
@@ -171,14 +174,14 @@ class MraaUart {
   /// If duration is 0, send a break lasting at least 250 milliseconds,
   /// and not more than 500 milliseconds. When non zero, the break duration
   /// is implementation specific.
-  MraaReturnCode sendBreak(Pointer<MraaUartContext> dev, int duration) =>
+  MraaReturnCode? sendBreak(Pointer<MraaUartContext> dev, int duration) =>
       returnCode.fromInt(_sendBreakFunc(dev, duration));
 
   /// Baud rate - mraa_uart_baudrate
   ///
   /// Set the Baud rate. This will attempt to decide what
   /// Baud rate is to be used on the UART hardware.
-  MraaReturnCode baudRate(Pointer<MraaUartContext> dev, int baud) =>
+  MraaReturnCode? baudRate(Pointer<MraaUartContext> dev, int baud) =>
       returnCode.fromInt(_baudRateFunc(dev, baud));
 
   /// Mode - mraa_uart_set_mode
@@ -186,7 +189,7 @@ class MraaUart {
   /// Set the transfer mode.
   /// For example setting the mode to 8N1 would be
   /// mode(context, 8,MraaUartParity,none , 1)
-  MraaReturnCode mode(Pointer<MraaUartContext> dev, int byteSize,
+  MraaReturnCode? mode(Pointer<MraaUartContext> dev, int byteSize,
           MraaUartParity parity, int stopBits) =>
       returnCode.fromInt(
           _modeFunc(dev, byteSize, uartParity.asInt(parity), stopBits));
@@ -196,7 +199,7 @@ class MraaUart {
   /// Set the flowcontrol
   /// XON/XOFF is software flow control.
   /// RTS/CTS is out of band hardware flow control
-  MraaReturnCode flowControl(
+  MraaReturnCode? flowControl(
       Pointer<MraaUartContext> dev, bool xonXoff, bool rtsCts) {
     final xon = xonXoff ? 1 : 0;
     final rts = rtsCts ? 1 : 0;
@@ -207,14 +210,14 @@ class MraaUart {
   ///
   /// Set the timeout for read and write operations <= 0 will
   /// disable the timeout.
-  MraaReturnCode timeout(
+  MraaReturnCode? timeout(
           Pointer<MraaUartContext> dev, int read, int write, int interChar) =>
       returnCode.fromInt(_timeoutFunc(dev, read, write, interChar));
 
   /// Non blocking - mraa_uart_set_nonblocking
   ///
   /// Set the blocking state for write operations
-  MraaReturnCode nonBlocking(Pointer<MraaUartContext> dev, bool nonBlock) {
+  MraaReturnCode? nonBlocking(Pointer<MraaUartContext> dev, bool nonBlock) {
     final block = nonBlock ? 1 : 0;
     return returnCode.fromInt(_nonBlockingFunc(dev, block));
   }
@@ -222,7 +225,7 @@ class MraaUart {
   /// Device path - mraa_uart_get_dev_path
   ///
   /// Get the tty device path, for example "/dev/ttyS0"
-  String devicePath(Pointer<MraaUartContext> dev) {
+  String? devicePath(Pointer<MraaUartContext> dev) {
     var ptrPath = ffi.allocate<ffi.Utf8>();
     ptrPath = _devicePathFunc(dev);
     if (ptrPath == nullptr) {
@@ -234,7 +237,7 @@ class MraaUart {
   /// Device path from index
   /// Given a UART index get the associated device path.
   /// Can return null if the index does not map to a UART device
-  String devicePathFromIndex(int index) {
+  String? devicePathFromIndex(int index) {
     if (index < 0) {
       return null;
     }
@@ -269,7 +272,7 @@ class MraaUart {
   /// serial adapters.
   /// In case of a non-success return value, the out parameters are undefined
   /// and will be set as passed in, see [MraaUartSettings].
-  MraaReturnCode settings(int index, MraaUartSettings settings) {
+  MraaReturnCode? settings(int index, MraaUartSettings settings) {
     // Check for either a valid index or a device path
     if (index < 0 && settings.devicePath == null) {
       return MraaReturnCode.errorInvalidParameter;
@@ -278,7 +281,7 @@ class MraaUart {
     // Construct the parameter list
     final ptrDevicePath = ffi.allocate<Pointer<ffi.Utf8>>();
     if (index < 0) {
-      ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath);
+      ptrDevicePath.value = ffi.Utf8.toUtf8(settings.devicePath!);
     }
     final ptrName = ffi.allocate<Pointer<ffi.Utf8>>();
     final ptrBaudrate = ffi.allocate<Int32>();
@@ -314,7 +317,7 @@ class MraaUart {
   /// Stop - mraa_uart_stop
   ///
   /// Destroy a UART context
-  MraaReturnCode stop(Pointer<MraaUartContext> dev) =>
+  MraaReturnCode? stop(Pointer<MraaUartContext> dev) =>
       returnCode.fromInt(_stopFunc(dev));
 
   /// Read UTF8 - mraa_uart_read
@@ -372,10 +375,10 @@ class MraaUart {
     if (length <= 0) {
       return Mraa.generalError;
     }
-    if (buffer.utf8Data.isEmpty || buffer.utf8Length < length) {
+    if (buffer.utf8Data!.isEmpty || buffer.utf8Length < length) {
       return Mraa.generalError;
     }
-    final ptrBuffer = ffi.Utf8.toUtf8(buffer.utf8Data);
+    final ptrBuffer = ffi.Utf8.toUtf8(buffer.utf8Data!);
     final ret = _writeFuncUtf8(dev, ptrBuffer, length);
     ffi.free(ptrBuffer);
     return ret;
@@ -390,12 +393,12 @@ class MraaUart {
     if (length <= 0) {
       return Mraa.generalError;
     }
-    if (buffer.byteData.isEmpty || buffer.byteLength < length) {
+    if (buffer.byteData!.isEmpty || buffer.byteLength < length) {
       return Mraa.generalError;
     }
     final ptrBuffer = ffi.allocate<Uint8>(count: length);
     final typedBuffer = ptrBuffer.asTypedList(length);
-    typedBuffer.setAll(0, buffer.byteData);
+    typedBuffer.setAll(0, buffer.byteData!);
     final ret = _writeFunc(dev, ptrBuffer, length);
     ffi.free(ptrBuffer);
     return ret;
@@ -412,56 +415,56 @@ class MraaUart {
   }
 
   void _setUpPointers() {
-    _initPointer =
-        _lib.lookup<NativeFunction<_returnMraaUartContextIntParameterFunc>>(
+    _initPointer = _lib!
+        .lookup<NativeFunction<_returnMraaUartContextIntParameterFunc>>(
             'mraa_spi_init');
-    _initRawPointer =
-        _lib.lookup<NativeFunction<_returnMraaUartContextStringParameterFunc>>(
+    _initRawPointer = _lib!
+        .lookup<NativeFunction<_returnMraaUartContextStringParameterFunc>>(
             'mraa_uart_init_raw');
-    _flushPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterFunc>>(
+    _flushPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameterFunc>>(
             'mraa_uart_flush');
-    _sendBreakPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>(
+    _sendBreakPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>(
             'mraa_uart_sendbreak');
-    _baudRatePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>(
+    _baudRatePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>(
             'mraa_uart_set_baudrate');
-    _modePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>(
+    _modePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>(
             'mraa_uart_set_mode');
-    _flowControlPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameter2IntFunc>>(
+    _flowControlPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameter2IntFunc>>(
             'mraa_uart_set_flowcontrol');
-    _timeoutPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>(
+    _timeoutPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>(
             'mraa_uart_set_timeout');
-    _nonBlockingPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>(
+    _nonBlockingPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>(
             'mraa_uart_set_non_blocking');
-    _devicePathPointer =
-        _lib.lookup<NativeFunction<_returnStringMraaUartContextParameterFunc>>(
+    _devicePathPointer = _lib!
+        .lookup<NativeFunction<_returnStringMraaUartContextParameterFunc>>(
             'mraa_uart_get_dev_path');
-    _settingsPointer =
-        _lib.lookup<NativeFunction<_returnIntInt2String4Int2UIntParameterFunc>>(
+    _settingsPointer = _lib!
+        .lookup<NativeFunction<_returnIntInt2String4Int2UIntParameterFunc>>(
             'mraa_uart_settings');
-    _stopPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterFunc>>(
+    _stopPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameterFunc>>(
             'mraa_uart_stop');
-    _readPointerUtf8 = _lib.lookup<
+    _readPointerUtf8 = _lib!.lookup<
             NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>(
         'mraa_uart_read');
-    _readPointer = _lib
+    _readPointer = _lib!
         .lookup<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>(
             'mraa_uart_read');
-    _writePointerUtf8 = _lib.lookup<
+    _writePointerUtf8 = _lib!.lookup<
             NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>(
         'mraa_uart_write');
-    _writePointer = _lib
+    _writePointer = _lib!
         .lookup<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>(
             'mraa_uart_write');
-    _dataAvailablePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>(
+    _dataAvailablePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>(
             'mraa_uart_data_available');
   }
 

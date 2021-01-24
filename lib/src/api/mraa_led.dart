@@ -43,36 +43,38 @@ class MraaLed {
   }
 
   /// The MRAA library
-  final DynamicLibrary _lib;
+  final DynamicLibrary? _lib;
 
   // ignore: unused_field
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaLedContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaLedContextStringParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaLedContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaLedContextStringParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextIntParameterFunc>>
       _setBrightnessPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
       _readBrightnessPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
       _readMaxBrightnessPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>
       _setTriggerPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
       _clearTriggerPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>> _closePointer;
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+      _closePointer;
 
   /// Dart Functions
-  _MraaLedInitialiseType _initFunc;
-  _MraaLedInitialiseRawType _initRawFunc;
-  _MraaLedSetBrightnessType _setBrightnessFunc;
-  _MraaLedReadBrightnessType _readBrightnessFunc;
-  _MraaLedReadMaxBrightnessType _readMaxBrightnessFunc;
-  _MraaLedSetTriggerType _setTriggerFunc;
-  _MraaLedClearTriggerType _clearTriggerFunc;
-  _MraaLedCloseType _closeFunc;
+  late _MraaLedInitialiseType _initFunc;
+  late _MraaLedInitialiseRawType _initRawFunc;
+  late _MraaLedSetBrightnessType _setBrightnessFunc;
+  late _MraaLedReadBrightnessType _readBrightnessFunc;
+  late _MraaLedReadMaxBrightnessType _readMaxBrightnessFunc;
+  late _MraaLedSetTriggerType _setTriggerFunc;
+  late _MraaLedClearTriggerType _clearTriggerFunc;
+  late _MraaLedCloseType _closeFunc;
 
   /// Initialise - mraa_led_init
   ///
@@ -93,7 +95,7 @@ class MraaLed {
   /// Set brightness - mraa_led_set_brightness
   ///
   /// Set LED brightness
-  MraaReturnCode setBrightness(Pointer<MraaLedContext> dev, int value) =>
+  MraaReturnCode? setBrightness(Pointer<MraaLedContext> dev, int value) =>
       returnCode.fromInt(_setBrightnessFunc(dev, value));
 
   /// Read brightness - mraa_led_read_brightness
@@ -110,45 +112,45 @@ class MraaLed {
   /// Set trigger - mraa_led_set_trigger
   ///
   /// Set LED trigger to the trigger name supplied.
-  MraaReturnCode setTrigger(Pointer<MraaLedContext> dev, String triggerName) =>
+  MraaReturnCode? setTrigger(Pointer<MraaLedContext> dev, String triggerName) =>
       returnCode.fromInt(_setTriggerFunc(dev, ffi.Utf8.toUtf8(triggerName)));
 
   /// Clear trigger - mraa_led_clear_trigger
   ///
   /// Clear active LED trigger
-  MraaReturnCode clearTrigger(Pointer<MraaLedContext> dev) =>
+  MraaReturnCode? clearTrigger(Pointer<MraaLedContext> dev) =>
       returnCode.fromInt(_clearTriggerFunc(dev));
 
   /// Close - mraa_led_close
   ///
   /// Close LED file descriptors and free the context memory.
-  MraaReturnCode close(Pointer<MraaLedContext> dev) =>
+  MraaReturnCode? close(Pointer<MraaLedContext> dev) =>
       returnCode.fromInt(_closeFunc(dev));
 
   void _setUpPointers() {
-    _initPointer =
-        _lib.lookup<NativeFunction<_returnMraaLedContextIntParameterFunc>>(
+    _initPointer = _lib!
+        .lookup<NativeFunction<_returnMraaLedContextIntParameterFunc>>(
             'mraa_led_init');
-    _initRawPointer =
-        _lib.lookup<NativeFunction<_returnMraaLedContextStringParameterFunc>>(
+    _initRawPointer = _lib!
+        .lookup<NativeFunction<_returnMraaLedContextStringParameterFunc>>(
             'mraa_led_init_raw');
-    _setBrightnessPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextIntParameterFunc>>(
+    _setBrightnessPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaLedContextIntParameterFunc>>(
             'mraa_led_set_brightness');
-    _readBrightnessPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
+    _readBrightnessPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
             'mraa_led_read_brightness');
-    _readMaxBrightnessPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
+    _readMaxBrightnessPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
             'mraa_led_read_max_brightness');
-    _setTriggerPointer = _lib
+    _setTriggerPointer = _lib!
         .lookup<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>(
             'mraa_led_set_trigger');
-    _clearTriggerPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
+    _clearTriggerPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
             'mraa_led_clear_trigger');
-    _closePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
+    _closePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaLedContextParameterFunc>>(
             'mraa_led_close');
   }
 

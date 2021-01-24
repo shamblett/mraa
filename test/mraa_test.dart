@@ -625,7 +625,7 @@ int main() {
       final values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
       final data = Uint8List(values.length);
       data.setAll(0, values);
-      final ret = mraa.spi.writeBuffer(context, data, data.length);
+      final ret = mraa.spi.writeBuffer(context, data, data.length)!;
       expect(ret, isNotNull);
       expect(ret.length, data.length);
     });
@@ -635,7 +635,7 @@ int main() {
       final values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
       final data = Uint16List(values.length);
       data.setAll(0, values);
-      final ret = mraa.spi.writeBufferWord(context, data, data.length);
+      final ret = mraa.spi.writeBufferWord(context, data, data.length)!;
       expect(ret, isNotNull);
       expect(ret.length, data.length);
     });
@@ -645,11 +645,11 @@ int main() {
       final values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
       final data = Uint8List(values.length);
       data.setAll(0, values);
-      final buffer = MraaSpiTransferBuffer<Uint8List>();
+      final buffer = MraaSpiTransferBuffer<Uint8List?>();
       buffer.dataSent = data;
       final ret = mraa.spi.transferBuffer(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
-      expect(buffer.dataReceived.length, data.length);
+      expect(buffer.dataReceived!.length, data.length);
     });
     test('Transfer buffer word', () {
       final context = mraa.spi.initialise(0);
@@ -657,11 +657,11 @@ int main() {
       final values = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9];
       final data = Uint16List(values.length);
       data.setAll(0, values);
-      final buffer = MraaSpiTransferBuffer<Uint16List>();
+      final buffer = MraaSpiTransferBuffer<Uint16List?>();
       buffer.dataSent = data;
       final ret = mraa.spi.transferBufferWord(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
-      expect(buffer.dataReceived.length, data.length);
+      expect(buffer.dataReceived!.length, data.length);
     });
     test('Lsb mode', () {
       final context = mraa.spi.initialise(0);

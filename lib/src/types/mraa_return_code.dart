@@ -79,5 +79,5 @@ const Map<int, MraaReturnCode> _returnCodesValues = <int, MraaReturnCode>{
 };
 
 /// Return codes helper
-MraaEnumHelper<MraaReturnCode> returnCode =
-    MraaEnumHelper<MraaReturnCode>(_returnCodesValues);
+MraaEnumHelper<MraaReturnCode?> returnCode =
+    MraaEnumHelper<MraaReturnCode?>(_returnCodesValues);

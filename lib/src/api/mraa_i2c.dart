@@ -61,56 +61,60 @@ class MraaI2c {
   }
 
   /// The MRAA library
-  final DynamicLibrary _lib;
+  final DynamicLibrary? _lib;
 
   // ignore: unused_field
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>
       _frequencyPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
+  late Pointer<
+          NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
       _readPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>>
       _readBytePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _readByteDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _readWordDataPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>
       _readBytesDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
+  late Pointer<
+          NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _writeBytePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>
       _writeByteDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>
       _writeWordDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _addressPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>> _stopPointer;
+  late Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>>
+      _stopPointer;
 
   /// Dart Functions
-  _MraaI2cInitialiseType _initFunc;
-  _MraaI2cInitialiseRawType _initRawFunc;
-  _MraaI2cFrequencyType _frequencyFunc;
-  _MraaI2cReadType _readFunc;
-  _MraaI2cReadByteType _readByteFunc;
-  _MraaI2cReadByteDataType _readByteDataFunc;
-  _MraaI2cReadWordDataType _readWordDataFunc;
-  _MraaI2cReadBytesDataType _readBytesDataFunc;
-  _MraaI2cWriteType _writeFunc;
-  _MraaI2cWriteByteType _writeByteFunc;
-  _MraaI2cWriteByteDataType _writeByteDataFunc;
-  _MraaI2cWriteWordDataType _writeWordDataFunc;
-  _MraaI2cAddressType _addressFunc;
-  _MraaI2cStopType _stopFunc;
+  late _MraaI2cInitialiseType _initFunc;
+  late _MraaI2cInitialiseRawType _initRawFunc;
+  late _MraaI2cFrequencyType _frequencyFunc;
+  late _MraaI2cReadType _readFunc;
+  late _MraaI2cReadByteType _readByteFunc;
+  late _MraaI2cReadByteDataType _readByteDataFunc;
+  late _MraaI2cReadWordDataType _readWordDataFunc;
+  late _MraaI2cReadBytesDataType _readBytesDataFunc;
+  late _MraaI2cWriteType _writeFunc;
+  late _MraaI2cWriteByteType _writeByteFunc;
+  late _MraaI2cWriteByteDataType _writeByteDataFunc;
+  late _MraaI2cWriteWordDataType _writeWordDataFunc;
+  late _MraaI2cAddressType _addressFunc;
+  late _MraaI2cStopType _stopFunc;
 
   /// Initialise - mraa_i2c_init
   ///
@@ -129,7 +133,8 @@ class MraaI2c {
   ///
   /// Sets the frequency of the I2C context.
   /// Most platforms do not support this.
-  MraaReturnCode frequency(Pointer<MraaI2cContext> context, MraaI2cMode mode) =>
+  MraaReturnCode? frequency(
+          Pointer<MraaI2cContext> context, MraaI2cMode mode) =>
       returnCode.fromInt(_frequencyFunc(context, i2cMode.asInt(mode)));
 
   /// Read - mraa_i2c_read
@@ -170,85 +175,85 @@ class MraaI2c {
   /// Write - mraa_i2c_write
   ///
   /// Write length bytes to the bus, the first byte in the array is the command/register to write.
-  MraaReturnCode write(
+  MraaReturnCode? write(
           Pointer<MraaI2cContext> context, Pointer<Uint8> data, int length) =>
       returnCode.fromInt(_writeFunc(context, data, length));
 
   /// Write byte - mraa_i2c_write_byte
   ///
   /// Write a single byte to an I2C context
-  MraaReturnCode writeByte(Pointer<MraaI2cContext> context, int data) =>
+  MraaReturnCode? writeByte(Pointer<MraaI2cContext> context, int data) =>
       returnCode.fromInt(_writeByteFunc(context, data));
 
   /// Write byte data - mraa_write_byte_data
   ///
   /// Write a single byte to an i2c context
-  MraaReturnCode writeByteData(
+  MraaReturnCode? writeByteData(
           Pointer<MraaI2cContext> context, int data, int command) =>
       returnCode.fromInt(_writeByteDataFunc(context, data, command));
 
   /// Write word data - mraa_write_byte_data
   ///
   /// Write a single word to an I2C context
-  MraaReturnCode writeWordData(
+  MraaReturnCode? writeWordData(
           Pointer<MraaI2cContext> context, int data, int command) =>
       returnCode.fromInt(_writeWordDataFunc(context, data, command));
 
   /// Address - mraa_i2c_address
   ///
   /// Sets the I2C slave address.
-  MraaReturnCode address(Pointer<MraaI2cContext> context, int address) =>
+  MraaReturnCode? address(Pointer<MraaI2cContext> context, int address) =>
       returnCode.fromInt(_addressFunc(context, address));
 
   /// Stop - mraa_i2c_stop
   ///
   /// De-inits an [MraaI2cContext]
-  MraaReturnCode stop(Pointer<MraaI2cContext> context) =>
+  MraaReturnCode? stop(Pointer<MraaI2cContext> context) =>
       returnCode.fromInt(_stopFunc(context));
 
   void _setUpPointers() {
-    _initPointer =
-        _lib.lookup<NativeFunction<_returnMraaI2cContextIntParameterFunc>>(
+    _initPointer = _lib!
+        .lookup<NativeFunction<_returnMraaI2cContextIntParameterFunc>>(
             'mraa_i2c_init');
-    _initRawPointer =
-        _lib.lookup<NativeFunction<_returnMraaI2cContextIntParameterFunc>>(
+    _initRawPointer = _lib!
+        .lookup<NativeFunction<_returnMraaI2cContextIntParameterFunc>>(
             'mraa_i2c_init_raw');
-    _frequencyPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>(
+    _frequencyPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>(
             'mraa_i2c_frequency');
-    _readPointer = _lib.lookup<
+    _readPointer = _lib!.lookup<
             NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>(
         'mraa_i2c_read');
-    _readBytePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextParameterFunc>>(
+    _readBytePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextParameterFunc>>(
             'mraa_i2c_read_byte');
-    _readByteDataPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
+    _readByteDataPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_read_byte_data');
-    _readWordDataPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
+    _readWordDataPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_read_word_data');
-    _readBytesDataPointer = _lib.lookup<
+    _readBytesDataPointer = _lib!.lookup<
             NativeFunction<
                 _returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>(
         'mraa_i2c_read_bytes_data');
-    _writePointer = _lib.lookup<
+    _writePointer = _lib!.lookup<
             NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>(
         'mraa_i2c_write');
-    _writeBytePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
+    _writeBytePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_write_byte');
-    _writeByteDataPointer = _lib
+    _writeByteDataPointer = _lib!
         .lookup<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>(
             'mraa_i2c_write_byte_data');
-    _writeWordDataPointer = _lib.lookup<
+    _writeWordDataPointer = _lib!.lookup<
             NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>(
         'mraa_i2c_write_word_data');
-    _addressPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
+    _addressPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>(
             'mraa_i2c_address');
-    _stopPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaI2CContextParameterFunc>>(
+    _stopPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaI2CContextParameterFunc>>(
             'mraa_i2c_stop');
   }
 

@@ -61,57 +61,60 @@ class MraaSpi {
   }
 
   /// The MRAA library
-  final DynamicLibrary _lib;
+  final DynamicLibrary? _lib;
 
   // ignore: unused_field
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaSpiContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaSpiContextIntIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaSpiContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaSpiContextIntIntParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _modePointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _frequencyPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextUint8ParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextUint16ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextUint16ParameterFunc>>
       _writeWordPointer;
-  Pointer<NativeFunction<_returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>
+  late Pointer<
+          NativeFunction<_returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>
       _writeBufferPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnPtrUint16MraaSpiContextPtrUint16IntParameterFunc>>
       _writeBufferWordPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc>>
       _transferBufferPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>
       _transferBufferWordPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _lsbModePointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _bitsPerWordPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextParameterFunc>> _stopPointer;
+  late Pointer<NativeFunction<_returnIntMraaSpiContextParameterFunc>>
+      _stopPointer;
 
   /// Dart Functions
-  _MraaSpiInitialiseType _initFunc;
-  _MraaSpiInitialiseRawType _initRawFunc;
-  _MraaSpiModeType _modeFunc;
-  _MraaSpiFrequencyType _frequencyFunc;
-  _MraaSpiWriteType _writeFunc;
-  _MraaSpiWriteWordType _writeWordFunc;
-  _MraaSpiWriteBufferType _writeBufferFunc;
-  _MraaSpiWriteBufferWordType _writeBufferWordFunc;
-  _MraaSpiTransferBufferType _transferBufferFunc;
-  _MraaSpiTransferBufferWordType _transferBufferWordFunc;
-  _MraaSpiLsbModeType _lsbModeFunc;
-  _MraaSpiBitsPerWordType _bitsPerWordFunc;
-  _MraaSpiStopType _stopFunc;
+  late _MraaSpiInitialiseType _initFunc;
+  late _MraaSpiInitialiseRawType _initRawFunc;
+  late _MraaSpiModeType _modeFunc;
+  late _MraaSpiFrequencyType _frequencyFunc;
+  late _MraaSpiWriteType _writeFunc;
+  late _MraaSpiWriteWordType _writeWordFunc;
+  late _MraaSpiWriteBufferType _writeBufferFunc;
+  late _MraaSpiWriteBufferWordType _writeBufferWordFunc;
+  late _MraaSpiTransferBufferType _transferBufferFunc;
+  late _MraaSpiTransferBufferWordType _transferBufferWordFunc;
+  late _MraaSpiLsbModeType _lsbModeFunc;
+  late _MraaSpiBitsPerWordType _bitsPerWordFunc;
+  late _MraaSpiStopType _stopFunc;
 
   /// Initialise - mraa_spi_init
   ///
@@ -128,13 +131,13 @@ class MraaSpi {
   /// Mode - mraa_spi_mode
   ///
   /// Set the SPI device mode. see spidev 0-3.
-  MraaReturnCode mode(Pointer<MraaSpiContext> dev, MraaSpiMode mode) =>
+  MraaReturnCode? mode(Pointer<MraaSpiContext> dev, MraaSpiMode mode) =>
       returnCode.fromInt(_modeFunc(dev, spiMode.asInt(mode)));
 
   /// Frequency - mraa_spi_frequency
   ///
   /// Set the SPI device operating clock frequency in Hz
-  MraaReturnCode frequency(Pointer<MraaSpiContext> dev, int hz) =>
+  MraaReturnCode? frequency(Pointer<MraaSpiContext> dev, int hz) =>
       returnCode.fromInt(_frequencyFunc(dev, hz));
 
   /// Write - mraa_spi_write
@@ -157,7 +160,7 @@ class MraaSpi {
   /// Write Buffer of bytes to the SPI device.
   /// Returns NULL if an error occurs.
   /// Maximum length is 4096
-  Uint8List writeBuffer(
+  Uint8List? writeBuffer(
       Pointer<MraaSpiContext> dev, Uint8List data, int length) {
     final ptr = ffi.allocate<Uint8>(count: length);
     final ptrData = ptr.asTypedList(length);
@@ -178,7 +181,7 @@ class MraaSpi {
   /// Write a buffer of words to the SPI device.
   /// Returns NULL if an error occurs.
   /// Maximum length is 4096
-  Uint16List writeBufferWord(
+  Uint16List? writeBufferWord(
       Pointer<MraaSpiContext> dev, Uint16List data, int length) {
     final ptr = ffi.allocate<Uint16>(count: length);
     final ptrData = ptr.asTypedList(length);
@@ -199,11 +202,11 @@ class MraaSpi {
   /// Transfer a buffer of bytes to the SPI device. Both send and receive
   /// buffers are passed in using the [buffer] parameter.
   /// Maximum length 4096 both ways
-  MraaReturnCode transferBuffer(Pointer<MraaSpiContext> dev,
-      MraaSpiTransferBuffer<Uint8List> buffer, int length) {
+  MraaReturnCode? transferBuffer(Pointer<MraaSpiContext> dev,
+      MraaSpiTransferBuffer<Uint8List?> buffer, int length) {
     final ptr = ffi.allocate<Uint8>(count: length);
     final ptrData = ptr.asTypedList(length);
-    ptrData.setAll(0, buffer.dataSent);
+    ptrData.setAll(0, buffer.dataSent!);
     final retData = ffi.allocate<Uint8>(count: length);
     final status =
         returnCode.fromInt(_transferBufferFunc(dev, ptr, retData, length));
@@ -216,7 +219,7 @@ class MraaSpi {
     }
     final retDataList = retData.asTypedList(length);
     buffer.dataReceived = Uint8List(length);
-    buffer.dataReceived.setAll(0, retDataList);
+    buffer.dataReceived!.setAll(0, retDataList);
     ffi.free(retData);
     return status;
   }
@@ -226,11 +229,11 @@ class MraaSpi {
   /// Transfer a buffer of words to the SPI device. Both send and receive
   /// buffers are passed in using the [buffer] parameter.
   /// Maximum length 4096 both ways
-  MraaReturnCode transferBufferWord(Pointer<MraaSpiContext> dev,
-      MraaSpiTransferBuffer<Uint16List> buffer, int length) {
+  MraaReturnCode? transferBufferWord(Pointer<MraaSpiContext> dev,
+      MraaSpiTransferBuffer<Uint16List?> buffer, int length) {
     final ptr = ffi.allocate<Uint16>(count: length);
     final ptrData = ptr.asTypedList(length);
-    ptrData.setAll(0, buffer.dataSent);
+    ptrData.setAll(0, buffer.dataSent!);
     final retData = ffi.allocate<Uint16>(count: length);
     final status =
         returnCode.fromInt(_transferBufferWordFunc(dev, ptr, retData, length));
@@ -243,7 +246,7 @@ class MraaSpi {
       return status;
     }
     buffer.dataReceived = Uint16List(length);
-    buffer.dataReceived.setAll(0, retDataList);
+    buffer.dataReceived!.setAll(0, retDataList);
     ffi.free(retData);
     return status;
   }
@@ -252,7 +255,7 @@ class MraaSpi {
   ///
   /// Change the SPI LSB mode
   /// [lsb] set to true indicates use the least significant bit transmission
-  MraaReturnCode lsbMode(Pointer<MraaSpiContext> dev, bool lsb) {
+  MraaReturnCode? lsbMode(Pointer<MraaSpiContext> dev, bool lsb) {
     final mode = lsb ? 1 : 0;
     return returnCode.fromInt(_lsbModeFunc(dev, mode));
   }
@@ -260,58 +263,58 @@ class MraaSpi {
   /// Bits per word - mraa_spi_bit_per-word
   ///
   /// Set bits per word for transactions, defaults at 8
-  MraaReturnCode bitsPerWord(Pointer<MraaSpiContext> dev, int bits) =>
+  MraaReturnCode? bitsPerWord(Pointer<MraaSpiContext> dev, int bits) =>
       returnCode.fromInt(_bitsPerWordFunc(dev, bits));
 
   /// Stop - mraa_spi_stop
   ///
   /// De-inits an [MraaSpiContext] device
-  MraaReturnCode stop(Pointer<MraaSpiContext> dev) =>
+  MraaReturnCode? stop(Pointer<MraaSpiContext> dev) =>
       returnCode.fromInt(_stopFunc(dev));
 
   void _setUpPointers() {
-    _initPointer =
-        _lib.lookup<NativeFunction<_returnMraaSpiContextIntParameterFunc>>(
+    _initPointer = _lib!
+        .lookup<NativeFunction<_returnMraaSpiContextIntParameterFunc>>(
             'mraa_spi_init');
-    _initRawPointer =
-        _lib.lookup<NativeFunction<_returnMraaSpiContextIntIntParameterFunc>>(
+    _initRawPointer = _lib!
+        .lookup<NativeFunction<_returnMraaSpiContextIntIntParameterFunc>>(
             'mraa_spi_init_raw');
-    _modePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
+    _modePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
             'mraa_spi_mode');
-    _frequencyPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
+    _frequencyPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
             'mraa_spi_frequency');
-    _writePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaSpiContextUint8ParameterFunc>>(
+    _writePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaSpiContextUint8ParameterFunc>>(
             'mraa_spi_write');
-    _writeWordPointer = _lib
+    _writeWordPointer = _lib!
         .lookup<NativeFunction<_returnIntMraaSpiContextUint16ParameterFunc>>(
             'mraa_spi_write_word');
-    _writeBufferPointer = _lib.lookup<
+    _writeBufferPointer = _lib!.lookup<
             NativeFunction<
                 _returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>(
         'mraa_spi_write_buf');
-    _writeBufferWordPointer = _lib.lookup<
+    _writeBufferWordPointer = _lib!.lookup<
             NativeFunction<
                 _returnPtrUint16MraaSpiContextPtrUint16IntParameterFunc>>(
         'mraa_spi_write_buf_word');
-    _transferBufferPointer = _lib.lookup<
+    _transferBufferPointer = _lib!.lookup<
             NativeFunction<
                 _returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc>>(
         'mraa_spi_transfer_buf');
-    _transferBufferWordPointer = _lib.lookup<
+    _transferBufferWordPointer = _lib!.lookup<
             NativeFunction<
                 _returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>(
         'mraa_spi_transfer_buf_word');
-    _lsbModePointer =
-        _lib.lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
+    _lsbModePointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
             'mraa_spi_lsbmode');
-    _bitsPerWordPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
+    _bitsPerWordPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>(
             'mraa_spi_bit_per_word');
-    _stopPointer =
-        _lib.lookup<NativeFunction<_returnIntMraaSpiContextParameterFunc>>(
+    _stopPointer = _lib!
+        .lookup<NativeFunction<_returnIntMraaSpiContextParameterFunc>>(
             'mraa_spi_stop');
   }
 

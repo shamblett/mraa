@@ -20,5 +20,5 @@ const Map<int, MraaUartParity> _uartParityValues = <int, MraaUartParity>{
 };
 
 /// SPI mode types helper
-MraaEnumHelper<MraaUartParity> uartParity =
-    MraaEnumHelper<MraaUartParity>(_uartParityValues);
+MraaEnumHelper<MraaUartParity?> uartParity =
+    MraaEnumHelper<MraaUartParity?>(_uartParityValues);
