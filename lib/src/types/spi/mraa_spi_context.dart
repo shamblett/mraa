@@ -8,4 +8,4 @@
 part of mraa;
 
 /// SPI context class for the opaque MRAA mraa_spi_context structure
-class MraaSpiContext extends Struct {}
+class MraaSpiContext extends Opaque {}

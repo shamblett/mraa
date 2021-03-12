@@ -8,4 +8,4 @@
 part of mraa;
 
 /// LED context class for the opaque MRAA mraa_led_context structure
-class MraaLedContext extends Struct {}
+class MraaLedContext extends Opaque {}

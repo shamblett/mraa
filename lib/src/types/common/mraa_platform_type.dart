@@ -138,10 +138,10 @@ MraaEnumHelper<MraaPlatformType> platformTypes =
 /// type function call.
 class MraaCombinedTypeDecode {
   /// Main platform type
-  MraaPlatformType mainPlatform;
+  MraaPlatformType mainPlatform = MraaPlatformType.mockPlatform;
 
   /// Sub platform type
-  MraaPlatformType subPlatform;
+  MraaPlatformType subPlatform = MraaPlatformType.mockPlatform;
 }
 
 /// Combined type function decoder

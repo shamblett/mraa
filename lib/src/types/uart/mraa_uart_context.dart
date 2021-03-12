@@ -8,4 +8,4 @@
 part of mraa;
 
 /// UART context for the opaque MRAA mraa_uart_context structure.
-class MraaUartContext extends Struct {}
+class MraaUartContext extends Opaque {}

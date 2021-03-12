@@ -52,22 +52,26 @@ class MraaAio {
   int _grovePiPinOffset = 0;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaAioContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnIntMraaAioContextParameterFunc>> _readPointer;
-  Pointer<NativeFunction<_returnFloatMraaAioContextParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaAioContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnIntMraaAioContextParameterFunc>>
+      _readPointer;
+  late Pointer<NativeFunction<_returnFloatMraaAioContextParameterFunc>>
       _readDoublePointer;
-  Pointer<NativeFunction<_returnIntMraaAioContextParameterFunc>> _closePointer;
-  Pointer<NativeFunction<_returnIntMraaAioContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaAioContextParameterFunc>>
+      _closePointer;
+  late Pointer<NativeFunction<_returnIntMraaAioContextIntParameterFunc>>
       _setBitPointer;
-  Pointer<NativeFunction<_returnIntMraaAioContextParameterFunc>> _getBitPointer;
+  late Pointer<NativeFunction<_returnIntMraaAioContextParameterFunc>>
+      _getBitPointer;
 
   /// Dart Functions
-  _MraaAioInitialiseType _initFunc;
-  _MraaAioReadType _readFunc;
-  _MraaAioReadDoubleType _readDoubleFunc;
-  _MraaAioCloseType _closeFunc;
-  _MraaAioSetBitType _setBitFunc;
-  _MraaAioGetBitType _getBitFunc;
+  late _MraaAioInitialiseType _initFunc;
+  late _MraaAioReadType _readFunc;
+  late _MraaAioReadDoubleType _readDoubleFunc;
+  late _MraaAioCloseType _closeFunc;
+  late _MraaAioSetBitType _setBitFunc;
+  late _MraaAioGetBitType _getBitFunc;
 
   /// Initialise - mraa_aio_init
   ///

@@ -8,4 +8,4 @@
 part of mraa;
 
 /// PWM context class for the opaque MRAA mraa_pwm_context structure
-class MraaPwmContext extends Struct {}
+class MraaPwmContext extends Opaque {}

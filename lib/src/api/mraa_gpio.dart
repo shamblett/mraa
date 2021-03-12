@@ -78,55 +78,62 @@ class MraaGpio {
   int _initialiseMultiPinCount = 0;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaGpioContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaGpioContextIntParameterFunc>>
       _initialisePointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
       _directionPointer;
-  Pointer<NativeFunction<_returnIntGpioContextParametersFunc>> _readPointer;
-  Pointer<NativeFunction<_returnMraaGpioContextIntArrayIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextParametersFunc>>
+      _readPointer;
+  late Pointer<NativeFunction<_returnMraaGpioContextIntArrayIntParameterFunc>>
       _initialiseMultiPointer;
-  Pointer<NativeFunction<_returnMraaGpioContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaGpioContextIntParameterFunc>>
       _initialiseRawPointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
       _edgeModePointer;
-  Pointer<NativeFunction<_returnMraaGpioEventArrayMraaGpioContextParameter>>
+  late Pointer<
+          NativeFunction<_returnMraaGpioEventArrayMraaGpioContextParameter>>
       _eventsPointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>> _modePointer;
-  Pointer<NativeFunction<_returnIntGpioContextPtrIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+      _modePointer;
+  late Pointer<NativeFunction<_returnIntGpioContextPtrIntParametersFunc>>
       _readDirectionPointer;
-  Pointer<NativeFunction<_returnIntGpioContextParametersFunc>> _closePointer;
-  Pointer<NativeFunction<_returnIntGpioContextPtrIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextParametersFunc>>
+      _closePointer;
+  late Pointer<NativeFunction<_returnIntGpioContextPtrIntParametersFunc>>
       _readMultiPointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>> _writePointer;
-  Pointer<NativeFunction<_returnIntGpioContextPtrIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+      _writePointer;
+  late Pointer<NativeFunction<_returnIntGpioContextPtrIntParametersFunc>>
       _writeMultiPointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>> _ownerPointer;
-  Pointer<NativeFunction<_returnIntGpioContextParametersFunc>> _pinPointer;
-  Pointer<NativeFunction<_returnIntGpioContextParametersFunc>> _pinRawPointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+      _ownerPointer;
+  late Pointer<NativeFunction<_returnIntGpioContextParametersFunc>> _pinPointer;
+  late Pointer<NativeFunction<_returnIntGpioContextParametersFunc>>
+      _pinRawPointer;
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
       _inputModePointer;
-  Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
+  late Pointer<NativeFunction<_returnIntGpioContextIntParametersFunc>>
       _outputDriverModePointer;
 
   /// Dart Functions
-  _MraaGpioInitialiseType _initialiseFunc;
-  _MraaGpioDirectionType _directionFunc;
-  _MraaGpioReadType _readFunc;
-  _MraaGpioInitialiseMultiType _initialiseMultiFunc;
-  _MraaGpioInitialiseRawType _initialiseRawFunc;
-  _MraaGpioEdgeModeType _edgeModeFunc;
-  _MraaGpioEventsType _eventsFunc;
-  _MraaGpioModeType _modeFunc;
-  _MraaGpioReadDirectionType _readDirectionFunc;
-  _MraaGpioCloseType _closeFunc;
-  _MraaGpioReadMultiType _readMultiFunc;
-  _MraaGpioWriteType _writeFunc;
-  _MraaGpioWriteMultiType _writeMultiFunc;
-  _MraaGpioOwnerType _ownerFunc;
-  _MraaGpioPinType _pinFunc;
-  _MraaGpioPinRawType _pinRawFunc;
-  _MraaGpioInputModeType _inputModeFunc;
-  _MraaGpioOutputDriverModeType _outputDriverModeFunc;
+  late _MraaGpioInitialiseType _initialiseFunc;
+  late _MraaGpioDirectionType _directionFunc;
+  late _MraaGpioReadType _readFunc;
+  late _MraaGpioInitialiseMultiType _initialiseMultiFunc;
+  late _MraaGpioInitialiseRawType _initialiseRawFunc;
+  late _MraaGpioEdgeModeType _edgeModeFunc;
+  late _MraaGpioEventsType _eventsFunc;
+  late _MraaGpioModeType _modeFunc;
+  late _MraaGpioReadDirectionType _readDirectionFunc;
+  late _MraaGpioCloseType _closeFunc;
+  late _MraaGpioReadMultiType _readMultiFunc;
+  late _MraaGpioWriteType _writeFunc;
+  late _MraaGpioWriteMultiType _writeMultiFunc;
+  late _MraaGpioOwnerType _ownerFunc;
+  late _MraaGpioPinType _pinFunc;
+  late _MraaGpioPinRawType _pinRawFunc;
+  late _MraaGpioInputModeType _inputModeFunc;
+  late _MraaGpioOutputDriverModeType _outputDriverModeFunc;
 
   /// Initialise - mraa_gpio_init
   ///

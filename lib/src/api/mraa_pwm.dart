@@ -67,51 +67,53 @@ class MraaPwm {
   int _grovePiPinOffset = 0;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaPwmContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaPwmContextIntIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaPwmContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaPwmContextIntIntParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnDoubleMraaPwmContextParameterFunc>>
+  late Pointer<NativeFunction<_returnDoubleMraaPwmContextParameterFunc>>
       _readPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _periodPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _periodMsPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _periodUsPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextFloatParameterFunc>>
       _pulseWidthPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _pulseWidthMsPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _pulseWidthUsPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _enablePointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextIntParameterFunc>>
       _ownerPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>> _closePointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
+      _closePointer;
+  late Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
       _maxPeriodPointer;
-  Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaPwmContextParameterFunc>>
       _minPeriodPointer;
 
   /// Dart Functions
-  _MraaPwmInitialiseType _initFunc;
-  _MraaPwmInitialiseRawType _initRawFunc;
-  _MraaPwmWriteType _writeFunc;
-  _MraaPwmReadType _readFunc;
-  _MraaPwmPeriodType _periodFunc;
-  _MraaPwmPeriodMsType _periodMsFunc;
-  _MraaPwmPeriodUsType _periodUsFunc;
-  _MraaPwmPulseWidthType _pulseWidthFunc;
-  _MraaPwmPulseWidthMsType _pulseWidthMsFunc;
-  _MraaPwmPulseWidthUsType _pulseWidthUsFunc;
-  _MraaPwmEnableType _enableFunc;
-  _MraaPwmOwnerType _ownerFunc;
-  _MraaPwmCloseType _closeFunc;
-  _MraaPwmMaxPeriodType _maxPeriodFunc;
-  _MraaPwmMinPeriodType _minPeriodFunc;
+  late _MraaPwmInitialiseType _initFunc;
+  late _MraaPwmInitialiseRawType _initRawFunc;
+  late _MraaPwmWriteType _writeFunc;
+  late _MraaPwmReadType _readFunc;
+  late _MraaPwmPeriodType _periodFunc;
+  late _MraaPwmPeriodMsType _periodMsFunc;
+  late _MraaPwmPeriodUsType _periodUsFunc;
+  late _MraaPwmPulseWidthType _pulseWidthFunc;
+  late _MraaPwmPulseWidthMsType _pulseWidthMsFunc;
+  late _MraaPwmPulseWidthUsType _pulseWidthUsFunc;
+  late _MraaPwmEnableType _enableFunc;
+  late _MraaPwmOwnerType _ownerFunc;
+  late _MraaPwmCloseType _closeFunc;
+  late _MraaPwmMaxPeriodType _maxPeriodFunc;
+  late _MraaPwmMinPeriodType _minPeriodFunc;
 
   /// Initialise - mraa_pwm_init
   ///

@@ -8,4 +8,4 @@
 part of mraa;
 
 /// AIO context class for the opaque MRAA mraa_aio_context structure
-class MraaAioContext extends Struct {}
+class MraaAioContext extends Opaque {}

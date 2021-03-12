@@ -67,50 +67,54 @@ class MraaI2c {
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaI2cContextIntParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextIntParameterFunc>>
       _frequencyPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
+  late Pointer<
+          NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
       _readPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>>
       _readBytePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _readByteDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _readWordDataPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnIntMraaI2CContextUint8Uint8ArrayIntParameterFunc>>
       _readBytesDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
+  late Pointer<
+          NativeFunction<_returnIntMraaI2CContextUint8ArrayIntParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _writeBytePointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContext2Uint8ParameterFunc>>
       _writeByteDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint16Uint8ParameterFunc>>
       _writeWordDataPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaI2CContextUint8ParameterFunc>>
       _addressPointer;
-  Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>> _stopPointer;
+  late Pointer<NativeFunction<_returnIntMraaI2CContextParameterFunc>>
+      _stopPointer;
 
   /// Dart Functions
-  _MraaI2cInitialiseType _initFunc;
-  _MraaI2cInitialiseRawType _initRawFunc;
-  _MraaI2cFrequencyType _frequencyFunc;
-  _MraaI2cReadType _readFunc;
-  _MraaI2cReadByteType _readByteFunc;
-  _MraaI2cReadByteDataType _readByteDataFunc;
-  _MraaI2cReadWordDataType _readWordDataFunc;
-  _MraaI2cReadBytesDataType _readBytesDataFunc;
-  _MraaI2cWriteType _writeFunc;
-  _MraaI2cWriteByteType _writeByteFunc;
-  _MraaI2cWriteByteDataType _writeByteDataFunc;
-  _MraaI2cWriteWordDataType _writeWordDataFunc;
-  _MraaI2cAddressType _addressFunc;
-  _MraaI2cStopType _stopFunc;
+  late _MraaI2cInitialiseType _initFunc;
+  late _MraaI2cInitialiseRawType _initRawFunc;
+  late _MraaI2cFrequencyType _frequencyFunc;
+  late _MraaI2cReadType _readFunc;
+  late _MraaI2cReadByteType _readByteFunc;
+  late _MraaI2cReadByteDataType _readByteDataFunc;
+  late _MraaI2cReadWordDataType _readWordDataFunc;
+  late _MraaI2cReadBytesDataType _readBytesDataFunc;
+  late _MraaI2cWriteType _writeFunc;
+  late _MraaI2cWriteByteType _writeByteFunc;
+  late _MraaI2cWriteByteDataType _writeByteDataFunc;
+  late _MraaI2cWriteWordDataType _writeWordDataFunc;
+  late _MraaI2cAddressType _addressFunc;
+  late _MraaI2cStopType _stopFunc;
 
   /// Initialise - mraa_i2c_init
   ///

@@ -69,31 +69,31 @@ class Mraa {
   }
 
   /// The MRAA library
-  DynamicLibrary _lib;
+  late DynamicLibrary _lib;
 
   /// The common API
-  MraaCommon common;
+  late MraaCommon common;
 
   /// The GPIO API
-  MraaGpio gpio;
+  late MraaGpio gpio;
 
   /// The AIO API
-  MraaAio aio;
+  late MraaAio aio;
 
   /// The I2C API
-  MraaI2c i2c;
+  late MraaI2c i2c;
 
   /// The LED API
-  MraaLed led;
+  late MraaLed led;
 
   /// The PWM API
-  MraaPwm pwm;
+  late MraaPwm pwm;
 
   /// The SPI API
-  MraaSpi spi;
+  late MraaSpi spi;
 
   /// The UART API
-  MraaUart uart;
+  late MraaUart uart;
 
   void _setupAPI() {
     common = MraaCommon(_lib, noJsonLoading, useGrovePi);

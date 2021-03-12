@@ -8,4 +8,4 @@
 part of mraa;
 
 /// GPIO context class for the opaque MRAA mraa_gpio_context structure
-class MraaGpioContext extends Struct {}
+class MraaGpioContext extends Opaque {}

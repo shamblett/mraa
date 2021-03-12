@@ -96,56 +96,59 @@ class MraaUart {
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaUartContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaUartContextStringParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaUartContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaUartContextStringParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>> _flushPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>>
+      _flushPointer;
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
       _sendBreakPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
       _baudRatePointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
       _modePointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameter2IntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameter2IntFunc>>
       _flowControlPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameter3IntFunc>>
       _timeoutPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterIntFunc>>
       _nonBlockingPointer;
-  Pointer<NativeFunction<_returnStringMraaUartContextParameterFunc>>
+  late Pointer<NativeFunction<_returnStringMraaUartContextParameterFunc>>
       _devicePathPointer;
-  Pointer<NativeFunction<_returnIntInt2String4Int2UIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntInt2String4Int2UIntParameterFunc>>
       _settingsPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>> _stopPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterFunc>>
+      _stopPointer;
+  late Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
       _readPointerUtf8;
-  Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _readPointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextStringIntParameterFunc>>
       _writePointerUtf8;
-  Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextUintIntParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
+  late Pointer<NativeFunction<_returnIntMraaUartContextParameterUintFunc>>
       _dataAvailablePointer;
 
   /// Dart Functions
-  _MraaUartInitialiseType _initFunc;
-  _MraaUartInitialiseRawType _initRawFunc;
-  _MraaUartFlushType _flushFunc;
-  _MraaUartSendBreakType _sendBreakFunc;
-  _MraaUartBaudRateType _baudRateFunc;
-  _MraaUartModeType _modeFunc;
-  _MraaUartFlowControlType _flowControlFunc;
-  _MraaUartTimeoutType _timeoutFunc;
-  _MraaUartNonBlockingType _nonBlockingFunc;
-  _MraaUartDevicePathType _devicePathFunc;
-  _MraaUartSettingsType _settingsFunc;
-  _MraaUartStopType _stopFunc;
-  _MraaUartReadUtf8Type _readFuncUtf8;
-  _MraaUartReadType _readFunc;
-  _MraaUartWriteUtf8Type _writeFuncUtf8;
-  _MraaUartWriteType _writeFunc;
-  _MraaUartDataAvailableType _dataAvailableFunc;
+  late _MraaUartInitialiseType _initFunc;
+  late _MraaUartInitialiseRawType _initRawFunc;
+  late _MraaUartFlushType _flushFunc;
+  late _MraaUartSendBreakType _sendBreakFunc;
+  late _MraaUartBaudRateType _baudRateFunc;
+  late _MraaUartModeType _modeFunc;
+  late _MraaUartFlowControlType _flowControlFunc;
+  late _MraaUartTimeoutType _timeoutFunc;
+  late _MraaUartNonBlockingType _nonBlockingFunc;
+  late _MraaUartDevicePathType _devicePathFunc;
+  late _MraaUartSettingsType _settingsFunc;
+  late _MraaUartStopType _stopFunc;
+  late _MraaUartReadUtf8Type _readFuncUtf8;
+  late _MraaUartReadType _readFunc;
+  late _MraaUartWriteUtf8Type _writeFuncUtf8;
+  late _MraaUartWriteType _writeFunc;
+  late _MraaUartDataAvailableType _dataAvailableFunc;
 
   /// Initialise - mraa_uart_init
   ///
@@ -271,7 +274,7 @@ class MraaUart {
   /// and will be set as passed in, see [MraaUartSettings].
   MraaReturnCode settings(int index, MraaUartSettings settings) {
     // Check for either a valid index or a device path
-    if (index < 0 && settings.devicePath == null) {
+    if (index < 0 && settings.devicePath.isNotEmpty) {
       return MraaReturnCode.errorInvalidParameter;
     }
 

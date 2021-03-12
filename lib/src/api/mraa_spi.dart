@@ -67,51 +67,54 @@ class MraaSpi {
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaSpiContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaSpiContextIntIntParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaSpiContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaSpiContextIntIntParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _modePointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _frequencyPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextUint8ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextUint8ParameterFunc>>
       _writePointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextUint16ParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextUint16ParameterFunc>>
       _writeWordPointer;
-  Pointer<NativeFunction<_returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>
+  late Pointer<
+          NativeFunction<_returnPtrUint8MraaSpiContextPtrUint8IntParameterFunc>>
       _writeBufferPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnPtrUint16MraaSpiContextPtrUint16IntParameterFunc>>
       _writeBufferWordPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnIntMraaSpiContextPtrUint8PtrUint8PtrIntParameterFunc>>
       _transferBufferPointer;
-  Pointer<
+  late Pointer<
           NativeFunction<
               _returnIntMraaSpiContextPtrUint16PtrUint16PtrIntParameterFunc>>
       _transferBufferWordPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _lsbModePointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaSpiContextIntParameterFunc>>
       _bitsPerWordPointer;
-  Pointer<NativeFunction<_returnIntMraaSpiContextParameterFunc>> _stopPointer;
+  late Pointer<NativeFunction<_returnIntMraaSpiContextParameterFunc>>
+      _stopPointer;
 
   /// Dart Functions
-  _MraaSpiInitialiseType _initFunc;
-  _MraaSpiInitialiseRawType _initRawFunc;
-  _MraaSpiModeType _modeFunc;
-  _MraaSpiFrequencyType _frequencyFunc;
-  _MraaSpiWriteType _writeFunc;
-  _MraaSpiWriteWordType _writeWordFunc;
-  _MraaSpiWriteBufferType _writeBufferFunc;
-  _MraaSpiWriteBufferWordType _writeBufferWordFunc;
-  _MraaSpiTransferBufferType _transferBufferFunc;
-  _MraaSpiTransferBufferWordType _transferBufferWordFunc;
-  _MraaSpiLsbModeType _lsbModeFunc;
-  _MraaSpiBitsPerWordType _bitsPerWordFunc;
-  _MraaSpiStopType _stopFunc;
+  late _MraaSpiInitialiseType _initFunc;
+  late _MraaSpiInitialiseRawType _initRawFunc;
+  late _MraaSpiModeType _modeFunc;
+  late _MraaSpiFrequencyType _frequencyFunc;
+  late _MraaSpiWriteType _writeFunc;
+  late _MraaSpiWriteWordType _writeWordFunc;
+  late _MraaSpiWriteBufferType _writeBufferFunc;
+  late _MraaSpiWriteBufferWordType _writeBufferWordFunc;
+  late _MraaSpiTransferBufferType _transferBufferFunc;
+  late _MraaSpiTransferBufferWordType _transferBufferWordFunc;
+  late _MraaSpiLsbModeType _lsbModeFunc;
+  late _MraaSpiBitsPerWordType _bitsPerWordFunc;
+  late _MraaSpiStopType _stopFunc;
 
   /// Initialise - mraa_spi_init
   ///

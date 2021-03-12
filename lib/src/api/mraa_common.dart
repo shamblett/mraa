@@ -85,119 +85,119 @@ class MraaCommon {
   int _grovePiPinOffset = 0;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaCommonStringNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonStringNoParametersFunc>>
       _versionPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _initialisePointer;
-  Pointer<NativeFunction<_returnMraaCommonStringNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonStringNoParametersFunc>>
       _platformNamePointer;
-  Pointer<NativeFunction<_returnMraaCommonStringIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonStringIntParametersFunc>>
       _platformVersionPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _platformTypePointer;
-  Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
       _initJsonPlatformPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _setLogLevelPointer;
-  Pointer<NativeFunction<_returnMraaCommonInt2IntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonInt2IntParametersFunc>>
       _pinmodeTestPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _adcRawBitsPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _platformAdcRawBitsPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _adcSupportedBitsPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _platformAdcSupportedBitsPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _setPriorityPointer;
-  Pointer<NativeFunction<_returnMraaCommonVoidIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonVoidIntParametersFunc>>
       _resultPrintPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _platformCombinedTypePointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _pinCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _uartCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _spiBusCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _pwmCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _gpioCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _aioCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _i2cBusCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _i2cBusIdPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntUint8ParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntUint8ParametersFunc>>
       _platformPinCountPointer;
-  Pointer<NativeFunction<_returnMraaCommonStringIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonStringIntParametersFunc>>
       _pinNamePointer;
-  Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
       _gpioLookupPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
       _i2cLookupPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
       _spiLookupPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
       _pwmLookupPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntStringParametersFunc>>
       _uartLookupPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntUint8ParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntUint8ParametersFunc>>
       _defaultI2cBusPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntNoParametersFunc>>
       _hasSubPlatformPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _isSubPlatformIdPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _subPlatformIdPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _subPlatformIndexPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntStringParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntStringParametersFunc>>
       _addSubplatformPointer;
-  Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
+  late Pointer<NativeFunction<_returnMraaCommonIntIntParametersFunc>>
       _removeSubplatformPointer;
 
   /// Dart Functions
-  _MraaCommonVersionType _versionFunc;
-  _MraaCommonInitialiseType _initFunc;
-  _MraaCommonPlatformNameType _platformNameFunc;
-  _MraaCommonPlatformVersionType _platformVersionFunc;
-  _MraaCommonPlatformTypeType _platformTypeFunc;
-  _MraaCommonInitJsonPlatformType _initJsonPlatformFunc;
-  _MraaCommonSetLogLevelType _setLogLevelFunc;
-  _MraaCommonPinmodeTestType _pinModeTestFunc;
-  _MraaCommonADCRawBitsType _adcRawBitsFunc;
-  _MraaCommonPlatformAdcRawBitsType _platformAdcRawBitsFunc;
-  _MraaCommonAdcSupportedBitsType _adcSupportedBitsFunc;
-  _MraaCommonPlatformAdcSupportedBitsType _platformAdcSupportedBitsFunc;
-  _MraaCommonSetPriorityType _setPriorityFunc;
-  _MraaCommonResultPrintType _resultPrintFunc;
-  _MraaCommonPlatformCombinedTypeType _platformCombinedTypeFunc;
-  _MraaCommonPinCountType _pinCountTypeFunc;
-  _MraaCommonUartCountType _uartCountTypeFunc;
-  _MraaCommonSpiBusCountType _spiBusCountTypeFunc;
-  _MraaCommonPwmCountType _pwmCountTypeFunc;
-  _MraaCommonGpioCountType _gpioCountTypeFunc;
-  _MraaCommonAioCountType _aioCountTypeFunc;
-  _MraaCommonI2cBusCountType _i2cBusCountTypeFunc;
-  _MraaCommonI2cBusIdType _i2cBusIdFunc;
-  _MraaCommonPlatformPinCountType _platformPinCountFunc;
-  _MraaCommonPinNameType _pinNameFunc;
-  _MraaCommonGpioLookupType _gpioLookupFunc;
-  _MraaCommonI2cLookupType _i2cLookupFunc;
-  _MraaCommonSpiLookupType _spiLookupFunc;
-  _MraaCommonPwmLookupType _pwmLookupFunc;
-  _MraaCommonUartLookupType _uartLookupFunc;
-  _MraaCommonDefaultI2cBusType _defaultI2cBusFunc;
-  _MraaCommonHasSubPlatformType _hasSubPlatformFunc;
-  _MraaCommonIsSubPlatformIdType _isSubPlatformIdFunc;
-  _MraaCommonSubPlatformIdType _subPlatformIdFunc;
-  _MraaCommonSubPlatformIndexType _subPlatformIndexFunc;
-  _MraaCommonAddSubplatformType _addSubplatformFunc;
-  _MraaCommonRemoveSubplatformType _removeSubplatformFunc;
+  late _MraaCommonVersionType _versionFunc;
+  late _MraaCommonInitialiseType _initFunc;
+  late _MraaCommonPlatformNameType _platformNameFunc;
+  late _MraaCommonPlatformVersionType _platformVersionFunc;
+  late _MraaCommonPlatformTypeType _platformTypeFunc;
+  late _MraaCommonInitJsonPlatformType _initJsonPlatformFunc;
+  late _MraaCommonSetLogLevelType _setLogLevelFunc;
+  late _MraaCommonPinmodeTestType _pinModeTestFunc;
+  late _MraaCommonADCRawBitsType _adcRawBitsFunc;
+  late _MraaCommonPlatformAdcRawBitsType _platformAdcRawBitsFunc;
+  late _MraaCommonAdcSupportedBitsType _adcSupportedBitsFunc;
+  late _MraaCommonPlatformAdcSupportedBitsType _platformAdcSupportedBitsFunc;
+  late _MraaCommonSetPriorityType _setPriorityFunc;
+  late _MraaCommonResultPrintType _resultPrintFunc;
+  late _MraaCommonPlatformCombinedTypeType _platformCombinedTypeFunc;
+  late _MraaCommonPinCountType _pinCountTypeFunc;
+  late _MraaCommonUartCountType _uartCountTypeFunc;
+  late _MraaCommonSpiBusCountType _spiBusCountTypeFunc;
+  late _MraaCommonPwmCountType _pwmCountTypeFunc;
+  late _MraaCommonGpioCountType _gpioCountTypeFunc;
+  late _MraaCommonAioCountType _aioCountTypeFunc;
+  late _MraaCommonI2cBusCountType _i2cBusCountTypeFunc;
+  late _MraaCommonI2cBusIdType _i2cBusIdFunc;
+  late _MraaCommonPlatformPinCountType _platformPinCountFunc;
+  late _MraaCommonPinNameType _pinNameFunc;
+  late _MraaCommonGpioLookupType _gpioLookupFunc;
+  late _MraaCommonI2cLookupType _i2cLookupFunc;
+  late _MraaCommonSpiLookupType _spiLookupFunc;
+  late _MraaCommonPwmLookupType _pwmLookupFunc;
+  late _MraaCommonUartLookupType _uartLookupFunc;
+  late _MraaCommonDefaultI2cBusType _defaultI2cBusFunc;
+  late _MraaCommonHasSubPlatformType _hasSubPlatformFunc;
+  late _MraaCommonIsSubPlatformIdType _isSubPlatformIdFunc;
+  late _MraaCommonSubPlatformIdType _subPlatformIdFunc;
+  late _MraaCommonSubPlatformIndexType _subPlatformIndexFunc;
+  late _MraaCommonAddSubplatformType _addSubplatformFunc;
+  late _MraaCommonRemoveSubplatformType _removeSubplatformFunc;
 
   /// Version - mraa_get_version
   ///

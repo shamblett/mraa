@@ -17,10 +17,7 @@ class MraaEnumHelper<T extends dynamic> {
 
   /// From int
   T fromInt(int index) {
-    if (_valuesMap.containsKey(index)) {
-      return _valuesMap[index];
-    }
-    return null;
+    return _valuesMap[index]!;
   }
 
   /// As int

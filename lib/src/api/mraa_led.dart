@@ -49,30 +49,32 @@ class MraaLed {
   final bool _noJsonLoading;
 
   /// C Pointers
-  Pointer<NativeFunction<_returnMraaLedContextIntParameterFunc>> _initPointer;
-  Pointer<NativeFunction<_returnMraaLedContextStringParameterFunc>>
+  late Pointer<NativeFunction<_returnMraaLedContextIntParameterFunc>>
+      _initPointer;
+  late Pointer<NativeFunction<_returnMraaLedContextStringParameterFunc>>
       _initRawPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextIntParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextIntParameterFunc>>
       _setBrightnessPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
       _readBrightnessPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
       _readMaxBrightnessPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextStringParameterFunc>>
       _setTriggerPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
       _clearTriggerPointer;
-  Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>> _closePointer;
+  late Pointer<NativeFunction<_returnIntMraaLedContextParameterFunc>>
+      _closePointer;
 
   /// Dart Functions
-  _MraaLedInitialiseType _initFunc;
-  _MraaLedInitialiseRawType _initRawFunc;
-  _MraaLedSetBrightnessType _setBrightnessFunc;
-  _MraaLedReadBrightnessType _readBrightnessFunc;
-  _MraaLedReadMaxBrightnessType _readMaxBrightnessFunc;
-  _MraaLedSetTriggerType _setTriggerFunc;
-  _MraaLedClearTriggerType _clearTriggerFunc;
-  _MraaLedCloseType _closeFunc;
+  late _MraaLedInitialiseType _initFunc;
+  late _MraaLedInitialiseRawType _initRawFunc;
+  late _MraaLedSetBrightnessType _setBrightnessFunc;
+  late _MraaLedReadBrightnessType _readBrightnessFunc;
+  late _MraaLedReadMaxBrightnessType _readMaxBrightnessFunc;
+  late _MraaLedSetTriggerType _setTriggerFunc;
+  late _MraaLedClearTriggerType _clearTriggerFunc;
+  late _MraaLedCloseType _closeFunc;
 
   /// Initialise - mraa_led_init
   ///
