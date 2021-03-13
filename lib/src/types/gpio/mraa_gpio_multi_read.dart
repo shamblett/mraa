@@ -10,7 +10,7 @@ part of mraa;
 /// The values of a range of GPIO pins read in a multi read operation.
 class MraaGpioMultiRead {
   /// Pin values
-  List<int> values =[];
+  List<int> values = [];
 
   /// Length
   int get length => values.length;

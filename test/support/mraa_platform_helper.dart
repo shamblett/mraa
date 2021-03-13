@@ -53,7 +53,7 @@ class MraaPlatformHelper {
       _osMap[vals[0]] = vals[1];
     }
     // Set the dist name
-    _distName = _osMap['NAME'];
+    _distName = _osMap['NAME']!;
   }
 
   @override

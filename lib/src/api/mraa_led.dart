@@ -90,7 +90,7 @@ class MraaLed {
   /// "function" name most often.
   /// For instance, initialiseRaw("user4")
   Pointer<MraaLedContext> initialiseRaw(String ledDev) =>
-      _initRawFunc(ffi.Utf8.toUtf8(ledDev));
+      _initRawFunc(ledDev.toNativeUtf8());
 
   /// Set brightness - mraa_led_set_brightness
   ///
@@ -113,7 +113,7 @@ class MraaLed {
   ///
   /// Set LED trigger to the trigger name supplied.
   MraaReturnCode setTrigger(Pointer<MraaLedContext> dev, String triggerName) =>
-      returnCode.fromInt(_setTriggerFunc(dev, ffi.Utf8.toUtf8(triggerName)));
+      returnCode.fromInt(_setTriggerFunc(dev, triggerName.toNativeUtf8()));
 
   /// Clear trigger - mraa_led_clear_trigger
   ///

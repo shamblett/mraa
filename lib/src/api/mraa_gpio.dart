@@ -162,12 +162,12 @@ class MraaGpio {
     pins.forEach((int pin) {
       pin += _grovePiPinOffset;
     });
-    final mpins = ffi.allocate<Int32>(count: numPins);
+    final mPins = ffi.calloc.allocate<Int32>(numPins);
     final values = Int32List.fromList(pins);
-    final dataItems = mpins.asTypedList(values.length);
+    final dataItems = mPins.asTypedList(values.length);
     dataItems.setAll(0, values);
     _initialiseMultiPinCount = numPins;
-    return _initialiseMultiFunc(mpins, numPins);
+    return _initialiseMultiFunc(mPins, numPins);
   }
 
   /// Initialise raw - mraa_gpio_init_raw
@@ -196,7 +196,7 @@ class MraaGpio {
   /// so null is returned.
   List<MraaGpioEvent> events(Pointer<MraaGpioContext> dev) {
     if (_initialiseMultiPinCount == 0) {
-      return null;
+      return <MraaGpioEvent>[];
     }
     final mevents = _eventsFunc(dev);
     final events = <MraaGpioEvent>[];
@@ -220,7 +220,7 @@ class MraaGpio {
   /// Read the GPIO's direction.
   MraaReturnCode readDirection(
       Pointer<MraaGpioContext> dev, MraaGpioDirectionRead gpioDirection) {
-    final dir = ffi.allocate<Int32>(count: 1);
+    final dir = ffi.calloc.allocate<Int32>(1);
     final ret = returnCode.fromInt(_readDirectionFunc(dev, dir));
     gpioDirection.direction = gpioDirections.fromInt(dir.value);
     return ret;
@@ -246,14 +246,14 @@ class MraaGpio {
     if (_initialiseMultiPinCount == 0) {
       return MraaReturnCode.errorUnspecified;
     }
-    final rawValues = ffi.allocate<Int32>(count: _initialiseMultiPinCount);
+    final rawValues = ffi.calloc.allocate<Int32>(_initialiseMultiPinCount);
     var intRet = _readMultiFunc(dev, rawValues);
     if (intRet == Mraa.generalError) {
       intRet = 99; // unspecified
     }
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
-    ffi.free(rawValues);
+    ffi.calloc.free(rawValues);
     return returnCode.fromInt(intRet);
   }
 
@@ -275,7 +275,7 @@ class MraaGpio {
     if (values.length != _initialiseMultiPinCount) {
       return MraaReturnCode.errorUnspecified;
     }
-    final rawValues = ffi.allocate<Int32>(count: values.length);
+    final rawValues = ffi.calloc.allocate<Int32>(values.length);
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     typedValues.setAll(0, values);
     return returnCode.fromInt(_writeMultiFunc(dev, rawValues));

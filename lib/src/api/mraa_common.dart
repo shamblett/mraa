@@ -206,7 +206,7 @@ class MraaCommon {
   /// The version returned may not be what is expected however
   /// it is a reliable number associated with the git tag closest
   /// to that version at build time.
-  String version() => ffi.Utf8.fromUtf8(_versionFunc());
+  String version() => _versionFunc().toDartString();
 
   /// Initialise - mraa_init
   ///
@@ -221,7 +221,7 @@ class MraaCommon {
   ///
   /// Return the Platform's name.
   /// If no platform is detected NULL is returned.
-  String platformName() => ffi.Utf8.fromUtf8(_platformNameFunc());
+  String platformName() => _platformNameFunc().toDartString();
 
   /// Platform version - mraa_get_platform_version
   ///
@@ -233,7 +233,7 @@ class MraaCommon {
     if (retPtr == nullptr) {
       return 'No platform version set - maybe a mock board?';
     }
-    return ffi.Utf8.fromUtf8(_platformVersionFunc(platformOffset));
+    return _platformVersionFunc(platformOffset).toDartString();
   }
 
   /// Platform type - mraa_get_platform_type
@@ -246,7 +246,7 @@ class MraaCommon {
   /// Instantiate an unknown board from a json file
   MraaReturnCode initialiseJsonPlatform(String path) => _noJsonLoading
       ? MraaReturnCode.errorFeatureNotSupported
-      : returnCode.fromInt(_initJsonPlatformFunc(ffi.Utf8.toUtf8(path)));
+      : returnCode.fromInt(_initJsonPlatformFunc(path.toNativeUtf8()));
 
   /// Set the log level - mraa_set_log_level
   ///
@@ -375,37 +375,37 @@ class MraaCommon {
   ///
   /// Get the name of a pin, the board must be initialised.
   String pinName(int pinNumber) =>
-      ffi.Utf8.fromUtf8(_pinNameFunc(pinNumber + _grovePiPinOffset));
+      _pinNameFunc(pinNumber + _grovePiPinOffset).toDartString();
 
   /// GPIO lookup - mraa_gpio_lookup
   ///
   /// Get the GPIO index by pin name, the board must be initialised.
   /// Returns the MRAA index for GPIO or [Mraa.generalError] on error.
-  int gpioLookup(String pinName) => _gpioLookupFunc(ffi.Utf8.toUtf8(pinName));
+  int gpioLookup(String pinName) => _gpioLookupFunc(pinName.toNativeUtf8());
 
   /// I2C lookup - mraa_i2c_lookup
   ///
   /// Get the I2C bus index by bus name, the board must be initialised.
   /// Returns the MRAA index for I2C bus or [Mraa.generalError] on error.
-  int i2cLookup(String i2cName) => _i2cLookupFunc(ffi.Utf8.toUtf8(i2cName));
+  int i2cLookup(String i2cName) => _i2cLookupFunc(i2cName.toNativeUtf8());
 
   /// SPI lookup - mraa_spi_lookup
   ///
   /// Get the SPI bus index by bus name, the board must be initialised.
   /// Returns the MRAA index for SPI bus or [Mraa.generalError] on error.
-  int spiLookup(String spiName) => _spiLookupFunc(ffi.Utf8.toUtf8(spiName));
+  int spiLookup(String spiName) => _spiLookupFunc(spiName.toNativeUtf8());
 
   /// PWM lookup - mraa_pwm_lookup
   ///
   /// Get the PWM index by name, the board must be initialised.
   /// Returns the MRAA index for PWM name or [Mraa.generalError] on error.
-  int pwmLookup(String pwmName) => _pwmLookupFunc(ffi.Utf8.toUtf8(pwmName));
+  int pwmLookup(String pwmName) => _pwmLookupFunc(pwmName.toNativeUtf8());
 
   /// UART lookup - mraa_uart_lookup
   ///
   /// Get the UART index by name, the board must be initialised.
   /// Returns the MRAA index for the UART name or [Mraa.generalError] on error.
-  int uartLookup(String uartName) => _uartLookupFunc(ffi.Utf8.toUtf8(uartName));
+  int uartLookup(String uartName) => _uartLookupFunc(uartName.toNativeUtf8());
 
   /// Default I2c bus - mraa_get_default_i2c_bus
   ///
@@ -447,7 +447,7 @@ class MraaCommon {
   /// I2C bus the sub platform is on.
   MraaReturnCode addSubplatform(MraaPlatformType subplatformType, String dev) =>
       returnCode.fromInt(_addSubplatformFunc(
-          platformTypes.asInt(subplatformType), ffi.Utf8.toUtf8(dev)));
+          platformTypes.asInt(subplatformType), dev.toNativeUtf8()));
 
   /// Remove subplatform - mraa_remove_subplatform
   ///

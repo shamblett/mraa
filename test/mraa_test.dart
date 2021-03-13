@@ -60,10 +60,8 @@ int main() {
     test('Platform types', () {
       mraa.common.initialise();
       final ret = mraa.common.platformType();
-      if (ret != null) {
-        print('Platform type is : ${platformTypes.asString(ret)}');
-        expect(ret, MraaPlatformType.mockPlatform);
-      }
+      print('Platform type is : ${platformTypes.asString(ret)}');
+      expect(ret, MraaPlatformType.mockPlatform);
     });
     test('Pin mode test', () {
       final ok = mraa.common.initialise();
@@ -435,7 +433,7 @@ int main() {
     test('Read', () {
       final context = mraa.i2c.initialise(0);
       const length = 10;
-      final data = allocate<Uint8>(count: length);
+      final data = calloc.allocate<Uint8>(length);
       final ret = mraa.i2c.read(context, data, length);
       expect(ret, Mraa.generalError);
     });
@@ -457,14 +455,14 @@ int main() {
     test('Read bytes data', () {
       final context = mraa.i2c.initialise(0);
       const length = 10;
-      final data = allocate<Uint8>(count: length);
+      final data = calloc.allocate<Uint8>(length);
       final ret = mraa.i2c.readBytesData(context, 0, data, length);
       expect(ret, Mraa.generalError);
     });
     test('Write', () {
       final context = mraa.i2c.initialise(0);
       final values = Uint8List.fromList(<int>[1, 2, 3, 4, 5]);
-      final data = allocate<Uint8>(count: values.length);
+      final data = calloc.allocate<Uint8>(values.length);
       final dataItems = data.asTypedList(values.length);
       dataItems.setAll(0, values);
       final ret = mraa.i2c.write(context, data, values.length);
@@ -798,7 +796,7 @@ int main() {
       mraa.uart.flush(context);
       final buffer = MraaUartBuffer();
       buffer.byteData = Uint8List(10);
-      final ret = mraa.uart.readUtf8(context, buffer, buffer.byteLength);
+      final ret = mraa.uart.readBytes(context, buffer, buffer.byteLength);
       if (ret != Mraa.generalError) {
         expect(ret, 10);
         expect(buffer.byteLength, 10);

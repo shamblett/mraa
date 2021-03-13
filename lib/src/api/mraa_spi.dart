@@ -162,17 +162,17 @@ class MraaSpi {
   /// Maximum length is 4096
   Uint8List writeBuffer(
       Pointer<MraaSpiContext> dev, Uint8List data, int length) {
-    final ptr = ffi.allocate<Uint8>(count: length);
+    final ptr = ffi.calloc.allocate<Uint8>(length);
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, data);
     final retData = _writeBufferFunc(dev, ptr, length);
     if (retData == nullptr) {
-      return null;
+      return Uint8List(0);
     }
     final retDataList = retData.asTypedList(length);
     final ret = Uint8List(length);
     ret.setAll(0, retDataList);
-    ffi.free(retData);
+    ffi.calloc.free(retData);
     return ret;
   }
 
@@ -183,17 +183,17 @@ class MraaSpi {
   /// Maximum length is 4096
   Uint16List writeBufferWord(
       Pointer<MraaSpiContext> dev, Uint16List data, int length) {
-    final ptr = ffi.allocate<Uint16>(count: length);
+    final ptr = ffi.calloc.allocate<Uint16>(length);
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, data);
     final retData = _writeBufferWordFunc(dev, ptr, length);
     if (retData == nullptr) {
-      return null;
+      return Uint16List(0);
     }
     final retDataList = retData.asTypedList(length);
     final ret = Uint16List(length);
     ret.setAll(0, retDataList);
-    ffi.free(retData);
+    ffi.calloc.free(retData);
     return ret;
   }
 
@@ -204,23 +204,23 @@ class MraaSpi {
   /// Maximum length 4096 both ways
   MraaReturnCode transferBuffer(Pointer<MraaSpiContext> dev,
       MraaSpiTransferBuffer<Uint8List> buffer, int length) {
-    final ptr = ffi.allocate<Uint8>(count: length);
+    final ptr = ffi.calloc.allocate<Uint8>(length);
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
-    final retData = ffi.allocate<Uint8>(count: length);
+    final retData = ffi.calloc.allocate<Uint8>(length);
     final status =
         returnCode.fromInt(_transferBufferFunc(dev, ptr, retData, length));
     if (status != MraaReturnCode.success) {
       return status;
     }
     if (retData == nullptr) {
-      buffer.dataReceived = null;
+      buffer.dataReceived = Uint8List(0);
       return status;
     }
     final retDataList = retData.asTypedList(length);
     buffer.dataReceived = Uint8List(length);
     buffer.dataReceived.setAll(0, retDataList);
-    ffi.free(retData);
+    ffi.calloc.free(retData);
     return status;
   }
 
@@ -231,10 +231,10 @@ class MraaSpi {
   /// Maximum length 4096 both ways
   MraaReturnCode transferBufferWord(Pointer<MraaSpiContext> dev,
       MraaSpiTransferBuffer<Uint16List> buffer, int length) {
-    final ptr = ffi.allocate<Uint16>(count: length);
+    final ptr = ffi.calloc.allocate<Uint16>(length);
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
-    final retData = ffi.allocate<Uint16>(count: length);
+    final retData = ffi.calloc.allocate<Uint16>(length);
     final status =
         returnCode.fromInt(_transferBufferWordFunc(dev, ptr, retData, length));
     final retDataList = retData.asTypedList(length);
@@ -242,12 +242,12 @@ class MraaSpi {
       return status;
     }
     if (retData == nullptr) {
-      buffer.dataReceived = null;
+      buffer.dataReceived = Uint16List(0);
       return status;
     }
     buffer.dataReceived = Uint16List(length);
     buffer.dataReceived.setAll(0, retDataList);
-    ffi.free(retData);
+    ffi.calloc.free(retData);
     return status;
   }
 
