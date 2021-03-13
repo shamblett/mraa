@@ -17,10 +17,10 @@ class MraaGpioEvent extends Struct {
   @Int32()
 
   /// Id
-  int id;
+  external int id;
 
   @Int64()
 
   /// Timestamp
-  int timestamp;
+  external int timestamp;
 }
