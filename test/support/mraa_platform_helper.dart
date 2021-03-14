@@ -34,7 +34,7 @@ class MraaPlatformHelper {
       return 'test/testlib/centos7/libmraa.so.2.0.0';
     }
     if (isFedora()) {
-      return 'test/testlib/fedora/libmraa.so.2.0.0';
+      return 'test/testlib/fedora/libmraa.so.2.2.0';
     }
     // Default to Ubuntu for Travis
     return 'test/testlib/ubuntu/libmraa.so.2.0.0';
