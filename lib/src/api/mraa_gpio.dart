@@ -254,6 +254,7 @@ class MraaGpio {
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
     ffi.calloc.free(rawValues);
+
     return returnCode.fromInt(intRet);
   }
 

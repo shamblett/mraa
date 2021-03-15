@@ -33,6 +33,11 @@ int main() {
       final ret = mraa.common.initialise();
       expect(ret, MraaReturnCode.success);
     });
+    test('Version', () {
+      mraa.common.initialise();
+      final mraaVersion = mraa.common.version();
+      print('MRAA Version is : $mraaVersion');
+    });
     test('Log level', () {
       mraa.common.initialise();
       final ret = mraa.common.setLogLevel(7);
@@ -49,7 +54,6 @@ int main() {
       mraa.common.initialise();
       final platformVersion = mraa.common.platformVersion(0);
       print('The current platform version is : $platformVersion');
-      expect(platformVersion.contains('mock'), isTrue);
     });
 
     test('Platform types', () {
@@ -244,7 +248,7 @@ int main() {
       expect(ret == Mraa.generalError, isTrue);
     });
     test('Initialise multi', () {
-      final context = mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
+      final context = mraa.gpio.initialiseMulti(<int>[1], 1);
       expect(context, isNotNull);
     });
     test('Initialise raw', () {
@@ -279,24 +283,24 @@ int main() {
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Read multi', () {
-      final context = mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
+      final context = mraa.gpio.initialiseMulti(<int>[1], 1);
       expect(context, isNotNull);
       final values = MraaGpioMultiRead();
       final ret = mraa.gpio.readMulti(context, values);
       expect(ret, MraaReturnCode.errorUnspecified);
       expect(values.values, isNotNull);
-      expect(values.length, 4);
-    }, skip: true);
+      expect(values.length, 1);
+    });
     test('Write', () {
       final context = mraa.gpio.initialise(1);
       final ret = mraa.gpio.write(context, 1);
       expect(ret, MraaReturnCode.errorInvalidHandle);
     });
     test('Write multi', () {
-      final context = mraa.gpio.initialiseMulti(<int>[1, 2, 3, 4], 4);
-      final ret = mraa.gpio.writeMulti(context, <int>[7, 8, 9, 10]);
+      final context = mraa.gpio.initialiseMulti(<int>[1], 1);
+      final ret = mraa.gpio.writeMulti(context, <int>[10]);
       expect(ret, MraaReturnCode.errorInvalidHandle);
-    }, skip: true);
+    });
     test('Owner', () {
       final context = mraa.gpio.initialise(1);
       final ret = mraa.gpio.owner(context, true);
@@ -316,13 +320,13 @@ int main() {
       final context = mraa.gpio.initialise(1);
       final ret = mraa.gpio.inputMode(context, MraaGpioInputMode.activeHigh);
       expect(ret, MraaReturnCode.errorInvalidHandle);
-    }, skip: true);
+    });
     test('Output driver mode', () {
       final context = mraa.gpio.initialise(1);
       final ret = mraa.gpio
           .outputDriverMode(context, MraaGpioOutputDriverMode.pushPull);
       expect(ret, MraaReturnCode.errorInvalidHandle);
-    }, skip: true);
+    });
   });
 
   group('LED', () {
@@ -424,7 +428,7 @@ int main() {
       final context = mraa.i2c.initialise(0);
       final ret = mraa.i2c.frequency(context, MraaI2cMode.high);
       expect(ret, MraaReturnCode.success);
-    }, skip: true);
+    });
     test('Read', () {
       final context = mraa.i2c.initialise(0);
       const length = 10;
@@ -462,7 +466,7 @@ int main() {
       dataItems.setAll(0, values);
       final ret = mraa.i2c.write(context, data, values.length);
       expect(ret, MraaReturnCode.errorUnspecified);
-    }, skip: true);
+    });
     test('Write byte', () {
       final context = mraa.i2c.initialise(0);
       final ret = mraa.i2c.writeByte(context, 8);
@@ -510,7 +514,7 @@ int main() {
       expect(context, isNotNull);
       final ret = mraa.pwm.read(context);
       expect(ret, isPositive);
-    }, skip: true);
+    });
     test('Period', () {
       final context = mraa.pwm.initialise(1);
       expect(context, isNotNull);
@@ -593,7 +597,7 @@ int main() {
       expect(context, isNotNull);
       final ret = mraa.spi.mode(context, MraaSpiMode.mode0);
       expect(ret, MraaReturnCode.success);
-    }, skip: true);
+    });
     test('Frequency', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -631,7 +635,7 @@ int main() {
       final ret = mraa.spi.writeBufferWord(context, data, data.length);
       expect(ret, isNotNull);
       expect(ret.length, data.length);
-    }, skip: true);
+    });
     test('Transfer buffer', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -643,7 +647,7 @@ int main() {
       final ret = mraa.spi.transferBuffer(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
-    }, skip: true);
+    });
     test('Transfer buffer word', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -678,7 +682,7 @@ int main() {
 
   group('UART', () {
     test('Initialise', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
     });
     test('Initialise raw', () {
@@ -686,13 +690,13 @@ int main() {
       expect(context, isNotNull);
     });
     test('Flush', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.flush(context);
       expect(ret, MraaReturnCode.success);
     });
     test('Send break', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.sendBreak(context, 0);
       expect(ret, MraaReturnCode.success);
@@ -704,25 +708,25 @@ int main() {
       expect(ret, MraaReturnCode.success);
     });
     test('Mode', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.mode(context, 8, MraaUartParity.even, 1);
       expect(ret, MraaReturnCode.success);
-    }, skip: true);
+    });
     test('Flow control', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.flowControl(context, true, false);
       expect(ret, MraaReturnCode.success);
     });
     test('Timeout', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.timeout(context, 10, 10, 5);
       expect(ret, MraaReturnCode.success);
     });
     test('Non blocking', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.nonBlocking(context, false);
       expect(ret, MraaReturnCode.success);
@@ -740,7 +744,7 @@ int main() {
       final ret = mraa.uart.devicePath(context);
       expect(ret, isNotNull);
       expect(ret, 'dummy');
-    }, skip: true);
+    });
     test('Device path initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);

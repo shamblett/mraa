@@ -214,7 +214,7 @@ class MraaUart {
   ///
   /// Get the tty device path, for example "/dev/ttyS0"
   String devicePath(Pointer<MraaUartContext> dev) {
-    var ptrPath = ffi.calloc.allocate<ffi.Utf8>(255);
+    var ptrPath = ffi.calloc.allocate<ffi.Utf8>(1024);
     ptrPath = _devicePathFunc(dev);
     if (ptrPath == nullptr) {
       return '';

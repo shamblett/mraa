@@ -206,7 +206,13 @@ class MraaCommon {
   /// The version returned may not be what is expected however
   /// it is a reliable number associated with the git tag closest
   /// to that version at build time.
-  String version() => _versionFunc().toDartString();
+  String version() {
+    final ptr = _versionFunc();
+    if (ptr != nullptr) {
+      return ptr.toDartString();
+    }
+    return 'Version information is unavailable';
+  }
 
   /// Initialise - mraa_init
   ///
@@ -221,7 +227,13 @@ class MraaCommon {
   ///
   /// Return the Platform's name.
   /// If no platform is detected NULL is returned.
-  String platformName() => _platformNameFunc().toDartString();
+  String platformName() {
+    final ptr = _platformNameFunc();
+    if (ptr != nullptr) {
+      return ptr.toDartString();
+    }
+    return 'Platform Name is unavailable';
+  }
 
   /// Platform version - mraa_get_platform_version
   ///
@@ -229,11 +241,11 @@ class MraaCommon {
   /// depends per platform and can be NULL.
   /// [platformOffset] is 0 for the main platform, and 1 for sub platform.
   String platformVersion(int platformOffset) {
-    final retPtr = _platformVersionFunc(platformOffset);
-    if (retPtr == nullptr) {
-      return 'No platform version set - maybe a mock board?';
+    final ptr = _platformVersionFunc(platformOffset);
+    if (ptr != nullptr) {
+      ptr.toDartString();
     }
-    return _platformVersionFunc(platformOffset).toDartString();
+    return 'Platform Version is unavailable';
   }
 
   /// Platform type - mraa_get_platform_type
