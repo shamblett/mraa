@@ -659,7 +659,7 @@ int main() {
       final ret = mraa.spi.transferBufferWord(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
-    });
+    },skip:true);
     test('Lsb mode', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
