@@ -773,7 +773,7 @@ int main() {
       settings.devicePath = 'dev/ttyS0';
       final ret = mraa.uart.settings(-1, settings);
       expect(ret, MraaReturnCode.errorInvalidParameter);
-    });
+    },skip: helper.isUbuntu());
     test('Stop', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
