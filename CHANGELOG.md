@@ -1,3 +1,6 @@
+# 2.0.0
+Issue 6(NNBD)
+
 # 1.3.1
 Issue 3 - Uart writeBytes bug fix
 
