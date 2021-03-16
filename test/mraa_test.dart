@@ -647,7 +647,7 @@ int main() {
       final ret = mraa.spi.transferBuffer(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
-    },skip:helper.isUbuntu() || helper.isFedora());
+    }, skip: helper.isUbuntu() || helper.isFedora());
     test('Transfer buffer word', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -659,7 +659,7 @@ int main() {
       final ret = mraa.spi.transferBufferWord(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
-    },skip: helper.isUbuntu() || helper.isFedora());
+    }, skip: helper.isUbuntu() || helper.isFedora());
     test('Lsb mode', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -688,13 +688,13 @@ int main() {
     test('Initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
-    },skip: helper.isFedora());
+    }, skip: helper.isFedora() || helper.isUbuntu());
     test('Mode', () {
       final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.mode(context, 8, MraaUartParity.even, 1);
       expect(ret, MraaReturnCode.success);
-    });
+    }, skip: helper.isUbuntu());
     test('Flush', () {
       final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
@@ -744,7 +744,7 @@ int main() {
       final ret = mraa.uart.devicePath(context);
       expect(ret, isNotNull);
       expect(ret, 'dummy');
-    },skip:helper.isUbuntu() || helper.isFedora());
+    }, skip: helper.isUbuntu() || helper.isFedora());
     test('Device path initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
