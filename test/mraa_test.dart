@@ -688,7 +688,7 @@ int main() {
     test('Initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
-    });
+    },skip: helper.isUbuntu());
     test('Flush', () {
       final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
