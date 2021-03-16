@@ -26,7 +26,7 @@ class MraaPlatformHelper {
   bool isFedora() => _distName.toLowerCase().contains('fedora');
 
   /// Is this an Ubuntu  distro
-  bool isUbuntu() => _distName.toLowerCase().contains('ubunto');
+  bool isUbuntu() => _distName.toLowerCase().contains('ubuntu');
 
   /// Get the correct test library
   String getTestLib() {
