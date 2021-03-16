@@ -765,7 +765,7 @@ int main() {
       final settings = MraaUartSettings();
       final ret = mraa.uart.settings(1, settings);
       expect(ret, MraaReturnCode.errorInvalidResource);
-    });
+    },skip: helper.isUbuntu());
     test('Settings - device path', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
