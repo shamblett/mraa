@@ -809,7 +809,7 @@ int main() {
       var ret = mraa.uart.dataAvailable(context, 1);
       expect(ret, isNotNull);
     });
-  });
+  },skip: helper.isUbuntu());
 
   return 0;
 }
