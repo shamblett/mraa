@@ -694,7 +694,7 @@ int main() {
       expect(context, isNotNull);
       final ret = mraa.uart.mode(context, 8, MraaUartParity.even, 1);
       expect(ret, MraaReturnCode.success);
-    }, skip: helper.isUbuntu());
+    },skip: helper.isUbuntu());
     test('Flush', () {
       final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
@@ -758,7 +758,7 @@ int main() {
       final settings = MraaUartSettings();
       final ret = mraa.uart.settings(-1, settings);
       expect(ret, MraaReturnCode.errorInvalidResource);
-    });
+    },skip: helper.isUbuntu());
     test('Settings - index', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
