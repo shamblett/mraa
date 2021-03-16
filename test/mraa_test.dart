@@ -647,7 +647,7 @@ int main() {
       final ret = mraa.spi.transferBuffer(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
-    });
+    },skip:helper.isUbuntu());
     test('Transfer buffer word', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -659,7 +659,7 @@ int main() {
       final ret = mraa.spi.transferBufferWord(context, buffer, data.length);
       expect(ret, MraaReturnCode.success);
       expect(buffer.dataReceived.length, data.length);
-    },skip:true);
+    },skip: helper.isUbuntu());
     test('Lsb mode', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -744,7 +744,7 @@ int main() {
       final ret = mraa.uart.devicePath(context);
       expect(ret, isNotNull);
       expect(ret, 'dummy');
-    },skip:true);
+    },skip:helper.isUbuntu());
     test('Device path initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);

@@ -211,16 +211,17 @@ class MraaSpi {
     final status =
         returnCode.fromInt(_transferBufferFunc(dev, ptr, retData, length));
     if (status != MraaReturnCode.success) {
+      ffi.calloc.free(retData);
       return status;
     }
     if (retData == nullptr) {
       buffer.dataReceived = Uint8List(0);
+      ffi.calloc.free(retData);
       return status;
     }
     final retDataList = retData.asTypedList(length);
     buffer.dataReceived = Uint8List(length);
     buffer.dataReceived.setAll(0, retDataList);
-    ffi.calloc.free(retData);
     return status;
   }
 
@@ -239,15 +240,16 @@ class MraaSpi {
         returnCode.fromInt(_transferBufferWordFunc(dev, ptr, retData, length));
     final retDataList = retData.asTypedList(length);
     if (status != MraaReturnCode.success) {
+      ffi.calloc.free(retData);
       return status;
     }
     if (retData == nullptr) {
       buffer.dataReceived = Uint16List(0);
+      ffi.calloc.free(retData);
       return status;
     }
     buffer.dataReceived = Uint16List(length);
     buffer.dataReceived.setAll(0, retDataList);
-    ffi.calloc.free(retData);
     return status;
   }
 
