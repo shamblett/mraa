@@ -36,6 +36,7 @@ int main() {
     test('Version', () {
       mraa.common.initialise();
       final mraaVersion = mraa.common.version();
+      expect(mraaVersion.contains('2.2'), isTrue);
       print('MRAA Version is : $mraaVersion');
     });
     test('Log level', () {
