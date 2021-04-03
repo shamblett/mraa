@@ -8,7 +8,7 @@ dart_task:
   - test: --exclude-tags no-xvfb
     xvfb: false
 script:
-  pub run test test/mraa_test.dart
+  pub run test test/mraa_common_test.dart
 
 branches:
     only:
