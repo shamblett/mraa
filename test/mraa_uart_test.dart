@@ -35,7 +35,7 @@ int main() {
     test('Initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
-    }, skip: helper.isFedora() || helper.isUbuntu());
+    }, skip: helper.isUbuntu());
     test('Mode', () {
       final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
@@ -85,13 +85,6 @@ int main() {
       expect(ret, isNotNull);
       expect(ret, 'dummy');
     });
-    test('Device path initialise by index', () {
-      final context = mraa.uart.initialise(0);
-      expect(context, isNotNull);
-      final ret = mraa.uart.devicePath(context);
-      expect(ret, isNotNull);
-      expect(ret, 'dummy');
-    }, skip: helper.isUbuntu() || helper.isFedora());
     test('Device path initialise raw', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
@@ -127,7 +120,7 @@ int main() {
       final ret = mraa.uart.stop(context);
       expect(ret, MraaReturnCode.success);
     });
-    test('Write Uint8', () {
+    test('Write Bytes', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
       mraa.uart.flush(context);
@@ -136,7 +129,7 @@ int main() {
       final ret = mraa.uart.writeBytes(context, buffer, buffer.byteLength);
       expect(ret, buffer.byteLength);
     });
-    test('Read Uint8', () {
+    test('Read Bytes', () {
       final context = mraa.uart.initialiseRaw('dev/ttyS0');
       expect(context, isNotNull);
       mraa.uart.flush(context);
