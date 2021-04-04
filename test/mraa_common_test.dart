@@ -33,8 +33,12 @@ int main() {
     test('Version', () {
       mraa.common.initialise();
       final mraaVersion = mraa.common.version();
-      expect(mraaVersion.contains('2.2'), isTrue);
       print('MRAA Version is : $mraaVersion');
+      if (helper.isFedora()) {
+        expect(mraaVersion.contains('2.2'), isTrue);
+      } else {
+        expect(mraaVersion.contains('2.0'), isTrue);
+      }
     });
     test('Log level', () {
       mraa.common.initialise();
