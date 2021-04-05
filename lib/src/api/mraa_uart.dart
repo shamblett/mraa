@@ -213,14 +213,10 @@ class MraaUart {
   /// Device path - mraa_uart_get_dev_path
   ///
   /// Get the tty device path, for example "/dev/ttyS0"
-  String devicePath(Pointer<MraaUartContext> dev) {
-    var ptrPath = ffi.calloc.allocate<ffi.Utf8>(1024);
-    ptrPath = _devicePathFunc(dev);
-    if (ptrPath == nullptr) {
-      return '';
-    }
-    return ptrPath.toDartString();
-  }
+  String devicePath(Pointer<MraaUartContext> dev) =>
+      _devicePathFunc(dev) == nullptr
+          ? ''
+          : _devicePathFunc(dev).toDartString();
 
   /// Device path from index
   /// Given a UART index get the associated device path.
@@ -229,7 +225,7 @@ class MraaUart {
     if (index < 0) {
       return '';
     }
-    final ptrDevicePath = ffi.calloc.allocate<Pointer<ffi.Utf8>>(255);
+    final ptrDevicePath = ffi.calloc.allocate<Pointer<ffi.Utf8>>(1024);
     final ret = _settingsFunc(index, ptrDevicePath, nullptr, nullptr, nullptr,
         nullptr, nullptr, nullptr, nullptr);
 

@@ -15,6 +15,7 @@ script:
   - dart pub run test test/mraa_pwm_test.dart
   - dart pub run test test/mraa_spi_test.dart
   - dart pub run test test/mraa_uart_test.dart
+  - dart pub run test test/mraa_uart_separate_test.dart
 branches:
     only:
     - master
