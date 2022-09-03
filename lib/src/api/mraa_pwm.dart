@@ -61,7 +61,7 @@ class MraaPwm {
   // ignore: unused_field
   final bool _noJsonLoading;
 
-  final _useGrovePi;
+  final bool _useGrovePi;
 
   // Pin offset if we are using the grove pi shield.
   int _grovePiPinOffset = 0;

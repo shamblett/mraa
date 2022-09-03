@@ -5,11 +5,11 @@
  * Copyright :  S.Hamblett
  */
 
+@TestOn('VM && Linux')
+
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
-import 'support/mraa_platform_helper.dart';
-
-@TestOn('VM && Linux')
+import '../support/mraa_platform_helper.dart';
 
 // We always use our package supplied library in test as it is an Mraa
 // library compiled to use a mock board

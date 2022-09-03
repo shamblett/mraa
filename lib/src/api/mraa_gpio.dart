@@ -68,9 +68,9 @@ class MraaGpio {
   final DynamicLibrary _lib;
 
   // ignore: unused_field
-  final _noJsonLoading;
+  final bool _noJsonLoading;
 
-  final _useGrovePi;
+  final bool _useGrovePi;
 
   // Pin offset if we are using the grove pi shield.
   int _grovePiPinOffset = 0;
@@ -159,9 +159,9 @@ class MraaGpio {
   ///
   /// Initialise a [MraaGpioContext] for multiple pins (can be one).
   Pointer<MraaGpioContext> initialiseMulti(List<int> pins, int numPins) {
-    pins.forEach((int pin) {
-      pin += _grovePiPinOffset;
-    });
+    for (int i = 0; i < pins.length; i++) {
+      pins[i] += _grovePiPinOffset;
+    }
     final mPins = ffi.calloc.allocate<Int32>(numPins);
     final values = Int32List.fromList(pins);
     final dataItems = mPins.asTypedList(values.length);

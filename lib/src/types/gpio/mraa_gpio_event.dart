@@ -10,9 +10,10 @@ part of mraa;
 /// GPIO event class
 class MraaGpioEvent extends Struct {
   /// Construction
-  factory MraaGpioEvent(int id, int timestamp) => MraaGpioEvent(id, timestamp)
-    ..id = id
-    ..timestamp = timestamp;
+  MraaGpioEvent(int id, int timestamp) {
+    id = id;
+    timestamp = timestamp;
+  }
 
   @Int32()
 

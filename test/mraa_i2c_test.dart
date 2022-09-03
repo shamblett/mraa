@@ -5,14 +5,14 @@
  * Copyright :  S.Hamblett
  */
 
+@TestOn('vm && linux')
+
 import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:ffi/ffi.dart';
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 import 'support/mraa_platform_helper.dart';
-
-@TestOn('VM && Linux')
 
 // We always use our package supplied library in test as it is an Mraa
 // library compiled to use a mock board, this means that some values used

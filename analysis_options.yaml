@@ -3,8 +3,11 @@
 # The commented part below is just for inspiration. Read the guide here:
 #   https://www.dartlang.org/guides/language/analysis-options
 
-include: package:pedantic/analysis_options.yaml
+include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-  - test/issues/**
+    - test/issues/**
+linter:
+  rules:
+    camel_case_types: false

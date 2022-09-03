@@ -5,10 +5,11 @@
  * Copyright :  S.Hamblett
  */
 
+@TestOn('VM && Linux')
+
 import 'package:test/test.dart';
 import 'mraa_platform_helper.dart';
 
-@TestOn('VM && Linux')
 int main() {
   test('Initialise', () {
     final helper = MraaPlatformHelper();
