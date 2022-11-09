@@ -75,7 +75,7 @@ class MraaCommon {
   }
 
   /// The MRAA library
-  final DynamicLibrary _lib;
+  final mraaimpl.MraaImpl _lib;
 
   final bool _noJsonLoading;
 

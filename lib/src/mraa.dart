@@ -21,13 +21,16 @@ part of mraa;
 class Mraa {
   /// Default uses the platform library
   Mraa() {
-    _lib = DynamicLibrary.open('libmraa.so');
+    _impl = mraaimpl.MraaImpl(DynamicLibrary.open('libmraa.so'));
   }
 
   /// Specify the library and path
   Mraa.fromLib(String libPath) {
-    _lib = DynamicLibrary.open(libPath);
+    _impl = mraaimpl.MraaImpl(DynamicLibrary.open(libPath));
   }
+
+  /// The MRAA Implementation class
+  late mraaimpl.MraaImpl _impl;
 
   /// AIO read error
   static const int aioReadError = -1;
@@ -68,9 +71,6 @@ class Mraa {
     }
   }
 
-  /// The MRAA library
-  late DynamicLibrary _lib;
-
   /// The common API
   late MraaCommon common;
 
@@ -96,13 +96,13 @@ class Mraa {
   late MraaUart uart;
 
   void _setupAPI() {
-    common = MraaCommon(_lib, noJsonLoading, useGrovePi);
-    gpio = MraaGpio(_lib, noJsonLoading, useGrovePi);
-    aio = MraaAio(_lib, noJsonLoading, useGrovePi);
-    i2c = MraaI2c(_lib, noJsonLoading);
-    led = MraaLed(_lib, noJsonLoading);
-    pwm = MraaPwm(_lib, noJsonLoading, useGrovePi);
-    spi = MraaSpi(_lib, noJsonLoading);
-    uart = MraaUart(_lib, noJsonLoading);
+    common = MraaCommon(_impl, noJsonLoading, useGrovePi);
+    gpio = MraaGpio(_impl, noJsonLoading, useGrovePi);
+    aio = MraaAio(_impl, noJsonLoading, useGrovePi);
+    i2c = MraaI2c(_impl, noJsonLoading);
+    led = MraaLed(_impl, noJsonLoading);
+    pwm = MraaPwm(_impl, noJsonLoading, useGrovePi);
+    spi = MraaSpi(_impl, noJsonLoading);
+    uart = MraaUart(_impl, noJsonLoading);
   }
 }

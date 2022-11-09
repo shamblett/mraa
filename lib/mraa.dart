@@ -11,6 +11,7 @@ import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart' as ffi;
+import 'src/implementation/mraa_impl.dart' as mraaimpl;
 
 part 'src/mraa.dart';
 part 'src/types/mraa_return_code.dart';
