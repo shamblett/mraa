@@ -98,8 +98,8 @@ class Mraa {
   void _setupAPI() {
     common = MraaCommon(_impl, noJsonLoading, useGrovePi);
     gpio = MraaGpio(_impl, noJsonLoading, useGrovePi);
-    //aio = MraaAio(_impl, noJsonLoading, useGrovePi);
-    //i2c = MraaI2c(_impl, noJsonLoading);
+    aio = MraaAio(_impl, noJsonLoading, useGrovePi);
+    i2c = MraaI2c(_impl, noJsonLoading);
     //led = MraaLed(_impl, noJsonLoading);
     //pwm = MraaPwm(_impl, noJsonLoading, useGrovePi);
     //spi = MraaSpi(_impl, noJsonLoading);
