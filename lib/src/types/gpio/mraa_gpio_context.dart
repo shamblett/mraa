@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// GPIO context class for the opaque MRAA mraa_gpio_context structure
-class MraaGpioContext extends Opaque {}
+/// GPIO context typedef for the opaque MRAA mraa_gpio_context structure
+typedef MraaGpioContext = mraaimpl.mraa_gpio_context;
