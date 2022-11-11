@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// PWM context class for the opaque MRAA mraa_pwm_context structure
-class MraaPwmContext extends Opaque {}
+/// PWM context typedef for the opaque MRAA mraa_pwm_context structure
+typedef MraaPwmContext = mraaimpl.mraa_pwm_context;

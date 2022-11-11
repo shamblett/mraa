@@ -101,7 +101,7 @@ class Mraa {
     aio = MraaAio(_impl, noJsonLoading, useGrovePi);
     i2c = MraaI2c(_impl, noJsonLoading);
     led = MraaLed(_impl, noJsonLoading);
-    //pwm = MraaPwm(_impl, noJsonLoading, useGrovePi);
+    pwm = MraaPwm(_impl, noJsonLoading, useGrovePi);
     //spi = MraaSpi(_impl, noJsonLoading);
     //uart = MraaUart(_impl, noJsonLoading);
   }
