@@ -103,6 +103,6 @@ class Mraa {
     led = MraaLed(_impl, noJsonLoading);
     pwm = MraaPwm(_impl, noJsonLoading, useGrovePi);
     spi = MraaSpi(_impl, noJsonLoading);
-    //uart = MraaUart(_impl, noJsonLoading);
+    uart = MraaUart(_impl, noJsonLoading);
   }
 }

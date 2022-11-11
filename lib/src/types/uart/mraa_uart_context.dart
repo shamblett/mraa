@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// UART context for the opaque MRAA mraa_uart_context structure.
-class MraaUartContext extends Opaque {}
+/// UART context typedef for the opaque MRAA mraa_uart_context structure.
+typedef MraaUartContext = mraaimpl.mraa_uart_context;

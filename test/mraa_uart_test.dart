@@ -55,7 +55,7 @@ int main() {
       expect(ret, MraaReturnCode.success);
     });
     test('Baud rate', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.baudRate(context, 9600);
       expect(ret, MraaReturnCode.success);
