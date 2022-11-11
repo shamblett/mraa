@@ -19,7 +19,7 @@ class MraaCommon {
     }
   }
 
-  /// The MRAA implementation
+  // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   final bool _noJsonLoading;

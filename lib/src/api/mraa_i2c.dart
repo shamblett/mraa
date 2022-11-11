@@ -18,7 +18,7 @@ class MraaI2c {
   /// Construction
   MraaI2c(this._impl, this._noJsonLoading);
 
-  /// The MRAA implementation
+  // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field

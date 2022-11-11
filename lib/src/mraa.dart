@@ -29,7 +29,7 @@ class Mraa {
     _impl = mraaimpl.MraaImpl(DynamicLibrary.open(libPath));
   }
 
-  /// The MRAA Implementation class
+  // The MRAA Implementation class
   late mraaimpl.MraaImpl _impl;
 
   /// AIO read error
@@ -102,7 +102,7 @@ class Mraa {
     i2c = MraaI2c(_impl, noJsonLoading);
     led = MraaLed(_impl, noJsonLoading);
     pwm = MraaPwm(_impl, noJsonLoading, useGrovePi);
-    //spi = MraaSpi(_impl, noJsonLoading);
+    spi = MraaSpi(_impl, noJsonLoading);
     //uart = MraaUart(_impl, noJsonLoading);
   }
 }

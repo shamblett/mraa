@@ -22,7 +22,7 @@ class MraaGpio {
     }
   }
 
-  /// The MRAA implementation
+  // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field

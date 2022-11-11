@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// SPI context class for the opaque MRAA mraa_spi_context structure
-class MraaSpiContext extends Opaque {}
+/// SPI context typedef for the opaque MRAA mraa_spi_context structure
+typedef MraaSpiContext = mraaimpl.mraa_spi_context;
