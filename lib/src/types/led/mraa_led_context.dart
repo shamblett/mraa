@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// LED context class for the opaque MRAA mraa_led_context structure
-class MraaLedContext extends Opaque {}
+/// LED context typedef for the opaque MRAA mraa_led_context structure
+typedef MraaLedContext = mraaimpl.mraa_led_context;
