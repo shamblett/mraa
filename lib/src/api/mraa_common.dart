@@ -82,7 +82,7 @@ class MraaCommon {
   ///
   /// Get the platform type, the board must be initialised.
   MraaPlatformType platformType() =>
-      platformTypes.fromInt(_impl.mraa_get_platform_type());
+      MraaPlatformType.platformTypes(_impl.mraa_get_platform_type());
 
   /// Initialise JSON platform - mraa_init_json_platform
   ///
@@ -105,8 +105,7 @@ class MraaCommon {
   /// Checks if a pin is able to use the requested mode.
   /// Returns true if the mode is supported.
   bool pinmodeTest(int pin, MraaPinmode mode) {
-    final ret =
-        _impl.mraa_pin_mode_test(pin + _grovePiPinOffset, pinmode.asInt(mode));
+    final ret = _impl.mraa_pin_mode_test(pin + _grovePiPinOffset, mode.code);
     return ret != 0;
   }
 
@@ -303,8 +302,7 @@ class MraaCommon {
   /// I2C bus the sub platform is on.
   MraaReturnCode addSubplatform(MraaPlatformType subplatformType, String dev) =>
       returnCode.fromInt(_impl.mraa_add_subplatform(
-          platformTypes.asInt(subplatformType),
-          dev.toNativeUtf8().cast<Char>()));
+          subplatformType.code, dev.toNativeUtf8().cast<Char>()));
 
   /// Remove subplatform - mraa_remove_subplatform
   ///
@@ -312,6 +310,5 @@ class MraaCommon {
   /// Parameters are the sub platform type and the device or
   /// I2C bus the sub platform is on.
   MraaReturnCode removeSubplatform(MraaPlatformType subplatformType) =>
-      returnCode.fromInt(
-          _impl.mraa_remove_subplatform(platformTypes.asInt(subplatformType)));
+      returnCode.fromInt(_impl.mraa_remove_subplatform(subplatformType.code));
 }

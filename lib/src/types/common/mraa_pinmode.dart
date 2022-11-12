@@ -10,42 +10,51 @@ part of mraa;
 /// The different possible modes for a pin.
 enum MraaPinmode {
   /// Pin Valid
-  valid,
+  valid(mraaimpl.mraa_pinmodes_t.MRAA_PIN_VALID),
 
   /// General Purpose IO
-  gpio,
+  gpio(mraaimpl.mraa_pinmodes_t.MRAA_PIN_GPIO),
 
   /// Pulse Width Modulation
-  pwm,
+  pwm(mraaimpl.mraa_pinmodes_t.MRAA_PIN_PWM),
 
   /// Faster GPIO
-  fastGpio,
+  fastGpio(mraaimpl.mraa_pinmodes_t.MRAA_PIN_FAST_GPIO),
 
   /// SPI
-  spi,
+  spi(mraaimpl.mraa_pinmodes_t.MRAA_PIN_SPI),
 
   /// I2C
-  i2c,
+  i2c(mraaimpl.mraa_pinmodes_t.MRAA_PIN_I2C),
 
   /// Analog in
-  aio,
+  aio(mraaimpl.mraa_pinmodes_t.MRAA_PIN_AIO),
 
   /// UART
-  uart
+  uart(mraaimpl.mraa_pinmodes_t.MRAA_PIN_UART),
+
+  /// Unknown pin mode
+  unknown(-1);
+
+  static final Map<int, MraaPinmode> byCode = {};
+
+  static MraaPinmode pinmode(int mode) {
+    if (byCode.isEmpty) {
+      for (final mode in MraaPinmode.values) {
+        byCode[mode.code] = mode;
+      }
+    }
+
+    final ret = byCode.containsKey(mode) ? byCode[mode] : MraaPinmode.unknown;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaPinmode(this.code);
 }
-
-/// Pinmodes type support
-const Map<int, MraaPinmode> _pinModesValues = <int, MraaPinmode>{
-  0: MraaPinmode.valid,
-  1: MraaPinmode.gpio,
-  2: MraaPinmode.pwm,
-  3: MraaPinmode.fastGpio,
-  4: MraaPinmode.spi,
-  5: MraaPinmode.i2c,
-  6: MraaPinmode.aio,
-  7: MraaPinmode.uart
-};
-
-/// Pinmodes types helper
-MraaEnumHelper<MraaPinmode> pinmode =
-    MraaEnumHelper<MraaPinmode>(_pinModesValues);

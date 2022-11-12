@@ -61,7 +61,7 @@ int main() {
     test('Platform types', () {
       mraa.common.initialise();
       final ret = mraa.common.platformType();
-      print('Platform type is : ${platformTypes.asString(ret)}');
+      print('Platform type is : $ret');
       expect(ret, MraaPlatformType.mockPlatform);
     });
     test('Pin mode test', () {
