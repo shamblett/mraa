@@ -41,7 +41,7 @@ class MraaLed {
   ///
   /// Set LED brightness
   MraaReturnCode setBrightness(MraaLedContext dev, int value) =>
-      returnCode.fromInt(_impl.mraa_led_set_brightness(dev, value));
+      MraaReturnCode.returnCode(_impl.mraa_led_set_brightness(dev, value));
 
   /// Read brightness - mraa_led_read_brightness
   ///
@@ -58,18 +58,18 @@ class MraaLed {
   ///
   /// Set LED trigger to the trigger name supplied.
   MraaReturnCode setTrigger(MraaLedContext dev, String triggerName) =>
-      returnCode.fromInt(_impl.mraa_led_set_trigger(
+      MraaReturnCode.returnCode(_impl.mraa_led_set_trigger(
           dev, triggerName.toNativeUtf8().cast<Char>()));
 
   /// Clear trigger - mraa_led_clear_trigger
   ///
   /// Clear active LED trigger
   MraaReturnCode clearTrigger(MraaLedContext dev) =>
-      returnCode.fromInt(_impl.mraa_led_clear_trigger(dev));
+      MraaReturnCode.returnCode(_impl.mraa_led_clear_trigger(dev));
 
   /// Close - mraa_led_close
   ///
   /// Close LED file descriptors and free the context memory.
   MraaReturnCode close(MraaLedContext dev) =>
-      returnCode.fromInt(_impl.mraa_led_close(dev));
+      MraaReturnCode.returnCode(_impl.mraa_led_close(dev));
 }

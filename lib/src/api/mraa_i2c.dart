@@ -42,7 +42,7 @@ class MraaI2c {
   /// Sets the frequency of the I2C context.
   /// Most platforms do not support this.
   MraaReturnCode frequency(MraaI2cContext context, MraaI2cMode mode) =>
-      returnCode.fromInt(_impl.mraa_i2c_frequency(context, mode.code));
+      MraaReturnCode.returnCode(_impl.mraa_i2c_frequency(context, mode.code));
 
   /// Read - mraa_i2c_read
   ///
@@ -84,37 +84,37 @@ class MraaI2c {
   /// Write length bytes to the bus, the first byte in the array is the command/register to write.
   MraaReturnCode write(
           MraaI2cContext context, Pointer<Uint8> data, int length) =>
-      returnCode.fromInt(_impl.mraa_i2c_write(context, data, length));
+      MraaReturnCode.returnCode(_impl.mraa_i2c_write(context, data, length));
 
   /// Write byte - mraa_i2c_write_byte
   ///
   /// Write a single byte to an I2C context
   MraaReturnCode writeByte(MraaI2cContext context, int data) =>
-      returnCode.fromInt(_impl.mraa_i2c_write_byte(context, data));
+      MraaReturnCode.returnCode(_impl.mraa_i2c_write_byte(context, data));
 
   /// Write byte data - mraa_write_byte_data
   ///
   /// Write a single byte to an i2c context
   MraaReturnCode writeByteData(MraaI2cContext context, int data, int command) =>
-      returnCode
-          .fromInt(_impl.mraa_i2c_write_byte_data(context, data, command));
+      MraaReturnCode.returnCode(
+          _impl.mraa_i2c_write_byte_data(context, data, command));
 
   /// Write word data - mraa_write_byte_data
   ///
   /// Write a single word to an I2C context
   MraaReturnCode writeWordData(MraaI2cContext context, int data, int command) =>
-      returnCode
-          .fromInt(_impl.mraa_i2c_write_byte_data(context, data, command));
+      MraaReturnCode.returnCode(
+          _impl.mraa_i2c_write_byte_data(context, data, command));
 
   /// Address - mraa_i2c_address
   ///
   /// Sets the I2C slave address.
   MraaReturnCode address(MraaI2cContext context, int address) =>
-      returnCode.fromInt(_impl.mraa_i2c_address(context, address));
+      MraaReturnCode.returnCode(_impl.mraa_i2c_address(context, address));
 
   /// Stop - mraa_i2c_stop
   ///
   /// De-inits an [MraaI2cContext]
   MraaReturnCode stop(MraaI2cContext context) =>
-      returnCode.fromInt(_impl.mraa_i2c_stop(context));
+      MraaReturnCode.returnCode(_impl.mraa_i2c_stop(context));
 }

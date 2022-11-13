@@ -51,7 +51,7 @@ class MraaCommon {
   /// Detects the running platform and attempts to use the included pinmap,
   /// this is run on a module/library init/load but is handy to rerun to
   /// check the board initialised correctly.
-  MraaReturnCode initialise() => returnCode.fromInt(_impl.mraa_init());
+  MraaReturnCode initialise() => MraaReturnCode.returnCode(_impl.mraa_init());
 
   /// Platform name - mraa_get_platform_name
   ///
@@ -89,7 +89,7 @@ class MraaCommon {
   /// Instantiate an unknown board from a json file
   MraaReturnCode initialiseJsonPlatform(String path) => _noJsonLoading
       ? MraaReturnCode.errorFeatureNotSupported
-      : returnCode.fromInt(
+      : MraaReturnCode.returnCode(
           _impl.mraa_init_json_platform(path.toNativeUtf8().cast<Char>()));
 
   /// Set the log level - mraa_set_log_level
@@ -98,7 +98,7 @@ class MraaCommon {
   /// These are the syslog log levels, see syslog(3) for more
   /// information on the levels.
   MraaReturnCode setLogLevel(int level) =>
-      returnCode.fromInt(_impl.mraa_set_log_level(level));
+      MraaReturnCode.returnCode(_impl.mraa_set_log_level(level));
 
   /// Pin mode test - mraa_pin_mode_test
   ///
@@ -301,7 +301,7 @@ class MraaCommon {
   /// Parameters are the sub platform type and the device or
   /// I2C bus the sub platform is on.
   MraaReturnCode addSubplatform(MraaPlatformType subplatformType, String dev) =>
-      returnCode.fromInt(_impl.mraa_add_subplatform(
+      MraaReturnCode.returnCode(_impl.mraa_add_subplatform(
           subplatformType.code, dev.toNativeUtf8().cast<Char>()));
 
   /// Remove subplatform - mraa_remove_subplatform
@@ -310,5 +310,6 @@ class MraaCommon {
   /// Parameters are the sub platform type and the device or
   /// I2C bus the sub platform is on.
   MraaReturnCode removeSubplatform(MraaPlatformType subplatformType) =>
-      returnCode.fromInt(_impl.mraa_remove_subplatform(subplatformType.code));
+      MraaReturnCode.returnCode(
+          _impl.mraa_remove_subplatform(subplatformType.code));
 }

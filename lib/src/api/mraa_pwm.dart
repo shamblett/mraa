@@ -54,7 +54,7 @@ class MraaPwm {
   /// (representing on 0%) and 1.0f.
   /// Values above or below this range will be set at either 0.0f or 1.0f
   MraaReturnCode write(MraaPwmContext dev, double percentage) =>
-      returnCode.fromInt(_impl.mraa_pwm_write(dev, percentage));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_write(dev, percentage));
 
   /// Read - mraa_pwm_read
   ///
@@ -68,37 +68,39 @@ class MraaPwm {
   ///
   /// Set the PWM period as seconds represented in a double
   MraaReturnCode period(MraaPwmContext dev, double seconds) =>
-      returnCode.fromInt(_impl.mraa_pwm_period(dev, seconds));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_period(dev, seconds));
 
   /// Period milliseconds - mraa_pwm_period_ms
   ///
   /// Set the PWM period in milliseconds
   MraaReturnCode periodMs(MraaPwmContext dev, int milliseconds) =>
-      returnCode.fromInt(_impl.mraa_pwm_period_ms(dev, milliseconds));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_period_ms(dev, milliseconds));
 
   /// Period microseconds - mraa_pwm_period_us
   ///
   /// Set the PWM period in microseconds
   MraaReturnCode periodUs(MraaPwmContext dev, int microseconds) =>
-      returnCode.fromInt(_impl.mraa_pwm_period_us(dev, microseconds));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_period_us(dev, microseconds));
 
   /// Pulse width - mraa_pwm_pulsewidth
   ///
   /// Set the PWM pulse width as seconds represented in a double
   MraaReturnCode pulseWidth(MraaPwmContext dev, double seconds) =>
-      returnCode.fromInt(_impl.mraa_pwm_pulsewidth(dev, seconds));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_pulsewidth(dev, seconds));
 
   /// Pulse width milliseconds - mraa_pwm_pulsewidth_ms
   ///
   /// Set the PWM pulse width  in milliseconds
   MraaReturnCode pulseWidthMs(MraaPwmContext dev, int milliseconds) =>
-      returnCode.fromInt(_impl.mraa_pwm_pulsewidth_ms(dev, milliseconds));
+      MraaReturnCode.returnCode(
+          _impl.mraa_pwm_pulsewidth_ms(dev, milliseconds));
 
   /// Pulse width microseconds - mraa_pwm_pulsewidth_us
   ///
   /// Set the PWM pulse width in microseconds
   MraaReturnCode pulseWidthUs(MraaPwmContext dev, int microseconds) =>
-      returnCode.fromInt(_impl.mraa_pwm_pulsewidth_us(dev, microseconds));
+      MraaReturnCode.returnCode(
+          _impl.mraa_pwm_pulsewidth_us(dev, microseconds));
 
   /// Enable - mraa_pwm_enable
   ///
@@ -106,7 +108,7 @@ class MraaPwm {
   /// None zero will assume on with output being driven. and 0 will
   /// disable the output.
   MraaReturnCode enable(MraaPwmContext dev, int enable) =>
-      returnCode.fromInt(_impl.mraa_pwm_enable(dev, enable));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_enable(dev, enable));
 
   /// Owner - mraa_pwm_owner
   ///
@@ -114,14 +116,14 @@ class MraaPwm {
   /// Owner set to true indicates a take ownership
   MraaReturnCode owner(MraaPwmContext dev, bool owner) {
     final rawBool = owner ? 1 : 0;
-    return returnCode.fromInt(_impl.mraa_pwm_owner(dev, rawBool));
+    return MraaReturnCode.returnCode(_impl.mraa_pwm_owner(dev, rawBool));
   }
 
   /// Close - mraa_pwm_close
   ///
   /// Close and unexport the PWM pin
   MraaReturnCode close(MraaPwmContext dev) =>
-      returnCode.fromInt(_impl.mraa_pwm_close(dev));
+      MraaReturnCode.returnCode(_impl.mraa_pwm_close(dev));
 
   /// Maximum period - mraa_pwm_get_max_period
   ///

@@ -101,9 +101,8 @@ int main() {
     });
     test('Result print', () {
       mraa.common.initialise();
-      mraa.common.resultPrint(returnCode.asInt(MraaReturnCode.success));
-      mraa.common
-          .resultPrint(returnCode.asInt(MraaReturnCode.errorInvalidHandle));
+      mraa.common.resultPrint(MraaReturnCode.success.code);
+      mraa.common.resultPrint(MraaReturnCode.errorInvalidHandle.code);
       mraa.common.resultPrint(100);
     });
     test('Platform combined type', () {

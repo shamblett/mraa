@@ -57,14 +57,14 @@ class MraaAio {
   /// Close the analogue input context, this will free the
   /// memory for the context.
   MraaReturnCode close(MraaAioContext dev) =>
-      returnCode.fromInt(_impl.mraa_aio_close(dev));
+      MraaReturnCode.returnCode(_impl.mraa_aio_close(dev));
 
   /// Set bit - mraa_aio_set_bit
   ///
   /// Set the bit value which MRAA will shift the raw reading
   /// from the ADC to, i.e. 10bits
   MraaReturnCode setBit(MraaAioContext dev, int bits) =>
-      returnCode.fromInt(_impl.mraa_aio_set_bit(dev, bits));
+      MraaReturnCode.returnCode(_impl.mraa_aio_set_bit(dev, bits));
 
   /// Set bit - mraa_aio_get_bit
   ///

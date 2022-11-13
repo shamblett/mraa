@@ -46,7 +46,7 @@ class MraaGpio {
   /// Set the GPIO direction
   MraaReturnCode direction(
           MraaGpioContext context, MraaGpioDirection direction) =>
-      returnCode.fromInt(_impl.mraa_gpio_dir(context, (direction.code)));
+      MraaReturnCode.returnCode(_impl.mraa_gpio_dir(context, (direction.code)));
 
   /// Read - mraa_gpio_read
   ///
@@ -80,7 +80,7 @@ class MraaGpio {
   ///
   /// Set the edge mode on the GPIO
   MraaReturnCode edgeMode(MraaGpioContext dev, MraaGpioEdge mode) =>
-      returnCode.fromInt(_impl.mraa_gpio_edge_mode(dev, mode.code));
+      MraaReturnCode.returnCode(_impl.mraa_gpio_edge_mode(dev, mode.code));
 
   /// Events - mraa_gpio_get_events
   ///
@@ -112,7 +112,7 @@ class MraaGpio {
   ///
   /// Set the GPIO's output Mode.
   MraaReturnCode mode(MraaGpioContext dev, MraaGpioOutputMode mode) =>
-      returnCode.fromInt(_impl.mraa_gpio_mode(dev, mode.code));
+      MraaReturnCode.returnCode(_impl.mraa_gpio_mode(dev, mode.code));
 
   /// Read direction - mraa_gpio_read_dir
   ///
@@ -120,7 +120,7 @@ class MraaGpio {
   MraaReturnCode readDirection(
       MraaGpioContext dev, MraaGpioDirectionRead gpioDirection) {
     final dir = ffi.calloc.allocate<Int32>(1);
-    final ret = returnCode.fromInt(_impl.mraa_gpio_read_dir(dev, dir));
+    final ret = MraaReturnCode.returnCode(_impl.mraa_gpio_read_dir(dev, dir));
     gpioDirection.direction = MraaGpioDirection.gpioDirections(dir.value);
     return ret;
   }
@@ -133,7 +133,7 @@ class MraaGpio {
   /// Free's up the memory used by context and closes any related
   /// file descriptors - chardev interface.
   MraaReturnCode close(MraaGpioContext dev) =>
-      returnCode.fromInt(_impl.mraa_gpio_close(dev));
+      MraaReturnCode.returnCode(_impl.mraa_gpio_close(dev));
 
   /// Read multi - mraa_gpio_read_multi
   ///
@@ -153,14 +153,14 @@ class MraaGpio {
     values.values = List<int>.from(typedValues);
     ffi.calloc.free(rawValues);
 
-    return returnCode.fromInt(intRet);
+    return MraaReturnCode.returnCode(intRet);
   }
 
   /// Write - mraa_gpio_write
   ///
   /// Write to the GPIO.
   MraaReturnCode write(MraaGpioContext dev, int value) =>
-      returnCode.fromInt(_impl.mraa_gpio_write(dev, value));
+      MraaReturnCode.returnCode(_impl.mraa_gpio_write(dev, value));
 
   /// Write multi - mraa_gpio_write_multi
   ///
@@ -177,8 +177,8 @@ class MraaGpio {
     final rawValues = ffi.calloc.allocate<Int32>(values.length);
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     typedValues.setAll(0, values);
-    return returnCode
-        .fromInt(_impl.mraa_gpio_write_multi(dev, rawValues.cast<Int>()));
+    return MraaReturnCode.returnCode(
+        _impl.mraa_gpio_write_multi(dev, rawValues.cast<Int>()));
   }
 
   /// Owner - mraa_gpio_owner
@@ -187,7 +187,7 @@ class MraaGpio {
   /// you wish to become the owner.
   MraaReturnCode owner(MraaGpioContext dev, bool own) {
     final rawOwn = own ? 1 : 0;
-    return returnCode.fromInt(_impl.mraa_gpio_owner(dev, rawOwn));
+    return MraaReturnCode.returnCode(_impl.mraa_gpio_owner(dev, rawOwn));
   }
 
   /// Pin - mraa_gpio_get_pin
@@ -207,7 +207,7 @@ class MraaGpio {
   ///
   /// Set the GPIO input mode
   MraaReturnCode inputMode(MraaGpioContext dev, MraaGpioInputMode mode) =>
-      returnCode.fromInt(_impl.mraa_gpio_input_mode(dev, mode.code));
+      MraaReturnCode.returnCode(_impl.mraa_gpio_input_mode(dev, mode.code));
 
   /// Output driver mode - mraa_gpio_out_driver_mode
   ///
@@ -216,5 +216,6 @@ class MraaGpio {
   /// for each board.
   MraaReturnCode outputDriverMode(
           MraaGpioContext dev, MraaGpioOutputDriverMode mode) =>
-      returnCode.fromInt(_impl.mraa_gpio_out_driver_mode(dev, mode.code));
+      MraaReturnCode.returnCode(
+          _impl.mraa_gpio_out_driver_mode(dev, mode.code));
 }

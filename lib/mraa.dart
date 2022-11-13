@@ -15,7 +15,6 @@ import 'src/implementation/mraa_impl.dart' as mraaimpl;
 
 part 'src/mraa.dart';
 part 'src/types/mraa_return_code.dart';
-part 'src/types/mraa_enum_helper.dart';
 part 'src/types/gpio/mraa_gpio_context.dart';
 part 'src/types/gpio/mraa_gpio_event.dart';
 part 'src/types/gpio/mraa_gpio_direction_read.dart';

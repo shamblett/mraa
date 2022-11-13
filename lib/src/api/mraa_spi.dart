@@ -38,13 +38,13 @@ class MraaSpi {
   ///
   /// Set the SPI device mode. see spidev 0-3.
   MraaReturnCode mode(MraaSpiContext dev, MraaSpiMode mode) =>
-      returnCode.fromInt(_impl.mraa_spi_mode(dev, mode.code));
+      MraaReturnCode.returnCode(_impl.mraa_spi_mode(dev, mode.code));
 
   /// Frequency - mraa_spi_frequency
   ///
   /// Set the SPI device operating clock frequency in Hz
   MraaReturnCode frequency(MraaSpiContext dev, int hz) =>
-      returnCode.fromInt(_impl.mraa_spi_frequency(dev, hz));
+      MraaReturnCode.returnCode(_impl.mraa_spi_frequency(dev, hz));
 
   /// Write - mraa_spi_write
   ///
@@ -112,8 +112,8 @@ class MraaSpi {
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
     final retData = ffi.calloc.allocate<Uint8>(length);
-    final status = returnCode
-        .fromInt(_impl.mraa_spi_transfer_buf(dev, ptr, retData, length));
+    final status = MraaReturnCode.returnCode(
+        _impl.mraa_spi_transfer_buf(dev, ptr, retData, length));
     if (status != MraaReturnCode.success) {
       ffi.calloc.free(retData);
       return status;
@@ -140,8 +140,8 @@ class MraaSpi {
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
     final retData = ffi.calloc.allocate<Uint16>(length);
-    final status = returnCode
-        .fromInt(_impl.mraa_spi_transfer_buf_word(dev, ptr, retData, length));
+    final status = MraaReturnCode.returnCode(
+        _impl.mraa_spi_transfer_buf_word(dev, ptr, retData, length));
     final retDataList = retData.asTypedList(length);
     if (status != MraaReturnCode.success) {
       ffi.calloc.free(retData);
@@ -163,18 +163,18 @@ class MraaSpi {
   /// [lsb] set to true indicates use the least significant bit transmission
   MraaReturnCode lsbMode(MraaSpiContext dev, bool lsb) {
     final mode = lsb ? 1 : 0;
-    return returnCode.fromInt(_impl.mraa_spi_lsbmode(dev, mode));
+    return MraaReturnCode.returnCode(_impl.mraa_spi_lsbmode(dev, mode));
   }
 
   /// Bits per word - mraa_spi_bit_per_word
   ///
   /// Set bits per word for transactions, defaults at 8
   MraaReturnCode bitsPerWord(MraaSpiContext dev, int bits) =>
-      returnCode.fromInt(_impl.mraa_spi_bit_per_word(dev, bits));
+      MraaReturnCode.returnCode(_impl.mraa_spi_bit_per_word(dev, bits));
 
   /// Stop - mraa_spi_stop
   ///
   /// De-inits an [MraaSpiContext] device
   MraaReturnCode stop(MraaSpiContext dev) =>
-      returnCode.fromInt(_impl.mraa_spi_stop(dev));
+      MraaReturnCode.returnCode(_impl.mraa_spi_stop(dev));
 }

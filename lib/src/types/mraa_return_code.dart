@@ -10,74 +10,78 @@ part of mraa;
 /// MRAA function return(result) codes
 enum MraaReturnCode {
   /// < Expected response
-  success,
+  success(mraaimpl.mraa_result_t.MRAA_SUCCESS),
 
   /// < Feature
-  errorFeatureNotImplemented,
+  errorFeatureNotImplemented(
+      mraaimpl.mraa_result_t.MRAA_ERROR_FEATURE_NOT_IMPLEMENTED),
 
   /// < Feature not supported by HW
-  errorFeatureNotSupported,
+  errorFeatureNotSupported(
+      mraaimpl.mraa_result_t.MRAA_ERROR_FEATURE_NOT_SUPPORTED),
 
   /// < Verbosity level wrong
-  errorInvalidVerbosityLevel,
+  errorInvalidVerbosityLevel(
+      mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_VERBOSITY_LEVEL),
 
   /// < Parameter invalid
-  errorInvalidParameter,
+  errorInvalidParameter(mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_PARAMETER),
 
   /// < Handle invalid
-  errorInvalidHandle,
+  errorInvalidHandle(mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_HANDLE),
 
   /// < No resource of that type avail
-  errorNoResources,
+  errorNoResources(mraaimpl.mraa_result_t.MRAA_ERROR_NO_RESOURCES),
 
   /// < Resource invalid
-  errorInvalidResource,
+  errorInvalidResource(mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_RESOURCE),
 
   /// < Queue type incorrect
-  errorInvalidQueueType,
+  errorInvalidQueueType(mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_QUEUE_TYPE),
 
   /// < No data available
-  errorNoDataAvailable,
+  errorNoDataAvailable(mraaimpl.mraa_result_t.MRAA_ERROR_NO_DATA_AVAILABLE),
 
   /// < Platform not recognised
-  errorInvalidPlatform,
+  errorInvalidPlatform(mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_PLATFORM),
 
   /// < Board information not initialised
-  errorPlatformNotInitialised,
+  errorPlatformNotInitialised(
+      mraaimpl.mraa_result_t.MRAA_ERROR_PLATFORM_NOT_INITIALISED),
 
   /// < UART OW Short Circuit Detected
-  errorUartOwShorted,
+  errorUartOwShorted(mraaimpl.mraa_result_t.MRAA_ERROR_UART_OW_SHORTED),
 
   /// < UART OW No devices detected
-  errorUartOwNoDevices,
+  errorUartOwNoDevices(mraaimpl.mraa_result_t.MRAA_ERROR_UART_OW_NO_DEVICES),
 
   /// UART OW Data/Bus error detected
-  errorUartOwDataError,
+  errorUartOwDataError(mraaimpl.mraa_result_t.MRAA_ERROR_UART_OW_DATA_ERROR),
 
   /// Unspecified
-  errorUnspecified
+  errorUnspecified(mraaimpl.mraa_result_t.MRAA_ERROR_UNSPECIFIED);
+
+  static final Map<int, MraaReturnCode> byCode = {};
+
+  static MraaReturnCode returnCode(int retCode) {
+    if (byCode.isEmpty) {
+      for (final retCode in MraaReturnCode.values) {
+        byCode[retCode.code] = retCode;
+      }
+    }
+
+    final ret = byCode.containsKey(retCode)
+        ? byCode[retCode]
+        : MraaReturnCode.errorUnspecified;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaReturnCode(this.code);
 }
-
-/// Return codes type support
-const Map<int, MraaReturnCode> _returnCodesValues = <int, MraaReturnCode>{
-  0: MraaReturnCode.success,
-  1: MraaReturnCode.errorFeatureNotImplemented,
-  2: MraaReturnCode.errorFeatureNotSupported,
-  3: MraaReturnCode.errorInvalidVerbosityLevel,
-  4: MraaReturnCode.errorInvalidParameter,
-  5: MraaReturnCode.errorInvalidHandle,
-  6: MraaReturnCode.errorNoResources,
-  7: MraaReturnCode.errorInvalidResource,
-  8: MraaReturnCode.errorInvalidQueueType,
-  9: MraaReturnCode.errorNoDataAvailable,
-  10: MraaReturnCode.errorInvalidPlatform,
-  11: MraaReturnCode.errorPlatformNotInitialised,
-  12: MraaReturnCode.errorUartOwShorted,
-  13: MraaReturnCode.errorUartOwNoDevices,
-  14: MraaReturnCode.errorUartOwDataError,
-  99: MraaReturnCode.errorUnspecified
-};
-
-/// Return codes helper
-MraaEnumHelper<MraaReturnCode> returnCode =
-    MraaEnumHelper<MraaReturnCode>(_returnCodesValues);

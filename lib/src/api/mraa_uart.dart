@@ -38,7 +38,7 @@ class MraaUart {
   ///
   /// Flush the outbound data. Blocks until complete.
   MraaReturnCode flush(MraaUartContext dev) =>
-      returnCode.fromInt(_impl.mraa_uart_flush(dev));
+      MraaReturnCode.returnCode(_impl.mraa_uart_flush(dev));
 
   /// Send break - mraa_uart_sendbreak
   ///
@@ -47,14 +47,14 @@ class MraaUart {
   /// and not more than 500 milliseconds. When non zero, the break duration
   /// is implementation specific.
   MraaReturnCode sendBreak(MraaUartContext dev, int duration) =>
-      returnCode.fromInt(_impl.mraa_uart_sendbreak(dev, duration));
+      MraaReturnCode.returnCode(_impl.mraa_uart_sendbreak(dev, duration));
 
   /// Baud rate - mraa_uart_set_baudrate
   ///
   /// Set the Baud rate. This will attempt to decide what
   /// Baud rate is to be used on the UART hardware.
   MraaReturnCode baudRate(MraaUartContext dev, int baud) =>
-      returnCode.fromInt(_impl.mraa_uart_set_baudrate(dev, baud));
+      MraaReturnCode.returnCode(_impl.mraa_uart_set_baudrate(dev, baud));
 
   /// Mode - mraa_uart_set_mode
   ///
@@ -63,8 +63,8 @@ class MraaUart {
   /// mode(context, 8,MraaUartParity,none , 1)
   MraaReturnCode mode(MraaUartContext dev, int byteSize, MraaUartParity parity,
           int stopBits) =>
-      returnCode.fromInt(_impl.mraa_uart_set_mode(
-          dev, byteSize, parity.code, stopBits));
+      MraaReturnCode.returnCode(
+          _impl.mraa_uart_set_mode(dev, byteSize, parity.code, stopBits));
 
   /// Flow control - mraa_uart_set_flowcontrol
   ///
@@ -74,7 +74,8 @@ class MraaUart {
   MraaReturnCode flowControl(MraaUartContext dev, bool xonXoff, bool rtsCts) {
     final xon = xonXoff ? 1 : 0;
     final rts = rtsCts ? 1 : 0;
-    return returnCode.fromInt(_impl.mraa_uart_set_flowcontrol(dev, xon, rts));
+    return MraaReturnCode.returnCode(
+        _impl.mraa_uart_set_flowcontrol(dev, xon, rts));
   }
 
   /// Timeout - mraa_uart_set_timeout
@@ -83,15 +84,16 @@ class MraaUart {
   /// disable the timeout.
   MraaReturnCode timeout(
           MraaUartContext dev, int read, int write, int interChar) =>
-      returnCode
-          .fromInt(_impl.mraa_uart_set_timeout(dev, read, write, interChar));
+      MraaReturnCode.returnCode(
+          _impl.mraa_uart_set_timeout(dev, read, write, interChar));
 
   /// Non blocking - mraa_uart_set_non_blocking
   ///
   /// Set the blocking state for write operations
   MraaReturnCode nonBlocking(MraaUartContext dev, bool nonBlock) {
     final block = nonBlock ? 1 : 0;
-    return returnCode.fromInt(_impl.mraa_uart_set_non_blocking(dev, block));
+    return MraaReturnCode.returnCode(
+        _impl.mraa_uart_set_non_blocking(dev, block));
   }
 
   /// Device path - mraa_uart_get_dev_path
@@ -114,7 +116,7 @@ class MraaUart {
         nullptr, nullptr, nullptr, nullptr, nullptr);
 
     // If not success return null
-    if (returnCode.fromInt(ret) != MraaReturnCode.success) {
+    if (MraaReturnCode.returnCode(ret) != MraaReturnCode.success) {
       return '';
     }
 
@@ -172,8 +174,8 @@ class MraaUart {
         ptrXonXoff);
 
     // If not success just return the status
-    if (returnCode.fromInt(ret) != MraaReturnCode.success) {
-      return returnCode.fromInt(ret);
+    if (MraaReturnCode.returnCode(ret) != MraaReturnCode.success) {
+      return MraaReturnCode.returnCode(ret);
     }
 
     // Set the output parameters
@@ -194,7 +196,7 @@ class MraaUart {
   ///
   /// Destroy a UART context
   MraaReturnCode stop(MraaUartContext dev) =>
-      returnCode.fromInt(_impl.mraa_uart_stop(dev));
+      MraaReturnCode.returnCode(_impl.mraa_uart_stop(dev));
 
   /// Read unsigned bytes - mraa_uart_read
   ///
