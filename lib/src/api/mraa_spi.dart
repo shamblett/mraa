@@ -38,7 +38,7 @@ class MraaSpi {
   ///
   /// Set the SPI device mode. see spidev 0-3.
   MraaReturnCode mode(MraaSpiContext dev, MraaSpiMode mode) =>
-      returnCode.fromInt(_impl.mraa_spi_mode(dev, spiMode.asInt(mode)));
+      returnCode.fromInt(_impl.mraa_spi_mode(dev, mode.code));
 
   /// Frequency - mraa_spi_frequency
   ///
