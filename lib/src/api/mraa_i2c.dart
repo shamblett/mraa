@@ -42,8 +42,7 @@ class MraaI2c {
   /// Sets the frequency of the I2C context.
   /// Most platforms do not support this.
   MraaReturnCode frequency(MraaI2cContext context, MraaI2cMode mode) =>
-      returnCode
-          .fromInt(_impl.mraa_i2c_frequency(context, i2cMode.asInt(mode)));
+      returnCode.fromInt(_impl.mraa_i2c_frequency(context, mode.code));
 
   /// Read - mraa_i2c_read
   ///
