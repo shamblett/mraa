@@ -10,27 +10,43 @@ part of mraa;
 /// GPIO output modes.
 enum MraaGpioOutputMode {
   /// Default. Strong high and low
-  strong,
+  strong(mraaimpl.mraa_gpio_mode_t.MRAA_GPIO_STRONG),
 
   /// Resistive High
-  pullup,
+  pullup(mraaimpl.mraa_gpio_mode_t.MRAA_GPIO_PULLUP),
 
   /// Resistive Low
-  pulldown,
+  pulldown(mraaimpl.mraa_gpio_mode_t.MRAA_GPIO_PULLDOWN),
 
   /// High Z State
-  hiz
+  hiz(mraaimpl.mraa_gpio_mode_t.MRAA_GPIO_HIZ),
+  activeLow(mraaimpl.mraa_gpio_mode_t.MRAA_GPIOD_ACTIVE_LOW),
+  openDrain(mraaimpl.mraa_gpio_mode_t.MRAA_GPIOD_OPEN_DRAIN),
+  openSource(mraaimpl.mraa_gpio_mode_t.MRAA_GPIOD_OPEN_SOURCE),
+
+  /// Unknown
+  unknown(-1);
+
+  static final Map<int, MraaGpioOutputMode> byCode = {};
+
+  static MraaGpioOutputMode gpioOutputModes(int mode) {
+    if (byCode.isEmpty) {
+      for (final mode in MraaGpioOutputMode.values) {
+        byCode[mode.code] = mode;
+      }
+    }
+
+    final ret =
+        byCode.containsKey(mode) ? byCode[mode] : MraaGpioOutputMode.unknown;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaGpioOutputMode(this.code);
 }
-
-/// GPIO output mode type support
-const Map<int, MraaGpioOutputMode> _gpioOutputModeValues =
-    <int, MraaGpioOutputMode>{
-  0: MraaGpioOutputMode.strong,
-  1: MraaGpioOutputMode.pullup,
-  2: MraaGpioOutputMode.pulldown,
-  3: MraaGpioOutputMode.hiz
-};
-
-/// GPIO output mode types helper
-MraaEnumHelper<MraaGpioOutputMode> gpioOutputModes =
-    MraaEnumHelper<MraaGpioOutputMode>(_gpioOutputModeValues);

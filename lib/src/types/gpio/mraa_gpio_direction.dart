@@ -10,27 +10,41 @@ part of mraa;
 /// GPIO pin directions.
 enum MraaGpioDirection {
   /// Out
-  out,
+  out(mraaimpl.mraa_gpio_dir_t.MRAA_GPIO_OUT),
 
   /// In
-  inn,
+  inn(mraaimpl.mraa_gpio_dir_t.MRAA_GPIO_IN),
 
   /// Out high
-  outHigh,
+  outHigh(mraaimpl.mraa_gpio_dir_t.MRAA_GPIO_OUT_HIGH),
 
   /// Out Low
-  outLow
+  outLow(mraaimpl.mraa_gpio_dir_t.MRAA_GPIO_OUT_LOW),
+
+  /// Unknown
+  unknown(-1);
+
+  static final Map<int, MraaGpioDirection> byCode = {};
+
+  static MraaGpioDirection gpioDirections(int direction) {
+    if (byCode.isEmpty) {
+      for (final direction in MraaGpioDirection.values) {
+        byCode[direction.code] = direction;
+      }
+    }
+
+    final ret = byCode.containsKey(direction)
+        ? byCode[direction]
+        : MraaGpioDirection.unknown;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaGpioDirection(this.code);
 }
-
-/// GPIO direction type support
-const Map<int, MraaGpioDirection> _gpioDirectionValues =
-    <int, MraaGpioDirection>{
-  0: MraaGpioDirection.out,
-  1: MraaGpioDirection.inn,
-  2: MraaGpioDirection.outHigh,
-  3: MraaGpioDirection.outLow
-};
-
-/// GPIO direction types helper
-MraaEnumHelper<MraaGpioDirection> gpioDirections =
-    MraaEnumHelper<MraaGpioDirection>(_gpioDirectionValues);

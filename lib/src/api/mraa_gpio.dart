@@ -46,8 +46,7 @@ class MraaGpio {
   /// Set the GPIO direction
   MraaReturnCode direction(
           MraaGpioContext context, MraaGpioDirection direction) =>
-      returnCode.fromInt(
-          _impl.mraa_gpio_dir(context, gpioDirections.asInt(direction)));
+      returnCode.fromInt(_impl.mraa_gpio_dir(context, (direction.code)));
 
   /// Read - mraa_gpio_read
   ///
@@ -81,7 +80,7 @@ class MraaGpio {
   ///
   /// Set the edge mode on the GPIO
   MraaReturnCode edgeMode(MraaGpioContext dev, MraaGpioEdge mode) =>
-      returnCode.fromInt(_impl.mraa_gpio_edge_mode(dev, gpioEdge.asInt(mode)));
+      returnCode.fromInt(_impl.mraa_gpio_edge_mode(dev, mode.code));
 
   /// Events - mraa_gpio_get_events
   ///
@@ -113,8 +112,7 @@ class MraaGpio {
   ///
   /// Set the GPIO's output Mode.
   MraaReturnCode mode(MraaGpioContext dev, MraaGpioOutputMode mode) =>
-      returnCode
-          .fromInt(_impl.mraa_gpio_mode(dev, gpioOutputModes.asInt(mode)));
+      returnCode.fromInt(_impl.mraa_gpio_mode(dev, mode.code));
 
   /// Read direction - mraa_gpio_read_dir
   ///
@@ -123,7 +121,7 @@ class MraaGpio {
       MraaGpioContext dev, MraaGpioDirectionRead gpioDirection) {
     final dir = ffi.calloc.allocate<Int32>(1);
     final ret = returnCode.fromInt(_impl.mraa_gpio_read_dir(dev, dir));
-    gpioDirection.direction = gpioDirections.fromInt(dir.value);
+    gpioDirection.direction = MraaGpioDirection.gpioDirections(dir.value);
     return ret;
   }
 
@@ -209,8 +207,7 @@ class MraaGpio {
   ///
   /// Set the GPIO input mode
   MraaReturnCode inputMode(MraaGpioContext dev, MraaGpioInputMode mode) =>
-      returnCode
-          .fromInt(_impl.mraa_gpio_input_mode(dev, gpioInputModes.asInt(mode)));
+      returnCode.fromInt(_impl.mraa_gpio_input_mode(dev, mode.code));
 
   /// Output driver mode - mraa_gpio_out_driver_mode
   ///
@@ -219,6 +216,5 @@ class MraaGpio {
   /// for each board.
   MraaReturnCode outputDriverMode(
           MraaGpioContext dev, MraaGpioOutputDriverMode mode) =>
-      returnCode.fromInt(_impl.mraa_gpio_out_driver_mode(
-          dev, gpioOutputDriverModes.asInt(mode)));
+      returnCode.fromInt(_impl.mraa_gpio_out_driver_mode(dev, mode.code));
 }
