@@ -64,7 +64,7 @@ class MraaUart {
   MraaReturnCode mode(MraaUartContext dev, int byteSize, MraaUartParity parity,
           int stopBits) =>
       returnCode.fromInt(_impl.mraa_uart_set_mode(
-          dev, byteSize, uartParity.asInt(parity), stopBits));
+          dev, byteSize, parity.code, stopBits));
 
   /// Flow control - mraa_uart_set_flowcontrol
   ///
@@ -182,7 +182,7 @@ class MraaUart {
     settings.baudRate = ptrBaudrate.value;
     settings.dataBits = ptrDataBits.value;
     settings.stopBits = ptrStopBits.value;
-    settings.parity = uartParity.fromInt(ptrParity.value);
+    settings.parity = MraaUartParity.uartParity(ptrParity.value);
     settings.rtsCts = ptrRtsCts.value != 0;
     settings.xonXoff = ptrXonXoff.value != 0;
 

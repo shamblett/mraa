@@ -47,7 +47,7 @@ class MraaUartSettings {
     sb.writeln('Baud Rate: $baudRate');
     sb.writeln('Data Bits: $dataBits');
     sb.writeln('Stop Bits: $stopBits');
-    sb.writeln('Parity: ${uartParity.asString(parity)}');
+    sb.writeln('Parity: $parity)');
     sb.writeln('RTS/CTS: $rtsCts - true is RTS');
     sb.writeln('XON/XOFF: $xonXoff - true is enabled');
     sb.writeln();
