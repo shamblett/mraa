@@ -8,17 +8,39 @@
 part of mraa;
 
 /// UART parities.
-enum MraaUartParity { none, even, odd, mark, space }
+enum MraaUartParity {
+  none(mraaimpl.mraa_uart_parity_t.MRAA_UART_PARITY_NONE),
 
-/// SPI mode type support
-const Map<int, MraaUartParity> _uartParityValues = <int, MraaUartParity>{
-  0: MraaUartParity.none,
-  1: MraaUartParity.even,
-  2: MraaUartParity.odd,
-  3: MraaUartParity.mark,
-  4: MraaUartParity.space
-};
+  even(mraaimpl.mraa_uart_parity_t.MRAA_UART_PARITY_EVEN),
 
-/// SPI mode types helper
-MraaEnumHelper<MraaUartParity> uartParity =
-    MraaEnumHelper<MraaUartParity>(_uartParityValues);
+  odd(mraaimpl.mraa_uart_parity_t.MRAA_UART_PARITY_ODD),
+
+  mark(mraaimpl.mraa_uart_parity_t.MRAA_UART_PARITY_MARK),
+
+  space(mraaimpl.mraa_uart_parity_t.MRAA_UART_PARITY_SPACE),
+
+  unknown(-1);
+
+  static final Map<int, MraaUartParity> byCode = {};
+
+  static MraaUartParity uartParity(int parity) {
+    if (byCode.isEmpty) {
+      for (final parity in MraaUartParity.values) {
+        byCode[parity.code] = parity;
+      }
+    }
+
+    final ret =
+        byCode.containsKey(parity) ? byCode[parity] : MraaUartParity.unknown;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaUartParity(this.code);
+}

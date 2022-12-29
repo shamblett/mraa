@@ -10,129 +10,117 @@ part of mraa;
 /// MRAA platform types
 enum MraaPlatformType {
   /// The Generation 1 Galileo platform (RevD)
-  intelGalileoGen1,
+  intelGalileoGen1(mraaimpl.mraa_platform_t.MRAA_INTEL_GALILEO_GEN1),
 
   /// The Generation 2 Galileo platform (RevG/H)
-  intelGalileoGen2,
+  intelGalileoGen2(mraaimpl.mraa_platform_t.MRAA_INTEL_GALILEO_GEN2),
 
   /// The Intel Edison (FAB C)
-  intelEdisonFabC,
+  intelEdisonFabC(mraaimpl.mraa_platform_t.MRAA_INTEL_EDISON_FAB_C),
 
   /// The Intel DE3815 Baytrail NUC
-  intelDe3815,
+  intelDe3815(mraaimpl.mraa_platform_t.MRAA_INTEL_DE3815),
 
   /// The Intel Minnow Board Max
-  intelMinnowboardMax,
+  intelMinnowboardMax(mraaimpl.mraa_platform_t.MRAA_INTEL_MINNOWBOARD_MAX),
 
   /// The different Raspberry PI Models -like A,B,A+,B+
-  raspberryPi,
+  raspberryPi(mraaimpl.mraa_platform_t.MRAA_RASPBERRY_PI),
 
   /// The different BeagleBone Black Modes B/C
-  beaglebone,
+  beaglebone(mraaimpl.mraa_platform_t.MRAA_BEAGLEBONE),
 
   /// Allwinner A20 based Banana Pi and Banana Pro
-  banana,
+  banana(mraaimpl.mraa_platform_t.MRAA_BANANA),
 
   /// The Intel 5th generations Broadwell NUCs
-  intelNuc5,
+  intelNuc5(mraaimpl.mraa_platform_t.MRAA_INTEL_NUC5),
 
   /// Linaro 96boards
-  a96boards,
+  a96boards(mraaimpl.mraa_platform_t.MRAA_96BOARDS),
 
   /// The Intel SoFIA 3GR
-  intelSofia3gr,
+  intelSofia3gr(mraaimpl.mraa_platform_t.MRAA_INTEL_SOFIA_3GR),
 
   /// The Intel Braswell Cherryhills
-  intelCherryhills,
+  intelCherryhills(mraaimpl.mraa_platform_t.MRAA_INTEL_CHERRYHILLS),
 
   /// The UP Board
-  up,
+  up(mraaimpl.mraa_platform_t.MRAA_UP),
 
   /// The Intel Joule Expansion Board
-  intelJouleExpansion,
+  intelJouleExpansion(mraaimpl.mraa_platform_t.MRAA_INTEL_JOULE_EXPANSION),
 
   /// The phyBOARD-Wega
-  phyboardWega,
+  phyboardWega(mraaimpl.mraa_platform_t.MRAA_PHYBOARD_WEGA),
 
   /// Terasic DE-Nano-SoC Board
-  deNanoSoc,
+  deNanoSoc(mraaimpl.mraa_platform_t.MRAA_DE_NANO_SOC),
 
   /// The UP^2 Board
-  up2,
+  up2(mraaimpl.mraa_platform_t.MRAA_UP2),
 
   /// Mediatek MT7688 based Linkit boards
-  mtkLinkit,
+  mtkLinkit(mraaimpl.mraa_platform_t.MRAA_MTK_LINKIT),
 
   /// MT7688 based Onion Omega2 board
-  mtkOmega2,
+  mtkOmega2(mraaimpl.mraa_platform_t.MRAA_MTK_OMEGA2),
 
   /// IEI Tank System
-  ieiTank,
+  ieiTank(mraaimpl.mraa_platform_t.MRAA_IEI_TANK),
 
   /// RockPI4
-  rockPi4,
+  rockPi4(mraaimpl.mraa_platform_t.MRAA_ROCKPI4),
 
   /// FTDI FT4222 USB to i2c bridge
-  ftdiFt4222,
+  ftdiFt4222(mraaimpl.mraa_platform_t.MRAA_FTDI_FT4222),
 
   /// GrovePi shield i2c bridge
-  grovepi,
+  grovepi(mraaimpl.mraa_platform_t.MRAA_GROVEPI),
 
   /// Firmata uart platform/bridge
-  genericFirmata,
+  genericFirmata(mraaimpl.mraa_platform_t.MRAA_GENERIC_FIRMATA),
 
   /// Android Things peripheral manager platform
-  androidPeripheralmanager,
+  androidPeripheralmanager(
+      mraaimpl.mraa_platform_t.MRAA_ANDROID_PERIPHERALMANAGER),
 
   /// Mock platform, which requires no real hardware
-  mockPlatform,
+  mockPlatform(mraaimpl.mraa_platform_t.MRAA_MOCK_PLATFORM),
 
   /// User initialised platform from json
-  jsonPlatform,
+  jsonPlatform(mraaimpl.mraa_platform_t.MRAA_JSON_PLATFORM),
 
   /// Platform with no capabilities that hosts a sub platform
-  nullPlatform,
+  nullPlatform(mraaimpl.mraa_platform_t.MRAA_NULL_PLATFORM),
 
   /// An unknown platform type, typically will load INTEL_GALILEO_GEN1
-  unknownPlatform
+  unknownPlatform(mraaimpl.mraa_platform_t.MRAA_UNKNOWN_PLATFORM);
+
+  static final Map<int, MraaPlatformType> byCode = {};
+
+  static MraaPlatformType platformTypes(int type) {
+    if (byCode.isEmpty) {
+      for (final type in MraaPlatformType.values) {
+        byCode[type.code] = type;
+      }
+    }
+
+    final ret = byCode.containsKey(type)
+        ? byCode[type]
+        : MraaPlatformType.unknownPlatform;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaPlatformType(this.code);
 }
-
-/// Platform type support
-const Map<int, MraaPlatformType> _platformTypeValues = <int, MraaPlatformType>{
-  0: MraaPlatformType.intelGalileoGen1,
-  1: MraaPlatformType.intelGalileoGen2,
-  2: MraaPlatformType.intelEdisonFabC,
-  3: MraaPlatformType.intelDe3815,
-  4: MraaPlatformType.intelMinnowboardMax,
-  5: MraaPlatformType.raspberryPi,
-  6: MraaPlatformType.beaglebone,
-  7: MraaPlatformType.banana,
-  8: MraaPlatformType.intelNuc5,
-  9: MraaPlatformType.a96boards,
-  10: MraaPlatformType.intelSofia3gr,
-  11: MraaPlatformType.intelCherryhills,
-  12: MraaPlatformType.up,
-  13: MraaPlatformType.intelJouleExpansion,
-  14: MraaPlatformType.phyboardWega,
-  15: MraaPlatformType.deNanoSoc,
-  16: MraaPlatformType.up2,
-  17: MraaPlatformType.mtkLinkit,
-  18: MraaPlatformType.mtkOmega2,
-  19: MraaPlatformType.ieiTank,
-  20: MraaPlatformType.rockPi4,
-  256: MraaPlatformType.ftdiFt4222,
-  1024: MraaPlatformType.grovepi,
-  1280: MraaPlatformType.genericFirmata,
-  95: MraaPlatformType.androidPeripheralmanager,
-  96: MraaPlatformType.mockPlatform,
-  97: MraaPlatformType.jsonPlatform,
-  98: MraaPlatformType.nullPlatform,
-  99: MraaPlatformType.unknownPlatform
-};
-
-/// Platform types helper
-MraaEnumHelper<MraaPlatformType> platformTypes =
-    MraaEnumHelper<MraaPlatformType>(_platformTypeValues);
 
 /// Get sub platform and main platform from a platform combined
 /// type function call.
@@ -147,7 +135,7 @@ class MraaCombinedTypeDecode {
 /// Combined type function decoder
 MraaCombinedTypeDecode decodeCombinedType(int value) {
   final ret = MraaCombinedTypeDecode();
-  ret.mainPlatform = platformTypes.fromInt(value & 0xFF);
-  ret.subPlatform = platformTypes.fromInt(value & (0xFF00 << 8));
+  ret.mainPlatform = MraaPlatformType.platformTypes(value & 0xFF);
+  ret.subPlatform = MraaPlatformType.platformTypes(value & (0xFF00 << 8));
   return ret;
 }

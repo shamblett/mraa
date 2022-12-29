@@ -7,5 +7,5 @@
 
 part of mraa;
 
-/// I2C context class for the opaque MRAA mraa_i2c_context structure
-class MraaI2cContext extends Opaque {}
+/// I2C context typedef for the opaque MRAA mraa_i2c_context structure
+typedef MraaI2cContext = mraaimpl.mraa_i2c_context;

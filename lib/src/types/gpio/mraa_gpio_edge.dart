@@ -10,26 +10,36 @@ part of mraa;
 /// GPIO Edge types for interrupts.
 enum MraaGpioEdge {
   /// No interrupt on Gpio
-  none,
+  none(mraaimpl.mraa_gpio_edge_t.MRAA_GPIO_EDGE_NONE),
 
   /// Interrupt on rising & falling
-  both,
+  both(mraaimpl.mraa_gpio_edge_t.MRAA_GPIO_EDGE_BOTH),
 
   /// Interrupt on rising only
-  rising,
+  rising(mraaimpl.mraa_gpio_edge_t.MRAA_GPIO_EDGE_RISING),
 
   /// Interrupt on falling only
-  falling
+  falling(mraaimpl.mraa_gpio_edge_t.MRAA_GPIO_EDGE_FALLING);
+
+  static final Map<int, MraaGpioEdge> byCode = {};
+
+  static MraaGpioEdge gpioEdge(int edge) {
+    if (byCode.isEmpty) {
+      for (final edge in MraaGpioEdge.values) {
+        byCode[edge.code] = edge;
+      }
+    }
+
+    final ret = byCode.containsKey(edge) ? byCode[edge] : MraaGpioEdge.none;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaGpioEdge(this.code);
 }
-
-/// GPIO edge type support
-const Map<int, MraaGpioEdge> _gpioEdgeValues = <int, MraaGpioEdge>{
-  0: MraaGpioEdge.none,
-  1: MraaGpioEdge.both,
-  2: MraaGpioEdge.rising,
-  3: MraaGpioEdge.falling
-};
-
-/// GPIO edge types helper
-MraaEnumHelper<MraaGpioEdge> gpioEdge =
-    MraaEnumHelper<MraaGpioEdge>(_gpioEdgeValues);

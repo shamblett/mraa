@@ -11,29 +11,42 @@ part of mraa;
 enum MraaSpiMode {
   /// CPOL = 0, CPHA = 0, Clock idle low, data is clocked in on rising edge,
   /// output data (change) on falling edge
-  mode0,
+  mode0(mraaimpl.mraa_spi_mode_t.MRAA_SPI_MODE0),
 
   /// CPOL = 0, CPHA = 1, Clock idle low, data is clocked in on falling edge,
   /// output data (change) on rising edge
-  mode1,
+  mode1(mraaimpl.mraa_spi_mode_t.MRAA_SPI_MODE1),
 
   /// CPOL = 1, CPHA = 0, Clock idle low, data is clocked in on falling edge,
   /// output data (change) on rising edge
-  mode2,
+  mode2(mraaimpl.mraa_spi_mode_t.MRAA_SPI_MODE2),
 
   /// CPOL = 1, CPHA = 1, Clock idle low, data is clocked in on rising, edge
   /// output data (change) on falling edge
-  mode3
+  mode3(mraaimpl.mraa_spi_mode_t.MRAA_SPI_MODE3),
+
+  /// Unknown
+  unknown(-1);
+
+  static final Map<int, MraaSpiMode> byCode = {};
+
+  static MraaSpiMode spiMode(int mode) {
+    if (byCode.isEmpty) {
+      for (final mode in MraaSpiMode.values) {
+        byCode[mode.code] = mode;
+      }
+    }
+
+    final ret = byCode.containsKey(mode) ? byCode[mode] : MraaSpiMode.unknown;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaSpiMode(this.code);
 }
-
-/// SPI mode type support
-const Map<int, MraaSpiMode> _spiModeValues = <int, MraaSpiMode>{
-  0: MraaSpiMode.mode0,
-  1: MraaSpiMode.mode1,
-  2: MraaSpiMode.mode2,
-  3: MraaSpiMode.mode3
-};
-
-/// SPI mode types helper
-MraaEnumHelper<MraaSpiMode> spiMode =
-    MraaEnumHelper<MraaSpiMode>(_spiModeValues);

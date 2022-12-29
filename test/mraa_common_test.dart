@@ -20,7 +20,7 @@ import 'support/mraa_platform_helper.dart';
 int main() {
   // Setup
   final helper = MraaPlatformHelper();
-  print('OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+  print('Common - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
@@ -61,7 +61,7 @@ int main() {
     test('Platform types', () {
       mraa.common.initialise();
       final ret = mraa.common.platformType();
-      print('Platform type is : ${platformTypes.asString(ret)}');
+      print('Platform type is : $ret');
       expect(ret, MraaPlatformType.mockPlatform);
     });
     test('Pin mode test', () {
@@ -101,9 +101,8 @@ int main() {
     });
     test('Result print', () {
       mraa.common.initialise();
-      mraa.common.resultPrint(returnCode.asInt(MraaReturnCode.success));
-      mraa.common
-          .resultPrint(returnCode.asInt(MraaReturnCode.errorInvalidHandle));
+      mraa.common.resultPrint(MraaReturnCode.success.code);
+      mraa.common.resultPrint(MraaReturnCode.errorInvalidHandle.code);
       mraa.common.resultPrint(100);
     });
     test('Platform combined type', () {

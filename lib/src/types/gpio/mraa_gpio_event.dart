@@ -7,21 +7,5 @@
 
 part of mraa;
 
-/// GPIO event class
-class MraaGpioEvent extends Struct {
-  /// Construction
-  MraaGpioEvent(int id, int timestamp) {
-    id = id;
-    timestamp = timestamp;
-  }
-
-  @Int32()
-
-  /// Id
-  external int id;
-
-  @Int64()
-
-  /// Timestamp
-  external int timestamp;
-}
+/// GPIO event typedef
+typedef MraaGpioEvent = mraaimpl.mraa_gpio_event;

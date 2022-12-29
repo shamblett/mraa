@@ -21,7 +21,7 @@ import 'support/mraa_platform_helper.dart';
 int main() {
   // Setup
   final helper = MraaPlatformHelper();
-  print('OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+  print('UART - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
@@ -55,7 +55,7 @@ int main() {
       expect(ret, MraaReturnCode.success);
     });
     test('Baud rate', () {
-      final context = mraa.uart.initialise(1);
+      final context = mraa.uart.initialise(0);
       expect(context, isNotNull);
       final ret = mraa.uart.baudRate(context, 9600);
       expect(ret, MraaReturnCode.success);

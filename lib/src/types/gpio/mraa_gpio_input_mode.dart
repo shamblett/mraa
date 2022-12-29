@@ -10,19 +10,34 @@ part of mraa;
 /// GPIO input modes
 enum MraaGpioInputMode {
   /// Resistive High
-  activeHigh,
+  activeHigh(mraaimpl.mraa_gpio_input_mode_t.MRAA_GPIO_ACTIVE_HIGH),
 
   /// Resistive Low
-  activeLow
+  activeLow(mraaimpl.mraa_gpio_input_mode_t.MRAA_GPIO_ACTIVE_LOW),
+
+  /// Unknown
+  unknown(-1);
+
+  static final Map<int, MraaGpioInputMode> byCode = {};
+
+  static MraaGpioInputMode gpioInputModes(int mode) {
+    if (byCode.isEmpty) {
+      for (final mode in MraaGpioInputMode.values) {
+        byCode[mode.code] = mode;
+      }
+    }
+
+    final ret =
+        byCode.containsKey(mode) ? byCode[mode] : MraaGpioInputMode.unknown;
+    return ret!;
+  }
+
+  @override
+  String toString() {
+    return "$name($code)";
+  }
+
+  final int code;
+
+  const MraaGpioInputMode(this.code);
 }
-
-/// GPIO input mode type support
-const Map<int, MraaGpioInputMode> _gpioInputModeValues =
-    <int, MraaGpioInputMode>{
-  0: MraaGpioInputMode.activeHigh,
-  1: MraaGpioInputMode.activeLow
-};
-
-/// GPIO input mode types helper
-MraaEnumHelper<MraaGpioInputMode> gpioInputModes =
-    MraaEnumHelper<MraaGpioInputMode>(_gpioInputModeValues);
