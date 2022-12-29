@@ -20,7 +20,8 @@ import 'support/mraa_platform_helper.dart';
 int main() {
   // Setup
   final helper = MraaPlatformHelper();
-  print('UART Separate - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+  print(
+      'UART Separate - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
