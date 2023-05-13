@@ -1,6 +1,6 @@
 name: mraa
 description: A Dart FFI wrapper implementation of the Intel linux MRAA device library
-version: 3.0.0
+version: 4.0.0
 repository: https://github.com/shamblett/mraa
 homepage: https://github.com/shamblett/mraa
 
@@ -8,14 +8,15 @@ funding:
  - https://www.darticulate.com/#funding
 
 environment:
- sdk: ">=2.17.0  <3.0.0"
+ sdk: '>=3.0.0  <4.0.0'
 
 dependencies:
- ffi: '^2.0.1'
+ ffi: '^2.0.2'
  path: '^1.8.3'
 
 dev_dependencies:
- test: '^1.22.1'
- lints: '^2.0.1'
+ test: '^1.24.2'
+ lints: '^2.1.0'
+ ffigen: '^8.0.1'
  
 

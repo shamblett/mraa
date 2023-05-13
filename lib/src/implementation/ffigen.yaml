@@ -1,32 +1,23 @@
-# Copyright (c) 2020, the Dart project authors. Please see the AUTHORS file
-# for details. All rights reserved. Use of this source code is governed by a
-# BSD-style license that can be found in the LICENSE file.
+#
+# Package : mraa
+# Author : S. Hamblett <steve.hamblett@linux.com>
+# Date   : 13/05/2023
+# Copyright :  S.Hamblett
+#
 
-name: mraa_example
-
-environment:
-  sdk: '>=2.17.0 <3.0.0'
-
-dependencies:
-  ffi: ^2.0.1
-  path: ^1.8.0
-
-dev_dependencies:
-  ffigen:
-    path: '../../'
-  lints: ^1.0.1
-
-ffigen:
-  output: 'mraa_impl.dart'
-  name: 'MraaImpl'
-  description: 'Holds ffigen generated implementation bindings to MRAA.'
-  headers:
-    entry-points:
-      - 'mraa/mraa.h'
-    include-directives:
-      - '**mraa/*.h'
-  comments: true
-  preamble: |
+output: 'mraa_impl.dart'
+name: 'MraaImpl'
+description: 'Holds ffigen generated implementation bindings to MRAA.'
+headers:
+  entry-points:
+    - 'mraa/mraa.h'
+  include-directives:
+    - '**mraa/*.h'
+compiler-opts:
+    - '-I/usr/lib/gcc/x86_64-redhat-linux/13/include/'
+use-supported-typedefs: true
+comments: true
+preamble: |
     //  mraa package
     //  Author: S.Hamblett <steve.hamblett@linux.com> 
     //  Copyright © 2022 S. Hamblett
