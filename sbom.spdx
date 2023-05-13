@@ -1,6 +1,6 @@
-SPDXVersion: SPDX-2.2DataLicense: CC0-1.0SPDXID: SPDXRef-DOCUMENTDocumentName: mraaDocumentNamespace: https://pub.dev/packages/mraaLicenseListVersion: 3.8Creator: Tool: https://pub.dev/packages/sbomCreated: 2022-12-29T19:55:59Z
+SPDXVersion: SPDX-2.2DataLicense: CC0-1.0SPDXID: SPDXRef-DOCUMENTDocumentName: mraaDocumentNamespace: https://pub.dev/packages/mraaLicenseListVersion: 3.8Creator: Tool: https://pub.dev/packages/sbomCreated: 2023-05-13T14:18:17Z
 
-PackageName: mraaSPDXID: SPDXRef-Package-mraaPackageVersion: 3.0.0PackageFileName: mraaPackageSupplier: NOASSERTIONPackageOriginator: NOASSERTIONPackageDownloadLocation: https://pub.dev/packages/mraaFilesAnalyzed: truePackageVerificationCode: a518822d3187168e9f65f347f0033106b0c0f373PackageHomePage: https://pub.dev/packages/mraaPackageLicenseConcluded: MITPackageLicenseInfoFromFiles: NOASSERTIONPackageLicenseDeclared: NOASSERTIONPackageCopyrightText: NOASSERTIONPackageSummary: <text>A Dart FFI wrapper implementation of the Intel linux MRAA device library</text>
+PackageName: mraaSPDXID: SPDXRef-Package-mraaPackageVersion: 4.0.0PackageFileName: mraaPackageSupplier: NOASSERTIONPackageOriginator: NOASSERTIONPackageDownloadLocation: https://pub.dev/packages/mraaFilesAnalyzed: truePackageVerificationCode: 58391af5c71ad2b147a649fe19b6d4f06df44c6fPackageHomePage: https://pub.dev/packages/mraaPackageLicenseConcluded: MITPackageLicenseInfoFromFiles: NOASSERTIONPackageLicenseDeclared: NOASSERTIONPackageCopyrightText: NOASSERTIONPackageSummary: <text>A Dart FFI wrapper implementation of the Intel linux MRAA device library</text>
 
 FileName: /lib/mraa.dartSPDXID: SPDXRef-mraa-0FileType: SOURCEFileChecksum: SHA1: 7f8d033e4aa9fc0ca65f86170a275f0574a83693LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
@@ -66,13 +66,13 @@ FileName: /lib/src/types/spi/mraa_spi_transfer_buffer.dartSPDXID: SPDXRef-mraa-
 
 FileName: /lib/src/types/uart/mraa_uart_buffer.dartSPDXID: SPDXRef-mraa-uart-buffer-31FileType: SOURCEFileChecksum: SHA1: 4afd239408b51974627eb026c3c24947a82a50bdLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/uart/mraa_uart_context.dartSPDXID: SPDXRef-mraa-uart-context-32FileType: SOURCEFileChecksum: SHA1: e010e99b917412fd8ffc504ea3b79ab9399cdc60LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: /lib/src/types/uart/mraa_uart_context.dartSPDXID: SPDXRef-mraa-uart-context-32FileType: SOURCEFileChecksum: SHA1: b206639ed42d1d95927807e43ec2e4bbc1d1d113LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
 FileName: /lib/src/types/uart/mraa_uart_parity.dartSPDXID: SPDXRef-mraa-uart-parity-33FileType: SOURCEFileChecksum: SHA1: 4bdb98daf0f1a692fd85971f371782b1b4449019LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
 FileName: /lib/src/types/uart/mraa_uart_settings.dartSPDXID: SPDXRef-mraa-uart-settings-34FileType: SOURCEFileChecksum: SHA1: ec98de1f9587bc991d40e59d908e5a33417cad92LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /pubspec.yamlSPDXID: SPDXRef-pubspec-35FileType: TEXTFileChecksum: SHA1: 0ac9b95315f9a4d10d12dd3246641a4ce3c703aaLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: /pubspec.yamlSPDXID: SPDXRef-pubspec-35FileType: TEXTFileChecksum: SHA1: b6a3cfbc4f2ac187232088fbc41bbb756b2205b2LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
 Relationship: SPDXRef-pubspec-35 DEPENDENCY_MANIFEST_OF SPDXRef-Package-mraa
 
