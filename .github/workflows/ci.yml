@@ -25,10 +25,12 @@ jobs:
 
       - name: Run tests
         run: dart test/mraa_aio_test.dart
+      - run: dart test/mraa_aio_test.dart
       - run: dart test/mraa_common_test.dart
       - run: dart test/mraa_gpio_test.dart
       - run: dart test/mraa_i2c_test.dart
       - run: dart test/mraa_led_test.dart
       - run: dart test/mraa_pwm_test.dart
+
 # Issue 13      - run: dart test/mraa_spi_test.dart
       - run: dart test/mraa_uart_test.dart
