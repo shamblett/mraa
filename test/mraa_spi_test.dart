@@ -110,7 +110,7 @@ int main() {
       expect(context, isNotNull);
       final ret = mraa.spi.lsbMode(context, true);
       expect(ret, MraaReturnCode.success);
-    });
+    }, skip: helper.isUbuntu());
     test('Bits per word', () {
       final context = mraa.spi.initialise(0);
       expect(context, isNotNull);
@@ -122,7 +122,7 @@ int main() {
       expect(context, isNotNull);
       final ret = mraa.spi.stop(context);
       expect(ret, MraaReturnCode.success);
-    });
+    }, skip: helper.isUbuntu());
   });
 
   return 0;
