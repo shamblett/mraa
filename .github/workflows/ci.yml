@@ -31,6 +31,13 @@ jobs:
       - run: dart test/mraa_i2c_test.dart
       - run: dart test/mraa_led_test.dart
       - run: dart test/mraa_pwm_test.dart
-
 # Issue 13      - run: dart test/mraa_spi_test.dart
       - run: dart test/mraa_uart_test.dart
+
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v2
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            file: coverage/lcov.info
+            name: Upload to codecov.io
+            verbose: true
