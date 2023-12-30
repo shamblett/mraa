@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// I2C speeds/modes.
 enum MraaI2cMode {

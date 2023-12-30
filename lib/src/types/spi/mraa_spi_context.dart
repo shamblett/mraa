@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// SPI context typedef for the opaque MRAA mraa_spi_context structure
 typedef MraaSpiContext = mraaimpl.mraa_spi_context;

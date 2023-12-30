@@ -1041,9 +1041,9 @@ class MraaImpl {
   }
 
   late final _mraa_gpio_init_by_namePtr = _lookup<
-      ffi.NativeFunction<
-          mraa_gpio_context Function(
-              ffi.Pointer<ffi.Char>)>>('mraa_gpio_init_by_name');
+          ffi
+          .NativeFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Char>)>>(
+      'mraa_gpio_init_by_name');
   late final _mraa_gpio_init_by_name = _mraa_gpio_init_by_namePtr
       .asFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Char>)>();
 
@@ -2254,9 +2254,9 @@ class MraaImpl {
   }
 
   late final _mraa_uart_init_rawPtr = _lookup<
-      ffi.NativeFunction<
-          mraa_uart_context Function(
-              ffi.Pointer<ffi.Char>)>>('mraa_uart_init_raw');
+          ffi
+          .NativeFunction<mraa_uart_context Function(ffi.Pointer<ffi.Char>)>>(
+      'mraa_uart_init_raw');
   late final _mraa_uart_init_raw = _mraa_uart_init_rawPtr
       .asFunction<mraa_uart_context Function(ffi.Pointer<ffi.Char>)>();
 
@@ -2447,9 +2447,9 @@ class MraaImpl {
   }
 
   late final _mraa_uart_get_dev_pathPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              mraa_uart_context)>>('mraa_uart_get_dev_path');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_context)>>(
+      'mraa_uart_get_dev_path');
   late final _mraa_uart_get_dev_path = _mraa_uart_get_dev_pathPtr
       .asFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_context)>();
 
@@ -2722,9 +2722,9 @@ class MraaImpl {
   }
 
   late final _mraa_uart_ow_write_bytePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              mraa_uart_ow_context, ffi.Uint8)>>('mraa_uart_ow_write_byte');
+          ffi
+          .NativeFunction<ffi.Int Function(mraa_uart_ow_context, ffi.Uint8)>>(
+      'mraa_uart_ow_write_byte');
   late final _mraa_uart_ow_write_byte = _mraa_uart_ow_write_bytePtr
       .asFunction<int Function(mraa_uart_ow_context, int)>();
 
@@ -2746,9 +2746,9 @@ class MraaImpl {
   }
 
   late final _mraa_uart_ow_bitPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              mraa_uart_ow_context, ffi.Uint8)>>('mraa_uart_ow_bit');
+          ffi
+          .NativeFunction<ffi.Int Function(mraa_uart_ow_context, ffi.Uint8)>>(
+      'mraa_uart_ow_bit');
   late final _mraa_uart_ow_bit = _mraa_uart_ow_bitPtr
       .asFunction<int Function(mraa_uart_ow_context, int)>();
 

@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// The values of a range of GPIO pins read in a multi read operation.
 class MraaGpioMultiRead {

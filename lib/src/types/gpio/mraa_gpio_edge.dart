@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// GPIO Edge types for interrupts.
 enum MraaGpioEdge {

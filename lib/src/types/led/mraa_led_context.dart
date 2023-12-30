@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// LED context typedef for the opaque MRAA mraa_led_context structure
 typedef MraaLedContext = mraaimpl.mraa_led_context;

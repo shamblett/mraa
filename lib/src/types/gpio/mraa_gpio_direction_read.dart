@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// The direction of a GPIO pin as read.
 class MraaGpioDirectionRead {
