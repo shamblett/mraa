@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// GPIO event typedef
 typedef MraaGpioEvent = mraaimpl.mraa_gpio_event;

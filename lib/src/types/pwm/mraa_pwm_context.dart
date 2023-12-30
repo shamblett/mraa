@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-part of mraa;
+part of '../../../mraa.dart';
 
 /// PWM context typedef for the opaque MRAA mraa_pwm_context structure
 typedef MraaPwmContext = mraaimpl.mraa_pwm_context;
