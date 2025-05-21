@@ -15,14 +15,14 @@ part of '../../mraa.dart';
 /// before doing any calls on I2C, in case another application changed the
 /// address on that bus. Multiple instances of the same bus can exist.
 class MraaI2c {
-  /// Construction
-  MraaI2c(this._impl, this._noJsonLoading);
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  /// Construction
+  MraaI2c(this._impl, this._noJsonLoading);
 
   /// Initialise - mraa_i2c_init
   ///

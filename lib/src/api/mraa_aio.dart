@@ -12,14 +12,6 @@ part of '../../mraa.dart';
 /// AIO is the analogue input & output interface to MRAA
 /// It is used to read or set the voltage applied to an AIO pin.
 class MraaAio {
-  /// Construction
-  MraaAio(this._impl, this._noJsonLoading, this._useGrovePi) {
-    // Set up the pin offset for grove pi usage.
-    if (_useGrovePi) {
-      _grovePiPinOffset = Mraa.grovePiPinOffset;
-    }
-  }
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
@@ -30,6 +22,14 @@ class MraaAio {
 
   // Pin offset if we are using the grove pi shield.
   int _grovePiPinOffset = 0;
+
+  /// Construction
+  MraaAio(this._impl, this._noJsonLoading, this._useGrovePi) {
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
+  }
 
   /// Initialise - mraa_aio_init
   ///

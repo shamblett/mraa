@@ -13,14 +13,14 @@ part of '../../mraa.dart';
 /// are created per SPI bus and every chip select available on that
 /// bus has another spidev 'file'.
 class MraaSpi {
-  /// Construction
-  MraaSpi(this._impl, this._noJsonLoading);
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  /// Construction
+  MraaSpi(this._impl, this._noJsonLoading);
 
   /// Initialise - mraa_spi_init
   ///

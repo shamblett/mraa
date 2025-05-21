@@ -12,14 +12,14 @@ part of '../../mraa.dart';
 /// LED is the Light Emitting Diode interface to MRAA
 /// It is used to access the on board LED's via sysfs.
 class MraaLed {
-  /// Construction
-  MraaLed(this._impl, this._noJsonLoading);
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  /// Construction
+  MraaLed(this._impl, this._noJsonLoading);
 
   /// Initialise - mraa_led_init
   ///

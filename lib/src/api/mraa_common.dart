@@ -11,14 +11,6 @@ part of '../../mraa.dart';
 ///
 /// Defines the basic shared functions and values for MRAA.
 class MraaCommon {
-  /// Construction
-  MraaCommon(this._impl, this._noJsonLoading, this._useGrovePi) {
-    // Set up the pin offset for grove pi usage.
-    if (_useGrovePi) {
-      _grovePiPinOffset = Mraa.grovePiPinOffset;
-    }
-  }
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
@@ -28,6 +20,14 @@ class MraaCommon {
 
   // Pin offset if we are using the grove pi shield.
   int _grovePiPinOffset = 0;
+
+  /// Construction
+  MraaCommon(this._impl, this._noJsonLoading, this._useGrovePi) {
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
+  }
 
   /// Version - mraa_get_version
   ///

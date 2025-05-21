@@ -14,13 +14,9 @@ part of '../../mraa.dart';
 /// kernel module through sysfs), or memory mapped IO via
 /// a /dev/uio device or /dev/mem depending again depending on the board configuration.
 class MraaGpio {
-  /// Construction
-  MraaGpio(this._impl, this._noJsonLoading, this._useGrovePi) {
-    // Set up the pin offset for grove pi usage.
-    if (_useGrovePi) {
-      _grovePiPinOffset = Mraa.grovePiPinOffset;
-    }
-  }
+
+  /// Read multi unspecified return code.
+  static const readMultiUnspecified = 99;
 
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
@@ -34,6 +30,14 @@ class MraaGpio {
   int _grovePiPinOffset = 0;
 
   int _initialiseMultiPinCount = 0;
+
+  /// Construction
+  MraaGpio(this._impl, this._noJsonLoading, this._useGrovePi) {
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
+  }
 
   /// Initialise - mraa_gpio_init
   ///
@@ -142,7 +146,7 @@ class MraaGpio {
   /// Read multi - mraa_gpio_read_multi
   ///
   /// Read the GPIO(s) value. Reads the number of pins provided to
-  /// the initialiseMulti() functionwhich must have been called before using
+  /// the initialiseMulti() function which must have been called before using
   /// this method.
   MraaReturnCode readMulti(MraaGpioContext dev, MraaGpioMultiRead values) {
     if (_initialiseMultiPinCount == 0) {
@@ -151,7 +155,7 @@ class MraaGpio {
     final rawValues = ffi.calloc.allocate<Int32>(_initialiseMultiPinCount);
     var intRet = _impl.mraa_gpio_read_multi(dev, rawValues.cast<Int>());
     if (intRet == Mraa.generalError) {
-      intRet = 99; // unspecified
+      intRet = readMultiUnspecified; // unspecified
     }
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);

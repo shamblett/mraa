@@ -13,14 +13,17 @@ part of '../../mraa.dart';
 /// It allows the exposure of UART pins on supported boards
 /// with functionality to expand at a later date.
 class MraaUart {
-  /// Construction
-  MraaUart(this._impl, this._noJsonLoading);
+  static const maxDevicePathLength = 1024;
+  static const maxNameLength = 255;
 
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  /// Construction
+  MraaUart(this._impl, this._noJsonLoading);
 
   /// Initialise - mraa_uart_init
   ///
@@ -70,9 +73,9 @@ class MraaUart {
     _impl.mraa_uart_set_mode(dev, byteSize, parity.code, stopBits),
   );
 
-  /// Flow control - mraa_uart_set_flowcontrol
+  /// Flow control - mraa_uart_set_flow control
   ///
-  /// Set the flowcontrol
+  /// Set the flow control
   /// XON/XOFF is software flow control.
   /// RTS/CTS is out of band hardware flow control
   MraaReturnCode flowControl(MraaUartContext dev, bool xonXoff, bool rtsCts) {
@@ -121,7 +124,9 @@ class MraaUart {
     if (index < 0) {
       return '';
     }
-    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(1024);
+    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(
+      maxDevicePathLength,
+    );
     final ret = _impl.mraa_uart_settings(
       index,
       ptrDevicePath,
@@ -168,11 +173,13 @@ class MraaUart {
     }
 
     // Construct the parameter list
-    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(255);
+    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(
+      maxDevicePathLength,
+    );
     if (index < 0) {
       ptrDevicePath.value = settings.devicePath.toNativeUtf8().cast<Char>();
     }
-    final ptrName = ffi.calloc.allocate<Pointer<Char>>(255);
+    final ptrName = ffi.calloc.allocate<Pointer<Char>>(maxNameLength);
     final ptrBaudrate = ffi.calloc.allocate<Int>(1);
     final ptrDataBits = ffi.calloc.allocate<Int>(1);
     final ptrStopBits = ffi.calloc.allocate<Int>(1);
