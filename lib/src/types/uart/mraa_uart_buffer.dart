@@ -12,11 +12,11 @@ class MraaUartBuffer {
   /// The TX/RX buffer for UTF8 methods
   String utf8Data = '';
 
-  /// UTF8 Length
-  int get utf8Length => utf8Data.length;
-
   /// The TX/RX buffer for byte(Uint8) methods
   Uint8List byteData = Uint8List(1);
+
+  /// UTF8 Length
+  int get utf8Length => utf8Data.length;
 
   /// Uint Length
   int get byteLength => byteData.length;
