@@ -5,7 +5,7 @@
  * Copyright :  S.Hamblett
  */
 
-library mraa;
+library;
 
 import 'dart:ffi';
 import 'dart:typed_data';

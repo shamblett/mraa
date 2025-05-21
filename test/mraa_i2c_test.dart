@@ -6,6 +6,8 @@
  */
 
 @TestOn('vm && linux')
+library;
+
 import 'dart:ffi';
 import 'dart:typed_data';
 import 'package:ffi/ffi.dart';

@@ -6,6 +6,8 @@
  */
 
 @TestOn('vm && linux')
+library;
+
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 import 'support/mraa_platform_helper.dart';
