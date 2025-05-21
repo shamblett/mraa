@@ -83,7 +83,8 @@ enum MraaPlatformType {
 
   /// Android Things peripheral manager platform
   androidPeripheralmanager(
-      mraaimpl.mraa_platform_t.MRAA_ANDROID_PERIPHERALMANAGER),
+    mraaimpl.mraa_platform_t.MRAA_ANDROID_PERIPHERALMANAGER,
+  ),
 
   /// Mock platform, which requires no real hardware
   mockPlatform(mraaimpl.mraa_platform_t.MRAA_MOCK_PLATFORM),
@@ -106,9 +107,10 @@ enum MraaPlatformType {
       }
     }
 
-    final ret = byCode.containsKey(type)
-        ? byCode[type]
-        : MraaPlatformType.unknownPlatform;
+    final ret =
+        byCode.containsKey(type)
+            ? byCode[type]
+            : MraaPlatformType.unknownPlatform;
     return ret!;
   }
 

@@ -45,7 +45,9 @@ class MraaGpio {
   ///
   /// Set the GPIO direction
   MraaReturnCode direction(
-          MraaGpioContext context, MraaGpioDirection direction) =>
+    MraaGpioContext context,
+    MraaGpioDirection direction,
+  ) =>
       MraaReturnCode.returnCode(_impl.mraa_gpio_dir(context, (direction.code)));
 
   /// Read - mraa_gpio_read
@@ -118,7 +120,9 @@ class MraaGpio {
   ///
   /// Read the GPIO's direction.
   MraaReturnCode readDirection(
-      MraaGpioContext dev, MraaGpioDirectionRead gpioDirection) {
+    MraaGpioContext dev,
+    MraaGpioDirectionRead gpioDirection,
+  ) {
     final dir = ffi.calloc.allocate<Int32>(1);
     final ret = MraaReturnCode.returnCode(_impl.mraa_gpio_read_dir(dev, dir));
     gpioDirection.direction = MraaGpioDirection.gpioDirections(dir.value);
@@ -178,7 +182,8 @@ class MraaGpio {
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     typedValues.setAll(0, values);
     return MraaReturnCode.returnCode(
-        _impl.mraa_gpio_write_multi(dev, rawValues.cast<Int>()));
+      _impl.mraa_gpio_write_multi(dev, rawValues.cast<Int>()),
+    );
   }
 
   /// Owner - mraa_gpio_owner
@@ -215,7 +220,9 @@ class MraaGpio {
   /// This is not a standard feature, it needs a custom implementation
   /// for each board.
   MraaReturnCode outputDriverMode(
-          MraaGpioContext dev, MraaGpioOutputDriverMode mode) =>
-      MraaReturnCode.returnCode(
-          _impl.mraa_gpio_out_driver_mode(dev, mode.code));
+    MraaGpioContext dev,
+    MraaGpioOutputDriverMode mode,
+  ) => MraaReturnCode.returnCode(
+    _impl.mraa_gpio_out_driver_mode(dev, mode.code),
+  );
 }

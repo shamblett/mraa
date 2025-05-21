@@ -6,7 +6,6 @@
  */
 
 @TestOn('vm && linux')
-
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
 import 'support/mraa_platform_helper.dart';
@@ -21,7 +20,8 @@ int main() {
   // Setup
   final helper = MraaPlatformHelper();
   print(
-      'PWM - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+    'PWM - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}',
+  );
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 

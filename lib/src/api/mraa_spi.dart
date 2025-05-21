@@ -107,13 +107,17 @@ class MraaSpi {
   /// buffers are passed in using the [buffer] parameter.
   /// Maximum length 4096 both ways
   MraaReturnCode transferBuffer(
-      MraaSpiContext dev, MraaSpiTransferBuffer<Uint8List> buffer, int length) {
+    MraaSpiContext dev,
+    MraaSpiTransferBuffer<Uint8List> buffer,
+    int length,
+  ) {
     final ptr = ffi.calloc.allocate<Uint8>(length);
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
     final retData = ffi.calloc.allocate<Uint8>(length);
     final status = MraaReturnCode.returnCode(
-        _impl.mraa_spi_transfer_buf(dev, ptr, retData, length));
+      _impl.mraa_spi_transfer_buf(dev, ptr, retData, length),
+    );
     if (status != MraaReturnCode.success) {
       ffi.calloc.free(retData);
       return status;
@@ -134,14 +138,18 @@ class MraaSpi {
   /// Transfer a buffer of words to the SPI device. Both send and receive
   /// buffers are passed in using the [buffer] parameter.
   /// Maximum length 4096 both ways
-  MraaReturnCode transferBufferWord(MraaSpiContext dev,
-      MraaSpiTransferBuffer<Uint16List> buffer, int length) {
+  MraaReturnCode transferBufferWord(
+    MraaSpiContext dev,
+    MraaSpiTransferBuffer<Uint16List> buffer,
+    int length,
+  ) {
     final ptr = ffi.calloc.allocate<Uint16>(length);
     final ptrData = ptr.asTypedList(length);
     ptrData.setAll(0, buffer.dataSent);
     final retData = ffi.calloc.allocate<Uint16>(length);
     final status = MraaReturnCode.returnCode(
-        _impl.mraa_spi_transfer_buf_word(dev, ptr, retData, length));
+      _impl.mraa_spi_transfer_buf_word(dev, ptr, retData, length),
+    );
     final retDataList = retData.asTypedList(length);
     if (status != MraaReturnCode.success) {
       ffi.calloc.free(retData);

@@ -36,23 +36,23 @@ import 'dart:ffi' as ffi;
 class MraaImpl {
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   MraaImpl(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
   MraaImpl.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
   int mraa_init() {
     return _mraa_init();
   }
 
-  late final _mraa_initPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('mraa_init');
+  late final _mraa_initPtr = _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+    'mraa_init',
+  );
   late final _mraa_init = _mraa_initPtr.asFunction<int Function()>();
 
   /// De-Initilise MRAA
@@ -64,8 +64,9 @@ class MraaImpl {
     return _mraa_deinit();
   }
 
-  late final _mraa_deinitPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('mraa_deinit');
+  late final _mraa_deinitPtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'mraa_deinit',
+  );
   late final _mraa_deinit = _mraa_deinitPtr.asFunction<void Function()>();
 
   /// Checks if a pin is able to use the passed in mode.
@@ -73,19 +74,14 @@ class MraaImpl {
   /// @param pin Physical Pin to be checked.
   /// @param mode the mode to be tested.
   /// @return boolean if the mode is supported, 0=false.
-  int mraa_pin_mode_test(
-    int pin,
-    int mode,
-  ) {
-    return _mraa_pin_mode_test(
-      pin,
-      mode,
-    );
+  int mraa_pin_mode_test(int pin, int mode) {
+    return _mraa_pin_mode_test(pin, mode);
   }
 
   late final _mraa_pin_mode_testPtr =
       _lookup<ffi.NativeFunction<mraa_boolean_t Function(ffi.Int, ffi.Int32)>>(
-          'mraa_pin_mode_test');
+        'mraa_pin_mode_test',
+      );
   late final _mraa_pin_mode_test =
       _mraa_pin_mode_testPtr.asFunction<int Function(int, int)>();
 
@@ -98,7 +94,8 @@ class MraaImpl {
 
   late final _mraa_adc_raw_bitsPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function()>>(
-          'mraa_adc_raw_bits');
+        'mraa_adc_raw_bits',
+      );
   late final _mraa_adc_raw_bits =
       _mraa_adc_raw_bitsPtr.asFunction<int Function()>();
 
@@ -106,17 +103,14 @@ class MraaImpl {
   ///
   /// @param platform_offset specified platform offset; 0 for main platform, 1 for sub platform
   /// @return raw bits being read from kernel module. zero if no ADC
-  int mraa_get_platform_adc_raw_bits(
-    int platform_offset,
-  ) {
-    return _mraa_get_platform_adc_raw_bits(
-      platform_offset,
-    );
+  int mraa_get_platform_adc_raw_bits(int platform_offset) {
+    return _mraa_get_platform_adc_raw_bits(platform_offset);
   }
 
   late final _mraa_get_platform_adc_raw_bitsPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Uint8)>>(
-          'mraa_get_platform_adc_raw_bits');
+        'mraa_get_platform_adc_raw_bits',
+      );
   late final _mraa_get_platform_adc_raw_bits =
       _mraa_get_platform_adc_raw_bitsPtr.asFunction<int Function(int)>();
 
@@ -129,7 +123,8 @@ class MraaImpl {
 
   late final _mraa_adc_supported_bitsPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function()>>(
-          'mraa_adc_supported_bits');
+        'mraa_adc_supported_bits',
+      );
   late final _mraa_adc_supported_bits =
       _mraa_adc_supported_bitsPtr.asFunction<int Function()>();
 
@@ -137,17 +132,14 @@ class MraaImpl {
   ///
   /// @param platform_offset specified platform offset; 0 for main platform, 1 for sub platform
   /// @return return actual bit size the adc value should be understood as.
-  int mraa_get_platform_adc_supported_bits(
-    int platform_offset,
-  ) {
-    return _mraa_get_platform_adc_supported_bits(
-      platform_offset,
-    );
+  int mraa_get_platform_adc_supported_bits(int platform_offset) {
+    return _mraa_get_platform_adc_supported_bits(platform_offset);
   }
 
   late final _mraa_get_platform_adc_supported_bitsPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Int)>>(
-          'mraa_get_platform_adc_supported_bits');
+        'mraa_get_platform_adc_supported_bits',
+      );
   late final _mraa_get_platform_adc_supported_bits =
       _mraa_get_platform_adc_supported_bitsPtr.asFunction<int Function(int)>();
 
@@ -155,17 +147,14 @@ class MraaImpl {
   /// syslog log levels, see syslog(3) for more information on the levels.
   ///
   /// @return Result of operation
-  int mraa_set_log_level(
-    int level,
-  ) {
-    return _mraa_set_log_level(
-      level,
-    );
+  int mraa_set_log_level(int level) {
+    return _mraa_set_log_level(level);
   }
 
   late final _mraa_set_log_levelPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int)>>(
-          'mraa_set_log_level');
+        'mraa_set_log_level',
+      );
   late final _mraa_set_log_level =
       _mraa_set_log_levelPtr.asFunction<int Function(int)>();
 
@@ -178,7 +167,8 @@ class MraaImpl {
 
   late final _mraa_get_platform_namePtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function()>>(
-          'mraa_get_platform_name');
+        'mraa_get_platform_name',
+      );
   late final _mraa_get_platform_name =
       _mraa_get_platform_namePtr.asFunction<ffi.Pointer<ffi.Char> Function()>();
 
@@ -188,19 +178,17 @@ class MraaImpl {
   ///
   /// @param platform_offset specified platform offset; 0 for main platform, 1 for sub platform
   /// @return platform's versioning string
-  ffi.Pointer<ffi.Char> mraa_get_platform_version(
-    int platform_offset,
-  ) {
-    return _mraa_get_platform_version(
-      platform_offset,
-    );
+  ffi.Pointer<ffi.Char> mraa_get_platform_version(int platform_offset) {
+    return _mraa_get_platform_version(platform_offset);
   }
 
   late final _mraa_get_platform_versionPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int)>>(
-          'mraa_get_platform_version');
-  late final _mraa_get_platform_version = _mraa_get_platform_versionPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(int)>();
+        'mraa_get_platform_version',
+      );
+  late final _mraa_get_platform_version =
+      _mraa_get_platform_versionPtr
+          .asFunction<ffi.Pointer<ffi.Char> Function(int)>();
 
   /// This function attempts to set the mraa process to a given priority and the
   /// scheduler to SCHED_RR. Highest * priority is typically 99 and minimum is 0.
@@ -209,17 +197,14 @@ class MraaImpl {
   ///
   /// @param priority Value from typically 0 to 99
   /// @return The priority value set
-  int mraa_set_priority(
-    int priority,
-  ) {
-    return _mraa_set_priority(
-      priority,
-    );
+  int mraa_set_priority(int priority) {
+    return _mraa_set_priority(priority);
   }
 
   late final _mraa_set_priorityPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>(
-          'mraa_set_priority');
+        'mraa_set_priority',
+      );
   late final _mraa_set_priority =
       _mraa_set_priorityPtr.asFunction<int Function(int)>();
 
@@ -235,41 +220,36 @@ class MraaImpl {
 
   late final _mraa_get_versionPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function()>>(
-          'mraa_get_version');
+        'mraa_get_version',
+      );
   late final _mraa_get_version =
       _mraa_get_versionPtr.asFunction<ffi.Pointer<ffi.Char> Function()>();
 
   /// Returns a textual representation of the mraa_result_t
   ///
   /// @param result the result to stringify
-  ffi.Pointer<ffi.Char> mraa_strresult(
-    int result,
-  ) {
-    return _mraa_strresult(
-      result,
-    );
+  ffi.Pointer<ffi.Char> mraa_strresult(int result) {
+    return _mraa_strresult(result);
   }
 
   late final _mraa_strresultPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int32)>>(
-          'mraa_strresult');
+        'mraa_strresult',
+      );
   late final _mraa_strresult =
       _mraa_strresultPtr.asFunction<ffi.Pointer<ffi.Char> Function(int)>();
 
   /// Print a textual representation of the mraa_result_t
   ///
   /// @param result the result to print
-  void mraa_result_print(
-    int result,
-  ) {
-    return _mraa_result_print(
-      result,
-    );
+  void mraa_result_print(int result) {
+    return _mraa_result_print(result);
   }
 
   late final _mraa_result_printPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
-          'mraa_result_print');
+        'mraa_result_print',
+      );
   late final _mraa_result_print =
       _mraa_result_printPtr.asFunction<void Function(int)>();
 
@@ -282,7 +262,8 @@ class MraaImpl {
 
   late final _mraa_get_platform_typePtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
-          'mraa_get_platform_type');
+        'mraa_get_platform_type',
+      );
   late final _mraa_get_platform_type =
       _mraa_get_platform_typePtr.asFunction<int Function()>();
 
@@ -297,7 +278,8 @@ class MraaImpl {
 
   late final _mraa_get_platform_combined_typePtr =
       _lookup<ffi.NativeFunction<ffi.Int Function()>>(
-          'mraa_get_platform_combined_type');
+        'mraa_get_platform_combined_type',
+      );
   late final _mraa_get_platform_combined_type =
       _mraa_get_platform_combined_typePtr.asFunction<int Function()>();
 
@@ -310,7 +292,8 @@ class MraaImpl {
 
   late final _mraa_get_pin_countPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function()>>(
-          'mraa_get_pin_count');
+        'mraa_get_pin_count',
+      );
   late final _mraa_get_pin_count =
       _mraa_get_pin_countPtr.asFunction<int Function()>();
 
@@ -391,17 +374,14 @@ class MraaImpl {
   ///
   /// @param i2c_bus the logical I2C bus number
   /// @return I2C adapter number in sysfs. Function will return -1 on failure
-  int mraa_get_i2c_bus_id(
-    int i2c_bus,
-  ) {
-    return _mraa_get_i2c_bus_id(
-      i2c_bus,
-    );
+  int mraa_get_i2c_bus_id(int i2c_bus) {
+    return _mraa_get_i2c_bus_id(i2c_bus);
   }
 
   late final _mraa_get_i2c_bus_idPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>(
-          'mraa_get_i2c_bus_id');
+        'mraa_get_i2c_bus_id',
+      );
   late final _mraa_get_i2c_bus_id =
       _mraa_get_i2c_bus_idPtr.asFunction<int Function(int)>();
 
@@ -409,17 +389,14 @@ class MraaImpl {
   ///
   /// @param platform_offset specified platform offset; 0 for main platform, 1 for sub platform
   /// @return uint of physical pin count on the in-use platform
-  int mraa_get_platform_pin_count(
-    int platform_offset,
-  ) {
-    return _mraa_get_platform_pin_count(
-      platform_offset,
-    );
+  int mraa_get_platform_pin_count(int platform_offset) {
+    return _mraa_get_platform_pin_count(platform_offset);
   }
 
   late final _mraa_get_platform_pin_countPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Uint8)>>(
-          'mraa_get_platform_pin_count');
+        'mraa_get_platform_pin_count',
+      );
   late final _mraa_get_platform_pin_count =
       _mraa_get_platform_pin_countPtr.asFunction<int Function(int)>();
 
@@ -427,17 +404,14 @@ class MraaImpl {
   ///
   /// @param pin number
   /// @return char* of pin name
-  ffi.Pointer<ffi.Char> mraa_get_pin_name(
-    int pin,
-  ) {
-    return _mraa_get_pin_name(
-      pin,
-    );
+  ffi.Pointer<ffi.Char> mraa_get_pin_name(int pin) {
+    return _mraa_get_pin_name(pin);
   }
 
   late final _mraa_get_pin_namePtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int)>>(
-          'mraa_get_pin_name');
+        'mraa_get_pin_name',
+      );
   late final _mraa_get_pin_name =
       _mraa_get_pin_namePtr.asFunction<ffi.Pointer<ffi.Char> Function(int)>();
 
@@ -445,17 +419,14 @@ class MraaImpl {
   ///
   /// @param pin_name: GPIO pin name. Eg: IO0
   /// @return int of MRAA index for GPIO or -1 if not found.
-  int mraa_gpio_lookup(
-    ffi.Pointer<ffi.Char> pin_name,
-  ) {
-    return _mraa_gpio_lookup(
-      pin_name,
-    );
+  int mraa_gpio_lookup(ffi.Pointer<ffi.Char> pin_name) {
+    return _mraa_gpio_lookup(pin_name);
   }
 
   late final _mraa_gpio_lookupPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'mraa_gpio_lookup');
+        'mraa_gpio_lookup',
+      );
   late final _mraa_gpio_lookup =
       _mraa_gpio_lookupPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
@@ -463,17 +434,14 @@ class MraaImpl {
   ///
   /// @param i2c_name: I2C bus name. Eg: I2C6
   /// @return int of MRAA index for I2C bus or -1 if not found.
-  int mraa_i2c_lookup(
-    ffi.Pointer<ffi.Char> i2c_name,
-  ) {
-    return _mraa_i2c_lookup(
-      i2c_name,
-    );
+  int mraa_i2c_lookup(ffi.Pointer<ffi.Char> i2c_name) {
+    return _mraa_i2c_lookup(i2c_name);
   }
 
   late final _mraa_i2c_lookupPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'mraa_i2c_lookup');
+        'mraa_i2c_lookup',
+      );
   late final _mraa_i2c_lookup =
       _mraa_i2c_lookupPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
@@ -481,17 +449,14 @@ class MraaImpl {
   ///
   /// @param spi_name: Name of SPI bus. Eg: SPI2
   /// @return int of MRAA index for SPI bus or -1 if not found.
-  int mraa_spi_lookup(
-    ffi.Pointer<ffi.Char> spi_name,
-  ) {
-    return _mraa_spi_lookup(
-      spi_name,
-    );
+  int mraa_spi_lookup(ffi.Pointer<ffi.Char> spi_name) {
+    return _mraa_spi_lookup(spi_name);
   }
 
   late final _mraa_spi_lookupPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'mraa_spi_lookup');
+        'mraa_spi_lookup',
+      );
   late final _mraa_spi_lookup =
       _mraa_spi_lookupPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
@@ -499,17 +464,14 @@ class MraaImpl {
   ///
   /// @param pwm_name: Name of PWM. Eg:PWM0
   /// @return int of MRAA index for PWM or -1 if not found.
-  int mraa_pwm_lookup(
-    ffi.Pointer<ffi.Char> pwm_name,
-  ) {
-    return _mraa_pwm_lookup(
-      pwm_name,
-    );
+  int mraa_pwm_lookup(ffi.Pointer<ffi.Char> pwm_name) {
+    return _mraa_pwm_lookup(pwm_name);
   }
 
   late final _mraa_pwm_lookupPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'mraa_pwm_lookup');
+        'mraa_pwm_lookup',
+      );
   late final _mraa_pwm_lookup =
       _mraa_pwm_lookupPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
@@ -517,34 +479,28 @@ class MraaImpl {
   ///
   /// @param uart_name: Name of UART. Eg:UART1
   /// @return int of MRAA index for UART, or -1 if not found.
-  int mraa_uart_lookup(
-    ffi.Pointer<ffi.Char> uart_name,
-  ) {
-    return _mraa_uart_lookup(
-      uart_name,
-    );
+  int mraa_uart_lookup(ffi.Pointer<ffi.Char> uart_name) {
+    return _mraa_uart_lookup(uart_name);
   }
 
   late final _mraa_uart_lookupPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'mraa_uart_lookup');
+        'mraa_uart_lookup',
+      );
   late final _mraa_uart_lookup =
       _mraa_uart_lookupPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   /// Get default i2c bus, board must be initialised.
   ///
   /// @return int default i2c bus index
-  int mraa_get_default_i2c_bus(
-    int platform_offset,
-  ) {
-    return _mraa_get_default_i2c_bus(
-      platform_offset,
-    );
+  int mraa_get_default_i2c_bus(int platform_offset) {
+    return _mraa_get_default_i2c_bus(platform_offset);
   }
 
   late final _mraa_get_default_i2c_busPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Uint8)>>(
-          'mraa_get_default_i2c_bus');
+        'mraa_get_default_i2c_bus',
+      );
   late final _mraa_get_default_i2c_bus =
       _mraa_get_default_i2c_busPtr.asFunction<int Function(int)>();
 
@@ -557,7 +513,8 @@ class MraaImpl {
 
   late final _mraa_has_sub_platformPtr =
       _lookup<ffi.NativeFunction<mraa_boolean_t Function()>>(
-          'mraa_has_sub_platform');
+        'mraa_has_sub_platform',
+      );
   late final _mraa_has_sub_platform =
       _mraa_has_sub_platformPtr.asFunction<int Function()>();
 
@@ -566,17 +523,14 @@ class MraaImpl {
   /// @param pin_or_bus_id pin or bus number
   ///
   /// @return mraa_boolean_t 1 if pin or bus is for sub platform, 0 otherwise
-  int mraa_is_sub_platform_id(
-    int pin_or_bus_id,
-  ) {
-    return _mraa_is_sub_platform_id(
-      pin_or_bus_id,
-    );
+  int mraa_is_sub_platform_id(int pin_or_bus_id) {
+    return _mraa_is_sub_platform_id(pin_or_bus_id);
   }
 
   late final _mraa_is_sub_platform_idPtr =
       _lookup<ffi.NativeFunction<mraa_boolean_t Function(ffi.Int)>>(
-          'mraa_is_sub_platform_id');
+        'mraa_is_sub_platform_id',
+      );
   late final _mraa_is_sub_platform_id =
       _mraa_is_sub_platform_idPtr.asFunction<int Function(int)>();
 
@@ -585,17 +539,14 @@ class MraaImpl {
   /// @param pin_or_bus_index pin or bus index
   ///
   /// @return int sub platform pin or bus number
-  int mraa_get_sub_platform_id(
-    int pin_or_bus_index,
-  ) {
-    return _mraa_get_sub_platform_id(
-      pin_or_bus_index,
-    );
+  int mraa_get_sub_platform_id(int pin_or_bus_index) {
+    return _mraa_get_sub_platform_id(pin_or_bus_index);
   }
 
   late final _mraa_get_sub_platform_idPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>(
-          'mraa_get_sub_platform_id');
+        'mraa_get_sub_platform_id',
+      );
   late final _mraa_get_sub_platform_id =
       _mraa_get_sub_platform_idPtr.asFunction<int Function(int)>();
 
@@ -604,17 +555,14 @@ class MraaImpl {
   /// @param pin_or_bus_id sub platform pin or bus id
   ///
   /// @return int pin or bus index
-  int mraa_get_sub_platform_index(
-    int pin_or_bus_id,
-  ) {
-    return _mraa_get_sub_platform_index(
-      pin_or_bus_id,
-    );
+  int mraa_get_sub_platform_index(int pin_or_bus_id) {
+    return _mraa_get_sub_platform_index(pin_or_bus_id);
   }
 
   late final _mraa_get_sub_platform_indexPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>(
-          'mraa_get_sub_platform_index');
+        'mraa_get_sub_platform_index',
+      );
   late final _mraa_get_sub_platform_index =
       _mraa_get_sub_platform_indexPtr.asFunction<int Function(int)>();
 
@@ -624,39 +572,30 @@ class MraaImpl {
   /// @param dev uart device or i2c bus subplatform is on
   ///
   /// @return mraa_result_t indicating success
-  int mraa_add_subplatform(
-    int subplatformtype,
-    ffi.Pointer<ffi.Char> dev,
-  ) {
-    return _mraa_add_subplatform(
-      subplatformtype,
-      dev,
-    );
+  int mraa_add_subplatform(int subplatformtype, ffi.Pointer<ffi.Char> dev) {
+    return _mraa_add_subplatform(subplatformtype, dev);
   }
 
   late final _mraa_add_subplatformPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32, ffi.Pointer<ffi.Char>)>>('mraa_add_subplatform');
-  late final _mraa_add_subplatform = _mraa_add_subplatformPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Pointer<ffi.Char>)>
+  >('mraa_add_subplatform');
+  late final _mraa_add_subplatform =
+      _mraa_add_subplatformPtr
+          .asFunction<int Function(int, ffi.Pointer<ffi.Char>)>();
 
   /// Remove a mraa subplatform
   ///
   /// @param subplatformtype subplatform type
   ///
   /// @return mraa_result indicating success
-  int mraa_remove_subplatform(
-    int subplatformtype,
-  ) {
-    return _mraa_remove_subplatform(
-      subplatformtype,
-    );
+  int mraa_remove_subplatform(int subplatformtype) {
+    return _mraa_remove_subplatform(subplatformtype);
   }
 
   late final _mraa_remove_subplatformPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32)>>(
-          'mraa_remove_subplatform');
+        'mraa_remove_subplatform',
+      );
   late final _mraa_remove_subplatform =
       _mraa_remove_subplatformPtr.asFunction<int Function(int)>();
 
@@ -669,20 +608,16 @@ class MraaImpl {
   /// @param desc IO description
   ///
   /// @return void* to IO context or NULL
-  ffi.Pointer<ffi.Void> mraa_init_io(
-    ffi.Pointer<ffi.Char> desc,
-  ) {
-    return _mraa_init_io(
-      desc,
-    );
+  ffi.Pointer<ffi.Void> mraa_init_io(ffi.Pointer<ffi.Char> desc) {
+    return _mraa_init_io(desc);
   }
 
   late final _mraa_init_ioPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Char>)>>('mraa_init_io');
-  late final _mraa_init_io = _mraa_init_ioPtr
-      .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Char>)>
+  >('mraa_init_io');
+  late final _mraa_init_io =
+      _mraa_init_ioPtr
+          .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Char>)>();
 
   /// Instantiate an unknown board using a json file
   ///
@@ -690,35 +625,30 @@ class MraaImpl {
   /// was initially run in or a direct path
   ///
   /// @return mraa_result indicating success
-  int mraa_init_json_platform(
-    ffi.Pointer<ffi.Char> path,
-  ) {
-    return _mraa_init_json_platform(
-      path,
-    );
+  int mraa_init_json_platform(ffi.Pointer<ffi.Char> path) {
+    return _mraa_init_json_platform(path);
   }
 
   late final _mraa_init_json_platformPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Char>)>>(
-          'mraa_init_json_platform');
-  late final _mraa_init_json_platform = _mraa_init_json_platformPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        'mraa_init_json_platform',
+      );
+  late final _mraa_init_json_platform =
+      _mraa_init_json_platformPtr
+          .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   /// Initialise pwm_context, uses board mapping
   ///
   /// @param pin The PWM PIN
   /// @return pwm context or NULL
-  mraa_pwm_context mraa_pwm_init(
-    int pin,
-  ) {
-    return _mraa_pwm_init(
-      pin,
-    );
+  mraa_pwm_context mraa_pwm_init(int pin) {
+    return _mraa_pwm_init(pin);
   }
 
   late final _mraa_pwm_initPtr =
       _lookup<ffi.NativeFunction<mraa_pwm_context Function(ffi.Int)>>(
-          'mraa_pwm_init');
+        'mraa_pwm_init',
+      );
   late final _mraa_pwm_init =
       _mraa_pwm_initPtr.asFunction<mraa_pwm_context Function(int)>();
 
@@ -727,19 +657,14 @@ class MraaImpl {
   /// @param chipid The chip inwhich the PWM is under in SYSFS
   /// @param pin The PWM PIN.
   /// @return pwm context or NULL
-  mraa_pwm_context mraa_pwm_init_raw(
-    int chipid,
-    int pin,
-  ) {
-    return _mraa_pwm_init_raw(
-      chipid,
-      pin,
-    );
+  mraa_pwm_context mraa_pwm_init_raw(int chipid, int pin) {
+    return _mraa_pwm_init_raw(chipid, pin);
   }
 
   late final _mraa_pwm_init_rawPtr =
       _lookup<ffi.NativeFunction<mraa_pwm_context Function(ffi.Int, ffi.Int)>>(
-          'mraa_pwm_init_raw');
+        'mraa_pwm_init_raw',
+      );
   late final _mraa_pwm_init_raw =
       _mraa_pwm_init_rawPtr.asFunction<mraa_pwm_context Function(int, int)>();
 
@@ -750,19 +675,13 @@ class MraaImpl {
   /// The value should lie between 0.0f (representing on 0%) and 1.0f
   /// Values above or below this range will be set at either 0.0f or 1.0f
   /// @return Result of operation
-  int mraa_pwm_write(
-    mraa_pwm_context dev,
-    double percentage,
-  ) {
-    return _mraa_pwm_write(
-      dev,
-      percentage,
-    );
+  int mraa_pwm_write(mraa_pwm_context dev, double percentage) {
+    return _mraa_pwm_write(dev, percentage);
   }
 
   late final _mraa_pwm_writePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Float)>>(
-      'mraa_pwm_write');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Float)>
+  >('mraa_pwm_write');
   late final _mraa_pwm_write =
       _mraa_pwm_writePtr.asFunction<int Function(mraa_pwm_context, double)>();
 
@@ -772,17 +691,14 @@ class MraaImpl {
   /// @return percentage A floating-point value representing percentage of output.
   /// The value should lie between 0.0f (representing on 0%) and 1.0f
   /// Values above or below this range will be set at either 0.0f or 1.0f
-  double mraa_pwm_read(
-    mraa_pwm_context dev,
-  ) {
-    return _mraa_pwm_read(
-      dev,
-    );
+  double mraa_pwm_read(mraa_pwm_context dev) {
+    return _mraa_pwm_read(dev);
   }
 
   late final _mraa_pwm_readPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(mraa_pwm_context)>>(
-          'mraa_pwm_read');
+        'mraa_pwm_read',
+      );
   late final _mraa_pwm_read =
       _mraa_pwm_readPtr.asFunction<double Function(mraa_pwm_context)>();
 
@@ -791,19 +707,13 @@ class MraaImpl {
   /// @param dev The Pwm context to use
   /// @param seconds Period represented as a float in seconds
   /// @return Result of operation
-  int mraa_pwm_period(
-    mraa_pwm_context dev,
-    double seconds,
-  ) {
-    return _mraa_pwm_period(
-      dev,
-      seconds,
-    );
+  int mraa_pwm_period(mraa_pwm_context dev, double seconds) {
+    return _mraa_pwm_period(dev, seconds);
   }
 
   late final _mraa_pwm_periodPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Float)>>(
-      'mraa_pwm_period');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Float)>
+  >('mraa_pwm_period');
   late final _mraa_pwm_period =
       _mraa_pwm_periodPtr.asFunction<int Function(mraa_pwm_context, double)>();
 
@@ -812,19 +722,13 @@ class MraaImpl {
   /// @param dev The Pwm context to use
   /// @param ms Milliseconds for period
   /// @return Result of operation
-  int mraa_pwm_period_ms(
-    mraa_pwm_context dev,
-    int ms,
-  ) {
-    return _mraa_pwm_period_ms(
-      dev,
-      ms,
-    );
+  int mraa_pwm_period_ms(mraa_pwm_context dev, int ms) {
+    return _mraa_pwm_period_ms(dev, ms);
   }
 
   late final _mraa_pwm_period_msPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>>(
-      'mraa_pwm_period_ms');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>
+  >('mraa_pwm_period_ms');
   late final _mraa_pwm_period_ms =
       _mraa_pwm_period_msPtr.asFunction<int Function(mraa_pwm_context, int)>();
 
@@ -833,19 +737,13 @@ class MraaImpl {
   /// @param dev The Pwm context to use
   /// @param us Microseconds as period
   /// @return Result of operation
-  int mraa_pwm_period_us(
-    mraa_pwm_context dev,
-    int us,
-  ) {
-    return _mraa_pwm_period_us(
-      dev,
-      us,
-    );
+  int mraa_pwm_period_us(mraa_pwm_context dev, int us) {
+    return _mraa_pwm_period_us(dev, us);
   }
 
   late final _mraa_pwm_period_usPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>>(
-      'mraa_pwm_period_us');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>
+  >('mraa_pwm_period_us');
   late final _mraa_pwm_period_us =
       _mraa_pwm_period_usPtr.asFunction<int Function(mraa_pwm_context, int)>();
 
@@ -854,63 +752,48 @@ class MraaImpl {
   /// @param dev The Pwm context to use
   /// @param seconds The duration of a pulse
   /// @return Result of operation
-  int mraa_pwm_pulsewidth(
-    mraa_pwm_context dev,
-    double seconds,
-  ) {
-    return _mraa_pwm_pulsewidth(
-      dev,
-      seconds,
-    );
+  int mraa_pwm_pulsewidth(mraa_pwm_context dev, double seconds) {
+    return _mraa_pwm_pulsewidth(dev, seconds);
   }
 
   late final _mraa_pwm_pulsewidthPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Float)>>(
-      'mraa_pwm_pulsewidth');
-  late final _mraa_pwm_pulsewidth = _mraa_pwm_pulsewidthPtr
-      .asFunction<int Function(mraa_pwm_context, double)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Float)>
+  >('mraa_pwm_pulsewidth');
+  late final _mraa_pwm_pulsewidth =
+      _mraa_pwm_pulsewidthPtr
+          .asFunction<int Function(mraa_pwm_context, double)>();
 
   /// Set pulsewidth, milliseconds
   ///
   /// @param dev The Pwm context to use
   /// @param ms Milliseconds for pulsewidth
   /// @return Result of operation
-  int mraa_pwm_pulsewidth_ms(
-    mraa_pwm_context dev,
-    int ms,
-  ) {
-    return _mraa_pwm_pulsewidth_ms(
-      dev,
-      ms,
-    );
+  int mraa_pwm_pulsewidth_ms(mraa_pwm_context dev, int ms) {
+    return _mraa_pwm_pulsewidth_ms(dev, ms);
   }
 
   late final _mraa_pwm_pulsewidth_msPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>>(
-      'mraa_pwm_pulsewidth_ms');
-  late final _mraa_pwm_pulsewidth_ms = _mraa_pwm_pulsewidth_msPtr
-      .asFunction<int Function(mraa_pwm_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>
+  >('mraa_pwm_pulsewidth_ms');
+  late final _mraa_pwm_pulsewidth_ms =
+      _mraa_pwm_pulsewidth_msPtr
+          .asFunction<int Function(mraa_pwm_context, int)>();
 
   /// Set pulsewidth, microseconds
   ///
   /// @param dev The Pwm context to use
   /// @param us Microseconds for pulsewidth
   /// @return Result of operation
-  int mraa_pwm_pulsewidth_us(
-    mraa_pwm_context dev,
-    int us,
-  ) {
-    return _mraa_pwm_pulsewidth_us(
-      dev,
-      us,
-    );
+  int mraa_pwm_pulsewidth_us(mraa_pwm_context dev, int us) {
+    return _mraa_pwm_pulsewidth_us(dev, us);
   }
 
   late final _mraa_pwm_pulsewidth_usPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>>(
-      'mraa_pwm_pulsewidth_us');
-  late final _mraa_pwm_pulsewidth_us = _mraa_pwm_pulsewidth_usPtr
-      .asFunction<int Function(mraa_pwm_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>
+  >('mraa_pwm_pulsewidth_us');
+  late final _mraa_pwm_pulsewidth_us =
+      _mraa_pwm_pulsewidth_usPtr
+          .asFunction<int Function(mraa_pwm_context, int)>();
 
   /// Set the enable status of the PWM pin. None zero will assume on with output being driven.
   /// and 0 will disable the output.
@@ -918,19 +801,13 @@ class MraaImpl {
   /// @param dev The pwm context to use
   /// @param enable Toggle status of pin
   /// @return Result of operation.
-  int mraa_pwm_enable(
-    mraa_pwm_context dev,
-    int enable,
-  ) {
-    return _mraa_pwm_enable(
-      dev,
-      enable,
-    );
+  int mraa_pwm_enable(mraa_pwm_context dev, int enable) {
+    return _mraa_pwm_enable(dev, enable);
   }
 
   late final _mraa_pwm_enablePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>>(
-      'mraa_pwm_enable');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, ffi.Int)>
+  >('mraa_pwm_enable');
   late final _mraa_pwm_enable =
       _mraa_pwm_enablePtr.asFunction<int Function(mraa_pwm_context, int)>();
 
@@ -939,20 +816,13 @@ class MraaImpl {
   /// @param dev the context
   /// @param owner Ownership boolean
   /// @return Result of operation
-  int mraa_pwm_owner(
-    mraa_pwm_context dev,
-    int owner,
-  ) {
-    return _mraa_pwm_owner(
-      dev,
-      owner,
-    );
+  int mraa_pwm_owner(mraa_pwm_context dev, int owner) {
+    return _mraa_pwm_owner(dev, owner);
   }
 
   late final _mraa_pwm_ownerPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              mraa_pwm_context, mraa_boolean_t)>>('mraa_pwm_owner');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context, mraa_boolean_t)>
+  >('mraa_pwm_owner');
   late final _mraa_pwm_owner =
       _mraa_pwm_ownerPtr.asFunction<int Function(mraa_pwm_context, int)>();
 
@@ -960,17 +830,14 @@ class MraaImpl {
   ///
   /// @param dev The pwm context to use
   /// @return Result of operation
-  int mraa_pwm_close(
-    mraa_pwm_context dev,
-  ) {
-    return _mraa_pwm_close(
-      dev,
-    );
+  int mraa_pwm_close(mraa_pwm_context dev) {
+    return _mraa_pwm_close(dev);
   }
 
   late final _mraa_pwm_closePtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_pwm_context)>>(
-          'mraa_pwm_close');
+        'mraa_pwm_close',
+      );
   late final _mraa_pwm_close =
       _mraa_pwm_closePtr.asFunction<int Function(mraa_pwm_context)>();
 
@@ -978,17 +845,14 @@ class MraaImpl {
   ///
   /// @param dev The pwm context to use
   /// @return max pwm in us
-  int mraa_pwm_get_max_period(
-    mraa_pwm_context dev,
-  ) {
-    return _mraa_pwm_get_max_period(
-      dev,
-    );
+  int mraa_pwm_get_max_period(mraa_pwm_context dev) {
+    return _mraa_pwm_get_max_period(dev);
   }
 
   late final _mraa_pwm_get_max_periodPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_pwm_context)>>(
-          'mraa_pwm_get_max_period');
+        'mraa_pwm_get_max_period',
+      );
   late final _mraa_pwm_get_max_period =
       _mraa_pwm_get_max_periodPtr.asFunction<int Function(mraa_pwm_context)>();
 
@@ -996,17 +860,14 @@ class MraaImpl {
   ///
   /// @param dev The pwm context to use
   /// @return min pwm in us
-  int mraa_pwm_get_min_period(
-    mraa_pwm_context dev,
-  ) {
-    return _mraa_pwm_get_min_period(
-      dev,
-    );
+  int mraa_pwm_get_min_period(mraa_pwm_context dev) {
+    return _mraa_pwm_get_min_period(dev);
   }
 
   late final _mraa_pwm_get_min_periodPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_pwm_context)>>(
-          'mraa_pwm_get_min_period');
+        'mraa_pwm_get_min_period',
+      );
   late final _mraa_pwm_get_min_period =
       _mraa_pwm_get_min_periodPtr.asFunction<int Function(mraa_pwm_context)>();
 
@@ -1014,17 +875,14 @@ class MraaImpl {
   ///
   /// @param pin Pin number read from the board, i.e IO3 is 3
   /// @returns gpio context or NULL
-  mraa_gpio_context mraa_gpio_init(
-    int pin,
-  ) {
-    return _mraa_gpio_init(
-      pin,
-    );
+  mraa_gpio_context mraa_gpio_init(int pin) {
+    return _mraa_gpio_init(pin);
   }
 
   late final _mraa_gpio_initPtr =
       _lookup<ffi.NativeFunction<mraa_gpio_context Function(ffi.Int)>>(
-          'mraa_gpio_init');
+        'mraa_gpio_init',
+      );
   late final _mraa_gpio_init =
       _mraa_gpio_initPtr.asFunction<mraa_gpio_context Function(int)>();
 
@@ -1032,20 +890,16 @@ class MraaImpl {
   ///
   /// @param name GPIO line name, i.e GPIO-A
   /// @returns gpio context or NULL
-  mraa_gpio_context mraa_gpio_init_by_name(
-    ffi.Pointer<ffi.Char> name,
-  ) {
-    return _mraa_gpio_init_by_name(
-      name,
-    );
+  mraa_gpio_context mraa_gpio_init_by_name(ffi.Pointer<ffi.Char> name) {
+    return _mraa_gpio_init_by_name(name);
   }
 
   late final _mraa_gpio_init_by_namePtr = _lookup<
-          ffi
-          .NativeFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Char>)>>(
-      'mraa_gpio_init_by_name');
-  late final _mraa_gpio_init_by_name = _mraa_gpio_init_by_namePtr
-      .asFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Char>)>
+  >('mraa_gpio_init_by_name');
+  late final _mraa_gpio_init_by_name =
+      _mraa_gpio_init_by_namePtr
+          .asFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Char>)>();
 
   /// Initialise gpio_context, based on board number, for multiple pins (can be one).
   ///
@@ -1057,34 +911,30 @@ class MraaImpl {
     ffi.Pointer<ffi.Int> pins,
     int num_pins,
   ) {
-    return _mraa_gpio_init_multi(
-      pins,
-      num_pins,
-    );
+    return _mraa_gpio_init_multi(pins, num_pins);
   }
 
   late final _mraa_gpio_init_multiPtr = _lookup<
-      ffi.NativeFunction<
-          mraa_gpio_context Function(
-              ffi.Pointer<ffi.Int>, ffi.Int)>>('mraa_gpio_init_multi');
-  late final _mraa_gpio_init_multi = _mraa_gpio_init_multiPtr
-      .asFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Int>, int)>();
+    ffi.NativeFunction<
+      mraa_gpio_context Function(ffi.Pointer<ffi.Int>, ffi.Int)
+    >
+  >('mraa_gpio_init_multi');
+  late final _mraa_gpio_init_multi =
+      _mraa_gpio_init_multiPtr
+          .asFunction<mraa_gpio_context Function(ffi.Pointer<ffi.Int>, int)>();
 
   /// Initialise gpio context without any mapping to a pin
   ///
   /// @param gpiopin gpio pin as listed in SYSFS
   /// @return gpio context or NULL
-  mraa_gpio_context mraa_gpio_init_raw(
-    int gpiopin,
-  ) {
-    return _mraa_gpio_init_raw(
-      gpiopin,
-    );
+  mraa_gpio_context mraa_gpio_init_raw(int gpiopin) {
+    return _mraa_gpio_init_raw(gpiopin);
   }
 
   late final _mraa_gpio_init_rawPtr =
       _lookup<ffi.NativeFunction<mraa_gpio_context Function(ffi.Int)>>(
-          'mraa_gpio_init_raw');
+        'mraa_gpio_init_raw',
+      );
   late final _mraa_gpio_init_raw =
       _mraa_gpio_init_rawPtr.asFunction<mraa_gpio_context Function(int)>();
 
@@ -1093,21 +943,16 @@ class MraaImpl {
   /// @param dev The Gpio context
   /// @param mode The edge mode to set the gpio into
   /// @return Result of operation
-  int mraa_gpio_edge_mode(
-    mraa_gpio_context dev,
-    int mode,
-  ) {
-    return _mraa_gpio_edge_mode(
-      dev,
-      mode,
-    );
+  int mraa_gpio_edge_mode(mraa_gpio_context dev, int mode) {
+    return _mraa_gpio_edge_mode(dev, mode);
   }
 
   late final _mraa_gpio_edge_modePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>>(
-      'mraa_gpio_edge_mode');
-  late final _mraa_gpio_edge_mode = _mraa_gpio_edge_modePtr
-      .asFunction<int Function(mraa_gpio_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>
+  >('mraa_gpio_edge_mode');
+  late final _mraa_gpio_edge_mode =
+      _mraa_gpio_edge_modePtr
+          .asFunction<int Function(mraa_gpio_context, int)>();
 
   /// Set an interrupt on pin(s).
   ///
@@ -1121,32 +966,36 @@ class MraaImpl {
     mraa_gpio_context dev,
     int edge,
     ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
-        fptr,
+    fptr,
     ffi.Pointer<ffi.Void> args,
   ) {
-    return _mraa_gpio_isr(
-      dev,
-      edge,
-      fptr,
-      args,
-    );
+    return _mraa_gpio_isr(dev, edge, fptr, args);
   }
 
   late final _mraa_gpio_isrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
+    ffi.NativeFunction<
+      ffi.Int32 Function(
+        mraa_gpio_context,
+        ffi.Int32,
+        ffi.Pointer<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>
+        >,
+        ffi.Pointer<ffi.Void>,
+      )
+    >
+  >('mraa_gpio_isr');
+  late final _mraa_gpio_isr =
+      _mraa_gpio_isrPtr
+          .asFunction<
+            int Function(
               mraa_gpio_context,
-              ffi.Int32,
+              int,
               ffi.Pointer<
-                  ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>,
-              ffi.Pointer<ffi.Void>)>>('mraa_gpio_isr');
-  late final _mraa_gpio_isr = _mraa_gpio_isrPtr.asFunction<
-      int Function(
-          mraa_gpio_context,
-          int,
-          ffi.Pointer<
-              ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>,
-          ffi.Pointer<ffi.Void>)>();
+                ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>
+              >,
+              ffi.Pointer<ffi.Void>,
+            )
+          >();
 
   /// Get an array of structures describing triggered events.
   ///
@@ -1154,36 +1003,30 @@ class MraaImpl {
   /// @return Array of structures containing pairs of pin id's and the associated timestamp.
   /// An event with negative id value indicates that no event was triggered for the respective pin.
   /// The array length is that of the number of pins provided in mraa_gpio_init_multi().
-  mraa_gpio_events_t mraa_gpio_get_events(
-    mraa_gpio_context dev,
-  ) {
-    return _mraa_gpio_get_events(
-      dev,
-    );
+  mraa_gpio_events_t mraa_gpio_get_events(mraa_gpio_context dev) {
+    return _mraa_gpio_get_events(dev);
   }
 
   late final _mraa_gpio_get_eventsPtr = _lookup<
-          ffi.NativeFunction<mraa_gpio_events_t Function(mraa_gpio_context)>>(
-      'mraa_gpio_get_events');
-  late final _mraa_gpio_get_events = _mraa_gpio_get_eventsPtr
-      .asFunction<mraa_gpio_events_t Function(mraa_gpio_context)>();
+    ffi.NativeFunction<mraa_gpio_events_t Function(mraa_gpio_context)>
+  >('mraa_gpio_get_events');
+  late final _mraa_gpio_get_events =
+      _mraa_gpio_get_eventsPtr
+          .asFunction<mraa_gpio_events_t Function(mraa_gpio_context)>();
 
   /// Stop the current interrupt watcher on this Gpio, and set the Gpio edge mode
   /// to MRAA_GPIO_EDGE_NONE(only for sysfs interface).
   ///
   /// @param dev The Gpio context
   /// @return Result of operation
-  int mraa_gpio_isr_exit(
-    mraa_gpio_context dev,
-  ) {
-    return _mraa_gpio_isr_exit(
-      dev,
-    );
+  int mraa_gpio_isr_exit(mraa_gpio_context dev) {
+    return _mraa_gpio_isr_exit(dev);
   }
 
   late final _mraa_gpio_isr_exitPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context)>>(
-          'mraa_gpio_isr_exit');
+        'mraa_gpio_isr_exit',
+      );
   late final _mraa_gpio_isr_exit =
       _mraa_gpio_isr_exitPtr.asFunction<int Function(mraa_gpio_context)>();
 
@@ -1192,19 +1035,13 @@ class MraaImpl {
   /// @param dev The Gpio context
   /// @param mode The Gpio(s) Output Mode
   /// @return Result of operation
-  int mraa_gpio_mode(
-    mraa_gpio_context dev,
-    int mode,
-  ) {
-    return _mraa_gpio_mode(
-      dev,
-      mode,
-    );
+  int mraa_gpio_mode(mraa_gpio_context dev, int mode) {
+    return _mraa_gpio_mode(dev, mode);
   }
 
   late final _mraa_gpio_modePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>>(
-      'mraa_gpio_mode');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>
+  >('mraa_gpio_mode');
   late final _mraa_gpio_mode =
       _mraa_gpio_modePtr.asFunction<int Function(mraa_gpio_context, int)>();
 
@@ -1213,19 +1050,13 @@ class MraaImpl {
   /// @param dev The Gpio context
   /// @param dir The direction of the Gpio(s)
   /// @return Result of operation
-  int mraa_gpio_dir(
-    mraa_gpio_context dev,
-    int dir,
-  ) {
-    return _mraa_gpio_dir(
-      dev,
-      dir,
-    );
+  int mraa_gpio_dir(mraa_gpio_context dev, int dir) {
+    return _mraa_gpio_dir(dev, dir);
   }
 
   late final _mraa_gpio_dirPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>>(
-      'mraa_gpio_dir');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>
+  >('mraa_gpio_dir');
   late final _mraa_gpio_dir =
       _mraa_gpio_dirPtr.asFunction<int Function(mraa_gpio_context, int)>();
 
@@ -1234,22 +1065,20 @@ class MraaImpl {
   /// @param dev The Gpio context
   /// @param dir The address where to store the Gpio(s) direction
   /// @return Result of operation
-  int mraa_gpio_read_dir(
-    mraa_gpio_context dev,
-    ffi.Pointer<ffi.Int32> dir,
-  ) {
-    return _mraa_gpio_read_dir(
-      dev,
-      dir,
-    );
+  int mraa_gpio_read_dir(mraa_gpio_context dev, ffi.Pointer<ffi.Int32> dir) {
+    return _mraa_gpio_read_dir(dev, dir);
   }
 
   late final _mraa_gpio_read_dirPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_gpio_context,
-              ffi.Pointer<ffi.Int32>)>>('mraa_gpio_read_dir');
-  late final _mraa_gpio_read_dir = _mraa_gpio_read_dirPtr
-      .asFunction<int Function(mraa_gpio_context, ffi.Pointer<ffi.Int32>)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_gpio_context, ffi.Pointer<ffi.Int32>)
+    >
+  >('mraa_gpio_read_dir');
+  late final _mraa_gpio_read_dir =
+      _mraa_gpio_read_dirPtr
+          .asFunction<
+            int Function(mraa_gpio_context, ffi.Pointer<ffi.Int32>)
+          >();
 
   /// Close the Gpio context
   /// - Will free the memory for the context and unexport the Gpio - sysfs interface.
@@ -1257,17 +1086,14 @@ class MraaImpl {
   ///
   /// @param dev The Gpio context
   /// @return Result of operation
-  int mraa_gpio_close(
-    mraa_gpio_context dev,
-  ) {
-    return _mraa_gpio_close(
-      dev,
-    );
+  int mraa_gpio_close(mraa_gpio_context dev) {
+    return _mraa_gpio_close(dev);
   }
 
   late final _mraa_gpio_closePtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context)>>(
-          'mraa_gpio_close');
+        'mraa_gpio_close',
+      );
   late final _mraa_gpio_close =
       _mraa_gpio_closePtr.asFunction<int Function(mraa_gpio_context)>();
 
@@ -1276,17 +1102,14 @@ class MraaImpl {
   ///
   /// @param dev The Gpio context
   /// @return Result of operation
-  int mraa_gpio_read(
-    mraa_gpio_context dev,
-  ) {
-    return _mraa_gpio_read(
-      dev,
-    );
+  int mraa_gpio_read(mraa_gpio_context dev) {
+    return _mraa_gpio_read(dev);
   }
 
   late final _mraa_gpio_readPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_gpio_context)>>(
-          'mraa_gpio_read');
+        'mraa_gpio_read',
+      );
   late final _mraa_gpio_read =
       _mraa_gpio_readPtr.asFunction<int Function(mraa_gpio_context)>();
 
@@ -1300,37 +1123,30 @@ class MraaImpl {
     mraa_gpio_context dev,
     ffi.Pointer<ffi.Int> output_values,
   ) {
-    return _mraa_gpio_read_multi(
-      dev,
-      output_values,
-    );
+    return _mraa_gpio_read_multi(dev, output_values);
   }
 
   late final _mraa_gpio_read_multiPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_gpio_context,
-              ffi.Pointer<ffi.Int>)>>('mraa_gpio_read_multi');
-  late final _mraa_gpio_read_multi = _mraa_gpio_read_multiPtr
-      .asFunction<int Function(mraa_gpio_context, ffi.Pointer<ffi.Int>)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_gpio_context, ffi.Pointer<ffi.Int>)
+    >
+  >('mraa_gpio_read_multi');
+  late final _mraa_gpio_read_multi =
+      _mraa_gpio_read_multiPtr
+          .asFunction<int Function(mraa_gpio_context, ffi.Pointer<ffi.Int>)>();
 
   /// Write to the Gpio Value.
   ///
   /// @param dev The Gpio context
   /// @param value Integer value to write
   /// @return Result of operation
-  int mraa_gpio_write(
-    mraa_gpio_context dev,
-    int value,
-  ) {
-    return _mraa_gpio_write(
-      dev,
-      value,
-    );
+  int mraa_gpio_write(mraa_gpio_context dev, int value) {
+    return _mraa_gpio_write(dev, value);
   }
 
   late final _mraa_gpio_writePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int)>>(
-      'mraa_gpio_write');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int)>
+  >('mraa_gpio_write');
   late final _mraa_gpio_write =
       _mraa_gpio_writePtr.asFunction<int Function(mraa_gpio_context, int)>();
 
@@ -1345,38 +1161,30 @@ class MraaImpl {
     mraa_gpio_context dev,
     ffi.Pointer<ffi.Int> input_values,
   ) {
-    return _mraa_gpio_write_multi(
-      dev,
-      input_values,
-    );
+    return _mraa_gpio_write_multi(dev, input_values);
   }
 
   late final _mraa_gpio_write_multiPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_gpio_context,
-              ffi.Pointer<ffi.Int>)>>('mraa_gpio_write_multi');
-  late final _mraa_gpio_write_multi = _mraa_gpio_write_multiPtr
-      .asFunction<int Function(mraa_gpio_context, ffi.Pointer<ffi.Int>)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_gpio_context, ffi.Pointer<ffi.Int>)
+    >
+  >('mraa_gpio_write_multi');
+  late final _mraa_gpio_write_multi =
+      _mraa_gpio_write_multiPtr
+          .asFunction<int Function(mraa_gpio_context, ffi.Pointer<ffi.Int>)>();
 
   /// Change ownership of the context.
   ///
   /// @param dev The Gpio context
   /// @param owner Does this context own the pin
   /// @return Result of operation
-  int mraa_gpio_owner(
-    mraa_gpio_context dev,
-    int owner,
-  ) {
-    return _mraa_gpio_owner(
-      dev,
-      owner,
-    );
+  int mraa_gpio_owner(mraa_gpio_context dev, int owner) {
+    return _mraa_gpio_owner(dev, owner);
   }
 
   late final _mraa_gpio_ownerPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              mraa_gpio_context, mraa_boolean_t)>>('mraa_gpio_owner');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, mraa_boolean_t)>
+  >('mraa_gpio_owner');
   late final _mraa_gpio_owner =
       _mraa_gpio_ownerPtr.asFunction<int Function(mraa_gpio_context, int)>();
 
@@ -1387,55 +1195,40 @@ class MraaImpl {
   /// @param dev The Gpio context
   /// @param mmap Use mmap instead of sysfs
   /// @return Result of operation
-  int mraa_gpio_use_mmaped(
-    mraa_gpio_context dev,
-    int mmap,
-  ) {
-    return _mraa_gpio_use_mmaped(
-      dev,
-      mmap,
-    );
+  int mraa_gpio_use_mmaped(mraa_gpio_context dev, int mmap) {
+    return _mraa_gpio_use_mmaped(dev, mmap);
   }
 
   late final _mraa_gpio_use_mmapedPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              mraa_gpio_context, mraa_boolean_t)>>('mraa_gpio_use_mmaped');
-  late final _mraa_gpio_use_mmaped = _mraa_gpio_use_mmapedPtr
-      .asFunction<int Function(mraa_gpio_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, mraa_boolean_t)>
+  >('mraa_gpio_use_mmaped');
+  late final _mraa_gpio_use_mmaped =
+      _mraa_gpio_use_mmapedPtr
+          .asFunction<int Function(mraa_gpio_context, int)>();
 
-  int mraa_gpio_use_mmaped_internal(
-    mraa_gpio_context dev,
-    int mmap,
-  ) {
-    return _mraa_gpio_use_mmaped_internal(
-      dev,
-      mmap,
-    );
+  int mraa_gpio_use_mmaped_internal(mraa_gpio_context dev, int mmap) {
+    return _mraa_gpio_use_mmaped_internal(dev, mmap);
   }
 
   late final _mraa_gpio_use_mmaped_internalPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_gpio_context,
-              mraa_boolean_t)>>('mraa_gpio_use_mmaped_internal');
-  late final _mraa_gpio_use_mmaped_internal = _mraa_gpio_use_mmaped_internalPtr
-      .asFunction<int Function(mraa_gpio_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, mraa_boolean_t)>
+  >('mraa_gpio_use_mmaped_internal');
+  late final _mraa_gpio_use_mmaped_internal =
+      _mraa_gpio_use_mmaped_internalPtr
+          .asFunction<int Function(mraa_gpio_context, int)>();
 
   /// Get a pin number of the gpio, invalid will return -1
   ///
   /// @param dev The Gpio context
   /// @return Pin number
-  int mraa_gpio_get_pin(
-    mraa_gpio_context dev,
-  ) {
-    return _mraa_gpio_get_pin(
-      dev,
-    );
+  int mraa_gpio_get_pin(mraa_gpio_context dev) {
+    return _mraa_gpio_get_pin(dev);
   }
 
   late final _mraa_gpio_get_pinPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_gpio_context)>>(
-          'mraa_gpio_get_pin');
+        'mraa_gpio_get_pin',
+      );
   late final _mraa_gpio_get_pin =
       _mraa_gpio_get_pinPtr.asFunction<int Function(mraa_gpio_context)>();
 
@@ -1443,17 +1236,14 @@ class MraaImpl {
   ///
   /// @param dev The Gpio context
   /// @return gpio number
-  int mraa_gpio_get_pin_raw(
-    mraa_gpio_context dev,
-  ) {
-    return _mraa_gpio_get_pin_raw(
-      dev,
-    );
+  int mraa_gpio_get_pin_raw(mraa_gpio_context dev) {
+    return _mraa_gpio_get_pin_raw(dev);
   }
 
   late final _mraa_gpio_get_pin_rawPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_gpio_context)>>(
-          'mraa_gpio_get_pin_raw');
+        'mraa_gpio_get_pin_raw',
+      );
   late final _mraa_gpio_get_pin_raw =
       _mraa_gpio_get_pin_rawPtr.asFunction<int Function(mraa_gpio_context)>();
 
@@ -1462,42 +1252,32 @@ class MraaImpl {
   /// @param dev The Gpio context
   /// @param mode Mode to set input pin state
   /// @return Result of operation
-  int mraa_gpio_input_mode(
-    mraa_gpio_context dev,
-    int mode,
-  ) {
-    return _mraa_gpio_input_mode(
-      dev,
-      mode,
-    );
+  int mraa_gpio_input_mode(mraa_gpio_context dev, int mode) {
+    return _mraa_gpio_input_mode(dev, mode);
   }
 
   late final _mraa_gpio_input_modePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>>(
-      'mraa_gpio_input_mode');
-  late final _mraa_gpio_input_mode = _mraa_gpio_input_modePtr
-      .asFunction<int Function(mraa_gpio_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>
+  >('mraa_gpio_input_mode');
+  late final _mraa_gpio_input_mode =
+      _mraa_gpio_input_modePtr
+          .asFunction<int Function(mraa_gpio_context, int)>();
 
   /// Set Gpio output driver mode. This is not a standard feature, it needs custom implementation for each board
   ///
   /// @param dev The Gpio context
   /// @param mode Set output driver mode
   /// @return Result of operation
-  int mraa_gpio_out_driver_mode(
-    mraa_gpio_context dev,
-    int mode,
-  ) {
-    return _mraa_gpio_out_driver_mode(
-      dev,
-      mode,
-    );
+  int mraa_gpio_out_driver_mode(mraa_gpio_context dev, int mode) {
+    return _mraa_gpio_out_driver_mode(dev, mode);
   }
 
   late final _mraa_gpio_out_driver_modePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>>(
-      'mraa_gpio_out_driver_mode');
-  late final _mraa_gpio_out_driver_mode = _mraa_gpio_out_driver_modePtr
-      .asFunction<int Function(mraa_gpio_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_gpio_context, ffi.Int32)>
+  >('mraa_gpio_out_driver_mode');
+  late final _mraa_gpio_out_driver_mode =
+      _mraa_gpio_out_driver_modePtr
+          .asFunction<int Function(mraa_gpio_context, int)>();
 
   /// Initialise an Analog input device, connected to the specified pin. Aio pins
   /// are always 0 indexed reguardless of their position. Check your board mapping
@@ -1505,17 +1285,14 @@ class MraaImpl {
   ///
   /// @param pin Channel number to read ADC inputs
   /// @returns aio context or NULL
-  mraa_aio_context mraa_aio_init(
-    int pin,
-  ) {
-    return _mraa_aio_init(
-      pin,
-    );
+  mraa_aio_context mraa_aio_init(int pin) {
+    return _mraa_aio_init(pin);
   }
 
   late final _mraa_aio_initPtr =
       _lookup<ffi.NativeFunction<mraa_aio_context Function(ffi.UnsignedInt)>>(
-          'mraa_aio_init');
+        'mraa_aio_init',
+      );
   late final _mraa_aio_init =
       _mraa_aio_initPtr.asFunction<mraa_aio_context Function(int)>();
 
@@ -1524,17 +1301,14 @@ class MraaImpl {
   ///
   /// @param dev The AIO context
   /// @returns The current input voltage or -1 for error
-  int mraa_aio_read(
-    mraa_aio_context dev,
-  ) {
-    return _mraa_aio_read(
-      dev,
-    );
+  int mraa_aio_read(mraa_aio_context dev) {
+    return _mraa_aio_read(dev);
   }
 
   late final _mraa_aio_readPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_aio_context)>>(
-          'mraa_aio_read');
+        'mraa_aio_read',
+      );
   late final _mraa_aio_read =
       _mraa_aio_readPtr.asFunction<int Function(mraa_aio_context)>();
 
@@ -1543,17 +1317,14 @@ class MraaImpl {
   /// @param dev The AIO context
   /// @returns The current input voltage as a normalized float (0.0f-1.0f), error
   /// will be signaled by -1.0f
-  double mraa_aio_read_float(
-    mraa_aio_context dev,
-  ) {
-    return _mraa_aio_read_float(
-      dev,
-    );
+  double mraa_aio_read_float(mraa_aio_context dev) {
+    return _mraa_aio_read_float(dev);
   }
 
   late final _mraa_aio_read_floatPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(mraa_aio_context)>>(
-          'mraa_aio_read_float');
+        'mraa_aio_read_float',
+      );
   late final _mraa_aio_read_float =
       _mraa_aio_read_floatPtr.asFunction<double Function(mraa_aio_context)>();
 
@@ -1561,17 +1332,14 @@ class MraaImpl {
   ///
   /// @param dev The AIO context
   /// @return Result of operation
-  int mraa_aio_close(
-    mraa_aio_context dev,
-  ) {
-    return _mraa_aio_close(
-      dev,
-    );
+  int mraa_aio_close(mraa_aio_context dev) {
+    return _mraa_aio_close(dev);
   }
 
   late final _mraa_aio_closePtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_aio_context)>>(
-          'mraa_aio_close');
+        'mraa_aio_close',
+      );
   late final _mraa_aio_close =
       _mraa_aio_closePtr.asFunction<int Function(mraa_aio_context)>();
 
@@ -1581,19 +1349,13 @@ class MraaImpl {
   /// @param bits the bits the return from read should be i.e 10
   ///
   /// @return mraa result type
-  int mraa_aio_set_bit(
-    mraa_aio_context dev,
-    int bits,
-  ) {
-    return _mraa_aio_set_bit(
-      dev,
-      bits,
-    );
+  int mraa_aio_set_bit(mraa_aio_context dev, int bits) {
+    return _mraa_aio_set_bit(dev, bits);
   }
 
   late final _mraa_aio_set_bitPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_aio_context, ffi.Int)>>(
-      'mraa_aio_set_bit');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_aio_context, ffi.Int)>
+  >('mraa_aio_set_bit');
   late final _mraa_aio_set_bit =
       _mraa_aio_set_bitPtr.asFunction<int Function(mraa_aio_context, int)>();
 
@@ -1601,17 +1363,14 @@ class MraaImpl {
   /// @param dev the analog input context
   ///
   /// @return bit value mraa is set return from the read function
-  int mraa_aio_get_bit(
-    mraa_aio_context dev,
-  ) {
-    return _mraa_aio_get_bit(
-      dev,
-    );
+  int mraa_aio_get_bit(mraa_aio_context dev) {
+    return _mraa_aio_get_bit(dev);
   }
 
   late final _mraa_aio_get_bitPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_aio_context)>>(
-          'mraa_aio_get_bit');
+        'mraa_aio_get_bit',
+      );
   late final _mraa_aio_get_bit =
       _mraa_aio_get_bitPtr.asFunction<int Function(mraa_aio_context)>();
 
@@ -1619,17 +1378,14 @@ class MraaImpl {
   ///
   /// @param bus Bus to use, as listed in platform definition, normally 0
   /// @return Spi context or NULL
-  mraa_spi_context mraa_spi_init(
-    int bus,
-  ) {
-    return _mraa_spi_init(
-      bus,
-    );
+  mraa_spi_context mraa_spi_init(int bus) {
+    return _mraa_spi_init(bus);
   }
 
   late final _mraa_spi_initPtr =
       _lookup<ffi.NativeFunction<mraa_spi_context Function(ffi.Int)>>(
-          'mraa_spi_init');
+        'mraa_spi_init',
+      );
   late final _mraa_spi_init =
       _mraa_spi_initPtr.asFunction<mraa_spi_context Function(int)>();
 
@@ -1638,20 +1394,15 @@ class MraaImpl {
   /// @param bus Bus to use as listed by spidev
   /// @param cs Chip select to use as listed in spidev
   /// @return Spi context or NULL
-  mraa_spi_context mraa_spi_init_raw(
-    int bus,
-    int cs,
-  ) {
-    return _mraa_spi_init_raw(
-      bus,
-      cs,
-    );
+  mraa_spi_context mraa_spi_init_raw(int bus, int cs) {
+    return _mraa_spi_init_raw(bus, cs);
   }
 
   late final _mraa_spi_init_rawPtr = _lookup<
-      ffi.NativeFunction<
-          mraa_spi_context Function(
-              ffi.UnsignedInt, ffi.UnsignedInt)>>('mraa_spi_init_raw');
+    ffi.NativeFunction<
+      mraa_spi_context Function(ffi.UnsignedInt, ffi.UnsignedInt)
+    >
+  >('mraa_spi_init_raw');
   late final _mraa_spi_init_raw =
       _mraa_spi_init_rawPtr.asFunction<mraa_spi_context Function(int, int)>();
 
@@ -1660,19 +1411,13 @@ class MraaImpl {
   /// @param dev The Spi context
   /// @param mode The SPI mode, See Linux spidev
   /// @return Result of operation
-  int mraa_spi_mode(
-    mraa_spi_context dev,
-    int mode,
-  ) {
-    return _mraa_spi_mode(
-      dev,
-      mode,
-    );
+  int mraa_spi_mode(mraa_spi_context dev, int mode) {
+    return _mraa_spi_mode(dev, mode);
   }
 
   late final _mraa_spi_modePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context, ffi.Int32)>>(
-      'mraa_spi_mode');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context, ffi.Int32)>
+  >('mraa_spi_mode');
   late final _mraa_spi_mode =
       _mraa_spi_modePtr.asFunction<int Function(mraa_spi_context, int)>();
 
@@ -1681,19 +1426,13 @@ class MraaImpl {
   /// @param dev the Spi context
   /// @param hz the frequency in hz
   /// @return Result of operation
-  int mraa_spi_frequency(
-    mraa_spi_context dev,
-    int hz,
-  ) {
-    return _mraa_spi_frequency(
-      dev,
-      hz,
-    );
+  int mraa_spi_frequency(mraa_spi_context dev, int hz) {
+    return _mraa_spi_frequency(dev, hz);
   }
 
   late final _mraa_spi_frequencyPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context, ffi.Int)>>(
-      'mraa_spi_frequency');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context, ffi.Int)>
+  >('mraa_spi_frequency');
   late final _mraa_spi_frequency =
       _mraa_spi_frequencyPtr.asFunction<int Function(mraa_spi_context, int)>();
 
@@ -1702,19 +1441,13 @@ class MraaImpl {
   /// @param dev The Spi context
   /// @param data Data to send
   /// @return Data received on the miso line or -1 in case of error
-  int mraa_spi_write(
-    mraa_spi_context dev,
-    int data,
-  ) {
-    return _mraa_spi_write(
-      dev,
-      data,
-    );
+  int mraa_spi_write(mraa_spi_context dev, int data) {
+    return _mraa_spi_write(dev, data);
   }
 
   late final _mraa_spi_writePtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(mraa_spi_context, ffi.Uint8)>>(
-      'mraa_spi_write');
+    ffi.NativeFunction<ffi.Int Function(mraa_spi_context, ffi.Uint8)>
+  >('mraa_spi_write');
   late final _mraa_spi_write =
       _mraa_spi_writePtr.asFunction<int Function(mraa_spi_context, int)>();
 
@@ -1723,19 +1456,13 @@ class MraaImpl {
   /// @param dev The Spi context
   /// @param data Data to send
   /// @return Data received on the miso line
-  int mraa_spi_write_word(
-    mraa_spi_context dev,
-    int data,
-  ) {
-    return _mraa_spi_write_word(
-      dev,
-      data,
-    );
+  int mraa_spi_write_word(mraa_spi_context dev, int data) {
+    return _mraa_spi_write_word(dev, data);
   }
 
   late final _mraa_spi_write_wordPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(mraa_spi_context, ffi.Uint16)>>(
-      'mraa_spi_write_word');
+    ffi.NativeFunction<ffi.Int Function(mraa_spi_context, ffi.Uint16)>
+  >('mraa_spi_write_word');
   late final _mraa_spi_write_word =
       _mraa_spi_write_wordPtr.asFunction<int Function(mraa_spi_context, int)>();
 
@@ -1751,20 +1478,27 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint8> data,
     int length,
   ) {
-    return _mraa_spi_write_buf(
-      dev,
-      data,
-      length,
-    );
+    return _mraa_spi_write_buf(dev, data, length);
   }
 
   late final _mraa_spi_write_bufPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Uint8> Function(mraa_spi_context,
-              ffi.Pointer<ffi.Uint8>, ffi.Int)>>('mraa_spi_write_buf');
-  late final _mraa_spi_write_buf = _mraa_spi_write_bufPtr.asFunction<
+    ffi.NativeFunction<
       ffi.Pointer<ffi.Uint8> Function(
-          mraa_spi_context, ffi.Pointer<ffi.Uint8>, int)>();
+        mraa_spi_context,
+        ffi.Pointer<ffi.Uint8>,
+        ffi.Int,
+      )
+    >
+  >('mraa_spi_write_buf');
+  late final _mraa_spi_write_buf =
+      _mraa_spi_write_bufPtr
+          .asFunction<
+            ffi.Pointer<ffi.Uint8> Function(
+              mraa_spi_context,
+              ffi.Pointer<ffi.Uint8>,
+              int,
+            )
+          >();
 
   /// Write Buffer of uint16 to the SPI device. The pointer return has to be
   /// free'd by the caller. It will return a NULL pointer in cases of error.
@@ -1778,20 +1512,27 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint16> data,
     int length,
   ) {
-    return _mraa_spi_write_buf_word(
-      dev,
-      data,
-      length,
-    );
+    return _mraa_spi_write_buf_word(dev, data, length);
   }
 
   late final _mraa_spi_write_buf_wordPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Uint16> Function(mraa_spi_context,
-              ffi.Pointer<ffi.Uint16>, ffi.Int)>>('mraa_spi_write_buf_word');
-  late final _mraa_spi_write_buf_word = _mraa_spi_write_buf_wordPtr.asFunction<
+    ffi.NativeFunction<
       ffi.Pointer<ffi.Uint16> Function(
-          mraa_spi_context, ffi.Pointer<ffi.Uint16>, int)>();
+        mraa_spi_context,
+        ffi.Pointer<ffi.Uint16>,
+        ffi.Int,
+      )
+    >
+  >('mraa_spi_write_buf_word');
+  late final _mraa_spi_write_buf_word =
+      _mraa_spi_write_buf_wordPtr
+          .asFunction<
+            ffi.Pointer<ffi.Uint16> Function(
+              mraa_spi_context,
+              ffi.Pointer<ffi.Uint16>,
+              int,
+            )
+          >();
 
   /// Transfer Buffer of bytes to the SPI device. Both send and recv buffers
   /// are passed in
@@ -1807,21 +1548,29 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint8> rxbuf,
     int length,
   ) {
-    return _mraa_spi_transfer_buf(
-      dev,
-      data,
-      rxbuf,
-      length,
-    );
+    return _mraa_spi_transfer_buf(dev, data, rxbuf, length);
   }
 
   late final _mraa_spi_transfer_bufPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_spi_context, ffi.Pointer<ffi.Uint8>,
-              ffi.Pointer<ffi.Uint8>, ffi.Int)>>('mraa_spi_transfer_buf');
-  late final _mraa_spi_transfer_buf = _mraa_spi_transfer_bufPtr.asFunction<
-      int Function(mraa_spi_context, ffi.Pointer<ffi.Uint8>,
-          ffi.Pointer<ffi.Uint8>, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(
+        mraa_spi_context,
+        ffi.Pointer<ffi.Uint8>,
+        ffi.Pointer<ffi.Uint8>,
+        ffi.Int,
+      )
+    >
+  >('mraa_spi_transfer_buf');
+  late final _mraa_spi_transfer_buf =
+      _mraa_spi_transfer_bufPtr
+          .asFunction<
+            int Function(
+              mraa_spi_context,
+              ffi.Pointer<ffi.Uint8>,
+              ffi.Pointer<ffi.Uint8>,
+              int,
+            )
+          >();
 
   /// Transfer Buffer of uint16 to the SPI device. Both send and recv buffers
   /// are passed in
@@ -1837,42 +1586,42 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint16> rxbuf,
     int length,
   ) {
-    return _mraa_spi_transfer_buf_word(
-      dev,
-      data,
-      rxbuf,
-      length,
-    );
+    return _mraa_spi_transfer_buf_word(dev, data, rxbuf, length);
   }
 
   late final _mraa_spi_transfer_buf_wordPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_spi_context, ffi.Pointer<ffi.Uint16>,
-              ffi.Pointer<ffi.Uint16>, ffi.Int)>>('mraa_spi_transfer_buf_word');
+    ffi.NativeFunction<
+      ffi.Int32 Function(
+        mraa_spi_context,
+        ffi.Pointer<ffi.Uint16>,
+        ffi.Pointer<ffi.Uint16>,
+        ffi.Int,
+      )
+    >
+  >('mraa_spi_transfer_buf_word');
   late final _mraa_spi_transfer_buf_word =
-      _mraa_spi_transfer_buf_wordPtr.asFunction<
-          int Function(mraa_spi_context, ffi.Pointer<ffi.Uint16>,
-              ffi.Pointer<ffi.Uint16>, int)>();
+      _mraa_spi_transfer_buf_wordPtr
+          .asFunction<
+            int Function(
+              mraa_spi_context,
+              ffi.Pointer<ffi.Uint16>,
+              ffi.Pointer<ffi.Uint16>,
+              int,
+            )
+          >();
 
   /// Change the SPI lsb mode
   ///
   /// @param dev The Spi context
   /// @param lsb Use least significant bit transmission. 0 for msbi
   /// @return Result of operation
-  int mraa_spi_lsbmode(
-    mraa_spi_context dev,
-    int lsb,
-  ) {
-    return _mraa_spi_lsbmode(
-      dev,
-      lsb,
-    );
+  int mraa_spi_lsbmode(mraa_spi_context dev, int lsb) {
+    return _mraa_spi_lsbmode(dev, lsb);
   }
 
   late final _mraa_spi_lsbmodePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              mraa_spi_context, mraa_boolean_t)>>('mraa_spi_lsbmode');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context, mraa_boolean_t)>
+  >('mraa_spi_lsbmode');
   late final _mraa_spi_lsbmode =
       _mraa_spi_lsbmodePtr.asFunction<int Function(mraa_spi_context, int)>();
 
@@ -1881,38 +1630,29 @@ class MraaImpl {
   /// @param dev The Spi context
   /// @param bits bits per word
   /// @return Result of operation
-  int mraa_spi_bit_per_word(
-    mraa_spi_context dev,
-    int bits,
-  ) {
-    return _mraa_spi_bit_per_word(
-      dev,
-      bits,
-    );
+  int mraa_spi_bit_per_word(mraa_spi_context dev, int bits) {
+    return _mraa_spi_bit_per_word(dev, bits);
   }
 
   late final _mraa_spi_bit_per_wordPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              mraa_spi_context, ffi.UnsignedInt)>>('mraa_spi_bit_per_word');
-  late final _mraa_spi_bit_per_word = _mraa_spi_bit_per_wordPtr
-      .asFunction<int Function(mraa_spi_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context, ffi.UnsignedInt)>
+  >('mraa_spi_bit_per_word');
+  late final _mraa_spi_bit_per_word =
+      _mraa_spi_bit_per_wordPtr
+          .asFunction<int Function(mraa_spi_context, int)>();
 
   /// De-inits an mraa_spi_context device
   ///
   /// @param dev The Spi context
   /// @return Result of operation
-  int mraa_spi_stop(
-    mraa_spi_context dev,
-  ) {
-    return _mraa_spi_stop(
-      dev,
-    );
+  int mraa_spi_stop(mraa_spi_context dev) {
+    return _mraa_spi_stop(dev);
   }
 
   late final _mraa_spi_stopPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_spi_context)>>(
-          'mraa_spi_stop');
+        'mraa_spi_stop',
+      );
   late final _mraa_spi_stop =
       _mraa_spi_stopPtr.asFunction<int Function(mraa_spi_context)>();
 
@@ -1920,17 +1660,14 @@ class MraaImpl {
   ///
   /// @param bus i2c bus to use
   /// @return i2c context or NULL
-  mraa_i2c_context mraa_i2c_init(
-    int bus,
-  ) {
-    return _mraa_i2c_init(
-      bus,
-    );
+  mraa_i2c_context mraa_i2c_init(int bus) {
+    return _mraa_i2c_init(bus);
   }
 
   late final _mraa_i2c_initPtr =
       _lookup<ffi.NativeFunction<mraa_i2c_context Function(ffi.Int)>>(
-          'mraa_i2c_init');
+        'mraa_i2c_init',
+      );
   late final _mraa_i2c_init =
       _mraa_i2c_initPtr.asFunction<mraa_i2c_context Function(int)>();
 
@@ -1938,17 +1675,14 @@ class MraaImpl {
   ///
   /// @param bus The i2c bus to use i.e. /dev/i2c-2 would be "2"
   /// @return i2c context or NULL
-  mraa_i2c_context mraa_i2c_init_raw(
-    int bus,
-  ) {
-    return _mraa_i2c_init_raw(
-      bus,
-    );
+  mraa_i2c_context mraa_i2c_init_raw(int bus) {
+    return _mraa_i2c_init_raw(bus);
   }
 
   late final _mraa_i2c_init_rawPtr =
       _lookup<ffi.NativeFunction<mraa_i2c_context Function(ffi.UnsignedInt)>>(
-          'mraa_i2c_init_raw');
+        'mraa_i2c_init_raw',
+      );
   late final _mraa_i2c_init_raw =
       _mraa_i2c_init_rawPtr.asFunction<mraa_i2c_context Function(int)>();
 
@@ -1957,19 +1691,13 @@ class MraaImpl {
   /// @param dev The i2c context
   /// @param mode The bus mode
   /// @return Result of operation
-  int mraa_i2c_frequency(
-    mraa_i2c_context dev,
-    int mode,
-  ) {
-    return _mraa_i2c_frequency(
-      dev,
-      mode,
-    );
+  int mraa_i2c_frequency(mraa_i2c_context dev, int mode) {
+    return _mraa_i2c_frequency(dev, mode);
   }
 
   late final _mraa_i2c_frequencyPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context, ffi.Int32)>>(
-      'mraa_i2c_frequency');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context, ffi.Int32)>
+  >('mraa_i2c_frequency');
   late final _mraa_i2c_frequency =
       _mraa_i2c_frequencyPtr.asFunction<int Function(mraa_i2c_context, int)>();
 
@@ -1984,35 +1712,32 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint8> data,
     int length,
   ) {
-    return _mraa_i2c_read(
-      dev,
-      data,
-      length,
-    );
+    return _mraa_i2c_read(dev, data, length);
   }
 
   late final _mraa_i2c_readPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>,
-              ffi.Int)>>('mraa_i2c_read');
-  late final _mraa_i2c_read = _mraa_i2c_readPtr.asFunction<
-      int Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>, int)>();
+    ffi.NativeFunction<
+      ffi.Int Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>, ffi.Int)
+    >
+  >('mraa_i2c_read');
+  late final _mraa_i2c_read =
+      _mraa_i2c_readPtr
+          .asFunction<
+            int Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>, int)
+          >();
 
   /// Simple read for a single byte from the i2c context
   ///
   /// @param dev The i2c context
   /// @return The result of the read or -1 if failed
-  int mraa_i2c_read_byte(
-    mraa_i2c_context dev,
-  ) {
-    return _mraa_i2c_read_byte(
-      dev,
-    );
+  int mraa_i2c_read_byte(mraa_i2c_context dev) {
+    return _mraa_i2c_read_byte(dev);
   }
 
   late final _mraa_i2c_read_bytePtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_i2c_context)>>(
-          'mraa_i2c_read_byte');
+        'mraa_i2c_read_byte',
+      );
   late final _mraa_i2c_read_byte =
       _mraa_i2c_read_bytePtr.asFunction<int Function(mraa_i2c_context)>();
 
@@ -2021,42 +1746,32 @@ class MraaImpl {
   /// @param dev The i2c context
   /// @param command The register
   /// @return The result of the read or -1 if failed
-  int mraa_i2c_read_byte_data(
-    mraa_i2c_context dev,
-    int command,
-  ) {
-    return _mraa_i2c_read_byte_data(
-      dev,
-      command,
-    );
+  int mraa_i2c_read_byte_data(mraa_i2c_context dev, int command) {
+    return _mraa_i2c_read_byte_data(dev, command);
   }
 
   late final _mraa_i2c_read_byte_dataPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(mraa_i2c_context, ffi.Uint8)>>(
-      'mraa_i2c_read_byte_data');
-  late final _mraa_i2c_read_byte_data = _mraa_i2c_read_byte_dataPtr
-      .asFunction<int Function(mraa_i2c_context, int)>();
+    ffi.NativeFunction<ffi.Int Function(mraa_i2c_context, ffi.Uint8)>
+  >('mraa_i2c_read_byte_data');
+  late final _mraa_i2c_read_byte_data =
+      _mraa_i2c_read_byte_dataPtr
+          .asFunction<int Function(mraa_i2c_context, int)>();
 
   /// Read a single word from i2c context, from designated register
   ///
   /// @param dev The i2c context
   /// @param command The register
   /// @return The result of the read or -1 if failed
-  int mraa_i2c_read_word_data(
-    mraa_i2c_context dev,
-    int command,
-  ) {
-    return _mraa_i2c_read_word_data(
-      dev,
-      command,
-    );
+  int mraa_i2c_read_word_data(mraa_i2c_context dev, int command) {
+    return _mraa_i2c_read_word_data(dev, command);
   }
 
   late final _mraa_i2c_read_word_dataPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(mraa_i2c_context, ffi.Uint8)>>(
-      'mraa_i2c_read_word_data');
-  late final _mraa_i2c_read_word_data = _mraa_i2c_read_word_dataPtr
-      .asFunction<int Function(mraa_i2c_context, int)>();
+    ffi.NativeFunction<ffi.Int Function(mraa_i2c_context, ffi.Uint8)>
+  >('mraa_i2c_read_word_data');
+  late final _mraa_i2c_read_word_data =
+      _mraa_i2c_read_word_dataPtr
+          .asFunction<int Function(mraa_i2c_context, int)>();
 
   /// Bulk read from i2c context, starting from designated register
   ///
@@ -2071,21 +1786,24 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint8> data,
     int length,
   ) {
-    return _mraa_i2c_read_bytes_data(
-      dev,
-      command,
-      data,
-      length,
-    );
+    return _mraa_i2c_read_bytes_data(dev, command, data, length);
   }
 
   late final _mraa_i2c_read_bytes_dataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(mraa_i2c_context, ffi.Uint8, ffi.Pointer<ffi.Uint8>,
-              ffi.Int)>>('mraa_i2c_read_bytes_data');
+    ffi.NativeFunction<
+      ffi.Int Function(
+        mraa_i2c_context,
+        ffi.Uint8,
+        ffi.Pointer<ffi.Uint8>,
+        ffi.Int,
+      )
+    >
+  >('mraa_i2c_read_bytes_data');
   late final _mraa_i2c_read_bytes_data =
-      _mraa_i2c_read_bytes_dataPtr.asFunction<
-          int Function(mraa_i2c_context, int, ffi.Pointer<ffi.Uint8>, int)>();
+      _mraa_i2c_read_bytes_dataPtr
+          .asFunction<
+            int Function(mraa_i2c_context, int, ffi.Pointer<ffi.Uint8>, int)
+          >();
 
   /// Write length bytes to the bus, the first byte in the array is the
   /// command/register to write
@@ -2099,38 +1817,32 @@ class MraaImpl {
     ffi.Pointer<ffi.Uint8> data,
     int length,
   ) {
-    return _mraa_i2c_write(
-      dev,
-      data,
-      length,
-    );
+    return _mraa_i2c_write(dev, data, length);
   }
 
   late final _mraa_i2c_writePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>,
-              ffi.Int)>>('mraa_i2c_write');
-  late final _mraa_i2c_write = _mraa_i2c_writePtr.asFunction<
-      int Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>, ffi.Int)
+    >
+  >('mraa_i2c_write');
+  late final _mraa_i2c_write =
+      _mraa_i2c_writePtr
+          .asFunction<
+            int Function(mraa_i2c_context, ffi.Pointer<ffi.Uint8>, int)
+          >();
 
   /// Write a single byte to an i2c context
   ///
   /// @param dev The i2c context
   /// @param data The byte to write
   /// @return Result of operation
-  int mraa_i2c_write_byte(
-    mraa_i2c_context dev,
-    int data,
-  ) {
-    return _mraa_i2c_write_byte(
-      dev,
-      data,
-    );
+  int mraa_i2c_write_byte(mraa_i2c_context dev, int data) {
+    return _mraa_i2c_write_byte(dev, data);
   }
 
   late final _mraa_i2c_write_bytePtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context, ffi.Uint8)>>(
-      'mraa_i2c_write_byte');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context, ffi.Uint8)>
+  >('mraa_i2c_write_byte');
   late final _mraa_i2c_write_byte =
       _mraa_i2c_write_bytePtr.asFunction<int Function(mraa_i2c_context, int)>();
 
@@ -2140,24 +1852,18 @@ class MraaImpl {
   /// @param data The byte to write
   /// @param command The register
   /// @return Result of operation
-  int mraa_i2c_write_byte_data(
-    mraa_i2c_context dev,
-    int data,
-    int command,
-  ) {
-    return _mraa_i2c_write_byte_data(
-      dev,
-      data,
-      command,
-    );
+  int mraa_i2c_write_byte_data(mraa_i2c_context dev, int data, int command) {
+    return _mraa_i2c_write_byte_data(dev, data, command);
   }
 
   late final _mraa_i2c_write_byte_dataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_i2c_context, ffi.Uint8,
-              ffi.Uint8)>>('mraa_i2c_write_byte_data');
-  late final _mraa_i2c_write_byte_data = _mraa_i2c_write_byte_dataPtr
-      .asFunction<int Function(mraa_i2c_context, int, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_i2c_context, ffi.Uint8, ffi.Uint8)
+    >
+  >('mraa_i2c_write_byte_data');
+  late final _mraa_i2c_write_byte_data =
+      _mraa_i2c_write_byte_dataPtr
+          .asFunction<int Function(mraa_i2c_context, int, int)>();
 
   /// Write a single word to an i2c context
   ///
@@ -2165,43 +1871,31 @@ class MraaImpl {
   /// @param data The word to write
   /// @param command The register
   /// @return Result of operation
-  int mraa_i2c_write_word_data(
-    mraa_i2c_context dev,
-    int data,
-    int command,
-  ) {
-    return _mraa_i2c_write_word_data(
-      dev,
-      data,
-      command,
-    );
+  int mraa_i2c_write_word_data(mraa_i2c_context dev, int data, int command) {
+    return _mraa_i2c_write_word_data(dev, data, command);
   }
 
   late final _mraa_i2c_write_word_dataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_i2c_context, ffi.Uint16,
-              ffi.Uint8)>>('mraa_i2c_write_word_data');
-  late final _mraa_i2c_write_word_data = _mraa_i2c_write_word_dataPtr
-      .asFunction<int Function(mraa_i2c_context, int, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_i2c_context, ffi.Uint16, ffi.Uint8)
+    >
+  >('mraa_i2c_write_word_data');
+  late final _mraa_i2c_write_word_data =
+      _mraa_i2c_write_word_dataPtr
+          .asFunction<int Function(mraa_i2c_context, int, int)>();
 
   /// Sets the i2c slave address.
   ///
   /// @param dev The i2c context
   /// @param address The address to set for the slave (7-bit address)
   /// @return Result of operation
-  int mraa_i2c_address(
-    mraa_i2c_context dev,
-    int address,
-  ) {
-    return _mraa_i2c_address(
-      dev,
-      address,
-    );
+  int mraa_i2c_address(mraa_i2c_context dev, int address) {
+    return _mraa_i2c_address(dev, address);
   }
 
   late final _mraa_i2c_addressPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context, ffi.Uint8)>>(
-      'mraa_i2c_address');
+    ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context, ffi.Uint8)>
+  >('mraa_i2c_address');
   late final _mraa_i2c_address =
       _mraa_i2c_addressPtr.asFunction<int Function(mraa_i2c_context, int)>();
 
@@ -2209,17 +1903,14 @@ class MraaImpl {
   ///
   /// @param dev The i2c context
   /// @return Result of operation
-  int mraa_i2c_stop(
-    mraa_i2c_context dev,
-  ) {
-    return _mraa_i2c_stop(
-      dev,
-    );
+  int mraa_i2c_stop(mraa_i2c_context dev) {
+    return _mraa_i2c_stop(dev);
   }
 
   late final _mraa_i2c_stopPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_i2c_context)>>(
-          'mraa_i2c_stop');
+        'mraa_i2c_stop',
+      );
   late final _mraa_i2c_stop =
       _mraa_i2c_stopPtr.asFunction<int Function(mraa_i2c_context)>();
 
@@ -2227,17 +1918,14 @@ class MraaImpl {
   ///
   /// @param uart the index of the uart set to use
   /// @return uart context or NULL
-  mraa_uart_context mraa_uart_init(
-    int uart,
-  ) {
-    return _mraa_uart_init(
-      uart,
-    );
+  mraa_uart_context mraa_uart_init(int uart) {
+    return _mraa_uart_init(uart);
   }
 
   late final _mraa_uart_initPtr =
       _lookup<ffi.NativeFunction<mraa_uart_context Function(ffi.Int)>>(
-          'mraa_uart_init');
+        'mraa_uart_init',
+      );
   late final _mraa_uart_init =
       _mraa_uart_initPtr.asFunction<mraa_uart_context Function(int)>();
 
@@ -2245,37 +1933,30 @@ class MraaImpl {
   ///
   /// @param path for example "/dev/ttyS0"
   /// @return uart context or NULL
-  mraa_uart_context mraa_uart_init_raw(
-    ffi.Pointer<ffi.Char> path,
-  ) {
-    return _mraa_uart_init_raw(
-      path,
-    );
+  mraa_uart_context mraa_uart_init_raw(ffi.Pointer<ffi.Char> path) {
+    return _mraa_uart_init_raw(path);
   }
 
   late final _mraa_uart_init_rawPtr = _lookup<
-          ffi
-          .NativeFunction<mraa_uart_context Function(ffi.Pointer<ffi.Char>)>>(
-      'mraa_uart_init_raw');
-  late final _mraa_uart_init_raw = _mraa_uart_init_rawPtr
-      .asFunction<mraa_uart_context Function(ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<mraa_uart_context Function(ffi.Pointer<ffi.Char>)>
+  >('mraa_uart_init_raw');
+  late final _mraa_uart_init_raw =
+      _mraa_uart_init_rawPtr
+          .asFunction<mraa_uart_context Function(ffi.Pointer<ffi.Char>)>();
 
   /// Flush the outbound data.
   /// Blocks until complete.
   ///
   /// @param dev The UART context
   /// @return Result of operation
-  int mraa_uart_flush(
-    mraa_uart_context dev,
-  ) {
-    return _mraa_uart_flush(
-      dev,
-    );
+  int mraa_uart_flush(mraa_uart_context dev) {
+    return _mraa_uart_flush(dev);
   }
 
   late final _mraa_uart_flushPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_uart_context)>>(
-          'mraa_uart_flush');
+        'mraa_uart_flush',
+      );
   late final _mraa_uart_flush =
       _mraa_uart_flushPtr.asFunction<int Function(mraa_uart_context)>();
 
@@ -2287,21 +1968,16 @@ class MraaImpl {
   /// milliseconds, and not more than 500 milliseconds.  When non zero,
   /// the break duration is implementation specific.
   /// @return Result of operation
-  int mraa_uart_sendbreak(
-    mraa_uart_context dev,
-    int duration,
-  ) {
-    return _mraa_uart_sendbreak(
-      dev,
-      duration,
-    );
+  int mraa_uart_sendbreak(mraa_uart_context dev, int duration) {
+    return _mraa_uart_sendbreak(dev, duration);
   }
 
   late final _mraa_uart_sendbreakPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_uart_context, ffi.Int)>>(
-      'mraa_uart_sendbreak');
-  late final _mraa_uart_sendbreak = _mraa_uart_sendbreakPtr
-      .asFunction<int Function(mraa_uart_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_uart_context, ffi.Int)>
+  >('mraa_uart_sendbreak');
+  late final _mraa_uart_sendbreak =
+      _mraa_uart_sendbreakPtr
+          .asFunction<int Function(mraa_uart_context, int)>();
 
   /// Set the baudrate.
   /// Takes an int and will attempt to decide what baudrate  is
@@ -2310,22 +1986,16 @@ class MraaImpl {
   /// @param dev The UART context
   /// @param baud unsigned int of baudrate i.e. 9600
   /// @return Result of operation
-  int mraa_uart_set_baudrate(
-    mraa_uart_context dev,
-    int baud,
-  ) {
-    return _mraa_uart_set_baudrate(
-      dev,
-      baud,
-    );
+  int mraa_uart_set_baudrate(mraa_uart_context dev, int baud) {
+    return _mraa_uart_set_baudrate(dev, baud);
   }
 
   late final _mraa_uart_set_baudratePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              mraa_uart_context, ffi.UnsignedInt)>>('mraa_uart_set_baudrate');
-  late final _mraa_uart_set_baudrate = _mraa_uart_set_baudratePtr
-      .asFunction<int Function(mraa_uart_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_uart_context, ffi.UnsignedInt)>
+  >('mraa_uart_set_baudrate');
+  late final _mraa_uart_set_baudrate =
+      _mraa_uart_set_baudratePtr
+          .asFunction<int Function(mraa_uart_context, int)>();
 
   /// Set the transfer mode
   /// For example setting the mode to 8N1 would be
@@ -2342,20 +2012,17 @@ class MraaImpl {
     int parity,
     int stopbits,
   ) {
-    return _mraa_uart_set_mode(
-      dev,
-      bytesize,
-      parity,
-      stopbits,
-    );
+    return _mraa_uart_set_mode(dev, bytesize, parity, stopbits);
   }
 
   late final _mraa_uart_set_modePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_uart_context, ffi.Int, ffi.Int32,
-              ffi.Int)>>('mraa_uart_set_mode');
-  late final _mraa_uart_set_mode = _mraa_uart_set_modePtr
-      .asFunction<int Function(mraa_uart_context, int, int, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_uart_context, ffi.Int, ffi.Int32, ffi.Int)
+    >
+  >('mraa_uart_set_mode');
+  late final _mraa_uart_set_mode =
+      _mraa_uart_set_modePtr
+          .asFunction<int Function(mraa_uart_context, int, int, int)>();
 
   /// Set the flowcontrol
   ///
@@ -2368,19 +2035,17 @@ class MraaImpl {
     int xonxoff,
     int rtscts,
   ) {
-    return _mraa_uart_set_flowcontrol(
-      dev,
-      xonxoff,
-      rtscts,
-    );
+    return _mraa_uart_set_flowcontrol(dev, xonxoff, rtscts);
   }
 
   late final _mraa_uart_set_flowcontrolPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_uart_context, mraa_boolean_t,
-              mraa_boolean_t)>>('mraa_uart_set_flowcontrol');
-  late final _mraa_uart_set_flowcontrol = _mraa_uart_set_flowcontrolPtr
-      .asFunction<int Function(mraa_uart_context, int, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_uart_context, mraa_boolean_t, mraa_boolean_t)
+    >
+  >('mraa_uart_set_flowcontrol');
+  late final _mraa_uart_set_flowcontrol =
+      _mraa_uart_set_flowcontrolPtr
+          .asFunction<int Function(mraa_uart_context, int, int)>();
 
   /// Set the timeout for read and write operations
   /// <= 0 will disable that timeout
@@ -2396,62 +2061,49 @@ class MraaImpl {
     int write,
     int interchar,
   ) {
-    return _mraa_uart_set_timeout(
-      dev,
-      read,
-      write,
-      interchar,
-    );
+    return _mraa_uart_set_timeout(dev, read, write, interchar);
   }
 
   late final _mraa_uart_set_timeoutPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_uart_context, ffi.Int, ffi.Int,
-              ffi.Int)>>('mraa_uart_set_timeout');
-  late final _mraa_uart_set_timeout = _mraa_uart_set_timeoutPtr
-      .asFunction<int Function(mraa_uart_context, int, int, int)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_uart_context, ffi.Int, ffi.Int, ffi.Int)
+    >
+  >('mraa_uart_set_timeout');
+  late final _mraa_uart_set_timeout =
+      _mraa_uart_set_timeoutPtr
+          .asFunction<int Function(mraa_uart_context, int, int, int)>();
 
   /// Set the blocking state for write operations
   ///
   /// @param dev The UART context
   /// @param nonblock new nonblocking state
   /// @return Result of operation
-  int mraa_uart_set_non_blocking(
-    mraa_uart_context dev,
-    int nonblock,
-  ) {
-    return _mraa_uart_set_non_blocking(
-      dev,
-      nonblock,
-    );
+  int mraa_uart_set_non_blocking(mraa_uart_context dev, int nonblock) {
+    return _mraa_uart_set_non_blocking(dev, nonblock);
   }
 
   late final _mraa_uart_set_non_blockingPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_uart_context,
-              mraa_boolean_t)>>('mraa_uart_set_non_blocking');
-  late final _mraa_uart_set_non_blocking = _mraa_uart_set_non_blockingPtr
-      .asFunction<int Function(mraa_uart_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_uart_context, mraa_boolean_t)>
+  >('mraa_uart_set_non_blocking');
+  late final _mraa_uart_set_non_blocking =
+      _mraa_uart_set_non_blockingPtr
+          .asFunction<int Function(mraa_uart_context, int)>();
 
   /// Get Char pointer with tty device path within Linux
   /// For example. Could point to "/dev/ttyS0"
   ///
   /// @param dev uart context
   /// @return char pointer of device path
-  ffi.Pointer<ffi.Char> mraa_uart_get_dev_path(
-    mraa_uart_context dev,
-  ) {
-    return _mraa_uart_get_dev_path(
-      dev,
-    );
+  ffi.Pointer<ffi.Char> mraa_uart_get_dev_path(mraa_uart_context dev) {
+    return _mraa_uart_get_dev_path(dev);
   }
 
   late final _mraa_uart_get_dev_pathPtr = _lookup<
-          ffi
-          .NativeFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_context)>>(
-      'mraa_uart_get_dev_path');
-  late final _mraa_uart_get_dev_path = _mraa_uart_get_dev_pathPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_context)>();
+    ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_context)>
+  >('mraa_uart_get_dev_path');
+  late final _mraa_uart_get_dev_path =
+      _mraa_uart_get_dev_pathPtr
+          .asFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_context)>();
 
   /// Get the current settings of an UART. This is an unintrusive function. Meaning
   /// it intends not to change anything, only read the values without disturbing.
@@ -2500,9 +2152,25 @@ class MraaImpl {
   }
 
   late final _mraa_uart_settingsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int,
+    ffi.NativeFunction<
+      ffi.Int32 Function(
+        ffi.Int,
+        ffi.Pointer<ffi.Pointer<ffi.Char>>,
+        ffi.Pointer<ffi.Pointer<ffi.Char>>,
+        ffi.Pointer<ffi.Int>,
+        ffi.Pointer<ffi.Int>,
+        ffi.Pointer<ffi.Int>,
+        ffi.Pointer<ffi.Int32>,
+        ffi.Pointer<mraa_boolean_t>,
+        ffi.Pointer<mraa_boolean_t>,
+      )
+    >
+  >('mraa_uart_settings');
+  late final _mraa_uart_settings =
+      _mraa_uart_settingsPtr
+          .asFunction<
+            int Function(
+              int,
               ffi.Pointer<ffi.Pointer<ffi.Char>>,
               ffi.Pointer<ffi.Pointer<ffi.Char>>,
               ffi.Pointer<ffi.Int>,
@@ -2510,34 +2178,22 @@ class MraaImpl {
               ffi.Pointer<ffi.Int>,
               ffi.Pointer<ffi.Int32>,
               ffi.Pointer<mraa_boolean_t>,
-              ffi.Pointer<mraa_boolean_t>)>>('mraa_uart_settings');
-  late final _mraa_uart_settings = _mraa_uart_settingsPtr.asFunction<
-      int Function(
-          int,
-          ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          ffi.Pointer<ffi.Int>,
-          ffi.Pointer<ffi.Int>,
-          ffi.Pointer<ffi.Int>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<mraa_boolean_t>,
-          ffi.Pointer<mraa_boolean_t>)>();
+              ffi.Pointer<mraa_boolean_t>,
+            )
+          >();
 
   /// Destroy a mraa_uart_context
   ///
   /// @param dev uart context
   /// @return mraa_result_t
-  int mraa_uart_stop(
-    mraa_uart_context dev,
-  ) {
-    return _mraa_uart_stop(
-      dev,
-    );
+  int mraa_uart_stop(mraa_uart_context dev) {
+    return _mraa_uart_stop(dev);
   }
 
   late final _mraa_uart_stopPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_uart_context)>>(
-          'mraa_uart_stop');
+        'mraa_uart_stop',
+      );
   late final _mraa_uart_stop =
       _mraa_uart_stopPtr.asFunction<int Function(mraa_uart_context)>();
 
@@ -2552,19 +2208,19 @@ class MraaImpl {
     ffi.Pointer<ffi.Char> buf,
     int length,
   ) {
-    return _mraa_uart_read(
-      dev,
-      buf,
-      length,
-    );
+    return _mraa_uart_read(dev, buf, length);
   }
 
   late final _mraa_uart_readPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(mraa_uart_context, ffi.Pointer<ffi.Char>,
-              ffi.Size)>>('mraa_uart_read');
-  late final _mraa_uart_read = _mraa_uart_readPtr.asFunction<
-      int Function(mraa_uart_context, ffi.Pointer<ffi.Char>, int)>();
+    ffi.NativeFunction<
+      ffi.Int Function(mraa_uart_context, ffi.Pointer<ffi.Char>, ffi.Size)
+    >
+  >('mraa_uart_read');
+  late final _mraa_uart_read =
+      _mraa_uart_readPtr
+          .asFunction<
+            int Function(mraa_uart_context, ffi.Pointer<ffi.Char>, int)
+          >();
 
   /// Write bytes in buffer to a device
   ///
@@ -2577,57 +2233,50 @@ class MraaImpl {
     ffi.Pointer<ffi.Char> buf,
     int length,
   ) {
-    return _mraa_uart_write(
-      dev,
-      buf,
-      length,
-    );
+    return _mraa_uart_write(dev, buf, length);
   }
 
   late final _mraa_uart_writePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(mraa_uart_context, ffi.Pointer<ffi.Char>,
-              ffi.Size)>>('mraa_uart_write');
-  late final _mraa_uart_write = _mraa_uart_writePtr.asFunction<
-      int Function(mraa_uart_context, ffi.Pointer<ffi.Char>, int)>();
+    ffi.NativeFunction<
+      ffi.Int Function(mraa_uart_context, ffi.Pointer<ffi.Char>, ffi.Size)
+    >
+  >('mraa_uart_write');
+  late final _mraa_uart_write =
+      _mraa_uart_writePtr
+          .asFunction<
+            int Function(mraa_uart_context, ffi.Pointer<ffi.Char>, int)
+          >();
 
   /// Check to see if data is available on the device for reading
   ///
   /// @param dev uart context
   /// @param millis number of milliseconds to wait, or 0 to return immediately
   /// @return 1 if there is data available to read, 0 otherwise
-  int mraa_uart_data_available(
-    mraa_uart_context dev,
-    int millis,
-  ) {
-    return _mraa_uart_data_available(
-      dev,
-      millis,
-    );
+  int mraa_uart_data_available(mraa_uart_context dev, int millis) {
+    return _mraa_uart_data_available(dev, millis);
   }
 
   late final _mraa_uart_data_availablePtr = _lookup<
-      ffi.NativeFunction<
-          mraa_boolean_t Function(
-              mraa_uart_context, ffi.UnsignedInt)>>('mraa_uart_data_available');
-  late final _mraa_uart_data_available = _mraa_uart_data_availablePtr
-      .asFunction<int Function(mraa_uart_context, int)>();
+    ffi.NativeFunction<
+      mraa_boolean_t Function(mraa_uart_context, ffi.UnsignedInt)
+    >
+  >('mraa_uart_data_available');
+  late final _mraa_uart_data_available =
+      _mraa_uart_data_availablePtr
+          .asFunction<int Function(mraa_uart_context, int)>();
 
   /// Initialise uart_ow_context, uses UART board mapping
   ///
   /// @param uart the index of the uart set to use
   /// @return uart_ow context or NULL
-  mraa_uart_ow_context mraa_uart_ow_init(
-    int uart,
-  ) {
-    return _mraa_uart_ow_init(
-      uart,
-    );
+  mraa_uart_ow_context mraa_uart_ow_init(int uart) {
+    return _mraa_uart_ow_init(uart);
   }
 
   late final _mraa_uart_ow_initPtr =
       _lookup<ffi.NativeFunction<mraa_uart_ow_context Function(ffi.Int)>>(
-          'mraa_uart_ow_init');
+        'mraa_uart_ow_init',
+      );
   late final _mraa_uart_ow_init =
       _mraa_uart_ow_initPtr.asFunction<mraa_uart_ow_context Function(int)>();
 
@@ -2635,56 +2284,45 @@ class MraaImpl {
   ///
   /// @param path for example "/dev/ttyS0"
   /// @return uart_ow context or NULL
-  mraa_uart_ow_context mraa_uart_ow_init_raw(
-    ffi.Pointer<ffi.Char> path,
-  ) {
-    return _mraa_uart_ow_init_raw(
-      path,
-    );
+  mraa_uart_ow_context mraa_uart_ow_init_raw(ffi.Pointer<ffi.Char> path) {
+    return _mraa_uart_ow_init_raw(path);
   }
 
   late final _mraa_uart_ow_init_rawPtr = _lookup<
-      ffi.NativeFunction<
-          mraa_uart_ow_context Function(
-              ffi.Pointer<ffi.Char>)>>('mraa_uart_ow_init_raw');
-  late final _mraa_uart_ow_init_raw = _mraa_uart_ow_init_rawPtr
-      .asFunction<mraa_uart_ow_context Function(ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<mraa_uart_ow_context Function(ffi.Pointer<ffi.Char>)>
+  >('mraa_uart_ow_init_raw');
+  late final _mraa_uart_ow_init_raw =
+      _mraa_uart_ow_init_rawPtr
+          .asFunction<mraa_uart_ow_context Function(ffi.Pointer<ffi.Char>)>();
 
   /// Get char pointer with tty device path within Linux
   /// For example. Could point to "/dev/ttyS0"
   ///
   /// @param dev uart_ow context
   /// @return char pointer of device path
-  ffi.Pointer<ffi.Char> mraa_uart_ow_get_dev_path(
-    mraa_uart_ow_context dev,
-  ) {
-    return _mraa_uart_ow_get_dev_path(
-      dev,
-    );
+  ffi.Pointer<ffi.Char> mraa_uart_ow_get_dev_path(mraa_uart_ow_context dev) {
+    return _mraa_uart_ow_get_dev_path(dev);
   }
 
   late final _mraa_uart_ow_get_dev_pathPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              mraa_uart_ow_context)>>('mraa_uart_ow_get_dev_path');
-  late final _mraa_uart_ow_get_dev_path = _mraa_uart_ow_get_dev_pathPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_ow_context)>();
+    ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_ow_context)>
+  >('mraa_uart_ow_get_dev_path');
+  late final _mraa_uart_ow_get_dev_path =
+      _mraa_uart_ow_get_dev_pathPtr
+          .asFunction<ffi.Pointer<ffi.Char> Function(mraa_uart_ow_context)>();
 
   /// Destroy a mraa_uart_ow_context
   ///
   /// @param dev uart_ow context
   /// @return mraa_result_t
-  int mraa_uart_ow_stop(
-    mraa_uart_ow_context dev,
-  ) {
-    return _mraa_uart_ow_stop(
-      dev,
-    );
+  int mraa_uart_ow_stop(mraa_uart_ow_context dev) {
+    return _mraa_uart_ow_stop(dev);
   }
 
   late final _mraa_uart_ow_stopPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_uart_ow_context)>>(
-          'mraa_uart_ow_stop');
+        'mraa_uart_ow_stop',
+      );
   late final _mraa_uart_ow_stop =
       _mraa_uart_ow_stopPtr.asFunction<int Function(mraa_uart_ow_context)>();
 
@@ -2692,41 +2330,33 @@ class MraaImpl {
   ///
   /// @param dev uart_ow context
   /// @return the byte read or -1 for error
-  int mraa_uart_ow_read_byte(
-    mraa_uart_ow_context dev,
-  ) {
-    return _mraa_uart_ow_read_byte(
-      dev,
-    );
+  int mraa_uart_ow_read_byte(mraa_uart_ow_context dev) {
+    return _mraa_uart_ow_read_byte(dev);
   }
 
   late final _mraa_uart_ow_read_bytePtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_uart_ow_context)>>(
-          'mraa_uart_ow_read_byte');
-  late final _mraa_uart_ow_read_byte = _mraa_uart_ow_read_bytePtr
-      .asFunction<int Function(mraa_uart_ow_context)>();
+        'mraa_uart_ow_read_byte',
+      );
+  late final _mraa_uart_ow_read_byte =
+      _mraa_uart_ow_read_bytePtr
+          .asFunction<int Function(mraa_uart_ow_context)>();
 
   /// Write a byte to a 1-wire bus
   ///
   /// @param dev uart_ow context
   /// @param byte the byte to write to the bus
   /// @return the byte read back during the time slot or -1 for error
-  int mraa_uart_ow_write_byte(
-    mraa_uart_ow_context dev,
-    int byte,
-  ) {
-    return _mraa_uart_ow_write_byte(
-      dev,
-      byte,
-    );
+  int mraa_uart_ow_write_byte(mraa_uart_ow_context dev, int byte) {
+    return _mraa_uart_ow_write_byte(dev, byte);
   }
 
   late final _mraa_uart_ow_write_bytePtr = _lookup<
-          ffi
-          .NativeFunction<ffi.Int Function(mraa_uart_ow_context, ffi.Uint8)>>(
-      'mraa_uart_ow_write_byte');
-  late final _mraa_uart_ow_write_byte = _mraa_uart_ow_write_bytePtr
-      .asFunction<int Function(mraa_uart_ow_context, int)>();
+    ffi.NativeFunction<ffi.Int Function(mraa_uart_ow_context, ffi.Uint8)>
+  >('mraa_uart_ow_write_byte');
+  late final _mraa_uart_ow_write_byte =
+      _mraa_uart_ow_write_bytePtr
+          .asFunction<int Function(mraa_uart_ow_context, int)>();
 
   /// Write a bit to a 1-wire bus and read a bit corresponding to the
   /// time slot back.  This is possible due to the way we wired the TX
@@ -2735,38 +2365,29 @@ class MraaImpl {
   /// @param dev uart_ow context
   /// @param bit the bit to write to the bus
   /// @return the bit read back during the time slot or -1 for error
-  int mraa_uart_ow_bit(
-    mraa_uart_ow_context dev,
-    int bit,
-  ) {
-    return _mraa_uart_ow_bit(
-      dev,
-      bit,
-    );
+  int mraa_uart_ow_bit(mraa_uart_ow_context dev, int bit) {
+    return _mraa_uart_ow_bit(dev, bit);
   }
 
   late final _mraa_uart_ow_bitPtr = _lookup<
-          ffi
-          .NativeFunction<ffi.Int Function(mraa_uart_ow_context, ffi.Uint8)>>(
-      'mraa_uart_ow_bit');
-  late final _mraa_uart_ow_bit = _mraa_uart_ow_bitPtr
-      .asFunction<int Function(mraa_uart_ow_context, int)>();
+    ffi.NativeFunction<ffi.Int Function(mraa_uart_ow_context, ffi.Uint8)>
+  >('mraa_uart_ow_bit');
+  late final _mraa_uart_ow_bit =
+      _mraa_uart_ow_bitPtr
+          .asFunction<int Function(mraa_uart_ow_context, int)>();
 
   /// Send a reset pulse to the 1-wire bus and test for device presence
   ///
   /// @param dev uart_ow context
   /// @return one of the mraa_result_t values
-  int mraa_uart_ow_reset(
-    mraa_uart_ow_context dev,
-  ) {
-    return _mraa_uart_ow_reset(
-      dev,
-    );
+  int mraa_uart_ow_reset(mraa_uart_ow_context dev) {
+    return _mraa_uart_ow_reset(dev);
   }
 
   late final _mraa_uart_ow_resetPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_uart_ow_context)>>(
-          'mraa_uart_ow_reset');
+        'mraa_uart_ow_reset',
+      );
   late final _mraa_uart_ow_reset =
       _mraa_uart_ow_resetPtr.asFunction<int Function(mraa_uart_ow_context)>();
 
@@ -2786,19 +2407,23 @@ class MraaImpl {
     int start,
     ffi.Pointer<ffi.Uint8> id,
   ) {
-    return _mraa_uart_ow_rom_search(
-      dev,
-      start,
-      id,
-    );
+    return _mraa_uart_ow_rom_search(dev, start, id);
   }
 
   late final _mraa_uart_ow_rom_searchPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_uart_ow_context, mraa_boolean_t,
-              ffi.Pointer<ffi.Uint8>)>>('mraa_uart_ow_rom_search');
-  late final _mraa_uart_ow_rom_search = _mraa_uart_ow_rom_searchPtr.asFunction<
-      int Function(mraa_uart_ow_context, int, ffi.Pointer<ffi.Uint8>)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(
+        mraa_uart_ow_context,
+        mraa_boolean_t,
+        ffi.Pointer<ffi.Uint8>,
+      )
+    >
+  >('mraa_uart_ow_rom_search');
+  late final _mraa_uart_ow_rom_search =
+      _mraa_uart_ow_rom_searchPtr
+          .asFunction<
+            int Function(mraa_uart_ow_context, int, ffi.Pointer<ffi.Uint8>)
+          >();
 
   /// Send a command byte to a device on the 1-wire bus
   ///
@@ -2812,57 +2437,52 @@ class MraaImpl {
     int command,
     ffi.Pointer<ffi.Uint8> id,
   ) {
-    return _mraa_uart_ow_command(
-      dev,
-      command,
-      id,
-    );
+    return _mraa_uart_ow_command(dev, command, id);
   }
 
   late final _mraa_uart_ow_commandPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_uart_ow_context, ffi.Uint8,
-              ffi.Pointer<ffi.Uint8>)>>('mraa_uart_ow_command');
-  late final _mraa_uart_ow_command = _mraa_uart_ow_commandPtr.asFunction<
-      int Function(mraa_uart_ow_context, int, ffi.Pointer<ffi.Uint8>)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(
+        mraa_uart_ow_context,
+        ffi.Uint8,
+        ffi.Pointer<ffi.Uint8>,
+      )
+    >
+  >('mraa_uart_ow_command');
+  late final _mraa_uart_ow_command =
+      _mraa_uart_ow_commandPtr
+          .asFunction<
+            int Function(mraa_uart_ow_context, int, ffi.Pointer<ffi.Uint8>)
+          >();
 
   /// Perform a Dallas 1-wire compliant CRC8 computation on a buffer
   ///
   /// @param buffer the buffer containing the data
   /// @param length the length of the buffer
   /// @return the computed CRC
-  int mraa_uart_ow_crc8(
-    ffi.Pointer<ffi.Uint8> buffer,
-    int length,
-  ) {
-    return _mraa_uart_ow_crc8(
-      buffer,
-      length,
-    );
+  int mraa_uart_ow_crc8(ffi.Pointer<ffi.Uint8> buffer, int length) {
+    return _mraa_uart_ow_crc8(buffer, length);
   }
 
   late final _mraa_uart_ow_crc8Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Uint8 Function(
-              ffi.Pointer<ffi.Uint8>, ffi.Uint16)>>('mraa_uart_ow_crc8');
-  late final _mraa_uart_ow_crc8 = _mraa_uart_ow_crc8Ptr
-      .asFunction<int Function(ffi.Pointer<ffi.Uint8>, int)>();
+    ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Uint8>, ffi.Uint16)>
+  >('mraa_uart_ow_crc8');
+  late final _mraa_uart_ow_crc8 =
+      _mraa_uart_ow_crc8Ptr
+          .asFunction<int Function(ffi.Pointer<ffi.Uint8>, int)>();
 
   /// Initialise led_context, based on led index.
   ///
   /// @param led ID of the LED
   /// @returns LED context or NULL
-  mraa_led_context mraa_led_init(
-    int led,
-  ) {
-    return _mraa_led_init(
-      led,
-    );
+  mraa_led_context mraa_led_init(int led) {
+    return _mraa_led_init(led);
   }
 
   late final _mraa_led_initPtr =
       _lookup<ffi.NativeFunction<mraa_led_context Function(ffi.Int)>>(
-          'mraa_led_init');
+        'mraa_led_init',
+      );
   late final _mraa_led_init =
       _mraa_led_initPtr.asFunction<mraa_led_context Function(int)>();
 
@@ -2873,56 +2493,45 @@ class MraaImpl {
   ///
   /// @param led_dev Name of the LED device
   /// @returns LED context or NULL
-  mraa_led_context mraa_led_init_raw(
-    ffi.Pointer<ffi.Char> led_dev,
-  ) {
-    return _mraa_led_init_raw(
-      led_dev,
-    );
+  mraa_led_context mraa_led_init_raw(ffi.Pointer<ffi.Char> led_dev) {
+    return _mraa_led_init_raw(led_dev);
   }
 
   late final _mraa_led_init_rawPtr = _lookup<
-          ffi.NativeFunction<mraa_led_context Function(ffi.Pointer<ffi.Char>)>>(
-      'mraa_led_init_raw');
-  late final _mraa_led_init_raw = _mraa_led_init_rawPtr
-      .asFunction<mraa_led_context Function(ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<mraa_led_context Function(ffi.Pointer<ffi.Char>)>
+  >('mraa_led_init_raw');
+  late final _mraa_led_init_raw =
+      _mraa_led_init_rawPtr
+          .asFunction<mraa_led_context Function(ffi.Pointer<ffi.Char>)>();
 
   /// Set LED brightness
   ///
   /// @param dev LED context
   /// @param value Integer value to write
   /// @returns Result of operation
-  int mraa_led_set_brightness(
-    mraa_led_context dev,
-    int value,
-  ) {
-    return _mraa_led_set_brightness(
-      dev,
-      value,
-    );
+  int mraa_led_set_brightness(mraa_led_context dev, int value) {
+    return _mraa_led_set_brightness(dev, value);
   }
 
   late final _mraa_led_set_brightnessPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(mraa_led_context, ffi.Int)>>(
-      'mraa_led_set_brightness');
-  late final _mraa_led_set_brightness = _mraa_led_set_brightnessPtr
-      .asFunction<int Function(mraa_led_context, int)>();
+    ffi.NativeFunction<ffi.Int32 Function(mraa_led_context, ffi.Int)>
+  >('mraa_led_set_brightness');
+  late final _mraa_led_set_brightness =
+      _mraa_led_set_brightnessPtr
+          .asFunction<int Function(mraa_led_context, int)>();
 
   /// Read LED brightness
   ///
   /// @param dev LED context
   /// @returns Brightness value
-  int mraa_led_read_brightness(
-    mraa_led_context dev,
-  ) {
-    return _mraa_led_read_brightness(
-      dev,
-    );
+  int mraa_led_read_brightness(mraa_led_context dev) {
+    return _mraa_led_read_brightness(dev);
   }
 
   late final _mraa_led_read_brightnessPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_led_context)>>(
-          'mraa_led_read_brightness');
+        'mraa_led_read_brightness',
+      );
   late final _mraa_led_read_brightness =
       _mraa_led_read_brightnessPtr.asFunction<int Function(mraa_led_context)>();
 
@@ -2930,19 +2539,17 @@ class MraaImpl {
   ///
   /// @param dev LED context
   /// @returns Maximum brightness value
-  int mraa_led_read_max_brightness(
-    mraa_led_context dev,
-  ) {
-    return _mraa_led_read_max_brightness(
-      dev,
-    );
+  int mraa_led_read_max_brightness(mraa_led_context dev) {
+    return _mraa_led_read_max_brightness(dev);
   }
 
   late final _mraa_led_read_max_brightnessPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(mraa_led_context)>>(
-          'mraa_led_read_max_brightness');
-  late final _mraa_led_read_max_brightness = _mraa_led_read_max_brightnessPtr
-      .asFunction<int Function(mraa_led_context)>();
+        'mraa_led_read_max_brightness',
+      );
+  late final _mraa_led_read_max_brightness =
+      _mraa_led_read_max_brightnessPtr
+          .asFunction<int Function(mraa_led_context)>();
 
   /// Set LED trigger
   ///
@@ -2953,34 +2560,30 @@ class MraaImpl {
     mraa_led_context dev,
     ffi.Pointer<ffi.Char> trigger,
   ) {
-    return _mraa_led_set_trigger(
-      dev,
-      trigger,
-    );
+    return _mraa_led_set_trigger(dev, trigger);
   }
 
   late final _mraa_led_set_triggerPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(mraa_led_context,
-              ffi.Pointer<ffi.Char>)>>('mraa_led_set_trigger');
-  late final _mraa_led_set_trigger = _mraa_led_set_triggerPtr
-      .asFunction<int Function(mraa_led_context, ffi.Pointer<ffi.Char>)>();
+    ffi.NativeFunction<
+      ffi.Int32 Function(mraa_led_context, ffi.Pointer<ffi.Char>)
+    >
+  >('mraa_led_set_trigger');
+  late final _mraa_led_set_trigger =
+      _mraa_led_set_triggerPtr
+          .asFunction<int Function(mraa_led_context, ffi.Pointer<ffi.Char>)>();
 
   /// Clear active LED trigger
   ///
   /// @param dev LED context
   /// @returns Result of operation
-  int mraa_led_clear_trigger(
-    mraa_led_context dev,
-  ) {
-    return _mraa_led_clear_trigger(
-      dev,
-    );
+  int mraa_led_clear_trigger(mraa_led_context dev) {
+    return _mraa_led_clear_trigger(dev);
   }
 
   late final _mraa_led_clear_triggerPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_led_context)>>(
-          'mraa_led_clear_trigger');
+        'mraa_led_clear_trigger',
+      );
   late final _mraa_led_clear_trigger =
       _mraa_led_clear_triggerPtr.asFunction<int Function(mraa_led_context)>();
 
@@ -2988,17 +2591,14 @@ class MraaImpl {
   ///
   /// @param dev LED context
   /// @returns Result of operation
-  int mraa_led_close(
-    mraa_led_context dev,
-  ) {
-    return _mraa_led_close(
-      dev,
-    );
+  int mraa_led_close(mraa_led_context dev) {
+    return _mraa_led_close(dev);
   }
 
   late final _mraa_led_closePtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function(mraa_led_context)>>(
-          'mraa_led_close');
+        'mraa_led_close',
+      );
   late final _mraa_led_close =
       _mraa_led_closePtr.asFunction<int Function(mraa_led_context)>();
 }

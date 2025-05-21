@@ -8,15 +8,15 @@ funding:
  - https://www.darticulate.com/#funding
 
 environment:
- sdk: '>=3.0.0  <4.0.0'
+ sdk: '>=3.7.0  <4.0.0'
 
 dependencies:
- ffi: '^2.0.2'
- path: '^1.8.3'
+ ffi: '^2.1.4'
+ path: '^1.9.1'
 
 dev_dependencies:
- test: '^1.25.0'
- lints: '^3.0.0'
- ffigen: '^10.0.0'
+ test: '^1.26.1'
+ lints: '^6.0.0'
+ ffigen: '^19.0.0'
  
 

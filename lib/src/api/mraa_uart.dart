@@ -61,10 +61,14 @@ class MraaUart {
   /// Set the transfer mode.
   /// For example setting the mode to 8N1 would be
   /// mode(context, 8,MraaUartParity,none , 1)
-  MraaReturnCode mode(MraaUartContext dev, int byteSize, MraaUartParity parity,
-          int stopBits) =>
-      MraaReturnCode.returnCode(
-          _impl.mraa_uart_set_mode(dev, byteSize, parity.code, stopBits));
+  MraaReturnCode mode(
+    MraaUartContext dev,
+    int byteSize,
+    MraaUartParity parity,
+    int stopBits,
+  ) => MraaReturnCode.returnCode(
+    _impl.mraa_uart_set_mode(dev, byteSize, parity.code, stopBits),
+  );
 
   /// Flow control - mraa_uart_set_flowcontrol
   ///
@@ -75,7 +79,8 @@ class MraaUart {
     final xon = xonXoff ? 1 : 0;
     final rts = rtsCts ? 1 : 0;
     return MraaReturnCode.returnCode(
-        _impl.mraa_uart_set_flowcontrol(dev, xon, rts));
+      _impl.mraa_uart_set_flowcontrol(dev, xon, rts),
+    );
   }
 
   /// Timeout - mraa_uart_set_timeout
@@ -83,9 +88,13 @@ class MraaUart {
   /// Set the timeout for read and write operations <= 0 will
   /// disable the timeout.
   MraaReturnCode timeout(
-          MraaUartContext dev, int read, int write, int interChar) =>
-      MraaReturnCode.returnCode(
-          _impl.mraa_uart_set_timeout(dev, read, write, interChar));
+    MraaUartContext dev,
+    int read,
+    int write,
+    int interChar,
+  ) => MraaReturnCode.returnCode(
+    _impl.mraa_uart_set_timeout(dev, read, write, interChar),
+  );
 
   /// Non blocking - mraa_uart_set_non_blocking
   ///
@@ -93,7 +102,8 @@ class MraaUart {
   MraaReturnCode nonBlocking(MraaUartContext dev, bool nonBlock) {
     final block = nonBlock ? 1 : 0;
     return MraaReturnCode.returnCode(
-        _impl.mraa_uart_set_non_blocking(dev, block));
+      _impl.mraa_uart_set_non_blocking(dev, block),
+    );
   }
 
   /// Device path - mraa_uart_get_dev_path
@@ -112,8 +122,17 @@ class MraaUart {
       return '';
     }
     final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(1024);
-    final ret = _impl.mraa_uart_settings(index, ptrDevicePath, nullptr, nullptr,
-        nullptr, nullptr, nullptr, nullptr, nullptr);
+    final ret = _impl.mraa_uart_settings(
+      index,
+      ptrDevicePath,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+    );
 
     // If not success return null
     if (MraaReturnCode.returnCode(ret) != MraaReturnCode.success) {
@@ -163,15 +182,16 @@ class MraaUart {
 
     // Get the settings
     final ret = _impl.mraa_uart_settings(
-        index,
-        ptrDevicePath,
-        ptrName,
-        ptrBaudrate,
-        ptrDataBits,
-        ptrStopBits,
-        ptrParity,
-        ptrRtsCts,
-        ptrXonXoff);
+      index,
+      ptrDevicePath,
+      ptrName,
+      ptrBaudrate,
+      ptrDataBits,
+      ptrStopBits,
+      ptrParity,
+      ptrRtsCts,
+      ptrXonXoff,
+    );
 
     // If not success just return the status
     if (MraaReturnCode.returnCode(ret) != MraaReturnCode.success) {

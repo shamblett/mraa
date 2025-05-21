@@ -58,8 +58,12 @@ class MraaLed {
   ///
   /// Set LED trigger to the trigger name supplied.
   MraaReturnCode setTrigger(MraaLedContext dev, String triggerName) =>
-      MraaReturnCode.returnCode(_impl.mraa_led_set_trigger(
-          dev, triggerName.toNativeUtf8().cast<Char>()));
+      MraaReturnCode.returnCode(
+        _impl.mraa_led_set_trigger(
+          dev,
+          triggerName.toNativeUtf8().cast<Char>(),
+        ),
+      );
 
   /// Clear trigger - mraa_led_clear_trigger
   ///
