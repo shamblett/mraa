@@ -14,7 +14,6 @@ part of '../../mraa.dart';
 /// kernel module through sysfs), or memory mapped IO via
 /// a /dev/uio device or /dev/mem depending again depending on the board configuration.
 class MraaGpio {
-
   /// Read multi unspecified return code.
   static const readMultiUnspecified = 99;
 
