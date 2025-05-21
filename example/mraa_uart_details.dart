@@ -18,8 +18,10 @@ int main() {
   print('Initialising MRAA');
   final ret = mraa.common.initialise();
   if (ret != MraaReturnCode.success) {
-    print('Failed to initialise MRAA, return code is '
-        '$ret)');
+    print(
+      'Failed to initialise MRAA, return code is '
+      '$ret)',
+    );
   }
 
   print('Getting platform name');

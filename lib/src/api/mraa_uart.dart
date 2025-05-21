@@ -13,14 +13,17 @@ part of '../../mraa.dart';
 /// It allows the exposure of UART pins on supported boards
 /// with functionality to expand at a later date.
 class MraaUart {
-  /// Construction
-  MraaUart(this._impl, this._noJsonLoading);
+  static const maxDevicePathLength = 1024;
+  static const maxNameLength = 255;
 
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  /// Construction
+  MraaUart(this._impl, this._noJsonLoading);
 
   /// Initialise - mraa_uart_init
   ///
@@ -61,21 +64,26 @@ class MraaUart {
   /// Set the transfer mode.
   /// For example setting the mode to 8N1 would be
   /// mode(context, 8,MraaUartParity,none , 1)
-  MraaReturnCode mode(MraaUartContext dev, int byteSize, MraaUartParity parity,
-          int stopBits) =>
-      MraaReturnCode.returnCode(
-          _impl.mraa_uart_set_mode(dev, byteSize, parity.code, stopBits));
+  MraaReturnCode mode(
+    MraaUartContext dev,
+    int byteSize,
+    MraaUartParity parity,
+    int stopBits,
+  ) => MraaReturnCode.returnCode(
+    _impl.mraa_uart_set_mode(dev, byteSize, parity.code, stopBits),
+  );
 
-  /// Flow control - mraa_uart_set_flowcontrol
+  /// Flow control - mraa_uart_set_flow control
   ///
-  /// Set the flowcontrol
+  /// Set the flow control
   /// XON/XOFF is software flow control.
   /// RTS/CTS is out of band hardware flow control
   MraaReturnCode flowControl(MraaUartContext dev, bool xonXoff, bool rtsCts) {
     final xon = xonXoff ? 1 : 0;
     final rts = rtsCts ? 1 : 0;
     return MraaReturnCode.returnCode(
-        _impl.mraa_uart_set_flowcontrol(dev, xon, rts));
+      _impl.mraa_uart_set_flowcontrol(dev, xon, rts),
+    );
   }
 
   /// Timeout - mraa_uart_set_timeout
@@ -83,9 +91,13 @@ class MraaUart {
   /// Set the timeout for read and write operations <= 0 will
   /// disable the timeout.
   MraaReturnCode timeout(
-          MraaUartContext dev, int read, int write, int interChar) =>
-      MraaReturnCode.returnCode(
-          _impl.mraa_uart_set_timeout(dev, read, write, interChar));
+    MraaUartContext dev,
+    int read,
+    int write,
+    int interChar,
+  ) => MraaReturnCode.returnCode(
+    _impl.mraa_uart_set_timeout(dev, read, write, interChar),
+  );
 
   /// Non blocking - mraa_uart_set_non_blocking
   ///
@@ -93,7 +105,8 @@ class MraaUart {
   MraaReturnCode nonBlocking(MraaUartContext dev, bool nonBlock) {
     final block = nonBlock ? 1 : 0;
     return MraaReturnCode.returnCode(
-        _impl.mraa_uart_set_non_blocking(dev, block));
+      _impl.mraa_uart_set_non_blocking(dev, block),
+    );
   }
 
   /// Device path - mraa_uart_get_dev_path
@@ -111,9 +124,20 @@ class MraaUart {
     if (index < 0) {
       return '';
     }
-    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(1024);
-    final ret = _impl.mraa_uart_settings(index, ptrDevicePath, nullptr, nullptr,
-        nullptr, nullptr, nullptr, nullptr, nullptr);
+    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(
+      maxDevicePathLength,
+    );
+    final ret = _impl.mraa_uart_settings(
+      index,
+      ptrDevicePath,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+      nullptr,
+    );
 
     // If not success return null
     if (MraaReturnCode.returnCode(ret) != MraaReturnCode.success) {
@@ -149,11 +173,13 @@ class MraaUart {
     }
 
     // Construct the parameter list
-    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(255);
+    final ptrDevicePath = ffi.calloc.allocate<Pointer<Char>>(
+      maxDevicePathLength,
+    );
     if (index < 0) {
       ptrDevicePath.value = settings.devicePath.toNativeUtf8().cast<Char>();
     }
-    final ptrName = ffi.calloc.allocate<Pointer<Char>>(255);
+    final ptrName = ffi.calloc.allocate<Pointer<Char>>(maxNameLength);
     final ptrBaudrate = ffi.calloc.allocate<Int>(1);
     final ptrDataBits = ffi.calloc.allocate<Int>(1);
     final ptrStopBits = ffi.calloc.allocate<Int>(1);
@@ -163,15 +189,16 @@ class MraaUart {
 
     // Get the settings
     final ret = _impl.mraa_uart_settings(
-        index,
-        ptrDevicePath,
-        ptrName,
-        ptrBaudrate,
-        ptrDataBits,
-        ptrStopBits,
-        ptrParity,
-        ptrRtsCts,
-        ptrXonXoff);
+      index,
+      ptrDevicePath,
+      ptrName,
+      ptrBaudrate,
+      ptrDataBits,
+      ptrStopBits,
+      ptrParity,
+      ptrRtsCts,
+      ptrXonXoff,
+    );
 
     // If not success just return the status
     if (MraaReturnCode.returnCode(ret) != MraaReturnCode.success) {

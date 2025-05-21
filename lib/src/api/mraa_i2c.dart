@@ -15,14 +15,14 @@ part of '../../mraa.dart';
 /// before doing any calls on I2C, in case another application changed the
 /// address on that bus. Multiple instances of the same bus can exist.
 class MraaI2c {
-  /// Construction
-  MraaI2c(this._impl, this._noJsonLoading);
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
   // ignore: unused_field
   final bool _noJsonLoading;
+
+  /// Construction
+  MraaI2c(this._impl, this._noJsonLoading);
 
   /// Initialise - mraa_i2c_init
   ///
@@ -75,16 +75,21 @@ class MraaI2c {
   ///
   /// Bulk read from an I2C context, starting from the designated register
   /// Returns the length in bytes passed to the function or [Mraa.generalError]
-  int readBytesData(MraaI2cContext context, int command, Pointer<Uint8> data,
-          int length) =>
-      _impl.mraa_i2c_read_bytes_data(context, command, data, length);
+  int readBytesData(
+    MraaI2cContext context,
+    int command,
+    Pointer<Uint8> data,
+    int length,
+  ) => _impl.mraa_i2c_read_bytes_data(context, command, data, length);
 
   /// Write - mraa_i2c_write
   ///
   /// Write length bytes to the bus, the first byte in the array is the command/register to write.
   MraaReturnCode write(
-          MraaI2cContext context, Pointer<Uint8> data, int length) =>
-      MraaReturnCode.returnCode(_impl.mraa_i2c_write(context, data, length));
+    MraaI2cContext context,
+    Pointer<Uint8> data,
+    int length,
+  ) => MraaReturnCode.returnCode(_impl.mraa_i2c_write(context, data, length));
 
   /// Write byte - mraa_i2c_write_byte
   ///
@@ -97,14 +102,16 @@ class MraaI2c {
   /// Write a single byte to an i2c context
   MraaReturnCode writeByteData(MraaI2cContext context, int data, int command) =>
       MraaReturnCode.returnCode(
-          _impl.mraa_i2c_write_byte_data(context, data, command));
+        _impl.mraa_i2c_write_byte_data(context, data, command),
+      );
 
   /// Write word data - mraa_write_byte_data
   ///
   /// Write a single word to an I2C context
   MraaReturnCode writeWordData(MraaI2cContext context, int data, int command) =>
       MraaReturnCode.returnCode(
-          _impl.mraa_i2c_write_byte_data(context, data, command));
+        _impl.mraa_i2c_write_byte_data(context, data, command),
+      );
 
   /// Address - mraa_i2c_address
   ///

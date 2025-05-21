@@ -14,13 +14,8 @@ part of '../../mraa.dart';
 /// kernel module through sysfs), or memory mapped IO via
 /// a /dev/uio device or /dev/mem depending again depending on the board configuration.
 class MraaGpio {
-  /// Construction
-  MraaGpio(this._impl, this._noJsonLoading, this._useGrovePi) {
-    // Set up the pin offset for grove pi usage.
-    if (_useGrovePi) {
-      _grovePiPinOffset = Mraa.grovePiPinOffset;
-    }
-  }
+  /// Read multi unspecified return code.
+  static const readMultiUnspecified = 99;
 
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
@@ -35,6 +30,14 @@ class MraaGpio {
 
   int _initialiseMultiPinCount = 0;
 
+  /// Construction
+  MraaGpio(this._impl, this._noJsonLoading, this._useGrovePi) {
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
+  }
+
   /// Initialise - mraa_gpio_init
   ///
   /// Initialise a [MraaGpioContext] based on pin number
@@ -45,7 +48,9 @@ class MraaGpio {
   ///
   /// Set the GPIO direction
   MraaReturnCode direction(
-          MraaGpioContext context, MraaGpioDirection direction) =>
+    MraaGpioContext context,
+    MraaGpioDirection direction,
+  ) =>
       MraaReturnCode.returnCode(_impl.mraa_gpio_dir(context, (direction.code)));
 
   /// Read - mraa_gpio_read
@@ -118,7 +123,9 @@ class MraaGpio {
   ///
   /// Read the GPIO's direction.
   MraaReturnCode readDirection(
-      MraaGpioContext dev, MraaGpioDirectionRead gpioDirection) {
+    MraaGpioContext dev,
+    MraaGpioDirectionRead gpioDirection,
+  ) {
     final dir = ffi.calloc.allocate<Int32>(1);
     final ret = MraaReturnCode.returnCode(_impl.mraa_gpio_read_dir(dev, dir));
     gpioDirection.direction = MraaGpioDirection.gpioDirections(dir.value);
@@ -138,7 +145,7 @@ class MraaGpio {
   /// Read multi - mraa_gpio_read_multi
   ///
   /// Read the GPIO(s) value. Reads the number of pins provided to
-  /// the initialiseMulti() functionwhich must have been called before using
+  /// the initialiseMulti() function which must have been called before using
   /// this method.
   MraaReturnCode readMulti(MraaGpioContext dev, MraaGpioMultiRead values) {
     if (_initialiseMultiPinCount == 0) {
@@ -147,7 +154,7 @@ class MraaGpio {
     final rawValues = ffi.calloc.allocate<Int32>(_initialiseMultiPinCount);
     var intRet = _impl.mraa_gpio_read_multi(dev, rawValues.cast<Int>());
     if (intRet == Mraa.generalError) {
-      intRet = 99; // unspecified
+      intRet = readMultiUnspecified; // unspecified
     }
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     values.values = List<int>.from(typedValues);
@@ -178,7 +185,8 @@ class MraaGpio {
     final typedValues = rawValues.asTypedList(_initialiseMultiPinCount);
     typedValues.setAll(0, values);
     return MraaReturnCode.returnCode(
-        _impl.mraa_gpio_write_multi(dev, rawValues.cast<Int>()));
+      _impl.mraa_gpio_write_multi(dev, rawValues.cast<Int>()),
+    );
   }
 
   /// Owner - mraa_gpio_owner
@@ -215,7 +223,9 @@ class MraaGpio {
   /// This is not a standard feature, it needs a custom implementation
   /// for each board.
   MraaReturnCode outputDriverMode(
-          MraaGpioContext dev, MraaGpioOutputDriverMode mode) =>
-      MraaReturnCode.returnCode(
-          _impl.mraa_gpio_out_driver_mode(dev, mode.code));
+    MraaGpioContext dev,
+    MraaGpioOutputDriverMode mode,
+  ) => MraaReturnCode.returnCode(
+    _impl.mraa_gpio_out_driver_mode(dev, mode.code),
+  );
 }

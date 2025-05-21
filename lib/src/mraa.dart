@@ -19,29 +19,13 @@ part of '../mraa.dart';
 /// to map their sensors & actuators on top of supported hardware and to allow
 /// control of low level communication protocol using Dart.
 class Mraa {
-  /// Default uses the platform library
-  Mraa() {
-    _impl = mraaimpl.MraaImpl(DynamicLibrary.open('libmraa.so'));
-  }
-
-  /// Specify the library and path
-  Mraa.fromLib(String libPath) {
-    _impl = mraaimpl.MraaImpl(DynamicLibrary.open(libPath));
-  }
-
-  // The MRAA Implementation class
-  late mraaimpl.MraaImpl _impl;
+  static const grovePiShieldMask = -511;
 
   /// AIO read error
   static const int aioReadError = -1;
 
   /// AIO read double error
   static const double aioReadDoubleError = -1;
-
-  /// General common function error
-  static int _generalError = -1;
-  static int get generalError => _generalError;
-  static set generalError(int val) {}
 
   /// Grove PI pin offset value
   static const int grovePiPinOffset = 512;
@@ -50,26 +34,6 @@ class Mraa {
   /// support this, must be set for MRAA API <2.0.0 usage. Set this before
   /// initialising.
   bool noJsonLoading = false;
-
-  /// Use the Grove Pi shield.
-  /// Set this if you are using GPIO/AIO devices on a Raspberry PI through the
-  /// Grove Pi shield. Set this before initialising.
-  bool _useGrovePi = false;
-  bool get useGrovePi => _useGrovePi;
-  set useGrovePi(bool flag) {
-    _generalError = flag ? -511 : -1;
-    _useGrovePi = flag;
-  }
-
-  /// Initialise the package, note this does NOT do an MRAA initialise
-  /// if you need this call it separately. You MUST call this before usage.
-  void initialise() {
-    _setupAPI();
-    // Initialise the sub platform if using Grove Pi
-    if (useGrovePi) {
-      common.addSubplatform(MraaPlatformType.grovepi, '0');
-    }
-  }
 
   /// The common API
   late MraaCommon common;
@@ -94,6 +58,46 @@ class Mraa {
 
   /// The UART API
   late MraaUart uart;
+
+  // The MRAA Implementation class
+  late mraaimpl.MraaImpl _impl;
+
+  static int _generalError = -1;
+
+  bool _useGrovePi = false;
+
+  /// General common function error
+  static int get generalError => _generalError;
+
+  /// Use the Grove Pi shield.
+  /// Set this if you are using GPIO/AIO devices on a Raspberry PI through the
+  /// Grove Pi shield. Set this before initialising.
+  bool get useGrovePi => _useGrovePi;
+
+  set useGrovePi(bool flag) {
+    _generalError = flag ? grovePiShieldMask : -1;
+    _useGrovePi = flag;
+  }
+
+  /// Default uses the platform library
+  Mraa() {
+    _impl = mraaimpl.MraaImpl(DynamicLibrary.open('libmraa.so'));
+  }
+
+  /// Specify the library and path
+  Mraa.fromLib(String libPath) {
+    _impl = mraaimpl.MraaImpl(DynamicLibrary.open(libPath));
+  }
+
+  /// Initialise the package, note this does NOT do an MRAA initialise
+  /// if you need this call it separately. You MUST call this before usage.
+  void initialise() {
+    _setupAPI();
+    // Initialise the sub platform if using Grove Pi
+    if (useGrovePi) {
+      common.addSubplatform(MraaPlatformType.grovepi, '0');
+    }
+  }
 
   void _setupAPI() {
     common = MraaCommon(_impl, noJsonLoading, useGrovePi);

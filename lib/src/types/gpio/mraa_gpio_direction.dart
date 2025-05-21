@@ -33,9 +33,10 @@ enum MraaGpioDirection {
       }
     }
 
-    final ret = byCode.containsKey(direction)
-        ? byCode[direction]
-        : MraaGpioDirection.unknown;
+    final ret =
+        byCode.containsKey(direction)
+            ? byCode[direction]
+            : MraaGpioDirection.unknown;
     return ret!;
   }
 

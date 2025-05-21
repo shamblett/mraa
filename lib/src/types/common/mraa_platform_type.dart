@@ -83,7 +83,8 @@ enum MraaPlatformType {
 
   /// Android Things peripheral manager platform
   androidPeripheralmanager(
-      mraaimpl.mraa_platform_t.MRAA_ANDROID_PERIPHERALMANAGER),
+    mraaimpl.mraa_platform_t.MRAA_ANDROID_PERIPHERALMANAGER,
+  ),
 
   /// Mock platform, which requires no real hardware
   mockPlatform(mraaimpl.mraa_platform_t.MRAA_MOCK_PLATFORM),
@@ -106,9 +107,10 @@ enum MraaPlatformType {
       }
     }
 
-    final ret = byCode.containsKey(type)
-        ? byCode[type]
-        : MraaPlatformType.unknownPlatform;
+    final ret =
+        byCode.containsKey(type)
+            ? byCode[type]
+            : MraaPlatformType.unknownPlatform;
     return ret!;
   }
 
@@ -125,6 +127,10 @@ enum MraaPlatformType {
 /// Get sub platform and main platform from a platform combined
 /// type function call.
 class MraaCombinedTypeDecode {
+  static const mainPlatformMask = 0xFF;
+  static const subPlatformMask = 0xFF00;
+  static const subPlatformShift = 8;
+
   /// Main platform type
   MraaPlatformType mainPlatform = MraaPlatformType.mockPlatform;
 
@@ -135,7 +141,13 @@ class MraaCombinedTypeDecode {
 /// Combined type function decoder
 MraaCombinedTypeDecode decodeCombinedType(int value) {
   final ret = MraaCombinedTypeDecode();
-  ret.mainPlatform = MraaPlatformType.platformTypes(value & 0xFF);
-  ret.subPlatform = MraaPlatformType.platformTypes(value & (0xFF00 << 8));
+  ret.mainPlatform = MraaPlatformType.platformTypes(
+    value & MraaCombinedTypeDecode.mainPlatformMask,
+  );
+  ret.subPlatform = MraaPlatformType.platformTypes(
+    value &
+        (MraaCombinedTypeDecode.subPlatformMask <<
+            MraaCombinedTypeDecode.subPlatformShift),
+  );
   return ret;
 }

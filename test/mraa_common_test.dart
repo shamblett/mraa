@@ -6,6 +6,7 @@
  */
 
 @TestOn('vm && linux')
+library;
 
 import 'package:mraa/mraa.dart';
 import 'package:test/test.dart';
@@ -21,7 +22,8 @@ int main() {
   // Setup
   final helper = MraaPlatformHelper();
   print(
-      'Common - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+    'Common - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}',
+  );
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 
@@ -223,8 +225,10 @@ int main() {
     });
     test('Add subplatform', () {
       mraa.common.initialise();
-      final ret =
-          mraa.common.addSubplatform(MraaPlatformType.a96boards, '"I2C');
+      final ret = mraa.common.addSubplatform(
+        MraaPlatformType.a96boards,
+        '"I2C',
+      );
       expect(ret != MraaReturnCode.success, isTrue);
     });
     test('Remove subplatform', () {

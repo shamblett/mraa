@@ -6,6 +6,7 @@
  */
 
 @TestOn('vm && linux')
+library;
 
 import 'dart:ffi';
 import 'dart:typed_data';
@@ -24,7 +25,8 @@ int main() {
   // Setup
   final helper = MraaPlatformHelper();
   print(
-      'I2C - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+    'I2C - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}',
+  );
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 

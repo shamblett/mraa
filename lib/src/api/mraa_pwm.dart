@@ -14,14 +14,6 @@ part of '../../mraa.dart';
 /// have higher or lower levels of resolution so make sure you
 /// check the board & pin you are using before hand.
 class MraaPwm {
-  /// Construction
-  MraaPwm(this._impl, this._noJsonLoading, this._useGrovePi) {
-    // Set up the pin offset for grove pi usage.
-    if (_useGrovePi) {
-      _grovePiPinOffset = Mraa.grovePiPinOffset;
-    }
-  }
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
@@ -32,6 +24,14 @@ class MraaPwm {
 
   // Pin offset if we are using the grove pi shield.
   int _grovePiPinOffset = 0;
+
+  /// Construction
+  MraaPwm(this._impl, this._noJsonLoading, this._useGrovePi) {
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
+  }
 
   /// Initialise - mraa_pwm_init
   ///
@@ -93,14 +93,16 @@ class MraaPwm {
   /// Set the PWM pulse width  in milliseconds
   MraaReturnCode pulseWidthMs(MraaPwmContext dev, int milliseconds) =>
       MraaReturnCode.returnCode(
-          _impl.mraa_pwm_pulsewidth_ms(dev, milliseconds));
+        _impl.mraa_pwm_pulsewidth_ms(dev, milliseconds),
+      );
 
   /// Pulse width microseconds - mraa_pwm_pulsewidth_us
   ///
   /// Set the PWM pulse width in microseconds
   MraaReturnCode pulseWidthUs(MraaPwmContext dev, int microseconds) =>
       MraaReturnCode.returnCode(
-          _impl.mraa_pwm_pulsewidth_us(dev, microseconds));
+        _impl.mraa_pwm_pulsewidth_us(dev, microseconds),
+      );
 
   /// Enable - mraa_pwm_enable
   ///

@@ -6,6 +6,7 @@
  */
 
 @TestOn('vm && linux')
+library;
 
 import 'dart:typed_data';
 import 'package:mraa/mraa.dart';
@@ -22,7 +23,8 @@ int main() {
   // Setup
   final helper = MraaPlatformHelper();
   print(
-      'UART - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}');
+    'UART - OS is ${helper.osMap['NAME']}, lib path is ${helper.getTestLib()}',
+  );
   final mraa = Mraa.fromLib(helper.getTestLib());
   mraa.initialise();
 

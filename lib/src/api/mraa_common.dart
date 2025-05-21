@@ -11,14 +11,6 @@ part of '../../mraa.dart';
 ///
 /// Defines the basic shared functions and values for MRAA.
 class MraaCommon {
-  /// Construction
-  MraaCommon(this._impl, this._noJsonLoading, this._useGrovePi) {
-    // Set up the pin offset for grove pi usage.
-    if (_useGrovePi) {
-      _grovePiPinOffset = Mraa.grovePiPinOffset;
-    }
-  }
-
   // The MRAA implementation
   final mraaimpl.MraaImpl _impl;
 
@@ -28,6 +20,14 @@ class MraaCommon {
 
   // Pin offset if we are using the grove pi shield.
   int _grovePiPinOffset = 0;
+
+  /// Construction
+  MraaCommon(this._impl, this._noJsonLoading, this._useGrovePi) {
+    // Set up the pin offset for grove pi usage.
+    if (_useGrovePi) {
+      _grovePiPinOffset = Mraa.grovePiPinOffset;
+    }
+  }
 
   /// Version - mraa_get_version
   ///
@@ -87,10 +87,12 @@ class MraaCommon {
   /// Initialise JSON platform - mraa_init_json_platform
   ///
   /// Instantiate an unknown board from a json file
-  MraaReturnCode initialiseJsonPlatform(String path) => _noJsonLoading
-      ? MraaReturnCode.errorFeatureNotSupported
-      : MraaReturnCode.returnCode(
-          _impl.mraa_init_json_platform(path.toNativeUtf8().cast<Char>()));
+  MraaReturnCode initialiseJsonPlatform(String path) =>
+      _noJsonLoading
+          ? MraaReturnCode.errorFeatureNotSupported
+          : MraaReturnCode.returnCode(
+            _impl.mraa_init_json_platform(path.toNativeUtf8().cast<Char>()),
+          );
 
   /// Set the log level - mraa_set_log_level
   ///
@@ -219,10 +221,11 @@ class MraaCommon {
   /// Pin name - mraa_get_pin_name
   ///
   /// Get the name of a pin, the board must be initialised.
-  String pinName(int pinNumber) => _impl
-      .mraa_get_pin_name(pinNumber + _grovePiPinOffset)
-      .cast<ffi.Utf8>()
-      .toDartString();
+  String pinName(int pinNumber) =>
+      _impl
+          .mraa_get_pin_name(pinNumber + _grovePiPinOffset)
+          .cast<ffi.Utf8>()
+          .toDartString();
 
   /// GPIO lookup - mraa_gpio_lookup
   ///
@@ -301,8 +304,12 @@ class MraaCommon {
   /// Parameters are the sub platform type and the device or
   /// I2C bus the sub platform is on.
   MraaReturnCode addSubplatform(MraaPlatformType subplatformType, String dev) =>
-      MraaReturnCode.returnCode(_impl.mraa_add_subplatform(
-          subplatformType.code, dev.toNativeUtf8().cast<Char>()));
+      MraaReturnCode.returnCode(
+        _impl.mraa_add_subplatform(
+          subplatformType.code,
+          dev.toNativeUtf8().cast<Char>(),
+        ),
+      );
 
   /// Remove subplatform - mraa_remove_subplatform
   ///
@@ -311,5 +318,6 @@ class MraaCommon {
   /// I2C bus the sub platform is on.
   MraaReturnCode removeSubplatform(MraaPlatformType subplatformType) =>
       MraaReturnCode.returnCode(
-          _impl.mraa_remove_subplatform(subplatformType.code));
+        _impl.mraa_remove_subplatform(subplatformType.code),
+      );
 }

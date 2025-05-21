@@ -27,9 +27,10 @@ enum MraaGpioOutputDriverMode {
       }
     }
 
-    final ret = byCode.containsKey(mode)
-        ? byCode[mode]
-        : MraaGpioOutputDriverMode.unknown;
+    final ret =
+        byCode.containsKey(mode)
+            ? byCode[mode]
+            : MraaGpioOutputDriverMode.unknown;
     return ret!;
   }
 

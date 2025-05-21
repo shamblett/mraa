@@ -14,15 +14,18 @@ enum MraaReturnCode {
 
   /// < Feature
   errorFeatureNotImplemented(
-      mraaimpl.mraa_result_t.MRAA_ERROR_FEATURE_NOT_IMPLEMENTED),
+    mraaimpl.mraa_result_t.MRAA_ERROR_FEATURE_NOT_IMPLEMENTED,
+  ),
 
   /// < Feature not supported by HW
   errorFeatureNotSupported(
-      mraaimpl.mraa_result_t.MRAA_ERROR_FEATURE_NOT_SUPPORTED),
+    mraaimpl.mraa_result_t.MRAA_ERROR_FEATURE_NOT_SUPPORTED,
+  ),
 
   /// < Verbosity level wrong
   errorInvalidVerbosityLevel(
-      mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_VERBOSITY_LEVEL),
+    mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_VERBOSITY_LEVEL,
+  ),
 
   /// < Parameter invalid
   errorInvalidParameter(mraaimpl.mraa_result_t.MRAA_ERROR_INVALID_PARAMETER),
@@ -47,7 +50,8 @@ enum MraaReturnCode {
 
   /// < Board information not initialised
   errorPlatformNotInitialised(
-      mraaimpl.mraa_result_t.MRAA_ERROR_PLATFORM_NOT_INITIALISED),
+    mraaimpl.mraa_result_t.MRAA_ERROR_PLATFORM_NOT_INITIALISED,
+  ),
 
   /// < UART OW Short Circuit Detected
   errorUartOwShorted(mraaimpl.mraa_result_t.MRAA_ERROR_UART_OW_SHORTED),
@@ -70,9 +74,10 @@ enum MraaReturnCode {
       }
     }
 
-    final ret = byCode.containsKey(retCode)
-        ? byCode[retCode]
-        : MraaReturnCode.errorUnspecified;
+    final ret =
+        byCode.containsKey(retCode)
+            ? byCode[retCode]
+            : MraaReturnCode.errorUnspecified;
     return ret!;
   }
 
