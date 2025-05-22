@@ -1,78 +1,354 @@
-SPDXVersion: SPDX-2.2DataLicense: CC0-1.0SPDXID: SPDXRef-DOCUMENTDocumentName: mraaDocumentNamespace: https://pub.dev/packages/mraaLicenseListVersion: 3.8Creator: Tool: https://pub.dev/packages/sbomCreated: 2023-12-30T13:39:04Z
+SPDXVersion: SPDX-2.2
+DataLicense: CC0-1.0
+SPDXID: SPDXRef-DOCUMENT
+DocumentName: mraa
+DocumentNamespace: https://pub.dev/packages/mraa
+LicenseListVersion: 3.8
+Creator: Tool: https://pub.dev/packages/sbom
+Created: 2025-05-22T09:10:27Z
 
-PackageName: mraaSPDXID: SPDXRef-Package-mraaPackageVersion: 4.0.2PackageFileName: mraaPackageSupplier: NOASSERTIONPackageOriginator: NOASSERTIONPackageDownloadLocation: https://pub.dev/packages/mraaFilesAnalyzed: truePackageVerificationCode: b8d1e54546467f439f3481b87f7b47e9417af7b1PackageHomePage: https://pub.dev/packages/mraaPackageLicenseConcluded: MITPackageLicenseInfoFromFiles: NOASSERTIONPackageLicenseDeclared: NOASSERTIONPackageCopyrightText: NOASSERTIONPackageSummary: <text>A Dart FFI wrapper implementation of the Intel linux MRAA device library</text>
 
-FileName: /lib/mraa.dartSPDXID: SPDXRef-mraa-0FileType: SOURCEFileChecksum: SHA1: 0dd8457bc278a2f70f0a48c6c7ff9a8599f27504LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+PackageName: mraa
+SPDXID: SPDXRef-Package-mraa
+PackageVersion: 4.0.3
+PackageFileName: mraa
+PackageSupplier: NOASSERTION
+PackageOriginator: NOASSERTION
+PackageDownloadLocation: https://pub.dev/packages/mraa
+FilesAnalyzed: true
+PackageVerificationCode: 70e1c8fa2b1881ee46e2235706497f82837fc8e6
+PackageHomePage: https://pub.dev/packages/mraa
+PackageLicenseConcluded: MIT
+PackageLicenseInfoFromFiles: NOASSERTION
+PackageLicenseDeclared: NOASSERTION
+PackageCopyrightText: NOASSERTION
+PackageSummary: <text>A Dart FFI wrapper implementation of the Intel linux MRAA device library</text>
 
-FileName: /lib/src/api/mraa_aio.dartSPDXID: SPDXRef-mraa-aio-1FileType: SOURCEFileChecksum: SHA1: 3302b0825286edee87acee1caa6803380dd4fdfdLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_common.dartSPDXID: SPDXRef-mraa-common-2FileType: SOURCEFileChecksum: SHA1: 643208129e67beaa0e5b900802ebb461abb23f25LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/mraa.dart
+SPDXID: SPDXRef-mraa-0
+FileType: SOURCE
+FileChecksum: SHA1: 1c48ea75e396125c618bf6a499b787700d444890
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_gpio.dartSPDXID: SPDXRef-mraa-gpio-3FileType: SOURCEFileChecksum: SHA1: f608cd72d031556778cd82472685e0f791a0caa1LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_i2c.dartSPDXID: SPDXRef-mraa-i2c-4FileType: SOURCEFileChecksum: SHA1: 6fb0623272b39ade3162e9ca44d46e94ad5087d1LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_aio.dart
+SPDXID: SPDXRef-mraa-aio-1
+FileType: SOURCE
+FileChecksum: SHA1: 7b97e8c4acc11aed9a166ec98c7b070de4e62247
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_led.dartSPDXID: SPDXRef-mraa-led-5FileType: SOURCEFileChecksum: SHA1: 1f7212f5111492bf0dfb292204ea8128c8523fc2LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_pwm.dartSPDXID: SPDXRef-mraa-pwm-6FileType: SOURCEFileChecksum: SHA1: 945c4d364b0feaf41338472595a9e617fc11d164LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_common.dart
+SPDXID: SPDXRef-mraa-common-2
+FileType: SOURCE
+FileChecksum: SHA1: fd52810e4ad1149026cca78fdb67f94d50de769c
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_spi.dartSPDXID: SPDXRef-mraa-spi-7FileType: SOURCEFileChecksum: SHA1: 69055d7bdd84f276e03512c24c50cf4ec5e093ddLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/api/mraa_uart.dartSPDXID: SPDXRef-mraa-uart-8FileType: SOURCEFileChecksum: SHA1: 947701cd76376bd5b89e5e69d39c5332f26430efLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_gpio.dart
+SPDXID: SPDXRef-mraa-gpio-3
+FileType: SOURCE
+FileChecksum: SHA1: e1ef744fd4fbc4b771369a031eaf5b3132f44cf0
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/implementation/mraa_impl.dartSPDXID: SPDXRef-mraa-impl-9FileType: SOURCEFileChecksum: SHA1: c34719bd778ad34ab3d2fba4eed9d78fe4a44587LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/mraa.dartSPDXID: SPDXRef-mraa-10FileType: SOURCEFileChecksum: SHA1: 8f7d8598ea129e3c51ef62353aac3f9e4cd2bac7LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_i2c.dart
+SPDXID: SPDXRef-mraa-i2c-4
+FileType: SOURCE
+FileChecksum: SHA1: bf5719b35b4cd24b33daf98ecadbaa374f076ce6
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/aio/mraa_aio_context.dartSPDXID: SPDXRef-mraa-aio-context-11FileType: SOURCEFileChecksum: SHA1: 67b8653483947b399f8ecc8adf04f3e45c373678LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/common/mraa_pinmode.dartSPDXID: SPDXRef-mraa-pinmode-12FileType: SOURCEFileChecksum: SHA1: 0011ac80102207cab7964bb08837b02fba767150LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_led.dart
+SPDXID: SPDXRef-mraa-led-5
+FileType: SOURCE
+FileChecksum: SHA1: 058591b66ddfb4c25b688825ea23baa58347cf9d
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/common/mraa_platform_type.dartSPDXID: SPDXRef-mraa-platform-type-13FileType: SOURCEFileChecksum: SHA1: 9d2aa7fb58ef5a5731d2e50143ff9018c8f86e12LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_context.dartSPDXID: SPDXRef-mraa-gpio-context-14FileType: SOURCEFileChecksum: SHA1: e6b387665bcb3dfa85edb848a2cfc5b92eb6ac94LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_pwm.dart
+SPDXID: SPDXRef-mraa-pwm-6
+FileType: SOURCE
+FileChecksum: SHA1: 1443b5eca72cbd3ec16621d028adb639012979b4
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_direction.dartSPDXID: SPDXRef-mraa-gpio-direction-15FileType: SOURCEFileChecksum: SHA1: f81bae67dbd5332a86e9ee7e17cb66532b6097b1LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_direction_read.dartSPDXID: SPDXRef-mraa-gpio-direction-read-16FileType: SOURCEFileChecksum: SHA1: 976f229e3005901a31f222d7acd93ef02cfca17bLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_spi.dart
+SPDXID: SPDXRef-mraa-spi-7
+FileType: SOURCE
+FileChecksum: SHA1: 1c4ddb75aa4036e13cd95b6a3215ffc2470de2dd
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_edge.dartSPDXID: SPDXRef-mraa-gpio-edge-17FileType: SOURCEFileChecksum: SHA1: 50954e51decd2757d9ad63438001b512ab221ca0LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_event.dartSPDXID: SPDXRef-mraa-gpio-event-18FileType: SOURCEFileChecksum: SHA1: 80f6674e5840da5a5157bbc91f164a8b7c7d5b8eLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/api/mraa_uart.dart
+SPDXID: SPDXRef-mraa-uart-8
+FileType: SOURCE
+FileChecksum: SHA1: 947701cd76376bd5b89e5e69d39c5332f26430ef
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_input_mode.dartSPDXID: SPDXRef-mraa-gpio-input-mode-19FileType: SOURCEFileChecksum: SHA1: c8509c3e90ba4239fb5133e02c28be67c5e44e41LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_multi_read.dartSPDXID: SPDXRef-mraa-gpio-multi-read-20FileType: SOURCEFileChecksum: SHA1: 7717c41c687bb3454416bd863b128ec0d901b39dLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/implementation/mraa_impl.dart
+SPDXID: SPDXRef-mraa-impl-9
+FileType: SOURCE
+FileChecksum: SHA1: c34719bd778ad34ab3d2fba4eed9d78fe4a44587
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_output_driver_mode.dartSPDXID: SPDXRef-mraa-gpio-output-driver-mode-21FileType: SOURCEFileChecksum: SHA1: c60e760ceff7a35156d3151e585df1b58ec77ae6LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/gpio/mraa_gpio_output_mode.dartSPDXID: SPDXRef-mraa-gpio-output-mode-22FileType: SOURCEFileChecksum: SHA1: 10903fe673f8e2d8bef067ee7cae56e7509cc758LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/mraa.dart
+SPDXID: SPDXRef-mraa-10
+FileType: SOURCE
+FileChecksum: SHA1: c9b8f73b8bcf07096db7c93883df568d64c03d91
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/i2c/mraa_i2c_context.dartSPDXID: SPDXRef-mraa-i2c-context-23FileType: SOURCEFileChecksum: SHA1: 0b7118e9335d8aa1a201ad7480c7ad4020dd9582LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/i2c/mraa_i2c_mode.dartSPDXID: SPDXRef-mraa-i2c-mode-24FileType: SOURCEFileChecksum: SHA1: 3f183b560d7bceee346ac700c70543fda06dfccfLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/types/aio/mraa_aio_context.dart
+SPDXID: SPDXRef-mraa-aio-context-11
+FileType: SOURCE
+FileChecksum: SHA1: 67b8653483947b399f8ecc8adf04f3e45c373678
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/led/mraa_led_context.dartSPDXID: SPDXRef-mraa-led-context-25FileType: SOURCEFileChecksum: SHA1: 31f55913bd9b41893168a3193a5b8565417af41fLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/mraa_return_code.dartSPDXID: SPDXRef-mraa-return-code-26FileType: SOURCEFileChecksum: SHA1: ac24f6b3952ff762887edf39b4904fa3036178efLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/types/common/mraa_pinmode.dart
+SPDXID: SPDXRef-mraa-pinmode-12
+FileType: SOURCE
+FileChecksum: SHA1: 9d2aa7fb58ef5a5731d2e50143ff9018c8f86e12
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/pwm/mraa_pwm_context.dartSPDXID: SPDXRef-mraa-pwm-context-27FileType: SOURCEFileChecksum: SHA1: d09a4c37f4bdae28c910b47504194e1596da6f08LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/spi/mraa_spi_context.dartSPDXID: SPDXRef-mraa-spi-context-28FileType: SOURCEFileChecksum: SHA1: bb847c0f6746ee597f3d82268341b3ce48558091LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/types/common/mraa_platform_type.dart
+SPDXID: SPDXRef-mraa-platform-type-13
+FileType: SOURCE
+FileChecksum: SHA1: e6b387665bcb3dfa85edb848a2cfc5b92eb6ac94
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/spi/mraa_spi_mode.dartSPDXID: SPDXRef-mraa-spi-mode-29FileType: SOURCEFileChecksum: SHA1: 2844de107e1cf3c2040b357dd5ad2f499513b1cfLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/spi/mraa_spi_transfer_buffer.dartSPDXID: SPDXRef-mraa-spi-transfer-buffer-30FileType: SOURCEFileChecksum: SHA1: aef83e4053d6601ecf6d55db5bb64ff1445fe456LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/types/gpio/mraa_gpio_context.dart
+SPDXID: SPDXRef-mraa-gpio-context-14
+FileType: SOURCE
+FileChecksum: SHA1: f81bae67dbd5332a86e9ee7e17cb66532b6097b1
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/uart/mraa_uart_buffer.dartSPDXID: SPDXRef-mraa-uart-buffer-31FileType: SOURCEFileChecksum: SHA1: cbe9ec9e1f39d9ff8c6da653c737197d2d5fdba0LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/uart/mraa_uart_context.dartSPDXID: SPDXRef-mraa-uart-context-32FileType: SOURCEFileChecksum: SHA1: d7e1eb88306a64d06253efc97bce08721231ecfeLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/types/gpio/mraa_gpio_direction.dart
+SPDXID: SPDXRef-mraa-gpio-direction-15
+FileType: SOURCE
+FileChecksum: SHA1: 976f229e3005901a31f222d7acd93ef02cfca17b
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/uart/mraa_uart_parity.dartSPDXID: SPDXRef-mraa-uart-parity-33FileType: SOURCEFileChecksum: SHA1: 467e5cb10c541cf230b663050c8bb1b24b4f5e6fLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
 
-FileName: /lib/src/types/uart/mraa_uart_settings.dartSPDXID: SPDXRef-mraa-uart-settings-34FileType: SOURCEFileChecksum: SHA1: ec98de1f9587bc991d40e59d908e5a33417cad92LicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+FileName: lib/src/types/gpio/mraa_gpio_direction_read.dart
+SPDXID: SPDXRef-mraa-gpio-direction-read-16
+FileType: SOURCE
+FileChecksum: SHA1: 50954e51decd2757d9ad63438001b512ab221ca0
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
 
-FileName: /pubspec.yamlSPDXID: SPDXRef-pubspec-35FileType: TEXTFileChecksum: SHA1: d0fe3478c5f366a9c7eeaf6c0bce743e2587fedcLicenseConcluded: NOASSERTIONLicenseInfoInFile: NOASSERTIONFileCopyrightText: NOASSERTION
+
+FileName: lib/src/types/gpio/mraa_gpio_edge.dart
+SPDXID: SPDXRef-mraa-gpio-edge-17
+FileType: SOURCE
+FileChecksum: SHA1: c8509c3e90ba4239fb5133e02c28be67c5e44e41
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/gpio/mraa_gpio_event.dart
+SPDXID: SPDXRef-mraa-gpio-event-18
+FileType: SOURCE
+FileChecksum: SHA1: 241fd706af9045723a81d240ab6af4548087090b
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/gpio/mraa_gpio_input_mode.dart
+SPDXID: SPDXRef-mraa-gpio-input-mode-19
+FileType: SOURCE
+FileChecksum: SHA1: b2974aeab570908e02e85d3ba8a74b442b4fed81
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/gpio/mraa_gpio_multi_read.dart
+SPDXID: SPDXRef-mraa-gpio-multi-read-20
+FileType: SOURCE
+FileChecksum: SHA1: 7717c41c687bb3454416bd863b128ec0d901b39d
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/gpio/mraa_gpio_output_driver_mode.dart
+SPDXID: SPDXRef-mraa-gpio-output-driver-mode-21
+FileType: SOURCE
+FileChecksum: SHA1: c60e760ceff7a35156d3151e585df1b58ec77ae6
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/gpio/mraa_gpio_output_mode.dart
+SPDXID: SPDXRef-mraa-gpio-output-mode-22
+FileType: SOURCE
+FileChecksum: SHA1: 10903fe673f8e2d8bef067ee7cae56e7509cc758
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/i2c/mraa_i2c_context.dart
+SPDXID: SPDXRef-mraa-i2c-context-23
+FileType: SOURCE
+FileChecksum: SHA1: 0b7118e9335d8aa1a201ad7480c7ad4020dd9582
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/i2c/mraa_i2c_mode.dart
+SPDXID: SPDXRef-mraa-i2c-mode-24
+FileType: SOURCE
+FileChecksum: SHA1: 3f183b560d7bceee346ac700c70543fda06dfccf
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/led/mraa_led_context.dart
+SPDXID: SPDXRef-mraa-led-context-25
+FileType: SOURCE
+FileChecksum: SHA1: 31f55913bd9b41893168a3193a5b8565417af41f
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/mraa_return_code.dart
+SPDXID: SPDXRef-mraa-return-code-26
+FileType: SOURCE
+FileChecksum: SHA1: ac24f6b3952ff762887edf39b4904fa3036178ef
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/pwm/mraa_pwm_context.dart
+SPDXID: SPDXRef-mraa-pwm-context-27
+FileType: SOURCE
+FileChecksum: SHA1: bb847c0f6746ee597f3d82268341b3ce48558091
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/spi/mraa_spi_context.dart
+SPDXID: SPDXRef-mraa-spi-context-28
+FileType: SOURCE
+FileChecksum: SHA1: 2844de107e1cf3c2040b357dd5ad2f499513b1cf
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/spi/mraa_spi_mode.dart
+SPDXID: SPDXRef-mraa-spi-mode-29
+FileType: SOURCE
+FileChecksum: SHA1: aef83e4053d6601ecf6d55db5bb64ff1445fe456
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/spi/mraa_spi_transfer_buffer.dart
+SPDXID: SPDXRef-mraa-spi-transfer-buffer-30
+FileType: SOURCE
+FileChecksum: SHA1: 7d7c699413a977f8345ddfe6cdce6e966e2e5fd9
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/uart/mraa_uart_buffer.dart
+SPDXID: SPDXRef-mraa-uart-buffer-31
+FileType: SOURCE
+FileChecksum: SHA1: bca7b247550f3f6b56a252ed2cfcecf7249c705a
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/uart/mraa_uart_context.dart
+SPDXID: SPDXRef-mraa-uart-context-32
+FileType: SOURCE
+FileChecksum: SHA1: 074e8d7272113b55ad067bb5cc379064e8a017e9
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/uart/mraa_uart_parity.dart
+SPDXID: SPDXRef-mraa-uart-parity-33
+FileType: SOURCE
+FileChecksum: SHA1: f1f7c8180242dcac1bb0817c7cd741b2aaa4b657
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: lib/src/types/uart/mraa_uart_settings.dart
+SPDXID: SPDXRef-mraa-uart-settings-34
+FileType: SOURCE
+FileChecksum: SHA1: 13f692f905dfcbb8a5c61e57fca70311cdf1a73c
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
+
+FileName: pubspec.yaml
+SPDXID: SPDXRef-pubspec-35
+FileType: TEXT
+FileChecksum: SHA1: b09736756a79788ec3c23429c7785072cf1507d9
+LicenseConcluded: NOASSERTION
+LicenseInfoInFile: NOASSERTION
+FileCopyrightText: NOASSERTION
+
 
 Relationship: SPDXRef-pubspec-35 DEPENDENCY_MANIFEST_OF SPDXRef-Package-mraa
+
 
